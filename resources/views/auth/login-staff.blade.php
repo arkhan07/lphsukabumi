@@ -1,3 +1,4 @@
+<!-- meta tags and other links -->
 <!DOCTYPE html>
 <html lang="id" data-theme="light">
 
@@ -9,47 +10,14 @@
     <section class="auth bg-base d-flex flex-wrap">
         <div class="auth-left d-lg-block d-none">
             <div class="d-flex align-items-center flex-column h-100 justify-content-center">
-                <div style="text-align: center; color: white; position: relative; z-index: 1;">
-                    <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; max-width: 400px;">
-                        <i class="ri-team-fill" style="font-size: 80px; margin-bottom: 20px; display: block;"></i>
-                        <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 16px;">Portal Staff Lembaga</h2>
-                        <p style="font-size: 16px; opacity: 0.95; line-height: 1.6;">
-                            Sistem manajemen internal untuk staff LPH Doa Bangsa Sukabumi
-                        </p>
-                        <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
-                            <h5 style="font-size: 18px; margin-bottom: 12px;">Akses untuk:</h5>
-                            <ul style="list-style: none; padding: 0; text-align: left;">
-                                <li style="padding: 8px 0; font-size: 14px;">
-                                    <i class="ri-shield-star-line" style="margin-right: 8px;"></i>
-                                    Admin LPH
-                                </li>
-                                <li style="padding: 8px 0; font-size: 14px;">
-                                    <i class="ri-checkbox-circle-line" style="margin-right: 8px;"></i>
-                                    Penyedia Halal
-                                </li>
-                                <li style="padding: 8px 0; font-size: 14px;">
-                                    <i class="ri-user-settings-line" style="margin-right: 8px;"></i>
-                                    Manajer Teknis
-                                </li>
-                                <li style="padding: 8px 0; font-size: 14px;">
-                                    <i class="ri-search-eye-line" style="margin-right: 8px;"></i>
-                                    Auditor Halal
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <img src="{{ asset('assets/images/auth/auth-img.png') }}" alt="LPH Doa Bangsa" style="max-width: 100%; height: auto;">
             </div>
         </div>
-
         <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
             <div class="max-w-464-px mx-auto w-100">
                 <div>
                     <a href="{{ url('/') }}" class="mb-40 max-w-290-px">
-                        <h2 style="color: var(--primary-600); font-weight: 700; font-size: 24px; margin-bottom: 4px;">
-                            <i class="ri-home-smile-line"></i> LPH Doa Bangsa
-                        </h2>
-                        <p style="color: var(--text-secondary-light); font-size: 14px; margin-bottom: 0;">Sukabumi</p>
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="LPH Doa Bangsa" style="max-height: 60px;">
                     </a>
                     <h4 class="mb-12">Login Staff Lembaga</h4>
                     <p class="mb-32 text-secondary-light text-lg">Portal khusus untuk staff dan manajemen LPH</p>
@@ -75,14 +43,14 @@
                     @csrf
 
                     <div class="mb-16">
-                        <label class="form-label fw-medium" style="margin-bottom: 8px; color: var(--neutral-700);">
+                        <label class="form-label fw-medium" style="margin-bottom: 8px; color: var(--neutral-700); font-size: 14px;">
                             <i class="ri-user-line" style="margin-right: 4px;"></i>
                             Pilih Role
                         </label>
                         <select
                             name="role"
                             class="form-select h-56-px bg-neutral-50 radius-12"
-                            style="border: 1px solid var(--border-neutral-300);"
+                            style="border: 1px solid var(--border-neutral-300); padding-left: 16px;"
                             required
                         >
                             <option value="">-- Pilih Role Anda --</option>
@@ -148,29 +116,21 @@
                         Masuk
                     </button>
 
-                    <div class="mt-32 text-center">
+                    <div class="mt-24 text-center">
                         <p class="mb-0 text-secondary-light" style="font-size: 0.875rem;">
                             Login untuk <strong>Pelaku Usaha</strong>? <a href="{{ route('login') }}" class="text-primary-600 fw-semibold">Klik di sini</a>
                         </p>
                     </div>
-                </form>
 
-                <div class="mt-32" style="background-color: var(--primary-50); border-radius: 12px; padding: 16px; border-left: 4px solid var(--primary-600);">
-                    <div class="d-flex align-items-start gap-2">
-                        <i class="ri-information-line" style="color: var(--primary-600); font-size: 20px; margin-top: 2px;"></i>
-                        <div>
-                            <p class="mb-0" style="font-size: 0.875rem; color: var(--neutral-700); line-height: 1.5;">
-                                <strong>Akses Terbatas:</strong> Portal ini hanya untuk staff dan manajemen LPH Doa Bangsa Sukabumi.
+                    <div class="mt-24" style="background-color: var(--primary-50); border-radius: 12px; padding: 12px 16px; border-left: 4px solid var(--primary-600);">
+                        <div class="d-flex align-items-start gap-2">
+                            <i class="ri-information-line" style="color: var(--primary-600); font-size: 18px; margin-top: 2px;"></i>
+                            <p class="mb-0" style="font-size: 0.813rem; color: var(--neutral-700); line-height: 1.5;">
+                                <strong>Akses Terbatas:</strong> Portal ini hanya untuk staff LPH Doa Bangsa Sukabumi.
                             </p>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <p class="text-secondary-light" style="font-size: 0.75rem; margin-bottom: 0;">
-                    &copy; 2024 LPH Doa Bangsa Sukabumi. All rights reserved.
-                </p>
+                </form>
             </div>
         </div>
     </section>
@@ -182,7 +142,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
-        // Password Show Hide
+        // ================== Password Show Hide Js Start ==========
         function initializePasswordToggle(toggleSelector) {
             $(toggleSelector).on("click", function() {
                 $(this).toggleClass("ri-eye-off-line");
@@ -194,7 +154,9 @@
                 }
             });
         }
+        // Call the function
         initializePasswordToggle(".toggle-password");
+        // ========================= Password Show Hide Js End ===========================
     </script>
 </body>
 </html>
