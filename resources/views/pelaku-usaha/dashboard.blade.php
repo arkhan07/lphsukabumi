@@ -1,141 +1,206 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Pelaku Usaha') }}
-        </h2>
-    </x-slot>
+<x-layouts.admin.app>
+    <x-slot name="title">Dashboard Pelaku Usaha</x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Welcome Message -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h3 class="text-lg font-semibold mb-2">Selamat Datang, {{ auth()->user()->name }}!</h3>
-                    <p class="text-gray-600">Anda login sebagai <span class="font-semibold text-blue-600">Pelaku Usaha</span></p>
-                    <p class="text-sm text-gray-500 mt-2">Gunakan dashboard ini untuk mengajukan sertifikasi halal, melacak status pengajuan, dan mengelola dokumen Anda.</p>
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Dashboard Pelaku Usaha</h2>
+            <p class="text-secondary-light mb-0">Selamat datang, {{ auth()->user()->name }}! Kelola permohonan sertifikasi halal Anda</p>
+        </div>
+        <div>
+            <button class="btn btn-primary">
+                <i class="ri-add-line me-2"></i>
+                Ajukan Sertifikasi Baru
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon primary">
+                    <i class="ri-file-list-3-line"></i>
                 </div>
-            </div>
-
-            <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <!-- Total Pengajuan -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Total Pengajuan</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dalam Proses -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Dalam Proses</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Disetujui -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Disetujui</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ditolak -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-red-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Ditolak</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
+                <div class="stat-content">
+                    <div class="stat-label">Total Permohonan</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-trend up">
+                        <i class="ri-arrow-up-line"></i>
+                        2 bulan ini
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Quick Actions -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4">Aksi Cepat</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <a href="#" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-                            <svg class="h-8 w-8 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold">Pengajuan Baru</p>
-                                <p class="text-sm text-gray-500">Ajukan sertifikasi halal</p>
-                            </div>
-                        </a>
-                        <a href="#" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-                            <svg class="h-8 w-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold">Lihat Pengajuan</p>
-                                <p class="text-sm text-gray-500">Status pengajuan Anda</p>
-                            </div>
-                        </a>
-                        <a href="#" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-                            <svg class="h-8 w-8 text-purple-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold">Kelola Dokumen</p>
-                                <p class="text-sm text-gray-500">Upload & lihat dokumen</p>
-                            </div>
-                        </a>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <i class="ri-time-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Dalam Proses</div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-trend up">
+                        <i class="ri-arrow-up-line"></i>
+                        Menunggu verifikasi
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Recent Submissions -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4">Pengajuan Terbaru</h3>
-                    <div class="text-center py-8 text-gray-500">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <p class="mt-2">Belum ada pengajuan</p>
-                        <p class="text-sm mt-1">Mulai dengan membuat pengajuan sertifikasi halal baru</p>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="ri-checkbox-circle-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Disetujui</div>
+                    <div class="stat-value">6</div>
+                    <div class="stat-trend up">
+                        <i class="ri-arrow-up-line"></i>
+                        Sertifikat aktif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon danger">
+                    <i class="ri-close-circle-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Perlu Perbaikan</div>
+                    <div class="stat-value">1</div>
+                    <div class="stat-trend down">
+                        <i class="ri-alert-line"></i>
+                        Segera diperbaiki
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+    <!-- Quick Actions -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="card-custom">
+                <div class="card-header-custom">
+                    <h5 class="card-title mb-0">Aksi Cepat</h5>
+                </div>
+                <div class="row g-3 p-3">
+                    <div class="col-12 col-md-4">
+                        <a href="#" class="d-flex align-items-center p-3 border rounded-3 text-decoration-none hover-shadow" style="transition: all 0.2s;">
+                            <div class="stat-icon primary me-3" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                                <i class="ri-file-add-line"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Pengajuan Baru</h6>
+                                <small class="text-secondary-light">Ajukan sertifikasi halal</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <a href="#" class="d-flex align-items-center p-3 border rounded-3 text-decoration-none hover-shadow" style="transition: all 0.2s;">
+                            <div class="stat-icon success me-3" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                                <i class="ri-file-list-line"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Lihat Permohonan</h6>
+                                <small class="text-secondary-light">Cek status permohonan</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <a href="#" class="d-flex align-items-center p-3 border rounded-3 text-decoration-none hover-shadow" style="transition: all 0.2s;">
+                            <div class="stat-icon purple me-3" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                                <i class="ri-folder-upload-line"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Kelola Dokumen</h6>
+                                <small class="text-secondary-light">Upload dokumen</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts and Recent Submissions -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-5">
+            <div class="card-custom">
+                <div class="card-header-custom">
+                    <h5 class="card-title mb-0">Status Permohonan</h5>
+                </div>
+                <div id="statusChart"></div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-7">
+            <div class="card-custom">
+                <div class="card-header-custom">
+                    <h5 class="card-title mb-0">Permohonan Terbaru</h5>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No. Permohonan</th>
+                                <th>Produk</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#SH2024-015</strong></td>
+                                <td>Kecap Manis Premium</td>
+                                <td>20 Des 2024</td>
+                                <td><span class="badge-custom badge-warning">Verifikasi</span></td>
+                                <td><button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>#SH2024-012</strong></td>
+                                <td>Sambal Botol</td>
+                                <td>15 Des 2024</td>
+                                <td><span class="badge-custom badge-info">Audit</span></td>
+                                <td><button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>#SH2024-008</strong></td>
+                                <td>Sirup Buah</td>
+                                <td>10 Des 2024</td>
+                                <td><span class="badge-custom badge-success">Disetujui</span></td>
+                                <td><button class="btn btn-sm btn-info"><i class="ri-download-line"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('scripts')
+    <script>
+        var statusOptions = {
+            series: [5, 6, 1],
+            chart: {
+                type: 'donut',
+                height: 300
+            },
+            labels: ['Dalam Proses', 'Disetujui', 'Perlu Perbaikan'],
+            colors: ['#f59e0b', '#10b981', '#ef4444'],
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var statusChart = new ApexCharts(document.querySelector("#statusChart"), statusOptions);
+        statusChart.render();
+    </script>
+    @endpush
+</x-layouts.admin.app>
