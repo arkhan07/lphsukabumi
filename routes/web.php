@@ -256,6 +256,71 @@ Route::middleware(['auth', 'role:penyedia_halal'])->prefix('penyedia-halal')->na
 // Admin LPH Routes
 Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    // Submissions (Permohonan)
+    Route::prefix('submissions')->name('submissions.')->group(function () {
+        Route::get('/', function () { return view('admin.submissions.index'); })->name('index');
+        Route::get('/create', function () { return view('admin.submissions.create'); })->name('create');
+        Route::get('/{id}', function ($id) { return view('admin.submissions.show', compact('id')); })->name('show');
+        Route::get('/{id}/edit', function ($id) { return view('admin.submissions.edit', compact('id')); })->name('edit');
+    });
+
+    // Products (Produk)
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::get('/', function () { return view('admin.products.index'); })->name('index');
+        Route::get('/create', function () { return view('admin.products.create'); })->name('create');
+        Route::get('/{id}/edit', function ($id) { return view('admin.products.edit', compact('id')); })->name('edit');
+        Route::get('/categories', function () { return view('admin.products.categories'); })->name('categories');
+    });
+
+    // Audits (Audit)
+    Route::prefix('audits')->name('audits.')->group(function () {
+        Route::get('/schedule', function () { return view('admin.audits.schedule'); })->name('schedule');
+        Route::get('/reports', function () { return view('admin.audits.reports'); })->name('reports');
+        Route::get('/findings', function () { return view('admin.audits.findings'); })->name('findings');
+    });
+
+    // Finance (Keuangan)
+    Route::prefix('finance')->name('finance.')->group(function () {
+        Route::get('/invoices', function () { return view('admin.finance.invoices'); })->name('invoices');
+        Route::get('/payments', function () { return view('admin.finance.payments'); })->name('payments');
+        Route::get('/fee-settings', function () { return view('admin.finance.fee-settings'); })->name('fee-settings');
+    });
+
+    // Documents (Dokumen)
+    Route::prefix('documents')->name('documents.')->group(function () {
+        Route::get('/', function () { return view('admin.documents.index'); })->name('index');
+        Route::get('/upload', function () { return view('admin.documents.upload'); })->name('upload');
+        Route::get('/verify', function () { return view('admin.documents.verify'); })->name('verify');
+    });
+
+    // Reports (Laporan)
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/certification', function () { return view('admin.reports.certification'); })->name('certification');
+        Route::get('/financial', function () { return view('admin.reports.financial'); })->name('financial');
+        Route::get('/audits', function () { return view('admin.reports.audits'); })->name('audits');
+    });
+
+    // Users (Pengguna)
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', function () { return view('admin.users.index'); })->name('index');
+        Route::get('/create', function () { return view('admin.users.create'); })->name('create');
+        Route::get('/{id}/edit', function ($id) { return view('admin.users.edit', compact('id')); })->name('edit');
+        Route::get('/roles', function () { return view('admin.users.roles'); })->name('roles');
+    });
+
+    // Master Data
+    Route::prefix('master-data')->name('master-data.')->group(function () {
+        Route::get('/regions', function () { return view('admin.master-data.regions'); })->name('regions');
+        Route::get('/business-types', function () { return view('admin.master-data.business-types'); })->name('business-types');
+        Route::get('/product-types', function () { return view('admin.master-data.product-types'); })->name('product-types');
+    });
+
+    // Settings (Pengaturan)
+    Route::get('/settings', function () { return view('admin.settings'); })->name('settings');
+
+    // Help (Bantuan)
+    Route::get('/help', function () { return view('admin.help'); })->name('help');
 });
 
 // Manajer Teknis Routes

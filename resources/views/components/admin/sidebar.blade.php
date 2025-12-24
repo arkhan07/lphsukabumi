@@ -24,9 +24,8 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="submissionMenu">
-                <li><a href="#" class="sidebar-submenu-link">Daftar Permohonan</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Buat Permohonan Baru</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Permohonan Saya</a></li>
+                <li><a href="{{ route('admin.submissions.index') }}" class="sidebar-submenu-link">Daftar Permohonan</a></li>
+                <li><a href="{{ route('admin.submissions.create') }}" class="sidebar-submenu-link">Buat Permohonan Baru</a></li>
             </ul>
         </li>
         @endcan
@@ -40,9 +39,9 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="productMenu">
-                <li><a href="#" class="sidebar-submenu-link">Daftar Produk</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Tambah Produk</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Kategori Produk</a></li>
+                <li><a href="{{ route('admin.products.index') }}" class="sidebar-submenu-link">Daftar Produk</a></li>
+                <li><a href="{{ route('admin.products.create') }}" class="sidebar-submenu-link">Tambah Produk</a></li>
+                <li><a href="{{ route('admin.products.categories') }}" class="sidebar-submenu-link">Kategori Produk</a></li>
             </ul>
         </li>
         @endcan
@@ -56,9 +55,9 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="auditMenu">
-                <li><a href="#" class="sidebar-submenu-link">Jadwal Audit</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Laporan Audit</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Temuan Audit</a></li>
+                <li><a href="{{ route('admin.audits.schedule') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
+                <li><a href="{{ route('admin.audits.reports') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
+                <li><a href="{{ route('admin.audits.findings') }}" class="sidebar-submenu-link">Temuan Audit</a></li>
             </ul>
         </li>
         @endcan
@@ -72,9 +71,9 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="financeMenu">
-                <li><a href="#" class="sidebar-submenu-link">Invoice</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Pembayaran</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Konfigurasi Biaya</a></li>
+                <li><a href="{{ route('admin.finance.invoices') }}" class="sidebar-submenu-link">Invoice</a></li>
+                <li><a href="{{ route('admin.finance.payments') }}" class="sidebar-submenu-link">Pembayaran</a></li>
+                <li><a href="{{ route('admin.finance.fee-settings') }}" class="sidebar-submenu-link">Konfigurasi Biaya</a></li>
             </ul>
         </li>
         @endcan
@@ -88,9 +87,9 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="documentMenu">
-                <li><a href="#" class="sidebar-submenu-link">Daftar Dokumen</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Upload Dokumen</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Verifikasi Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.index') }}" class="sidebar-submenu-link">Daftar Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.upload') }}" class="sidebar-submenu-link">Upload Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.verify') }}" class="sidebar-submenu-link">Verifikasi Dokumen</a></li>
             </ul>
         </li>
         @endcan
@@ -104,9 +103,9 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="reportMenu">
-                <li><a href="#" class="sidebar-submenu-link">Laporan Sertifikasi</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Laporan Keuangan</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Laporan Audit</a></li>
+                <li><a href="{{ route('admin.reports.certification') }}" class="sidebar-submenu-link">Laporan Sertifikasi</a></li>
+                <li><a href="{{ route('admin.reports.financial') }}" class="sidebar-submenu-link">Laporan Keuangan</a></li>
+                <li><a href="{{ route('admin.reports.audits') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
             </ul>
         </li>
         @endcan
@@ -120,9 +119,9 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="userMenu">
-                <li><a href="#" class="sidebar-submenu-link">Daftar Pengguna</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Tambah Pengguna</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Role & Permission</a></li>
+                <li><a href="{{ route('admin.users.index') }}" class="sidebar-submenu-link">Daftar Pengguna</a></li>
+                <li><a href="{{ route('admin.users.create') }}" class="sidebar-submenu-link">Tambah Pengguna</a></li>
+                <li><a href="{{ route('admin.users.roles') }}" class="sidebar-submenu-link">Role & Permission</a></li>
             </ul>
         </li>
         @endcan
@@ -136,16 +135,16 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="masterMenu">
-                <li><a href="#" class="sidebar-submenu-link">Wilayah</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Jenis Usaha</a></li>
-                <li><a href="#" class="sidebar-submenu-link">Tipe Produk</a></li>
+                <li><a href="{{ route('admin.master-data.regions') }}" class="sidebar-submenu-link">Wilayah</a></li>
+                <li><a href="{{ route('admin.master-data.business-types') }}" class="sidebar-submenu-link">Jenis Usaha</a></li>
+                <li><a href="{{ route('admin.master-data.product-types') }}" class="sidebar-submenu-link">Tipe Produk</a></li>
             </ul>
         </li>
         @endcan
 
         <!-- Pengaturan -->
         <li class="sidebar-menu-item">
-            <a href="#" class="sidebar-menu-link">
+            <a href="{{ route('admin.settings') }}" class="sidebar-menu-link">
                 <i class="ri-settings-3-line"></i>
                 <span>Pengaturan</span>
             </a>
@@ -153,7 +152,7 @@
 
         <!-- Bantuan -->
         <li class="sidebar-menu-item">
-            <a href="#" class="sidebar-menu-link">
+            <a href="{{ route('admin.help') }}" class="sidebar-menu-link">
                 <i class="ri-question-line"></i>
                 <span>Bantuan</span>
             </a>
