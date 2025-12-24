@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /cdn-cgi/
+Disallow: /whatsapp
+Disallow: /form
+
+Sitemap: https://saffmedic.com/sitemap.xml

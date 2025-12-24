@@ -1,0 +1,12 @@
+.kartu {
+    /* Add shadows to create the "card" effect */
+    
+    transition: 0.3s;
+    border-radius: 10px; /* 5px rounded corners */
+    padding: 20px 16px;
+  }
+  
+  /* On mouse-over, add a deeper shadow */
+  .kartu:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
