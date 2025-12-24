@@ -11,13 +11,23 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the login view for Pelaku Usaha (public).
      *
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('auth.login');
+        return view('auth.login-pelaku-usaha');
+    }
+
+    /**
+     * Display the login view for Staff Lembaga.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function createStaff()
+    {
+        return view('auth.login-staff');
     }
 
     /**
