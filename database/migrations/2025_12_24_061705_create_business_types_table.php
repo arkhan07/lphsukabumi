@@ -15,7 +15,14 @@ class CreateBusinessTypesTable extends Migration
     {
         Schema::create('business_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
+            $table->enum('category', ['food', 'beverage', 'cosmetics', 'pharmaceutical', 'other'])->default('food');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+
+            $table->index('category');
         });
     }
 

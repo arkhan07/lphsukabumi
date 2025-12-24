@@ -13,10 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Seed roles first
+        // Seed RBAC first
         $this->call([
             RoleSeeder::class,
             PermissionSeeder::class,
+        ]);
+
+        // Seed Master Data
+        $this->call([
+            RegionSeeder::class,
+            BusinessTypeSeeder::class,
+            ProductTypeSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
