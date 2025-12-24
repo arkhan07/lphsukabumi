@@ -1,0 +1,14 @@
+<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E4F1FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#487FFF;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#grad2)"/>
+  <circle cx="250" cy="220" r="90" fill="none" stroke="#487FFF" stroke-width="8" opacity="0.3"/>
+  <path d="M 250 220 L 250 180" stroke="#487FFF" stroke-width="8" opacity="0.5" stroke-linecap="round"/>
+  <circle cx="250" cy="160" r="10" fill="#487FFF" opacity="0.5"/>
+  <text x="250" y="380" font-family="Inter, sans-serif" font-size="18" fill="#487FFF" text-anchor="middle" font-weight="600">Reset Password</text>
+  <text x="250" y="420" font-family="Inter, sans-serif" font-size="14" fill="#6B7280" text-anchor="middle">LPH Doa Bangsa Sukabumi</text>
+</svg>
