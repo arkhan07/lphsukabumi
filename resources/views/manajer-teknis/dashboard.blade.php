@@ -1,158 +1,187 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Manajer Teknis') }}
-        </h2>
-    </x-slot>
+<x-layouts.admin.app>
+    <x-slot name="title">Dashboard Manajer Teknis</x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Welcome Message -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h3 class="text-lg font-semibold mb-2">Selamat Datang, {{ auth()->user()->name }}!</h3>
-                    <p class="text-gray-600">Anda login sebagai <span class="font-semibold text-teal-600">Manajer Teknis</span></p>
-                    <p class="text-sm text-gray-500 mt-2">Kelola penugasan auditor, review laporan audit, dan koordinasi proses sertifikasi.</p>
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Dashboard Manajer Teknis</h2>
+            <p class="text-secondary-light mb-0">Selamat datang, {{ auth()->user()->name }}! Kelola penugasan auditor dan monitoring audit</p>
+        </div>
+        <div>
+            <button class="btn btn-primary">
+                <i class="ri-user-add-line me-2"></i>
+                Tugaskan Auditor
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon primary">
+                    <i class="ri-calendar-check-line"></i>
                 </div>
-            </div>
-
-            <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <!-- Perlu Assignment -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-orange-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Perlu Assignment</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Audit Berlangsung -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Audit Berlangsung</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Laporan Perlu Review -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
-                                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Laporan Perlu Review</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Total Auditor Aktif -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Total Auditor Aktif</p>
-                                <p class="text-2xl font-semibold text-gray-900">0</p>
-                            </div>
-                        </div>
+                <div class="stat-content">
+                    <div class="stat-label">Jadwal Audit</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-trend up">
+                        <i class="ri-calendar-line"></i>
+                        Bulan ini
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Quick Actions -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4">Aksi Cepat</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <a href="#" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-                            <svg class="h-8 w-8 text-orange-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold">Assignment Auditor</p>
-                                <p class="text-sm text-gray-500">Tugaskan auditor ke pengajuan</p>
-                            </div>
-                        </a>
-                        <a href="#" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-                            <svg class="h-8 w-8 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold">Jadwal Audit</p>
-                                <p class="text-sm text-gray-500">Kelola jadwal audit</p>
-                            </div>
-                        </a>
-                        <a href="#" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-                            <svg class="h-8 w-8 text-yellow-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold">Review Laporan</p>
-                                <p class="text-sm text-gray-500">Cek laporan audit</p>
-                            </div>
-                        </a>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="ri-user-star-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Auditor Aktif</div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-trend up">
+                        <i class="ri-arrow-up-line"></i>
+                        Available
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Assignments Overview -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Recent Assignments -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <h3 class="text-lg font-semibold mb-4">Assignment Terbaru</h3>
-                        <div class="text-center py-8 text-gray-500">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                            </svg>
-                            <p class="mt-2">Belum ada assignment</p>
-                            <p class="text-sm mt-1">Assignment auditor akan muncul di sini</p>
-                        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <i class="ri-time-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Audit Berjalan</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-trend up">
+                        <i class="ri-timer-line"></i>
+                        Sedang proses
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Pending Reports -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <h3 class="text-lg font-semibold mb-4">Laporan Pending</h3>
-                        <div class="text-center py-8 text-gray-500">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <p class="mt-2">Belum ada laporan pending</p>
-                            <p class="text-sm mt-1">Laporan yang perlu direview akan muncul di sini</p>
-                        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon info">
+                    <i class="ri-file-list-3-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Laporan Pending</div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-trend down">
+                        <i class="ri-alert-line"></i>
+                        Perlu review
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+    <!-- Charts Row -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-7">
+            <div class="card-custom">
+                <div class="card-header-custom">
+                    <h5 class="card-title mb-0">Statistik Audit Bulanan</h5>
+                </div>
+                <div id="auditChart"></div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-5">
+            <div class="card-custom">
+                <div class="card-header-custom">
+                    <h5 class="card-title mb-0">Beban Kerja Auditor</h5>
+                </div>
+                <div id="workloadChart"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auditor Assignment Table -->
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="card-custom">
+                <div class="card-header-custom">
+                    <h5 class="card-title mb-0">Penugasan Terbaru</h5>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover data-table">
+                        <thead>
+                            <tr>
+                                <th>Auditor</th>
+                                <th>Pelaku Usaha</th>
+                                <th>Tanggal Audit</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Ahmad Fauzi, S.Si</strong></td>
+                                <td>PT. Halal Jaya</td>
+                                <td>25 Des 2024</td>
+                                <td><span class="badge-custom badge-warning">Terjadwal</span></td>
+                                <td><button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Siti Nurhaliza, M.Si</strong></td>
+                                <td>CV. Berkah Mandiri</td>
+                                <td>24 Des 2024</td>
+                                <td><span class="badge-custom badge-info">Berlangsung</span></td>
+                                <td><button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dr. Muhammad Ridwan</strong></td>
+                                <td>UD. Maju Jaya</td>
+                                <td>23 Des 2024</td>
+                                <td><span class="badge-custom badge-success">Selesai</span></td>
+                                <td><button class="btn btn-sm btn-info"><i class="ri-file-text-line"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('scripts')
+    <script>
+        var auditOptions = {
+            series: [{
+                name: 'Terjadwal',
+                data: [12, 15, 14, 18, 16, 20, 19, 22, 25, 23, 21, 24]
+            }, {
+                name: 'Selesai',
+                data: [10, 13, 12, 16, 14, 18, 17, 20, 22, 21, 19, 20]
+            }],
+            chart: { type: 'area', height: 350, toolbar: { show: false } },
+            colors: ['#166F61', '#10b981'],
+            stroke: { curve: 'smooth', width: 2 },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
+            }
+        };
+        new ApexCharts(document.querySelector("#auditChart"), auditOptions).render();
+
+        var workloadOptions = {
+            series: [{
+                name: 'Tugas',
+                data: [3, 5, 2, 4, 3, 6, 2, 5, 4, 3, 5, 6, 2, 3, 4]
+            }],
+            chart: { type: 'bar', height: 350, toolbar: { show: false } },
+            colors: ['#3b82f6'],
+            xaxis: {
+                categories: ['A.Fauzi', 'S.Nur', 'M.Rid', 'F.Has', 'N.Ain', 'R.Bud', 'I.Pra', 'D.Wid', 'E.Saf', 'H.Nur', 'J.Rah', 'K.Ayu', 'L.Fat', 'M.Ris', 'N.Han']
+            }
+        };
+        new ApexCharts(document.querySelector("#workloadChart"), workloadOptions).render();
+    </script>
+    @endpush
+</x-layouts.admin.app>
