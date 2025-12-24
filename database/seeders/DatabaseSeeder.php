@@ -19,13 +19,16 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
         ]);
 
+        // Seed Dummy Users for testing
+        $this->call([
+            DummyUsersSeeder::class,
+        ]);
+
         // Seed Master Data
         $this->call([
             RegionSeeder::class,
             BusinessTypeSeeder::class,
             ProductTypeSeeder::class,
         ]);
-
-        // \App\Models\User::factory(10)->create();
     }
 }
