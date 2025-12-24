@@ -16,24 +16,21 @@ use App\Http\Controllers\MultiBahasaController;
 |
 */
 
-Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/', function () {
+    return view('beranda', [
+        "title" => "LPH Doa Bangsa Sukabumi - Lembaga Pemeriksa Halal Terpercaya",
+        "description" => "Lembaga Pemeriksa Halal terpercaya di Sukabumi yang menyediakan layanan sertifikasi halal, audit halal, konsultasi, dan pelatihan halal"
+    ]);
+})->name('home');
+
 Route::get('/whatsapp', [HomeController::class, 'whatsapp'])->name('whatsapp');
 Route::get('/sectionbahasa', [MultiBahasaController::class, 'index'])->name('sectionbahasa');
-
-Route::name('beranda')->group(function () {
-    route::get('/', function () {
-        return view('beranda', [
-            "title" => "Aplikasi SIMRS | Rumah Sakit, Klinik, Rekam Medis dan Lab",
-            "description" => "Aplikasi SIMRS dan Rekam Medis dengan fitur lengkap dan harga yang murah untuk membantu Faskes seperti Klinik, Rumah Sakit, dan Laboratorium"
-        ]);
-    });
-});
 
 Route::prefix('fitur')->name('fitur')->group(function () {
     Route::get('/', function () {
         return view('fitur', [
-            "title" => "SIMRS - Aplikasi Manajemen Rumah Sakit dan Klinik",
-            'description' => 'Aplikasi atau software SIMRS dari SAFFMedic fitur lengkap, harga murah, dan dapat disesuaikan ( Semi custome )'
+            "title" => "Tentang LPH Doa Bangsa - Lembaga Pemeriksa Halal Sukabumi",
+            'description' => 'LPH Doa Bangsa Sukabumi adalah Lembaga Pemeriksa Halal yang terdaftar dan diakui oleh BPJPH untuk sertifikasi halal produk Anda'
         ]);
     });
 });
@@ -41,14 +38,14 @@ Route::prefix('fitur')->name('fitur')->group(function () {
 Route::prefix('harga')->name('harga')->group(function () {
     Route::get('/', function () {
         return view('harga', [
-            "title" => "Software Klinik - SIMRS untuk  Klinik  harga murah",
-            'description' => 'Software Klinik dari SAFFMedic dengan fitur lengkap dan harga yang murah serta dapat di custome.'
+            "title" => "Biaya Sertifikasi Halal - LPH Doa Bangsa Sukabumi",
+            'description' => 'Informasi biaya sertifikasi halal yang terjangkau dan transparan dari LPH Doa Bangsa Sukabumi'
         ]);
     });
     Route::get('/kso', function () {
         return view('kso', [
-            "title" => "Software Klinik - SIMRS untuk  Klinik  harga murah",
-            'description' => 'Software Klinik dari SAFFMedic dengan fitur lengkap dan harga yang murah serta dapat di custome.'
+            "title" => "Kerjasama Sertifikasi Halal - LPH Doa Bangsa",
+            'description' => 'Program kerjasama sertifikasi halal untuk pelaku usaha bersama LPH Doa Bangsa Sukabumi'
         ]);
     })->name('kso');
 });
@@ -56,8 +53,8 @@ Route::prefix('harga')->name('harga')->group(function () {
 Route::prefix('kontak')->name('kontak')->group(function () {
     Route::get('/', function () {
         return view('kontak', [
-            "title" => "Kontak dan alamat Aplikasi SIMRS dan SIM Klinik SAFFMedic",
-            'description' => 'Dapatkan informasi dan dukungan untuk Aplikasi dan Software SIMRS dan SIMKlinik SAFFMedic dengan menghubungi Kami'
+            "title" => "Kontak LPH Doa Bangsa - Lembaga Pemeriksa Halal Sukabumi",
+            'description' => 'Hubungi LPH Doa Bangsa Sukabumi untuk konsultasi dan informasi sertifikasi halal produk Anda'
         ]);
     });
 });
@@ -121,12 +118,12 @@ Route::prefix('rekammediselektronik')->name('rekammediselektronik')->group(funct
 
 // End Fitur //
 
-// Solusi //
+// Layanan //
 Route::prefix('klinik')->name('klinik')->group(function () {
     Route::get('/', function () {
         return view('klinik', [
-            'title' => 'SIM Klinik | Aplikasi Klinik Berbasis Web & Online',
-            'description' => 'Aplikasi SIM Klinik memiliki fitur rawat jalan dengan kemampuan online'
+            'title' => 'Sertifikasi Halal - LPH Doa Bangsa Sukabumi',
+            'description' => 'Layanan sertifikasi halal untuk produk makanan, minuman, kosmetik, dan obat-obatan dari LPH Doa Bangsa'
         ]);
     });
 });
@@ -134,8 +131,8 @@ Route::prefix('klinik')->name('klinik')->group(function () {
 Route::prefix('rumah-sakit')->name('rumah-sakit')->group(function () {
     Route::get('/', function () {
         return view('rumah-sakit', [
-            'title' => 'Software SIMRS - Aplikasi Sistem Manajemen Rumah Sakit',
-            'description' => 'Aplikasi Sistem Manajemen Rumah Sakit (SIMRS) yang lengkap dan murah serta dapat di custome'
+            'title' => 'Audit Halal - LPH Doa Bangsa Sukabumi',
+            'description' => 'Layanan audit halal komprehensif untuk memastikan proses produksi sesuai standar halal yang ditetapkan'
         ]);
     });
 });
@@ -143,8 +140,8 @@ Route::prefix('rumah-sakit')->name('rumah-sakit')->group(function () {
 Route::prefix('apotek')->name('apotek')->group(function () {
     Route::get('/', function () {
         return view('apotek', [
-            'title' => 'SAFFMedic - Software Apotik dan Aplikasi Apotek online',
-            'description' => 'Aplikasi Apotek online yang  memiliki fitur lengkap seperti penjualan, pembelian, hingga pengelolaan stok'
+            'title' => 'Konsultasi Halal - LPH Doa Bangsa Sukabumi',
+            'description' => 'Konsultasi ahli untuk persiapan sertifikasi halal dan pemahaman persyaratan yang diperlukan'
         ]);
     });
 });
@@ -152,8 +149,8 @@ Route::prefix('apotek')->name('apotek')->group(function () {
 Route::prefix('laboratorium')->name('laboratorium')->group(function () {
     Route::get('/', function () {
         return view('laboratorium', [
-            'title' => 'Aplikasi Laboratorium Rumah Sakit dan Klinik | SAFFMedic',
-            'description' => 'Aplikasi Laboratorium untuk penunjang Klinik dan Rumah Sakit yang lengkap dan Murah'
+            'title' => 'Pelatihan Halal - LPH Doa Bangsa Sukabumi',
+            'description' => 'Program pelatihan sistem jaminan halal untuk tim internal perusahaan Anda'
         ]);
     });
 });
@@ -161,8 +158,8 @@ Route::prefix('laboratorium')->name('laboratorium')->group(function () {
 Route::prefix('praktek-dokter')->name('praktek-dokter')->group(function () {
     Route::get('/', function () {
         return view('praktek-dokter', [
-            'title' => 'Software aplikasi Rekam Medis Online | Software SIMRS',
-            'description' => 'Software Rekam Medis Online untuk praktek dokter yang canggih dan murah'
+            'title' => 'Produk Halal - LPH Doa Bangsa Sukabumi',
+            'description' => 'Informasi tentang berbagai jenis produk yang dapat disertifikasi halal oleh LPH Doa Bangsa'
         ]);
     });
 });
@@ -170,8 +167,8 @@ Route::prefix('praktek-dokter')->name('praktek-dokter')->group(function () {
 Route::prefix('odontogram')->name('odontogram')->group(function () {
     Route::get('/', function () {
         return view('odontogram', [
-            'title' => 'SAFFMedic | Solusi untuk Dokter Gigi',
-            'description' => 'Lihat disini, aplikasi odontogram untuk dokter dan klinik Gigi'
+            'title' => 'Prosedur Sertifikasi - LPH Doa Bangsa Sukabumi',
+            'description' => 'Tahapan dan prosedur lengkap untuk mendapatkan sertifikasi halal dari LPH Doa Bangsa'
         ]);
     });
 });
@@ -189,8 +186,8 @@ Route::get('/sectionbahasa', function () {
 Route::prefix('ketentuan')->name('ketentuan')->group(function () {
     Route::get('/', function () {
         return view('ketentuan', [
-            'title' => 'SIMRS dan SIM Klinik SAFFMedic | Syarat dan ketentuan',
-            'description' => 'SAFFMedic menghadirkan SIMRS yang flexible dengan memberikan kententuan customize agar FASKES mudah menggunakannya'
+            'title' => 'Syarat dan Ketentuan - LPH Doa Bangsa Sukabumi',
+            'description' => 'Syarat dan ketentuan layanan sertifikasi halal dari LPH Doa Bangsa Sukabumi'
         ]);
     });
 });
@@ -198,8 +195,8 @@ Route::prefix('ketentuan')->name('ketentuan')->group(function () {
 Route::prefix('mitra')->name('mitra')->group(function () {
     Route::get('/', function () {
         return view('mitra', [
-            'title' => 'Vendor SIMRS & SIM Klinik',
-            'description' => 'SAFFmedic merupakan vendor SIMRS & SIM Klinik yang dapat di custome'
+            'title' => 'Mitra LPH Doa Bangsa - Kerjasama Sertifikasi Halal',
+            'description' => 'Program kemitraan dan kerjasama dengan LPH Doa Bangsa untuk sertifikasi halal'
         ]);
     });
 });
@@ -209,8 +206,8 @@ Route::prefix('mitra')->name('mitra')->group(function () {
 Route::prefix('form')->name('form')->group(function () {
     Route::get('/', function () {
         return view('form', [
-            'title' => 'Form Pendaftaran Pelanggan Saffmedic',
-            'description' => 'Form Pendaftaran Pelanggan Saffmedic'
+            'title' => 'Form Pendaftaran Sertifikasi Halal - LPH Doa Bangsa',
+            'description' => 'Form pendaftaran untuk mengajukan sertifikasi halal produk Anda'
         ]);
     });
 });
@@ -218,8 +215,8 @@ Route::prefix('form')->name('form')->group(function () {
 Route::prefix('form-demo')->name('form-demo')->group(function () {
     Route::get('/', function () {
         return view('form-demo', [
-            'title' => 'Form Pengajuan Demo Saffmedic',
-            'description' => 'Form Pengajuan Demo Saffmedic'
+            'title' => 'Form Konsultasi Halal - LPH Doa Bangsa',
+            'description' => 'Ajukan konsultasi gratis untuk sertifikasi halal produk Anda'
         ]);
     });
 });
@@ -227,8 +224,8 @@ Route::prefix('form-demo')->name('form-demo')->group(function () {
 Route::prefix('form-request-demo')->name('form-request-demo')->group(function () {
     Route::get('/', function () {
         return view('form-request-demo', [
-            'title' => 'Form Pengajuan Demo Saffmedic',
-            'description' => 'Form Pengajuan Demo Saffmedic'
+            'title' => 'Form Pengajuan Sertifikasi - LPH Doa Bangsa',
+            'description' => 'Formulir pengajuan sertifikasi halal untuk produk Anda'
         ]);
     });
 });
