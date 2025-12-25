@@ -1,0 +1,36 @@
+-- SQL Script untuk mengisi migrations table
+-- Jalankan script ini di phpMyAdmin
+
+-- Insert semua migration records ke migrations table
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_12_000000_create_users_table', 1),
+('2014_10_12_100000_create_password_resets_table', 1),
+('2019_08_19_000000_create_failed_jobs_table', 1),
+('2019_12_14_000001_create_personal_access_tokens_table', 1),
+('2025_12_24_052815_create_roles_table', 1),
+('2025_12_24_052821_create_role_user_table', 1),
+('2025_12_24_052827_create_permissions_table', 1),
+('2025_12_24_052833_create_permission_role_table', 1),
+('2025_12_24_061700_create_regions_table', 1),
+('2025_12_24_061705_create_business_types_table', 1),
+('2025_12_24_061710_create_product_types_table', 1),
+('2025_12_24_061714_create_submissions_table', 1),
+('2025_12_24_061721_create_submission_statuses_table', 1),
+('2025_12_24_061727_create_products_table', 1),
+('2025_12_24_061734_create_suppliers_table', 1),
+('2025_12_24_061740_create_materials_table', 1),
+('2025_12_24_061747_create_production_processes_table', 1),
+('2025_12_24_061804_create_documents_table', 1),
+('2025_12_24_061812_create_verifications_table', 1),
+('2025_12_24_061819_create_assignments_table', 1),
+('2025_12_24_061827_create_schedules_table', 1),
+('2025_12_24_061834_create_audits_table', 1),
+('2025_12_24_061842_create_findings_table', 1),
+('2025_12_24_061859_create_reports_table', 1),
+('2025_12_24_061906_create_invoices_table', 1),
+('2025_12_24_061913_create_invoice_payments_table', 1),
+('2025_12_24_061919_create_fee_configurations_table', 1),
+('2025_12_24_061927_create_fee_distributions_table', 1),
+('2025_12_24_062002_create_activity_logs_table', 1),
+('2025_12_24_062008_create_notifications_table', 1),
+('2025_12_24_062014_create_comments_table', 1);

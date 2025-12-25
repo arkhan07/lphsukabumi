@@ -15,7 +15,6 @@
             </a>
         </li>
 
-        @can('view_submissions')
         <!-- Permohonan -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#submissionMenu">
@@ -28,9 +27,7 @@
                 <li><a href="{{ route('admin.submissions.create') }}" class="sidebar-submenu-link">Buat Permohonan Baru</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('view_products')
         <!-- Produk -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#productMenu">
@@ -44,9 +41,7 @@
                 <li><a href="{{ route('admin.products.categories') }}" class="sidebar-submenu-link">Kategori Produk</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('view_audits')
         <!-- Audit -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#auditMenu">
@@ -55,14 +50,12 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="auditMenu">
-                <li><a href="{{ route('admin.audits.schedule') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
+                <li><a href="{{ route('admin.audits.schedules') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
                 <li><a href="{{ route('admin.audits.reports') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
                 <li><a href="{{ route('admin.audits.findings') }}" class="sidebar-submenu-link">Temuan Audit</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('view_invoices')
         <!-- Keuangan -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#financeMenu">
@@ -76,9 +69,7 @@
                 <li><a href="{{ route('admin.finance.fee-settings') }}" class="sidebar-submenu-link">Konfigurasi Biaya</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('view_documents')
         <!-- Dokumen -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#documentMenu">
@@ -88,13 +79,11 @@
             </a>
             <ul class="sidebar-submenu collapse" id="documentMenu">
                 <li><a href="{{ route('admin.documents.index') }}" class="sidebar-submenu-link">Daftar Dokumen</a></li>
-                <li><a href="{{ route('admin.documents.upload') }}" class="sidebar-submenu-link">Upload Dokumen</a></li>
-                <li><a href="{{ route('admin.documents.verify') }}" class="sidebar-submenu-link">Verifikasi Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.create') }}" class="sidebar-submenu-link">Upload Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.index') }}?verification_status=pending" class="sidebar-submenu-link">Verifikasi Dokumen</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('view_reports')
         <!-- Laporan -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#reportMenu">
@@ -108,9 +97,7 @@
                 <li><a href="{{ route('admin.reports.audits') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('manage_users')
         <!-- Pengguna -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#userMenu">
@@ -124,9 +111,7 @@
                 <li><a href="{{ route('admin.users.roles') }}" class="sidebar-submenu-link">Role & Permission</a></li>
             </ul>
         </li>
-        @endcan
 
-        @can('manage_master_data')
         <!-- Master Data -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#masterMenu">
@@ -140,7 +125,6 @@
                 <li><a href="{{ route('admin.master-data.product-types') }}" class="sidebar-submenu-link">Tipe Produk</a></li>
             </ul>
         </li>
-        @endcan
 
         <!-- Pengaturan -->
         <li class="sidebar-menu-item">
