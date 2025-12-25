@@ -7,7 +7,7 @@
             <p class="text-secondary-light mb-0">{{ $report->report_number }}</p>
         </div>
         <div class="d-flex gap-2">
-            <a href="{{ route('admin.audits.reports') }}" class="btn btn-outline-primary">
+            <a href="{{ route('admin.audits.reports.index') }}" class="btn btn-outline-primary">
                 <i class="ri-arrow-left-line me-2"></i>
                 Kembali
             </a>

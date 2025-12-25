@@ -79,8 +79,8 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="auditMenu">
-                <li><a href="{{ route('admin.audits.schedules') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
-                <li><a href="{{ route('admin.audits.reports') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
+                <li><a href="{{ route('admin.audits.schedules.index') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
+                <li><a href="{{ route('admin.audits.reports.index') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
                 <li><a href="{{ route('admin.audits.findings') }}" class="sidebar-submenu-link">Temuan Audit</a></li>
             </ul>
         </li>

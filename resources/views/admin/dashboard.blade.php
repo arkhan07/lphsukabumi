@@ -176,7 +176,7 @@
             <div class="card-custom">
                 <div class="card-header-custom">
                     <h5 class="card-title mb-0">Jadwal Audit Mendatang</h5>
-                    <a href="{{ route('admin.audits.schedules') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                    <a href="{{ route('admin.audits.schedules.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
                 </div>
                 <div class="list-group list-group-flush">
                     @forelse($recent_audits as $audit)
