@@ -11,24 +11,39 @@ class FeeConfiguration extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'fee_type',
-        'category',
+        'config_name',
+        'config_code',
         'description',
-        'amount',
-        'is_percentage',
-        'is_active',
+        'fee_type',
+        'calculation_method',
+        'base_amount',
+        'min_amount',
+        'max_amount',
+        'calculation_formula',
+        'business_type_id',
+        'product_type_id',
+        'region_id',
         'effective_from',
         'effective_until',
+        'is_active',
+        'include_tax',
+        'tax_percentage',
+        'parameters',
+        'notes',
         'created_by',
         'updated_by',
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
-        'is_percentage' => 'boolean',
+        'base_amount' => 'decimal:2',
+        'min_amount' => 'decimal:2',
+        'max_amount' => 'decimal:2',
+        'tax_percentage' => 'decimal:2',
         'is_active' => 'boolean',
+        'include_tax' => 'boolean',
         'effective_from' => 'date',
         'effective_until' => 'date',
+        'parameters' => 'array',
     ];
 
     public function createdBy()
@@ -39,5 +54,20 @@ class FeeConfiguration extends Model
     public function updatedBy()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function businessType()
+    {
+        return $this->belongsTo(BusinessType::class);
+    }
+
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 }
