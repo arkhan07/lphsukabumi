@@ -56,7 +56,9 @@ class ProductsController extends Controller
             'active' => Product::where('is_active', true)->count(),
         ];
 
-        return view('admin.products.index', compact('products', 'productTypes', 'stats'));
+        $submissions = Submission::whereIn('status', ['approved', 'completed'])->get();
+
+        return view('admin.products.index', compact('products', 'productTypes', 'stats', 'submissions'));
     }
 
     /**

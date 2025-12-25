@@ -64,6 +64,8 @@ class AuditsController extends Controller
             'completed' => Audit::where('status', 'completed')->count(),
             'passed' => Audit::where('overall_result', 'passed')->count(),
             'failed' => Audit::where('overall_result', 'failed')->count(),
+            'needs_correction' => Audit::where('overall_result', 'passed_with_conditions')->count(),
+            'this_month' => Audit::whereMonth('planned_start_date', now()->month)->whereYear('planned_start_date', now()->year)->count(),
         ];
 
         return view('admin.audits.index', compact('audits', 'stats'));

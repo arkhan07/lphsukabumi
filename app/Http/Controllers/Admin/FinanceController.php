@@ -55,6 +55,14 @@ class FinanceController extends Controller
             'total_amount' => Invoice::where('status', 'paid')->sum('total_amount'),
         ];
 
+        // Add financial summary
+        $stats['total_amount'] = Invoice::sum('total_amount');
+        $stats['paid_amount'] = Invoice::sum('paid_amount');
+        $stats['outstanding_amount'] = Invoice::sum('outstanding_amount');
+        $stats['payment_percentage'] = $stats['total_amount'] > 0 ? round(($stats['paid_amount'] / $stats['total_amount']) * 100, 1) : 0;
+        $stats['draft'] = Invoice::where('status', 'draft')->count();
+        $stats['sent'] = Invoice::where('status', 'sent')->count();
+
         return view('admin.finance.invoices', compact('invoices', 'stats'));
     }
 

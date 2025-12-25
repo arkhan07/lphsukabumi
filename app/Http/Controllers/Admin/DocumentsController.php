@@ -49,13 +49,15 @@ class DocumentsController extends Controller
         $stats = [
             'total' => Document::count(),
             'uploaded' => Document::where('status', 'uploaded')->count(),
-            'pending' => Document::where('status', 'pending_review')->count(),
+            'pending_review' => Document::where('status', 'pending_review')->count(),
             'approved' => Document::where('status', 'approved')->count(),
             'rejected' => Document::where('status', 'rejected')->count(),
-            'revision' => Document::where('status', 'revision_required')->count(),
+            'revision_required' => Document::where('status', 'revision_required')->count(),
         ];
 
-        return view('admin.documents.index', compact('documents', 'stats'));
+        $submissions = Submission::whereIn('status', ['submitted', 'screening', 'verification'])->get();
+
+        return view('admin.documents.index', compact('documents', 'stats', 'submissions'));
     }
 
     /**

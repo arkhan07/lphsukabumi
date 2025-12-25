@@ -63,9 +63,14 @@ class SubmissionsController extends Controller
         $stats = [
             'total' => Submission::count(),
             'draft' => Submission::where('status', 'draft')->count(),
-            'submitted' => Submission::whereIn('status', ['submitted', 'screening'])->count(),
+            'submitted' => Submission::where('status', 'submitted')->count(),
+            'screening' => Submission::where('status', 'screening')->count(),
+            'verification' => Submission::where('status', 'verification')->count(),
+            'approved' => Submission::where('status', 'approved')->count(),
+            'rejected' => Submission::where('status', 'rejected')->count(),
             'in_progress' => Submission::whereIn('status', ['verification', 'assigned', 'audit_in_progress'])->count(),
             'completed' => Submission::where('status', 'completed')->count(),
+            'this_month' => Submission::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count(),
         ];
 
         return view('admin.submissions.index', compact('submissions', 'stats'));
