@@ -17,12 +17,19 @@
 - Verifikasi: Tabel `migrations` harus ada 31 records
 
 ### 4. Import Dummy Data
-- Klik tab "SQL"  
+- Klik tab "SQL"
 - Copy paste **SELURUH ISI** file `database/dummy_data.sql`
 - Klik "Go"
 - Tunggu proses selesai
 
-### 5. Verifikasi Import
+### 5. Add SoftDeletes Columns (PENTING!)
+- Klik tab "SQL"
+- Copy paste **SELURUH ISI** file `database/add_soft_deletes.sql`
+- Klik "Go"
+- Script ini menambahkan kolom `deleted_at` ke semua tabel yang diperlukan
+- **WAJIB dijalankan** agar aplikasi tidak error saat login!
+
+### 6. Verifikasi Import
 Cek tabel-tabel berikut memiliki data:
 - ✅ `users` - 9 users (1 admin, 1 manajer, 2 auditor, 3 pelaku usaha, 2 penyedia)
 - ✅ `roles` - 5 roles
@@ -105,6 +112,17 @@ Setelah import, test dengan:
 - ✅ Master Data (7 regions, 6 business types, 7 product types)
 
 ## 🔧 Troubleshooting
+
+### Error "Column 'deleted_at' not found"
+**Ini error paling umum!** Artinya step 5 (add_soft_deletes.sql) belum dijalankan.
+
+**Solusi:**
+1. Login ke phpMyAdmin
+2. Pilih database `db_stagging`
+3. Klik tab "SQL"
+4. Copy paste isi file `database/add_soft_deletes.sql`
+5. Klik "Go"
+6. Refresh aplikasi
 
 ### Error "Duplicate entry"
 Artinya data sudah ada. Opsi:
