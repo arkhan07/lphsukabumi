@@ -24,10 +24,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Total Permohonan</div>
-                    <div class="stat-value">156</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        12% dari bulan lalu
+                    <div class="stat-value">{{ number_format($stats['total_submissions']) }}</div>
+                    <div class="stat-trend {{ $stats['total_submissions'] > 0 ? 'up' : '' }}">
+                        <i class="ri-file-list-line"></i>
+                        Total keseluruhan
                     </div>
                 </div>
             </div>
@@ -40,10 +40,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Sertifikat Disetujui</div>
-                    <div class="stat-value">89</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        8% dari bulan lalu
+                    <div class="stat-value">{{ number_format($stats['approved_submissions']) }}</div>
+                    <div class="stat-trend {{ $stats['approved_submissions'] > 0 ? 'up' : '' }}">
+                        <i class="ri-percent-line"></i>
+                        {{ $stats['total_submissions'] > 0 ? number_format(($stats['approved_submissions'] / $stats['total_submissions']) * 100, 1) : 0 }}% approval rate
                     </div>
                 </div>
             </div>
@@ -56,10 +56,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Dalam Proses</div>
-                    <div class="stat-value">42</div>
-                    <div class="stat-trend down">
-                        <i class="ri-arrow-down-line"></i>
-                        3% dari bulan lalu
+                    <div class="stat-value">{{ number_format($stats['pending_submissions']) }}</div>
+                    <div class="stat-trend">
+                        <i class="ri-hourglass-line"></i>
+                        {{ $stats['total_submissions'] > 0 ? number_format(($stats['pending_submissions'] / $stats['total_submissions']) * 100, 1) : 0 }}% dari total
                     </div>
                 </div>
             </div>
@@ -72,10 +72,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Total Pelaku Usaha</div>
-                    <div class="stat-value">234</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        15% dari bulan lalu
+                    <div class="stat-value">{{ number_format($stats['total_users']) }}</div>
+                    <div class="stat-trend {{ $stats['total_users'] > 0 ? 'up' : '' }}">
+                        <i class="ri-user-follow-line"></i>
+                        Terdaftar di sistem
                     </div>
                 </div>
             </div>
@@ -91,10 +91,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Perlu Verifikasi</div>
-                    <div class="stat-value">18</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        5 baru hari ini
+                    <div class="stat-value">{{ number_format($stats['pending_documents']) }}</div>
+                    <div class="stat-trend {{ $stats['pending_documents'] > 0 ? 'up' : '' }}">
+                        <i class="ri-file-list-2-line"></i>
+                        Dokumen pending
                     </div>
                 </div>
             </div>
@@ -107,10 +107,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Audit Bulan Ini</div>
-                    <div class="stat-value">27</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        9 selesai
+                    <div class="stat-value">{{ number_format($stats['audits_this_month']) }}</div>
+                    <div class="stat-trend {{ $stats['audits_completed_this_month'] > 0 ? 'up' : '' }}">
+                        <i class="ri-checkbox-circle-line"></i>
+                        {{ $stats['audits_completed_this_month'] }} selesai
                     </div>
                 </div>
             </div>
@@ -123,10 +123,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Pendapatan Bulan Ini</div>
-                    <div class="stat-value">Rp 45M</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        18% dari bulan lalu
+                    <div class="stat-value">Rp {{ number_format($stats['revenue_this_month'] / 1000000, 1) }}M</div>
+                    <div class="stat-trend {{ $stats['revenue_this_month'] > 0 ? 'up' : '' }}">
+                        <i class="ri-line-chart-line"></i>
+                        Total bulan ini
                     </div>
                 </div>
             </div>
@@ -139,10 +139,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Total Produk Tersertifikasi</div>
-                    <div class="stat-value">542</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        23 produk baru
+                    <div class="stat-value">{{ number_format($stats['certified_products']) }}</div>
+                    <div class="stat-trend {{ $stats['certified_products'] > 0 ? 'up' : '' }}">
+                        <i class="ri-shield-check-line"></i>
+                        Produk halal
                     </div>
                 </div>
             </div>
@@ -154,12 +154,7 @@
         <div class="col-12 col-lg-8">
             <div class="card-custom">
                 <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Statistik Permohonan</h5>
-                    <div class="btn-group btn-group-sm" role="group">
-                        <button type="button" class="btn btn-outline-primary active">Bulanan</button>
-                        <button type="button" class="btn btn-outline-primary">Mingguan</button>
-                        <button type="button" class="btn btn-outline-primary">Harian</button>
-                    </div>
+                    <h5 class="card-title mb-0">Statistik Permohonan {{ now()->year }}</h5>
                 </div>
                 <div id="submissionsChart"></div>
             </div>
@@ -175,69 +170,42 @@
         </div>
     </div>
 
-    <!-- Upcoming Audits & Recent Activity -->
+    <!-- Upcoming Audits & Recent Submissions -->
     <div class="row g-3 mb-4">
         <div class="col-12 col-lg-6">
             <div class="card-custom">
                 <div class="card-header-custom">
                     <h5 class="card-title mb-0">Jadwal Audit Mendatang</h5>
-                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                    <a href="{{ route('admin.audits.schedules') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
                 </div>
                 <div class="list-group list-group-flush">
-                    <div class="list-group-item d-flex justify-content-between align-items-start" style="border: none; padding: 1rem 0;">
+                    @forelse($recent_audits as $audit)
+                    <div class="list-group-item d-flex justify-content-between align-items-start" style="border: none; padding: 1rem 0; {{ !$loop->first ? 'border-top: 1px solid var(--neutral-200);' : '' }}">
                         <div class="me-auto">
                             <div class="d-flex align-items-center gap-2 mb-2">
-                                <div class="stat-icon info" style="width: 40px; height: 40px; font-size: 1rem;">
+                                <div class="stat-icon {{ $loop->first ? 'info' : ($loop->iteration == 2 ? 'warning' : 'primary') }}" style="width: 40px; height: 40px; font-size: 1rem;">
                                     <i class="ri-calendar-check-line"></i>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0" style="font-size: 0.9rem; font-weight: 600;">PT. Halal Jaya Makmur</h6>
-                                    <small class="text-secondary-light">Produk: Kecap Manis</small>
+                                    <h6 class="mb-0" style="font-size: 0.9rem; font-weight: 600;">{{ $audit->submission->company_name ?? $audit->submission->user->name ?? 'N/A' }}</h6>
+                                    <small class="text-secondary-light">{{ $audit->audit_type ?? 'Audit Halal' }}</small>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-2 text-secondary-light" style="font-size: 0.875rem;">
                                 <i class="ri-time-line"></i>
-                                <span>Besok, 25 Des 2024 - 10:00 WIB</span>
+                                <span>{{ $audit->planned_start_date ? $audit->planned_start_date->format('d M Y - H:i') : 'Belum dijadwalkan' }} WIB</span>
                             </div>
                         </div>
-                        <span class="badge-custom badge-info">Terjadwal</span>
+                        <span class="badge-custom badge-{{ $audit->status == 'planned' ? 'info' : 'warning' }}">
+                            {{ ucfirst($audit->status) }}
+                        </span>
                     </div>
-                    <div class="list-group-item d-flex justify-content-between align-items-start" style="border: none; padding: 1rem 0; border-top: 1px solid var(--neutral-200);">
-                        <div class="me-auto">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <div class="stat-icon warning" style="width: 40px; height: 40px; font-size: 1rem;">
-                                    <i class="ri-calendar-check-line"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0" style="font-size: 0.9rem; font-weight: 600;">CV. Berkah Selalu</h6>
-                                    <small class="text-secondary-light">Produk: Mie Instan</small>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 text-secondary-light" style="font-size: 0.875rem;">
-                                <i class="ri-time-line"></i>
-                                <span>26 Des 2024 - 14:00 WIB</span>
-                            </div>
-                        </div>
-                        <span class="badge-custom badge-warning">Pending</span>
+                    @empty
+                    <div class="text-center py-4">
+                        <i class="ri-calendar-line" style="font-size: 3rem; color: var(--neutral-400);"></i>
+                        <p class="text-secondary-light mt-2">Tidak ada audit yang dijadwalkan</p>
                     </div>
-                    <div class="list-group-item d-flex justify-content-between align-items-start" style="border: none; padding: 1rem 0; border-top: 1px solid var(--neutral-200);">
-                        <div class="me-auto">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <div class="stat-icon primary" style="width: 40px; height: 40px; font-size: 1rem;">
-                                    <i class="ri-calendar-check-line"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0" style="font-size: 0.9rem; font-weight: 600;">UD. Maju Bersama</h6>
-                                    <small class="text-secondary-light">Produk: Sirup & Minuman</small>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 text-secondary-light" style="font-size: 0.875rem;">
-                                <i class="ri-time-line"></i>
-                                <span>27 Des 2024 - 09:00 WIB</span>
-                            </div>
-                        </div>
-                        <span class="badge-custom badge-info">Terjadwal</span>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -245,116 +213,60 @@
         <div class="col-12 col-lg-6">
             <div class="card-custom">
                 <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Aktivitas Terbaru</h5>
-                </div>
-                <div class="list-group list-group-flush">
-                    <div class="list-group-item" style="border: none; padding: 1rem 0;">
-                        <div class="d-flex gap-3">
-                            <div class="stat-icon success" style="width: 40px; height: 40px; font-size: 1rem;">
-                                <i class="ri-check-line"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1" style="font-size: 0.875rem; font-weight: 600;">Permohonan Disetujui</h6>
-                                <p class="mb-1 text-secondary-light" style="font-size: 0.813rem;">Sertifikat halal untuk <strong>PT. Halal Foods</strong> telah disetujui</p>
-                                <small class="text-secondary-light">2 jam yang lalu</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item" style="border: none; padding: 1rem 0; border-top: 1px solid var(--neutral-200);">
-                        <div class="d-flex gap-3">
-                            <div class="stat-icon info" style="width: 40px; height: 40px; font-size: 1rem;">
-                                <i class="ri-file-text-line"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1" style="font-size: 0.875rem; font-weight: 600;">Permohonan Baru</h6>
-                                <p class="mb-1 text-secondary-light" style="font-size: 0.813rem;">Permohonan sertifikasi dari <strong>CV. Berkah Jaya</strong></p>
-                                <small class="text-secondary-light">3 jam yang lalu</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item" style="border: none; padding: 1rem 0; border-top: 1px solid var(--neutral-200);">
-                        <div class="d-flex gap-3">
-                            <div class="stat-icon warning" style="width: 40px; height: 40px; font-size: 1rem;">
-                                <i class="ri-alert-line"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1" style="font-size: 0.875rem; font-weight: 600;">Dokumen Perlu Revisi</h6>
-                                <p class="mb-1 text-secondary-light" style="font-size: 0.813rem;">Dokumen <strong>UD. Sejahtera</strong> memerlukan perbaikan</p>
-                                <small class="text-secondary-light">5 jam yang lalu</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item" style="border: none; padding: 1rem 0; border-top: 1px solid var(--neutral-200);">
-                        <div class="d-flex gap-3">
-                            <div class="stat-icon purple" style="width: 40px; height: 40px; font-size: 1rem;">
-                                <i class="ri-user-add-line"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1" style="font-size: 0.875rem; font-weight: 600;">Pelaku Usaha Baru</h6>
-                                <p class="mb-1 text-secondary-light" style="font-size: 0.813rem;"><strong>PT. Mitra Halal</strong> telah mendaftar</p>
-                                <small class="text-secondary-light">1 hari yang lalu</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Submissions Table -->
-    <div class="row g-3">
-        <div class="col-12">
-            <div class="card-custom">
-                <div class="card-header-custom">
                     <h5 class="card-title mb-0">Permohonan Terbaru</h5>
-                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                    <a href="{{ route('admin.submissions.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-hover data-table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>No. Permohonan</th>
                                 <th>Pelaku Usaha</th>
-                                <th>Produk</th>
-                                <th>Tanggal</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($recent_submissions as $submission)
                             <tr>
-                                <td><strong>#SH2024-001</strong></td>
-                                <td>PT. Halal Jaya Makmur</td>
-                                <td>Kecap Manis</td>
-                                <td>24 Des 2024</td>
-                                <td><span class="badge-custom badge-warning">Verifikasi</span></td>
+                                <td><strong>{{ $submission->submission_number ?? '-' }}</strong></td>
+                                <td>{{ $submission->company_name ?? $submission->user->name ?? '-' }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button>
-                                    <button class="btn btn-sm btn-success"><i class="ri-check-line"></i></button>
+                                    @php
+                                        $statusBadge = match($submission->status) {
+                                            'draft' => 'secondary',
+                                            'submitted', 'screening' => 'info',
+                                            'verification' => 'warning',
+                                            'approved', 'completed' => 'success',
+                                            'rejected' => 'danger',
+                                            'audit_in_progress', 'assigned' => 'purple',
+                                            default => 'secondary'
+                                        };
+                                        $statusLabel = match($submission->status) {
+                                            'draft' => 'Draft',
+                                            'submitted' => 'Diajukan',
+                                            'screening' => 'Screening',
+                                            'verification' => 'Verifikasi',
+                                            'approved' => 'Disetujui',
+                                            'completed' => 'Selesai',
+                                            'rejected' => 'Ditolak',
+                                            'audit_in_progress' => 'Audit',
+                                            'assigned' => 'Ditugaskan',
+                                            default => ucfirst($submission->status)
+                                        };
+                                    @endphp
+                                    <span class="badge-custom badge-{{ $statusBadge }}">{{ $statusLabel }}</span>
+                                </td>
+                                <td>{{ $submission->created_at->format('d M Y') }}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-4">
+                                    <i class="ri-file-list-line" style="font-size: 2rem; color: var(--neutral-400);"></i>
+                                    <p class="text-secondary-light mt-2 mb-0">Belum ada permohonan</p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><strong>#SH2024-002</strong></td>
-                                <td>CV. Berkah Selalu</td>
-                                <td>Mie Instan</td>
-                                <td>23 Des 2024</td>
-                                <td><span class="badge-custom badge-info">Audit</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button>
-                                    <button class="btn btn-sm btn-success"><i class="ri-check-line"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>#SH2024-003</strong></td>
-                                <td>UD. Maju Bersama</td>
-                                <td>Sirup</td>
-                                <td>22 Des 2024</td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button>
-                                    <button class="btn btn-sm btn-info"><i class="ri-download-line"></i></button>
-                                </td>
-                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -364,11 +276,11 @@
 
     @push('scripts')
     <script>
-        // Submissions Chart
+        // Submissions Chart with real data
         var submissionsOptions = {
             series: [{
                 name: 'Permohonan',
-                data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 89, 67, 45]
+                data: @json($submission_chart_data)
             }],
             chart: {
                 type: 'area',
@@ -405,9 +317,14 @@
         var submissionsChart = new ApexCharts(document.querySelector("#submissionsChart"), submissionsOptions);
         submissionsChart.render();
 
-        // Status Chart
+        // Status Chart with real data
         var statusOptions = {
-            series: [42, 39, 25, 50],
+            series: [
+                {{ $status_distribution['in_progress'] }},
+                {{ $status_distribution['verification'] }},
+                {{ $status_distribution['audit'] }},
+                {{ $status_distribution['approved'] }}
+            ],
             chart: {
                 type: 'donut',
                 height: 350
@@ -416,6 +333,22 @@
             colors: ['#f59e0b', '#3b82f6', '#7c3aed', '#10b981'],
             legend: {
                 position: 'bottom'
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        labels: {
+                            show: true,
+                            total: {
+                                show: true,
+                                label: 'Total',
+                                formatter: function (w) {
+                                    return w.globals.seriesTotals.reduce((a, b) => a + b, 0)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         };
         var statusChart = new ApexCharts(document.querySelector("#statusChart"), statusOptions);
