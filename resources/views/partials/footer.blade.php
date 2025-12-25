@@ -10,10 +10,10 @@
             <div class="w-[180px] mx-auto md:me-0">
                 <h1 class="text-2xl">Layanan</h1>
                 <ul class="flex flex-col gap-2 font-normal mt-5">
-                    <li><a href="{{ route('klinik') }}" class="hover:underline">Sertifikasi Halal</a></li>
-                    <li><a href="{{ route('rumah-sakit') }}" class="hover:underline">Audit Halal</a></li>
-                    <li><a href="{{ route('apotek') }}" class="hover:underline">Konsultasi Halal</a></li>
-                    <li><a href="{{ route('laboratorium') }}" class="hover:underline">Pelatihan Halal</a></li>
+                    <li><a href="{{ route('sertifikasi-halal') }}" class="hover:underline">Sertifikasi Halal</a></li>
+                    <li><a href="{{ route('audit-halal') }}" class="hover:underline">Audit Halal</a></li>
+                    <li><a href="{{ route('konsultasi-halal') }}" class="hover:underline">Konsultasi Halal</a></li>
+                    <li><a href="{{ route('pelatihan-halal') }}" class="hover:underline">Pelatihan Halal</a></li>
                 </ul>
             </div>
 
