@@ -324,6 +324,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
 
         Route::get('/fee-settings', [App\Http\Controllers\Admin\FinanceController::class, 'feeSettings'])->name('fee-settings');
         Route::post('/fee-settings', [App\Http\Controllers\Admin\FinanceController::class, 'storeFee'])->name('fees.store');
+        Route::get('/fee-settings/{fee}/edit', [App\Http\Controllers\Admin\FinanceController::class, 'editFee'])->name('fees.edit');
         Route::put('/fee-settings/{fee}', [App\Http\Controllers\Admin\FinanceController::class, 'updateFee'])->name('fees.update');
         Route::post('/fee-settings/{fee}/toggle', [App\Http\Controllers\Admin\FinanceController::class, 'toggleFee'])->name('fees.toggle');
     });
