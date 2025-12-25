@@ -362,7 +362,16 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
     });
 
     // Settings (Pengaturan)
-    Route::get('/settings', function () { return view('admin.settings'); })->name('settings');
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('index');
+        Route::post('/general', [App\Http\Controllers\Admin\SettingsController::class, 'updateGeneral'])->name('update-general');
+        Route::post('/email', [App\Http\Controllers\Admin\SettingsController::class, 'updateEmail'])->name('update-email');
+        Route::post('/certification', [App\Http\Controllers\Admin\SettingsController::class, 'updateCertification'])->name('update-certification');
+        Route::post('/notifications', [App\Http\Controllers\Admin\SettingsController::class, 'updateNotifications'])->name('update-notifications');
+        Route::post('/logo', [App\Http\Controllers\Admin\SettingsController::class, 'uploadLogo'])->name('upload-logo');
+        Route::post('/test-email', [App\Http\Controllers\Admin\SettingsController::class, 'testEmail'])->name('test-email');
+        Route::get('/system-info', [App\Http\Controllers\Admin\SettingsController::class, 'systemInfo'])->name('system-info');
+    });
 
     // Help (Bantuan)
     Route::get('/help', function () { return view('admin.help'); })->name('help');
