@@ -311,9 +311,27 @@ class FinanceController extends Controller
      */
     public function feeSettings()
     {
-        $fees = FeeConfiguration::where('is_active', true)->latest()->paginate(15);
+        $fees = FeeConfiguration::with(['businessType', 'productType', 'region'])
+            ->latest()
+            ->paginate(15);
 
-        return view('admin.finance.fee-settings', compact('fees'));
+        // Statistics
+        $stats = [
+            'total_fees' => FeeConfiguration::count(),
+            'active_fees' => FeeConfiguration::where('is_active', true)->count(),
+            'certification_fees' => FeeConfiguration::where('fee_type', 'certification')->count(),
+            'audit_fees' => FeeConfiguration::where('fee_type', 'audit')->count(),
+        ];
+
+        return view('admin.finance.fee-settings', compact('fees', 'stats'));
+    }
+
+    /**
+     * Edit fee configuration (return JSON for AJAX)
+     */
+    public function editFee(FeeConfiguration $fee)
+    {
+        return response()->json($fee);
     }
 
     /**
@@ -322,17 +340,28 @@ class FinanceController extends Controller
     public function storeFee(Request $request)
     {
         $validated = $request->validate([
-            'fee_type' => 'required|string',
-            'category' => 'required|string',
+            'config_name' => 'required|string|max:255',
+            'config_code' => 'required|string|max:50|unique:fee_configurations,config_code',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric|min:0',
-            'is_percentage' => 'nullable|boolean',
+            'fee_type' => 'required|in:certification,audit,consultation,training,renewal,replacement,other',
+            'calculation_method' => 'required|in:fixed,percentage,tiered,formula',
+            'base_amount' => 'required|numeric|min:0',
+            'min_amount' => 'nullable|numeric|min:0',
+            'max_amount' => 'nullable|numeric|min:0',
+            'calculation_formula' => 'nullable|string',
+            'business_type_id' => 'nullable|exists:business_types,id',
+            'product_type_id' => 'nullable|exists:product_types,id',
+            'region_id' => 'nullable|exists:regions,id',
             'effective_from' => 'required|date',
             'effective_until' => 'nullable|date|after:effective_from',
+            'include_tax' => 'nullable|boolean',
+            'tax_percentage' => 'nullable|numeric|min:0|max:100',
+            'parameters' => 'nullable|array',
+            'notes' => 'nullable|string',
         ]);
 
         $validated['is_active'] = true;
-        $validated['is_percentage'] = $validated['is_percentage'] ?? false;
+        $validated['include_tax'] = $validated['include_tax'] ?? false;
         $validated['created_by'] = auth()->id();
 
         FeeConfiguration::create($validated);
@@ -346,10 +375,24 @@ class FinanceController extends Controller
     public function updateFee(Request $request, FeeConfiguration $fee)
     {
         $validated = $request->validate([
-            'amount' => 'required|numeric|min:0',
+            'config_name' => 'required|string|max:255',
+            'config_code' => 'required|string|max:50|unique:fee_configurations,config_code,' . $fee->id,
             'description' => 'nullable|string',
+            'fee_type' => 'required|in:certification,audit,consultation,training,renewal,replacement,other',
+            'calculation_method' => 'required|in:fixed,percentage,tiered,formula',
+            'base_amount' => 'required|numeric|min:0',
+            'min_amount' => 'nullable|numeric|min:0',
+            'max_amount' => 'nullable|numeric|min:0',
+            'calculation_formula' => 'nullable|string',
+            'business_type_id' => 'nullable|exists:business_types,id',
+            'product_type_id' => 'nullable|exists:product_types,id',
+            'region_id' => 'nullable|exists:regions,id',
             'effective_from' => 'required|date',
             'effective_until' => 'nullable|date|after:effective_from',
+            'include_tax' => 'nullable|boolean',
+            'tax_percentage' => 'nullable|numeric|min:0|max:100',
+            'parameters' => 'nullable|array',
+            'notes' => 'nullable|string',
         ]);
 
         $validated['updated_by'] = auth()->id();

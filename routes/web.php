@@ -307,14 +307,24 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::get('/invoices', [App\Http\Controllers\Admin\FinanceController::class, 'invoices'])->name('invoices');
         Route::get('/invoices/create', [App\Http\Controllers\Admin\FinanceController::class, 'createInvoice'])->name('invoices.create');
         Route::post('/invoices', [App\Http\Controllers\Admin\FinanceController::class, 'storeInvoice'])->name('invoices.store');
+        Route::get('/invoices/{invoice}', [App\Http\Controllers\Admin\FinanceController::class, 'showInvoice'])->name('invoices.show');
+        Route::get('/invoices/{invoice}/edit', [App\Http\Controllers\Admin\FinanceController::class, 'editInvoice'])->name('invoices.edit');
+        Route::put('/invoices/{invoice}', [App\Http\Controllers\Admin\FinanceController::class, 'updateInvoice'])->name('invoices.update');
+        Route::delete('/invoices/{invoice}', [App\Http\Controllers\Admin\FinanceController::class, 'destroyInvoice'])->name('invoices.destroy');
+        Route::post('/invoices/{invoice}/send', [App\Http\Controllers\Admin\FinanceController::class, 'sendInvoice'])->name('invoices.send');
+        Route::get('/invoices/{invoice}/pdf', [App\Http\Controllers\Admin\FinanceController::class, 'downloadPdf'])->name('invoices.pdf');
+        Route::get('/invoices/{invoice}/download', [App\Http\Controllers\Admin\FinanceController::class, 'downloadInvoice'])->name('invoices.download');
+        Route::post('/invoices/{invoice}/reminder', [App\Http\Controllers\Admin\FinanceController::class, 'sendReminder'])->name('invoices.reminder');
 
         Route::get('/payments', [App\Http\Controllers\Admin\FinanceController::class, 'payments'])->name('payments');
         Route::post('/payments', [App\Http\Controllers\Admin\FinanceController::class, 'storePayment'])->name('payments.store');
+        Route::get('/payments/{payment}', [App\Http\Controllers\Admin\FinanceController::class, 'showPayment'])->name('payments.show');
         Route::post('/payments/{payment}/verify', [App\Http\Controllers\Admin\FinanceController::class, 'verifyPayment'])->name('payments.verify');
         Route::post('/payments/{payment}/reject', [App\Http\Controllers\Admin\FinanceController::class, 'rejectPayment'])->name('payments.reject');
 
         Route::get('/fee-settings', [App\Http\Controllers\Admin\FinanceController::class, 'feeSettings'])->name('fee-settings');
         Route::post('/fee-settings', [App\Http\Controllers\Admin\FinanceController::class, 'storeFee'])->name('fees.store');
+        Route::get('/fee-settings/{fee}/edit', [App\Http\Controllers\Admin\FinanceController::class, 'editFee'])->name('fees.edit');
         Route::put('/fee-settings/{fee}', [App\Http\Controllers\Admin\FinanceController::class, 'updateFee'])->name('fees.update');
         Route::post('/fee-settings/{fee}/toggle', [App\Http\Controllers\Admin\FinanceController::class, 'toggleFee'])->name('fees.toggle');
     });
