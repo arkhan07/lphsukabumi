@@ -33,22 +33,22 @@
                         class="z-10 hidden font-normal bg-white border border-gray-200 rounded-lg shadow-lg w-56">
                         <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownNavbarLink1">
                             <li>
-                                <a href="{{ route('klinik') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
+                                <a href="{{ route('sertifikasi-halal') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
                                     Sertifikasi Halal
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('rumah-sakit') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
+                                <a href="{{ route('audit-halal') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
                                     Audit Halal
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('apotek') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
+                                <a href="{{ route('konsultasi-halal') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
                                     Konsultasi Halal
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('laboratorium') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
+                                <a href="{{ route('pelatihan-halal') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-darkteal">
                                     Pelatihan Halal
                                 </a>
                             </li>

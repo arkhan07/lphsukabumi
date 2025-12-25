@@ -118,42 +118,44 @@ Route::prefix('rekammediselektronik')->name('rekammediselektronik')->group(funct
 
 // End Fitur //
 
-// Layanan //
-Route::prefix('klinik')->name('klinik')->group(function () {
+// Layanan Halal //
+Route::prefix('sertifikasi-halal')->name('sertifikasi-halal')->group(function () {
     Route::get('/', function () {
-        return view('klinik', [
+        return view('sertifikasi-halal', [
             'title' => 'Sertifikasi Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Layanan sertifikasi halal untuk produk makanan, minuman, kosmetik, dan obat-obatan dari LPH Doa Bangsa'
         ]);
     });
 });
 
-Route::prefix('rumah-sakit')->name('rumah-sakit')->group(function () {
+Route::prefix('audit-halal')->name('audit-halal')->group(function () {
     Route::get('/', function () {
-        return view('rumah-sakit', [
+        return view('audit-halal', [
             'title' => 'Audit Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Layanan audit halal komprehensif untuk memastikan proses produksi sesuai standar halal yang ditetapkan'
         ]);
     });
 });
 
-Route::prefix('apotek')->name('apotek')->group(function () {
+Route::prefix('konsultasi-halal')->name('konsultasi-halal')->group(function () {
     Route::get('/', function () {
-        return view('apotek', [
+        return view('konsultasi-halal', [
             'title' => 'Konsultasi Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Konsultasi ahli untuk persiapan sertifikasi halal dan pemahaman persyaratan yang diperlukan'
         ]);
     });
 });
 
-Route::prefix('laboratorium')->name('laboratorium')->group(function () {
+Route::prefix('pelatihan-halal')->name('pelatihan-halal')->group(function () {
     Route::get('/', function () {
-        return view('laboratorium', [
+        return view('pelatihan-halal', [
             'title' => 'Pelatihan Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Program pelatihan sistem jaminan halal untuk tim internal perusahaan Anda'
         ]);
     });
 });
+
+// End Layanan Halal //
 
 Route::prefix('praktek-dokter')->name('praktek-dokter')->group(function () {
     Route::get('/', function () {
@@ -279,7 +281,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::post('/', [App\Http\Controllers\Admin\AuditsController::class, 'store'])->name('store');
 
         // Schedule Routes (must come before /{audit})
-        Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules');
+        Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules.index');
         Route::post('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'storeSchedule'])->name('schedules.store');
         Route::get('/schedules/{schedule}', [App\Http\Controllers\Admin\AuditsController::class, 'showSchedule'])->name('schedules.show');
         Route::get('/schedules/{schedule}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'editSchedule'])->name('schedules.edit');
@@ -288,7 +290,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::post('/schedules/{schedule}/complete', [App\Http\Controllers\Admin\AuditsController::class, 'completeSchedule'])->name('schedules.complete');
 
         // Report Routes (must come before /{audit})
-        Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports');
+        Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports.index');
         Route::post('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'storeReport'])->name('reports.store');
         Route::get('/reports/{report}', [App\Http\Controllers\Admin\AuditsController::class, 'showReport'])->name('reports.show');
         Route::get('/reports/{report}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'editReport'])->name('reports.edit');

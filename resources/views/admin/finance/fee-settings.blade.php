@@ -120,21 +120,23 @@
                         <td style="padding: 1rem;">
                             @php
                                 $feeTypeBadge = match($fee->fee_type) {
-                                    'certification' => 'primary',
-                                    'audit' => 'warning',
-                                    'consultation' => 'info',
-                                    'training' => 'success',
-                                    'renewal' => 'secondary',
-                                    'replacement' => 'danger',
-                                    default => 'dark'
+                                    'base_fee' => 'primary',
+                                    'audit_fee' => 'warning',
+                                    'surveillance_fee' => 'info',
+                                    're_certification_fee' => 'success',
+                                    'document_review_fee' => 'secondary',
+                                    'product_fee' => 'danger',
+                                    'additional_service_fee' => 'dark',
+                                    default => 'secondary'
                                 };
                                 $feeTypeLabel = match($fee->fee_type) {
-                                    'certification' => 'Sertifikasi',
-                                    'audit' => 'Audit',
-                                    'consultation' => 'Konsultasi',
-                                    'training' => 'Pelatihan',
-                                    'renewal' => 'Perpanjangan',
-                                    'replacement' => 'Penggantian',
+                                    'base_fee' => 'Biaya Dasar',
+                                    'audit_fee' => 'Biaya Audit',
+                                    'surveillance_fee' => 'Biaya Surveillance',
+                                    're_certification_fee' => 'Biaya Re-Sertifikasi',
+                                    'document_review_fee' => 'Biaya Review Dokumen',
+                                    'product_fee' => 'Biaya Produk',
+                                    'additional_service_fee' => 'Biaya Layanan Tambahan',
                                     default => ucfirst($fee->fee_type)
                                 };
                             @endphp
@@ -143,9 +145,11 @@
                         <td style="padding: 1rem;">
                             @php
                                 $methodLabel = match($fee->calculation_method) {
-                                    'fixed' => 'Tetap',
+                                    'fixed_amount' => 'Tetap',
+                                    'per_product' => 'Per Produk',
+                                    'per_process' => 'Per Proses',
+                                    'per_day' => 'Per Hari',
                                     'percentage' => 'Persentase',
-                                    'tiered' => 'Bertingkat',
                                     'formula' => 'Formula',
                                     default => $fee->calculation_method
                                 };
@@ -261,13 +265,13 @@
                                 <label for="fee_type" class="form-label">Jenis Biaya <span class="text-danger">*</span></label>
                                 <select class="form-select @error('fee_type') is-invalid @enderror" id="fee_type" name="fee_type" required>
                                     <option value="">Pilih jenis biaya...</option>
-                                    <option value="certification" {{ old('fee_type') == 'certification' ? 'selected' : '' }}>Sertifikasi</option>
-                                    <option value="audit" {{ old('fee_type') == 'audit' ? 'selected' : '' }}>Audit</option>
-                                    <option value="consultation" {{ old('fee_type') == 'consultation' ? 'selected' : '' }}>Konsultasi</option>
-                                    <option value="training" {{ old('fee_type') == 'training' ? 'selected' : '' }}>Pelatihan</option>
-                                    <option value="renewal" {{ old('fee_type') == 'renewal' ? 'selected' : '' }}>Perpanjangan</option>
-                                    <option value="replacement" {{ old('fee_type') == 'replacement' ? 'selected' : '' }}>Penggantian</option>
-                                    <option value="other" {{ old('fee_type') == 'other' ? 'selected' : '' }}>Lainnya</option>
+                                    <option value="base_fee" {{ old('fee_type') == 'base_fee' ? 'selected' : '' }}>Biaya Dasar</option>
+                                    <option value="audit_fee" {{ old('fee_type') == 'audit_fee' ? 'selected' : '' }}>Biaya Audit</option>
+                                    <option value="surveillance_fee" {{ old('fee_type') == 'surveillance_fee' ? 'selected' : '' }}>Biaya Surveillance</option>
+                                    <option value="re_certification_fee" {{ old('fee_type') == 're_certification_fee' ? 'selected' : '' }}>Biaya Re-Sertifikasi</option>
+                                    <option value="document_review_fee" {{ old('fee_type') == 'document_review_fee' ? 'selected' : '' }}>Biaya Review Dokumen</option>
+                                    <option value="product_fee" {{ old('fee_type') == 'product_fee' ? 'selected' : '' }}>Biaya Produk</option>
+                                    <option value="additional_service_fee" {{ old('fee_type') == 'additional_service_fee' ? 'selected' : '' }}>Biaya Layanan Tambahan</option>
                                 </select>
                                 @error('fee_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -277,9 +281,11 @@
                                 <label for="calculation_method" class="form-label">Metode Perhitungan <span class="text-danger">*</span></label>
                                 <select class="form-select @error('calculation_method') is-invalid @enderror" id="calculation_method" name="calculation_method" required>
                                     <option value="">Pilih metode...</option>
-                                    <option value="fixed" {{ old('calculation_method') == 'fixed' ? 'selected' : '' }}>Tetap</option>
+                                    <option value="fixed_amount" {{ old('calculation_method') == 'fixed_amount' ? 'selected' : '' }}>Tetap</option>
+                                    <option value="per_product" {{ old('calculation_method') == 'per_product' ? 'selected' : '' }}>Per Produk</option>
+                                    <option value="per_process" {{ old('calculation_method') == 'per_process' ? 'selected' : '' }}>Per Proses</option>
+                                    <option value="per_day" {{ old('calculation_method') == 'per_day' ? 'selected' : '' }}>Per Hari</option>
                                     <option value="percentage" {{ old('calculation_method') == 'percentage' ? 'selected' : '' }}>Persentase</option>
-                                    <option value="tiered" {{ old('calculation_method') == 'tiered' ? 'selected' : '' }}>Bertingkat</option>
                                     <option value="formula" {{ old('calculation_method') == 'formula' ? 'selected' : '' }}>Formula</option>
                                 </select>
                                 @error('calculation_method')
@@ -418,21 +424,23 @@
                             <div class="col-12 col-md-6">
                                 <label for="edit_fee_type" class="form-label">Jenis Biaya <span class="text-danger">*</span></label>
                                 <select class="form-select" id="edit_fee_type" name="fee_type" required>
-                                    <option value="certification">Sertifikasi</option>
-                                    <option value="audit">Audit</option>
-                                    <option value="consultation">Konsultasi</option>
-                                    <option value="training">Pelatihan</option>
-                                    <option value="renewal">Perpanjangan</option>
-                                    <option value="replacement">Penggantian</option>
-                                    <option value="other">Lainnya</option>
+                                    <option value="base_fee">Biaya Dasar</option>
+                                    <option value="audit_fee">Biaya Audit</option>
+                                    <option value="surveillance_fee">Biaya Surveillance</option>
+                                    <option value="re_certification_fee">Biaya Re-Sertifikasi</option>
+                                    <option value="document_review_fee">Biaya Review Dokumen</option>
+                                    <option value="product_fee">Biaya Produk</option>
+                                    <option value="additional_service_fee">Biaya Layanan Tambahan</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label for="edit_calculation_method" class="form-label">Metode Perhitungan <span class="text-danger">*</span></label>
                                 <select class="form-select" id="edit_calculation_method" name="calculation_method" required>
-                                    <option value="fixed">Tetap</option>
+                                    <option value="fixed_amount">Tetap</option>
+                                    <option value="per_product">Per Produk</option>
+                                    <option value="per_process">Per Proses</option>
+                                    <option value="per_day">Per Hari</option>
                                     <option value="percentage">Persentase</option>
-                                    <option value="tiered">Bertingkat</option>
                                     <option value="formula">Formula</option>
                                 </select>
                             </div>
