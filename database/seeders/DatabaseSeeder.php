@@ -13,22 +13,53 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Seed RBAC first
+        // ====================================
+        // URUTAN PENTING: JANGAN DIUBAH!
+        // ====================================
+
+        // 1. Roles & Permissions (HARUS PERTAMA)
         $this->call([
-            RoleSeeder::class,
-            PermissionSeeder::class,
+            RolesAndPermissionsSeeder::class,
         ]);
 
-        // Seed Dummy Users for testing
+        // 2. Master Data (regions, business types, product types)
         $this->call([
-            DummyUsersSeeder::class,
+            RegionsSeeder::class,
+            BusinessTypesSeeder::class,
+            ProductTypesSeeder::class,
+            FeeConfigurationsSeeder::class,
         ]);
 
-        // Seed Master Data
+        // 3. Users (requires roles)
         $this->call([
-            RegionSeeder::class,
-            BusinessTypeSeeder::class,
-            ProductTypeSeeder::class,
+            UsersSeeder::class,
         ]);
+
+        // 4. Submissions (requires users, regions, business types)
+        $this->call([
+            SubmissionsSeeder::class,
+        ]);
+
+        // 5. Products (requires submissions, product types)
+        $this->call([
+            ProductsSeeder::class,
+        ]);
+
+        // 6. Documents (requires submissions, users)
+        $this->call([
+            DocumentsSeeder::class,
+        ]);
+
+        // 7. Invoices & Payments (requires submissions, users)
+        $this->call([
+            InvoicesSeeder::class,
+            InvoicePaymentsSeeder::class,
+        ]);
+
+        $this->command->info('✅ Database seeding completed successfully!');
+        $this->command->info('📊 Total users created: 9');
+        $this->command->info('📝 Total submissions created: 5');
+        $this->command->info('📦 Total products created: 6');
+        $this->command->info('💰 Total invoices created: 3');
     }
 }

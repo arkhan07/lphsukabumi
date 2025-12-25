@@ -21,6 +21,7 @@ class CreateBusinessTypesTable extends Migration
             $table->enum('category', ['food', 'beverage', 'cosmetics', 'pharmaceutical', 'other'])->default('food');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index('category');
         });
