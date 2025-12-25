@@ -273,19 +273,33 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
 
     // Audits (Audit)
     Route::prefix('audits')->name('audits.')->group(function () {
+        // Index and Create Routes (must come before specific routes)
+        Route::get('/', [App\Http\Controllers\Admin\AuditsController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Admin\AuditsController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Admin\AuditsController::class, 'store'])->name('store');
+
+        // Schedule Routes (must come before /{audit})
         Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules');
         Route::post('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'storeSchedule'])->name('schedules.store');
         Route::put('/schedules/{schedule}', [App\Http\Controllers\Admin\AuditsController::class, 'updateSchedule'])->name('schedules.update');
         Route::post('/schedules/{schedule}/cancel', [App\Http\Controllers\Admin\AuditsController::class, 'cancelSchedule'])->name('schedules.cancel');
 
+        // Report Routes (must come before /{audit})
         Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports');
         Route::post('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'storeReport'])->name('reports.store');
 
+        // Finding Routes (must come before /{audit})
         Route::get('/findings', [App\Http\Controllers\Admin\AuditsController::class, 'findings'])->name('findings');
         Route::post('/findings', [App\Http\Controllers\Admin\AuditsController::class, 'storeFinding'])->name('findings.store');
         Route::put('/findings/{finding}', [App\Http\Controllers\Admin\AuditsController::class, 'updateFinding'])->name('findings.update');
         Route::post('/findings/{finding}/resolve', [App\Http\Controllers\Admin\AuditsController::class, 'resolveFinding'])->name('findings.resolve');
         Route::post('/findings/{finding}/verify', [App\Http\Controllers\Admin\AuditsController::class, 'verifyFinding'])->name('findings.verify');
+
+        // Audit Resource Routes with wildcard (must come last)
+        Route::get('/{audit}', [App\Http\Controllers\Admin\AuditsController::class, 'show'])->name('show');
+        Route::get('/{audit}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'edit'])->name('edit');
+        Route::put('/{audit}', [App\Http\Controllers\Admin\AuditsController::class, 'update'])->name('update');
+        Route::delete('/{audit}', [App\Http\Controllers\Admin\AuditsController::class, 'destroy'])->name('destroy');
     });
 
     // Finance (Keuangan)
@@ -318,6 +332,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::get('/certification', [App\Http\Controllers\Admin\ReportsController::class, 'certification'])->name('certification');
         Route::get('/financial', [App\Http\Controllers\Admin\ReportsController::class, 'financial'])->name('financial');
         Route::get('/audits', [App\Http\Controllers\Admin\ReportsController::class, 'audits'])->name('audits');
+        Route::get('/product', [App\Http\Controllers\Admin\ReportsController::class, 'product'])->name('product');
     });
 
     // Users (Pengguna)
@@ -348,7 +363,16 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
     });
 
     // Settings (Pengaturan)
-    Route::get('/settings', function () { return view('admin.settings'); })->name('settings');
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('index');
+        Route::post('/general', [App\Http\Controllers\Admin\SettingsController::class, 'updateGeneral'])->name('update-general');
+        Route::post('/email', [App\Http\Controllers\Admin\SettingsController::class, 'updateEmail'])->name('update-email');
+        Route::post('/certification', [App\Http\Controllers\Admin\SettingsController::class, 'updateCertification'])->name('update-certification');
+        Route::post('/notifications', [App\Http\Controllers\Admin\SettingsController::class, 'updateNotifications'])->name('update-notifications');
+        Route::post('/logo', [App\Http\Controllers\Admin\SettingsController::class, 'uploadLogo'])->name('upload-logo');
+        Route::post('/test-email', [App\Http\Controllers\Admin\SettingsController::class, 'testEmail'])->name('test-email');
+        Route::get('/system-info', [App\Http\Controllers\Admin\SettingsController::class, 'systemInfo'])->name('system-info');
+    });
 
     // Help (Bantuan)
     Route::get('/help', function () { return view('admin.help'); })->name('help');

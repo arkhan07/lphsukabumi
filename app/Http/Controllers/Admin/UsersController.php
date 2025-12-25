@@ -42,14 +42,17 @@ class UsersController extends Controller
         // Statistics
         $stats = [
             'total' => User::count(),
-            'admin' => User::whereHas('roles', function($q) {
+            'admin_lph' => User::whereHas('roles', function($q) {
                 $q->where('name', 'admin_lph');
             })->count(),
             'auditor' => User::whereHas('roles', function($q) {
                 $q->where('name', 'auditor_halal');
             })->count(),
-            'business' => User::whereHas('roles', function($q) {
+            'pelaku_usaha' => User::whereHas('roles', function($q) {
                 $q->where('name', 'pelaku_usaha');
+            })->count(),
+            'penyedia_halal' => User::whereHas('roles', function($q) {
+                $q->where('name', 'penyedia_halal');
             })->count(),
         ];
 

@@ -12,11 +12,23 @@ class BusinessType extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'description',
+        'category',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public function submissions()
     {
         return $this->hasMany(Submission::class);
+    }
+
+    public function productTypes()
+    {
+        return $this->hasMany(ProductType::class);
     }
 }

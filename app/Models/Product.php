@@ -13,26 +13,28 @@ class Product extends Model
     protected $fillable = [
         'submission_id',
         'product_type_id',
-        'name',
-        'sku',
-        'brand',
-        'variant',
-        'packaging',
-        'weight',
+        'product_name',
+        'product_code',
+        'product_description',
+        'brand_name',
+        'packaging_type',
+        'net_weight',
         'weight_unit',
-        'description',
-        'ingredients',
-        'image_path',
-        'halal_certificate_number',
-        'certificate_issue_date',
-        'certificate_expiry_date',
+        'barcode',
+        'hs_code',
         'halal_status',
+        'halal_notes',
+        'monthly_production_volume',
+        'shelf_life_duration',
+        'shelf_life_unit',
+        'is_active',
     ];
 
     protected $casts = [
-        'weight' => 'decimal:2',
-        'certificate_issue_date' => 'date',
-        'certificate_expiry_date' => 'date',
+        'net_weight' => 'decimal:2',
+        'shelf_life_duration' => 'decimal:2',
+        'monthly_production_volume' => 'integer',
+        'is_active' => 'boolean',
     ];
 
     public function submission()

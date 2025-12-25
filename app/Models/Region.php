@@ -11,11 +11,26 @@ class Region extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'province',
-        'city',
-        'district',
-        'postal_code',
+        'name',
+        'code',
+        'type',
+        'parent_id',
+        'is_active',
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function parent()
+    {
+        return $this->belongsTo(Region::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Region::class, 'parent_id');
+    }
 
     public function submissions()
     {

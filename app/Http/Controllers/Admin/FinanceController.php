@@ -55,6 +55,14 @@ class FinanceController extends Controller
             'total_amount' => Invoice::where('status', 'paid')->sum('total_amount'),
         ];
 
+        // Add financial summary
+        $stats['total_amount'] = Invoice::sum('total_amount');
+        $stats['paid_amount'] = Invoice::sum('paid_amount');
+        $stats['outstanding_amount'] = Invoice::sum('outstanding_amount');
+        $stats['payment_percentage'] = $stats['total_amount'] > 0 ? round(($stats['paid_amount'] / $stats['total_amount']) * 100, 1) : 0;
+        $stats['draft'] = Invoice::where('status', 'draft')->count();
+        $stats['sent'] = Invoice::where('status', 'sent')->count();
+
         return view('admin.finance.invoices', compact('invoices', 'stats'));
     }
 
@@ -68,6 +76,54 @@ class FinanceController extends Controller
             ->get();
 
         return view('admin.finance.create-invoice', compact('submissions'));
+    }
+
+    /**
+     * Show invoice details
+     */
+    public function showInvoice(Invoice $invoice)
+    {
+        $invoice->load(['submission.user', 'payments', 'createdBy']);
+        return view('admin.finance.show-invoice', compact('invoice'));
+    }
+
+    /**
+     * Edit invoice
+     */
+    public function editInvoice(Invoice $invoice)
+    {
+        $submissions = Submission::whereIn('status', ['approved', 'completed'])->get();
+        return view('admin.finance.edit-invoice', compact('invoice', 'submissions'));
+    }
+
+    /**
+     * Update invoice
+     */
+    public function updateInvoice(Request $request, Invoice $invoice)
+    {
+        // Only allow editing draft invoices
+        if ($invoice->status !== 'draft') {
+            return back()->with('error', 'Hanya invoice draft yang dapat diedit');
+        }
+
+        $validated = $request->validate([
+            'invoice_date' => 'required|date',
+            'due_date' => 'required|date|after:invoice_date',
+            'subtotal' => 'required|numeric|min:0',
+            'tax_amount' => 'nullable|numeric|min:0',
+            'discount_amount' => 'nullable|numeric|min:0',
+            'notes' => 'nullable|string',
+        ]);
+
+        $validated['tax_amount'] = $validated['tax_amount'] ?? 0;
+        $validated['discount_amount'] = $validated['discount_amount'] ?? 0;
+        $validated['total_amount'] = $validated['subtotal'] + $validated['tax_amount'] - $validated['discount_amount'];
+        $validated['outstanding_amount'] = $validated['total_amount'] - $invoice->paid_amount;
+
+        $invoice->update($validated);
+
+        return redirect()->route('admin.finance.invoices')
+                       ->with('success', 'Invoice berhasil diperbarui');
     }
 
     /**
