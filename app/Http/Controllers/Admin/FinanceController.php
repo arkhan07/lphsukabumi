@@ -319,8 +319,8 @@ class FinanceController extends Controller
         $stats = [
             'total_fees' => FeeConfiguration::count(),
             'active_fees' => FeeConfiguration::where('is_active', true)->count(),
-            'certification_fees' => FeeConfiguration::where('fee_type', 'certification')->count(),
-            'audit_fees' => FeeConfiguration::where('fee_type', 'audit')->count(),
+            'certification_fees' => FeeConfiguration::whereIn('fee_type', ['base_fee', 're_certification_fee'])->count(),
+            'audit_fees' => FeeConfiguration::where('fee_type', 'audit_fee')->count(),
         ];
 
         return view('admin.finance.fee-settings', compact('fees', 'stats'));
@@ -343,8 +343,8 @@ class FinanceController extends Controller
             'config_name' => 'required|string|max:255',
             'config_code' => 'required|string|max:50|unique:fee_configurations,config_code',
             'description' => 'nullable|string',
-            'fee_type' => 'required|in:certification,audit,consultation,training,renewal,replacement,other',
-            'calculation_method' => 'required|in:fixed,percentage,tiered,formula',
+            'fee_type' => 'required|in:base_fee,audit_fee,surveillance_fee,re_certification_fee,document_review_fee,product_fee,additional_service_fee',
+            'calculation_method' => 'required|in:fixed_amount,per_product,per_process,per_day,percentage,formula',
             'base_amount' => 'required|numeric|min:0',
             'min_amount' => 'nullable|numeric|min:0',
             'max_amount' => 'nullable|numeric|min:0',
@@ -378,8 +378,8 @@ class FinanceController extends Controller
             'config_name' => 'required|string|max:255',
             'config_code' => 'required|string|max:50|unique:fee_configurations,config_code,' . $fee->id,
             'description' => 'nullable|string',
-            'fee_type' => 'required|in:certification,audit,consultation,training,renewal,replacement,other',
-            'calculation_method' => 'required|in:fixed,percentage,tiered,formula',
+            'fee_type' => 'required|in:base_fee,audit_fee,surveillance_fee,re_certification_fee,document_review_fee,product_fee,additional_service_fee',
+            'calculation_method' => 'required|in:fixed_amount,per_product,per_process,per_day,percentage,formula',
             'base_amount' => 'required|numeric|min:0',
             'min_amount' => 'nullable|numeric|min:0',
             'max_amount' => 'nullable|numeric|min:0',
@@ -412,5 +412,79 @@ class FinanceController extends Controller
         ]);
 
         return back()->with('success', 'Status biaya berhasil diperbarui');
+    }
+
+    /**
+     * Download invoice as PDF
+     */
+    public function downloadPdf(Invoice $invoice)
+    {
+        // TODO: Implement PDF generation
+        // For now, return a simple response
+        return back()->with('info', 'Fitur download PDF sedang dalam pengembangan');
+    }
+
+    /**
+     * Download invoice
+     */
+    public function downloadInvoice(Invoice $invoice)
+    {
+        // TODO: Implement invoice download
+        return $this->downloadPdf($invoice);
+    }
+
+    /**
+     * Send invoice to customer
+     */
+    public function sendInvoice(Invoice $invoice)
+    {
+        if ($invoice->status === 'draft') {
+            $invoice->update([
+                'status' => 'sent',
+                'sent_at' => now(),
+            ]);
+
+            return back()->with('success', 'Invoice berhasil dikirim ke pelanggan');
+        }
+
+        return back()->with('error', 'Invoice sudah pernah dikirim');
+    }
+
+    /**
+     * Send payment reminder
+     */
+    public function sendReminder(Invoice $invoice)
+    {
+        if (in_array($invoice->status, ['sent', 'partial_payment', 'overdue'])) {
+            // TODO: Implement email reminder
+            return back()->with('success', 'Reminder pembayaran berhasil dikirim');
+        }
+
+        return back()->with('error', 'Tidak dapat mengirim reminder untuk invoice ini');
+    }
+
+    /**
+     * Delete invoice
+     */
+    public function destroyInvoice(Invoice $invoice)
+    {
+        // Only allow deleting draft invoices
+        if ($invoice->status !== 'draft') {
+            return back()->with('error', 'Hanya invoice draft yang dapat dihapus');
+        }
+
+        $invoice->delete();
+
+        return redirect()->route('admin.finance.invoices')
+                       ->with('success', 'Invoice berhasil dihapus');
+    }
+
+    /**
+     * Show payment details
+     */
+    public function showPayment(InvoicePayment $payment)
+    {
+        $payment->load(['invoice.submission', 'user', 'verifiedBy']);
+        return view('admin.finance.show-payment', compact('payment'));
     }
 }

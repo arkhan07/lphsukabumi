@@ -279,7 +279,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::post('/', [App\Http\Controllers\Admin\AuditsController::class, 'store'])->name('store');
 
         // Schedule Routes (must come before /{audit})
-        Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules');
+        Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules.index');
         Route::post('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'storeSchedule'])->name('schedules.store');
         Route::get('/schedules/{schedule}', [App\Http\Controllers\Admin\AuditsController::class, 'showSchedule'])->name('schedules.show');
         Route::get('/schedules/{schedule}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'editSchedule'])->name('schedules.edit');
@@ -288,7 +288,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::post('/schedules/{schedule}/complete', [App\Http\Controllers\Admin\AuditsController::class, 'completeSchedule'])->name('schedules.complete');
 
         // Report Routes (must come before /{audit})
-        Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports');
+        Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports.index');
         Route::post('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'storeReport'])->name('reports.store');
         Route::get('/reports/{report}', [App\Http\Controllers\Admin\AuditsController::class, 'showReport'])->name('reports.show');
         Route::get('/reports/{report}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'editReport'])->name('reports.edit');
