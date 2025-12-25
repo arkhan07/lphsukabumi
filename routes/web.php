@@ -118,42 +118,44 @@ Route::prefix('rekammediselektronik')->name('rekammediselektronik')->group(funct
 
 // End Fitur //
 
-// Layanan //
-Route::prefix('klinik')->name('klinik')->group(function () {
+// Layanan Halal //
+Route::prefix('sertifikasi-halal')->name('sertifikasi-halal')->group(function () {
     Route::get('/', function () {
-        return view('klinik', [
+        return view('sertifikasi-halal', [
             'title' => 'Sertifikasi Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Layanan sertifikasi halal untuk produk makanan, minuman, kosmetik, dan obat-obatan dari LPH Doa Bangsa'
         ]);
     });
 });
 
-Route::prefix('rumah-sakit')->name('rumah-sakit')->group(function () {
+Route::prefix('audit-halal')->name('audit-halal')->group(function () {
     Route::get('/', function () {
-        return view('rumah-sakit', [
+        return view('audit-halal', [
             'title' => 'Audit Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Layanan audit halal komprehensif untuk memastikan proses produksi sesuai standar halal yang ditetapkan'
         ]);
     });
 });
 
-Route::prefix('apotek')->name('apotek')->group(function () {
+Route::prefix('konsultasi-halal')->name('konsultasi-halal')->group(function () {
     Route::get('/', function () {
-        return view('apotek', [
+        return view('konsultasi-halal', [
             'title' => 'Konsultasi Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Konsultasi ahli untuk persiapan sertifikasi halal dan pemahaman persyaratan yang diperlukan'
         ]);
     });
 });
 
-Route::prefix('laboratorium')->name('laboratorium')->group(function () {
+Route::prefix('pelatihan-halal')->name('pelatihan-halal')->group(function () {
     Route::get('/', function () {
-        return view('laboratorium', [
+        return view('pelatihan-halal', [
             'title' => 'Pelatihan Halal - LPH Doa Bangsa Sukabumi',
             'description' => 'Program pelatihan sistem jaminan halal untuk tim internal perusahaan Anda'
         ]);
     });
 });
+
+// End Layanan Halal //
 
 Route::prefix('praktek-dokter')->name('praktek-dokter')->group(function () {
     Route::get('/', function () {
