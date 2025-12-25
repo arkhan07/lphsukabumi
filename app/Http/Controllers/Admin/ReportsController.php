@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Submission;
 use App\Models\Product;
 use App\Models\Invoice;
+use App\Models\InvoicePayment;
 use App\Models\Audit;
 use App\Models\Finding;
 use Illuminate\Http\Request;
@@ -46,13 +47,15 @@ class ReportsController extends Controller
 
         // Certificate statistics
         $certificateStats = [
-            'active' => Product::where('halal_status', 'certified')
+            'active' => Product::where('halal_status', 'halal')
                 ->where('certificate_expiry_date', '>', now())
                 ->count(),
-            'expiring_soon' => Product::where('halal_status', 'certified')
+            'expiring_soon' => Product::where('halal_status', 'halal')
                 ->whereBetween('certificate_expiry_date', [now(), now()->addMonths(3)])
                 ->count(),
-            'expired' => Product::where('halal_status', 'expired')->count(),
+            'expired' => Product::where('halal_status', 'halal')
+                ->where('certificate_expiry_date', '<', now())
+                ->count(),
         ];
 
         // Monthly trend data
@@ -97,7 +100,7 @@ class ReportsController extends Controller
             'total_invoiced' => Invoice::whereBetween('invoice_date', [$startDate, $endDate])
                 ->sum('total_amount'),
             'total_paid' => Invoice::where('status', 'paid')
-                ->whereBetween('paid_at', [$startDate, $endDate])
+                ->whereBetween('fully_paid_at', [$startDate, $endDate])
                 ->sum('total_amount'),
             'total_pending' => Invoice::where('status', 'pending')
                 ->whereBetween('invoice_date', [$startDate, $endDate])
@@ -119,9 +122,9 @@ class ReportsController extends Controller
         ->get();
 
         // Payment method distribution
-        $paymentMethods = Invoice::select('payment_method', DB::raw('COUNT(*) as count'))
-            ->where('status', 'paid')
-            ->whereBetween('paid_at', [$startDate, $endDate])
+        $paymentMethods = InvoicePayment::select('payment_method', DB::raw('COUNT(*) as count'))
+            ->where('status', 'verified')
+            ->whereBetween('payment_date', [$startDate, $endDate])
             ->groupBy('payment_method')
             ->get();
 
@@ -129,7 +132,7 @@ class ReportsController extends Controller
         $topClients = Invoice::select('submissions.company_name', DB::raw('SUM(invoices.total_amount) as total'))
             ->join('submissions', 'invoices.submission_id', '=', 'submissions.id')
             ->where('invoices.status', 'paid')
-            ->whereBetween('invoices.paid_at', [$startDate, $endDate])
+            ->whereBetween('invoices.fully_paid_at', [$startDate, $endDate])
             ->groupBy('submissions.company_name')
             ->orderByDesc('total')
             ->limit(10)
@@ -156,13 +159,13 @@ class ReportsController extends Controller
 
         // Audit statistics
         $auditStats = [
-            'total' => Audit::whereBetween('audit_date', [$startDate, $endDate])->count(),
-            'passed' => Audit::where('audit_result', 'passed')
-                ->whereBetween('audit_date', [$startDate, $endDate])->count(),
-            'conditional' => Audit::where('audit_result', 'conditional')
-                ->whereBetween('audit_date', [$startDate, $endDate])->count(),
-            'failed' => Audit::where('audit_result', 'failed')
-                ->whereBetween('audit_date', [$startDate, $endDate])->count(),
+            'total' => Audit::whereBetween('planned_start_date', [$startDate, $endDate])->count(),
+            'passed' => Audit::where('overall_result', 'passed')
+                ->whereBetween('planned_start_date', [$startDate, $endDate])->count(),
+            'conditional' => Audit::where('overall_result', 'passed_with_conditions')
+                ->whereBetween('planned_start_date', [$startDate, $endDate])->count(),
+            'failed' => Audit::where('overall_result', 'failed')
+                ->whereBetween('planned_start_date', [$startDate, $endDate])->count(),
         ];
 
         // Finding statistics
@@ -178,16 +181,16 @@ class ReportsController extends Controller
         ];
 
         // Average compliance score
-        $avgCompliance = Audit::whereBetween('audit_date', [$startDate, $endDate])
+        $avgCompliance = Audit::whereBetween('planned_start_date', [$startDate, $endDate])
             ->avg('compliance_score');
 
         // Monthly audit trend
         $monthlyAudits = Audit::select(
-            DB::raw('DATE_FORMAT(audit_date, "%Y-%m") as month'),
+            DB::raw('DATE_FORMAT(planned_start_date, "%Y-%m") as month'),
             DB::raw('COUNT(*) as total'),
             DB::raw('AVG(compliance_score) as avg_score')
         )
-        ->whereBetween('audit_date', [$startDate, $endDate])
+        ->whereBetween('planned_start_date', [$startDate, $endDate])
         ->groupBy('month')
         ->orderBy('month')
         ->get();
@@ -198,8 +201,8 @@ class ReportsController extends Controller
             DB::raw('COUNT(*) as total_audits'),
             DB::raw('AVG(audits.compliance_score) as avg_score')
         )
-        ->join('users', 'audits.auditor_id', '=', 'users.id')
-        ->whereBetween('audits.audit_date', [$startDate, $endDate])
+        ->join('users', 'audits.lead_auditor_id', '=', 'users.id')
+        ->whereBetween('audits.planned_start_date', [$startDate, $endDate])
         ->groupBy('users.name')
         ->orderByDesc('total_audits')
         ->get();

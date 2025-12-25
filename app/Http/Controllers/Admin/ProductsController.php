@@ -45,9 +45,9 @@ class ProductsController extends Controller
         // Statistics
         $stats = [
             'total' => Product::count(),
-            'certified' => Product::where('halal_status', 'certified')->count(),
-            'pending' => Product::where('halal_status', 'pending')->count(),
-            'expired' => Product::where('halal_status', 'expired')->count(),
+            'halal' => Product::where('halal_status', 'halal')->count(),
+            'not_halal' => Product::where('halal_status', 'not_halal')->count(),
+            'doubtful' => Product::where('halal_status', 'doubtful')->count(),
         ];
 
         return view('admin.products.index', compact('products', 'productTypes', 'stats'));
@@ -84,7 +84,7 @@ class ProductsController extends Controller
             'halal_certificate_number' => 'nullable|string|max:255',
             'certificate_issue_date' => 'nullable|date',
             'certificate_expiry_date' => 'nullable|date',
-            'halal_status' => 'required|in:pending,certified,expired,rejected',
+            'halal_status' => 'required|in:halal,not_halal,doubtful',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -148,7 +148,7 @@ class ProductsController extends Controller
             'halal_certificate_number' => 'nullable|string|max:255',
             'certificate_issue_date' => 'nullable|date',
             'certificate_expiry_date' => 'nullable|date',
-            'halal_status' => 'required|in:pending,certified,expired,rejected',
+            'halal_status' => 'required|in:halal,not_halal,doubtful',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
