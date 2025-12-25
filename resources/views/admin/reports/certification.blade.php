@@ -8,11 +8,11 @@
             <p class="text-secondary-light mb-0">Laporan statistik dan data sertifikasi halal</p>
         </div>
         <div class="d-flex gap-2">
-            <button class="btn btn-success">
+            <button class="btn btn-success" onclick="exportReport('excel')">
                 <i class="ri-file-excel-2-line me-2"></i>
                 Export Excel
             </button>
-            <button class="btn btn-danger">
+            <button class="btn btn-danger" onclick="exportReport('pdf')">
                 <i class="ri-file-pdf-line me-2"></i>
                 Export PDF
             </button>
@@ -21,22 +21,24 @@
 
     <!-- Date Range Filter -->
     <div class="card-custom mb-4">
-        <div class="row g-3">
-            <div class="col-12 col-md-4">
-                <label for="startDate" class="form-label" style="font-weight: 500;">Tanggal Mulai</label>
-                <input type="date" class="form-control" id="startDate" value="{{ date('Y-m-01') }}">
+        <form method="GET" action="{{ route('admin.reports.certification') }}">
+            <div class="row g-3">
+                <div class="col-12 col-md-4">
+                    <label for="startDate" class="form-label" style="font-weight: 500;">Tanggal Mulai</label>
+                    <input type="date" class="form-control" id="startDate" name="start_date" value="{{ $startDate }}">
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="endDate" class="form-label" style="font-weight: 500;">Tanggal Akhir</label>
+                    <input type="date" class="form-control" id="endDate" name="end_date" value="{{ $endDate }}">
+                </div>
+                <div class="col-12 col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="ri-filter-line me-2"></i>
+                        Filter Data
+                    </button>
+                </div>
             </div>
-            <div class="col-12 col-md-4">
-                <label for="endDate" class="form-label" style="font-weight: 500;">Tanggal Akhir</label>
-                <input type="date" class="form-control" id="endDate" value="{{ date('Y-m-d') }}">
-            </div>
-            <div class="col-12 col-md-4 d-flex align-items-end">
-                <button class="btn btn-primary w-100">
-                    <i class="ri-filter-line me-2"></i>
-                    Filter Data
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 
     <!-- Statistics Cards -->
@@ -48,10 +50,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Total Permohonan</div>
-                    <div class="stat-value">489</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        12% dari periode sebelumnya
+                    <div class="stat-value">{{ $submissionStats['total'] ?? 0 }}</div>
+                    <div class="stat-trend {{ ($submissionStats['total'] ?? 0) > 0 ? 'up' : '' }}">
+                        <i class="ri-calendar-line"></i>
+                        Periode yang dipilih
                     </div>
                 </div>
             </div>
@@ -64,10 +66,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Permohonan Baru</div>
-                    <div class="stat-value">325</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        66% dari total
+                    <div class="stat-value">{{ $submissionStats['new'] ?? 0 }}</div>
+                    <div class="stat-trend">
+                        <i class="ri-percent-line"></i>
+                        {{ $submissionStats['total'] > 0 ? round(($submissionStats['new'] / $submissionStats['total']) * 100, 1) : 0 }}% dari total
                     </div>
                 </div>
             </div>
@@ -80,10 +82,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Perpanjangan</div>
-                    <div class="stat-value">164</div>
-                    <div class="stat-trend down">
-                        <i class="ri-arrow-down-line"></i>
-                        34% dari total
+                    <div class="stat-value">{{ $submissionStats['renewal'] ?? 0 }}</div>
+                    <div class="stat-trend">
+                        <i class="ri-percent-line"></i>
+                        {{ $submissionStats['total'] > 0 ? round(($submissionStats['renewal'] / $submissionStats['total']) * 100, 1) : 0 }}% dari total
                     </div>
                 </div>
             </div>
@@ -96,10 +98,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Disetujui</div>
-                    <div class="stat-value">432</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        88% approval rate
+                    <div class="stat-value">{{ $statusStats['approved'] ?? 0 }}</div>
+                    <div class="stat-trend {{ ($statusStats['approved'] ?? 0) > 0 ? 'up' : '' }}">
+                        <i class="ri-percent-line"></i>
+                        {{ $submissionStats['total'] > 0 ? round(($statusStats['approved'] / $submissionStats['total']) * 100, 1) : 0 }}% approval rate
                     </div>
                 </div>
             </div>
@@ -115,10 +117,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Ditolak</div>
-                    <div class="stat-value">35</div>
-                    <div class="stat-trend down">
-                        <i class="ri-arrow-down-line"></i>
-                        7% rejection rate
+                    <div class="stat-value">{{ $statusStats['rejected'] ?? 0 }}</div>
+                    <div class="stat-trend">
+                        <i class="ri-percent-line"></i>
+                        {{ $submissionStats['total'] > 0 ? round(($statusStats['rejected'] / $submissionStats['total']) * 100, 1) : 0 }}% rejection rate
                     </div>
                 </div>
             </div>
@@ -131,10 +133,10 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Dalam Proses</div>
-                    <div class="stat-value">22</div>
-                    <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
-                        5% sedang diproses
+                    <div class="stat-value">{{ $statusStats['in_progress'] ?? 0 }}</div>
+                    <div class="stat-trend">
+                        <i class="ri-percent-line"></i>
+                        {{ $submissionStats['total'] > 0 ? round(($statusStats['in_progress'] / $submissionStats['total']) * 100, 1) : 0 }}% sedang diproses
                     </div>
                 </div>
             </div>
@@ -146,11 +148,11 @@
                     <i class="ri-timer-line"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-label">Waktu Rata-rata</div>
-                    <div class="stat-value">14 Hari</div>
-                    <div class="stat-trend down">
-                        <i class="ri-arrow-down-line"></i>
-                        3 hari lebih cepat
+                    <div class="stat-label">Selesai</div>
+                    <div class="stat-value">{{ $statusStats['completed'] ?? 0 }}</div>
+                    <div class="stat-trend {{ ($statusStats['completed'] ?? 0) > 0 ? 'up' : '' }}">
+                        <i class="ri-checkbox-line"></i>
+                        Terselesaikan
                     </div>
                 </div>
             </div>
@@ -163,9 +165,9 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Sertifikat Aktif</div>
-                    <div class="stat-value">1,234</div>
+                    <div class="stat-value">{{ $certificateStats['certified'] ?? 0 }}</div>
                     <div class="stat-trend up">
-                        <i class="ri-arrow-up-line"></i>
+                        <i class="ri-shield-check-line"></i>
                         Total keseluruhan
                     </div>
                 </div>
@@ -179,11 +181,6 @@
             <div class="card-custom">
                 <div class="card-header-custom">
                     <h5 class="card-title mb-0">Tren Permohonan Bulanan</h5>
-                    <div class="btn-group btn-group-sm" role="group">
-                        <button type="button" class="btn btn-outline-primary active">6 Bulan</button>
-                        <button type="button" class="btn btn-outline-primary">12 Bulan</button>
-                        <button type="button" class="btn btn-outline-primary">Tahun Ini</button>
-                    </div>
                 </div>
                 <div id="monthlyTrendChart"></div>
             </div>
@@ -204,141 +201,71 @@
         <div class="col-12">
             <div class="card-custom">
                 <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Permohonan Berdasarkan Wilayah</h5>
+                    <h5 class="card-title mb-0">Permohonan Berdasarkan Jenis Usaha</h5>
                 </div>
-                <div id="regionChart"></div>
+                <div id="businessTypeChart"></div>
             </div>
         </div>
     </div>
 
-    <!-- Detailed Table -->
-    <div class="row g-3">
-        <div class="col-12">
+    <!-- Summary Statistics -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
             <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Detail Permohonan Sertifikasi</h5>
-                    <div class="d-flex gap-2">
-                        <input type="search" class="form-control form-control-sm" placeholder="Cari permohonan..." style="width: 250px;">
-                    </div>
+                <h6 class="mb-3" style="font-weight: 600;">Ringkasan Permohonan</h6>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Total:</span>
+                    <strong>{{ $submissionStats['total'] ?? 0 }}</strong>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover data-table">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>No. Permohonan</th>
-                                <th>Pelaku Usaha</th>
-                                <th>Jenis</th>
-                                <th>Status</th>
-                                <th>Tanggal Pengajuan</th>
-                                <th>Tanggal Selesai</th>
-                                <th>Durasi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><strong>#SH2024-156</strong></td>
-                                <td>PT. Halal Jaya Makmur</td>
-                                <td><span class="badge-custom badge-info">Baru</span></td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>20 Des 2024</td>
-                                <td>24 Des 2024</td>
-                                <td>4 hari</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><strong>#SH2024-155</strong></td>
-                                <td>CV. Berkah Selalu</td>
-                                <td><span class="badge-custom badge-warning">Perpanjangan</span></td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>18 Des 2024</td>
-                                <td>22 Des 2024</td>
-                                <td>4 hari</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><strong>#SH2024-154</strong></td>
-                                <td>UD. Maju Bersama</td>
-                                <td><span class="badge-custom badge-info">Baru</span></td>
-                                <td><span class="badge-custom badge-purple">Dalam Proses</span></td>
-                                <td>15 Des 2024</td>
-                                <td>-</td>
-                                <td>9 hari</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><strong>#SH2024-153</strong></td>
-                                <td>PT. Sejahtera Halal</td>
-                                <td><span class="badge-custom badge-warning">Perpanjangan</span></td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>12 Des 2024</td>
-                                <td>20 Des 2024</td>
-                                <td>8 hari</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><strong>#SH2024-152</strong></td>
-                                <td>CV. Barokah Rezeki</td>
-                                <td><span class="badge-custom badge-info">Baru</span></td>
-                                <td><span class="badge-custom badge-danger">Ditolak</span></td>
-                                <td>10 Des 2024</td>
-                                <td>18 Des 2024</td>
-                                <td>8 hari</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><strong>#SH2024-151</strong></td>
-                                <td>UD. Rizki Melimpah</td>
-                                <td><span class="badge-custom badge-info">Baru</span></td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>8 Des 2024</td>
-                                <td>16 Des 2024</td>
-                                <td>8 hari</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td><strong>#SH2024-150</strong></td>
-                                <td>PT. Berkah Usaha</td>
-                                <td><span class="badge-custom badge-warning">Perpanjangan</span></td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>5 Des 2024</td>
-                                <td>14 Des 2024</td>
-                                <td>9 hari</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><strong>#SH2024-149</strong></td>
-                                <td>CV. Amanah Jaya</td>
-                                <td><span class="badge-custom badge-info">Baru</span></td>
-                                <td><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td>3 Des 2024</td>
-                                <td>12 Des 2024</td>
-                                <td>9 hari</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Baru:</span>
+                    <strong class="text-info">{{ $submissionStats['new'] ?? 0 }}</strong>
                 </div>
-                <!-- Pagination -->
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div class="text-secondary-light">
-                        Menampilkan 1 sampai 8 dari 489 permohonan
-                    </div>
-                    <nav>
-                        <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Sebelumnya</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">62</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Selanjutnya</a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Perpanjangan:</span>
+                    <strong class="text-warning">{{ $submissionStats['renewal'] ?? 0 }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-secondary-light">Perubahan:</span>
+                    <strong class="text-primary">{{ $submissionStats['extension'] ?? 0 }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card-custom">
+                <h6 class="mb-3" style="font-weight: 600;">Status Permohonan</h6>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Draft:</span>
+                    <span class="badge bg-secondary">{{ $statusStats['draft'] ?? 0 }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Dalam Proses:</span>
+                    <span class="badge bg-purple">{{ $statusStats['in_progress'] ?? 0 }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Disetujui:</span>
+                    <span class="badge bg-success">{{ $statusStats['approved'] ?? 0 }}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-secondary-light">Ditolak:</span>
+                    <span class="badge bg-danger">{{ $statusStats['rejected'] ?? 0 }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card-custom">
+                <h6 class="mb-3" style="font-weight: 600;">Status Sertifikat</h6>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Tersertifikasi:</span>
+                    <strong class="text-success">{{ $certificateStats['certified'] ?? 0 }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary-light">Pending:</span>
+                    <strong class="text-warning">{{ $certificateStats['pending_certification'] ?? 0 }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-secondary-light">Ditolak:</span>
+                    <strong class="text-danger">{{ $certificateStats['rejected'] ?? 0 }}</strong>
                 </div>
             </div>
         </div>
@@ -346,14 +273,11 @@
 
     @push('scripts')
     <script>
-        // Monthly Trend Chart
+        // Monthly Trend Chart with real data
         var monthlyTrendOptions = {
             series: [{
-                name: 'Baru',
-                data: [45, 52, 48, 65, 58, 72]
-            }, {
-                name: 'Perpanjangan',
-                data: [24, 28, 22, 35, 30, 38]
+                name: 'Permohonan',
+                data: @json($monthlyTrend->pluck('total'))
             }],
             chart: {
                 type: 'line',
@@ -362,7 +286,7 @@
                     show: false
                 }
             },
-            colors: ['#166F61', '#f59e0b'],
+            colors: ['#166F61'],
             dataLabels: {
                 enabled: false
             },
@@ -371,7 +295,7 @@
                 width: 3
             },
             xaxis: {
-                categories: ['Jul 2024', 'Agu 2024', 'Sep 2024', 'Okt 2024', 'Nov 2024', 'Des 2024']
+                categories: @json($monthlyTrend->pluck('month'))
             },
             yaxis: {
                 title: {
@@ -385,15 +309,20 @@
         var monthlyTrendChart = new ApexCharts(document.querySelector("#monthlyTrendChart"), monthlyTrendOptions);
         monthlyTrendChart.render();
 
-        // Status Distribution Chart (Pie)
+        // Status Distribution Chart (Pie) with real data
         var statusDistributionOptions = {
-            series: [432, 35, 22],
+            series: [
+                {{ $statusStats['approved'] ?? 0 }},
+                {{ $statusStats['rejected'] ?? 0 }},
+                {{ $statusStats['in_progress'] ?? 0 }},
+                {{ $statusStats['completed'] ?? 0 }}
+            ],
             chart: {
                 type: 'pie',
                 height: 350
             },
-            labels: ['Disetujui', 'Ditolak', 'Dalam Proses'],
-            colors: ['#10b981', '#ef4444', '#7c3aed'],
+            labels: ['Disetujui', 'Ditolak', 'Dalam Proses', 'Selesai'],
+            colors: ['#10b981', '#ef4444', '#7c3aed', '#166F61'],
             legend: {
                 position: 'bottom'
             },
@@ -412,11 +341,11 @@
         var statusDistributionChart = new ApexCharts(document.querySelector("#statusDistributionChart"), statusDistributionOptions);
         statusDistributionChart.render();
 
-        // Region Chart (Bar)
-        var regionOptions = {
+        // Business Type Chart (Bar) with real data
+        var businessTypeOptions = {
             series: [{
                 name: 'Permohonan',
-                data: [89, 76, 65, 54, 48, 42, 35, 28, 22, 18]
+                data: @json($businessDistribution->pluck('total'))
             }],
             chart: {
                 type: 'bar',
@@ -445,19 +374,27 @@
                 }
             },
             xaxis: {
-                categories: ['Kota Sukabumi', 'Kab. Sukabumi', 'Bogor', 'Cianjur', 'Bandung', 'Garut', 'Tasikmalaya', 'Ciamis', 'Cirebon', 'Jakarta'],
+                categories: @json($businessDistribution->pluck('name')),
                 title: {
                     text: 'Jumlah Permohonan'
                 }
             },
             yaxis: {
                 title: {
-                    text: 'Wilayah'
+                    text: 'Jenis Usaha'
                 }
             }
         };
-        var regionChart = new ApexCharts(document.querySelector("#regionChart"), regionOptions);
-        regionChart.render();
+        var businessTypeChart = new ApexCharts(document.querySelector("#businessTypeChart"), businessTypeOptions);
+        businessTypeChart.render();
+
+        // Export function
+        function exportReport(format) {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const url = `{{ route('admin.reports.certification') }}?export=${format}&start_date=${startDate}&end_date=${endDate}`;
+            window.location.href = url;
+        }
     </script>
     @endpush
 </x-layouts.admin.app>
