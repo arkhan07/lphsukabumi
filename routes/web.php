@@ -281,19 +281,30 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         // Schedule Routes (must come before /{audit})
         Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules');
         Route::post('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'storeSchedule'])->name('schedules.store');
+        Route::get('/schedules/{schedule}', [App\Http\Controllers\Admin\AuditsController::class, 'showSchedule'])->name('schedules.show');
+        Route::get('/schedules/{schedule}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'editSchedule'])->name('schedules.edit');
         Route::put('/schedules/{schedule}', [App\Http\Controllers\Admin\AuditsController::class, 'updateSchedule'])->name('schedules.update');
         Route::post('/schedules/{schedule}/cancel', [App\Http\Controllers\Admin\AuditsController::class, 'cancelSchedule'])->name('schedules.cancel');
+        Route::post('/schedules/{schedule}/complete', [App\Http\Controllers\Admin\AuditsController::class, 'completeSchedule'])->name('schedules.complete');
 
         // Report Routes (must come before /{audit})
         Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports');
         Route::post('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'storeReport'])->name('reports.store');
+        Route::get('/reports/{report}', [App\Http\Controllers\Admin\AuditsController::class, 'showReport'])->name('reports.show');
+        Route::get('/reports/{report}/edit', [App\Http\Controllers\Admin\AuditsController::class, 'editReport'])->name('reports.edit');
+        Route::put('/reports/{report}', [App\Http\Controllers\Admin\AuditsController::class, 'updateReport'])->name('reports.update');
+        Route::get('/reports/{report}/download', [App\Http\Controllers\Admin\AuditsController::class, 'downloadReport'])->name('reports.download');
+        Route::post('/reports/{report}/approve', [App\Http\Controllers\Admin\AuditsController::class, 'approveReport'])->name('reports.approve');
 
         // Finding Routes (must come before /{audit})
         Route::get('/findings', [App\Http\Controllers\Admin\AuditsController::class, 'findings'])->name('findings');
+        Route::get('/findings/create', [App\Http\Controllers\Admin\AuditsController::class, 'createFinding'])->name('findings.create');
         Route::post('/findings', [App\Http\Controllers\Admin\AuditsController::class, 'storeFinding'])->name('findings.store');
+        Route::get('/findings/{finding}', [App\Http\Controllers\Admin\AuditsController::class, 'showFinding'])->name('findings.show');
         Route::put('/findings/{finding}', [App\Http\Controllers\Admin\AuditsController::class, 'updateFinding'])->name('findings.update');
         Route::post('/findings/{finding}/resolve', [App\Http\Controllers\Admin\AuditsController::class, 'resolveFinding'])->name('findings.resolve');
         Route::post('/findings/{finding}/verify', [App\Http\Controllers\Admin\AuditsController::class, 'verifyFinding'])->name('findings.verify');
+        Route::post('/findings/{finding}/close', [App\Http\Controllers\Admin\AuditsController::class, 'closeFinding'])->name('findings.close');
 
         // Audit Resource Routes with wildcard (must come last)
         Route::get('/{audit}', [App\Http\Controllers\Admin\AuditsController::class, 'show'])->name('show');

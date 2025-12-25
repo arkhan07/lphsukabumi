@@ -661,4 +661,157 @@ class AuditsController extends Controller
 
         return back()->with('success', 'Temuan berhasil diverifikasi');
     }
+
+    /**
+     * Close finding
+     */
+    public function closeFinding(Finding $finding)
+    {
+        $finding->update([
+            'status' => 'closed',
+            'action_status' => 'closed',
+        ]);
+
+        return back()->with('success', 'Temuan berhasil ditutup');
+    }
+
+    /**
+     * Show create finding form
+     */
+    public function createFinding(Request $request)
+    {
+        $audits = Audit::with('submission')->whereIn('status', ['in_progress', 'completed'])->get();
+        $submissions = Submission::all();
+        $auditors = User::whereHas('roles', function($q) {
+            $q->where('name', 'auditor_halal');
+        })->get();
+
+        return view('admin.audits.create-finding', compact('audits', 'submissions', 'auditors'));
+    }
+
+    /**
+     * Show individual finding
+     */
+    public function showFinding(Finding $finding)
+    {
+        $finding->load(['audit', 'submission', 'auditor', 'responsiblePerson', 'verifiedBy']);
+        return view('admin.audits.show-finding', compact('finding'));
+    }
+
+    /**
+     * Show individual schedule
+     */
+    public function showSchedule(Schedule $schedule)
+    {
+        $schedule->load(['submission', 'assignment', 'createdBy', 'confirmedBy']);
+        return view('admin.audits.show-schedule', compact('schedule'));
+    }
+
+    /**
+     * Show edit schedule form
+     */
+    public function editSchedule(Schedule $schedule)
+    {
+        return response()->json($schedule);
+    }
+
+    /**
+     * Complete schedule
+     */
+    public function completeSchedule(Request $request, Schedule $schedule)
+    {
+        $validated = $request->validate([
+            'completion_notes' => 'nullable|string',
+        ]);
+
+        $schedule->update([
+            'status' => 'completed',
+            'actual_end_time' => now(),
+            'completion_notes' => $validated['completion_notes'] ?? null,
+        ]);
+
+        return back()->with('success', 'Jadwal audit berhasil diselesaikan');
+    }
+
+    /**
+     * Show individual report
+     */
+    public function showReport(Report $report)
+    {
+        $report->load(['audit', 'submission', 'preparedBy', 'reviewedBy', 'approvedBy', 'findings']);
+        return view('admin.audits.show-report', compact('report'));
+    }
+
+    /**
+     * Show edit report form
+     */
+    public function editReport(Report $report)
+    {
+        $audits = Audit::with('submission')->get();
+        $submissions = Submission::all();
+        return view('admin.audits.edit-report', compact('report', 'audits', 'submissions'));
+    }
+
+    /**
+     * Update report
+     */
+    public function updateReport(Request $request, Report $report)
+    {
+        $validated = $request->validate([
+            'report_title' => 'required|string|max:255',
+            'executive_summary' => 'nullable|string',
+            'audit_scope' => 'required|string',
+            'audit_objectives' => 'nullable|array',
+            'audit_criteria' => 'nullable|array',
+            'audit_methodology' => 'nullable|array',
+            'total_findings' => 'nullable|integer|min:0',
+            'critical_findings' => 'nullable|integer|min:0',
+            'major_findings' => 'nullable|integer|min:0',
+            'minor_findings' => 'nullable|integer|min:0',
+            'observations' => 'nullable|integer|min:0',
+            'findings_summary' => 'nullable|string',
+            'overall_result' => 'required|in:recommend_certification,recommend_with_conditions,not_recommend,need_re_audit',
+            'audit_conclusion' => 'required|string',
+            'strengths' => 'nullable|string',
+            'weaknesses' => 'nullable|string',
+            'recommendations' => 'nullable|string',
+            'halal_compliance_score' => 'nullable|integer|min:0|max:100',
+            'halal_compliance_level' => 'nullable|in:excellent,good,satisfactory,needs_improvement,not_compliant',
+            'status' => 'required|in:draft,submitted,under_review,revision_required,approved,rejected,finalized',
+        ]);
+
+        $validated['updated_by'] = auth()->id();
+        $report->update($validated);
+
+        return redirect()->route('admin.audits.reports.show', $report)
+            ->with('success', 'Laporan audit berhasil diperbarui');
+    }
+
+    /**
+     * Download report as PDF
+     */
+    public function downloadReport(Report $report)
+    {
+        // TODO: Implement PDF generation
+        return back()->with('info', 'Fitur download PDF sedang dalam pengembangan');
+    }
+
+    /**
+     * Approve report
+     */
+    public function approveReport(Request $request, Report $report)
+    {
+        $validated = $request->validate([
+            'approval_notes' => 'nullable|string',
+        ]);
+
+        $report->update([
+            'status' => 'approved',
+            'approved_by' => auth()->id(),
+            'approved_at' => now(),
+            'approval_notes' => $validated['approval_notes'] ?? null,
+        ]);
+
+        return back()->with('success', 'Laporan audit berhasil disetujui');
+    }
 }
