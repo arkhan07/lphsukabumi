@@ -25,14 +25,14 @@ class DashboardController extends Controller
             'total_submissions' => Submission::count(),
             'pending_submissions' => Submission::whereIn('status', ['submitted', 'screening', 'verification'])->count(),
             'total_products' => Product::count(),
-            'certified_products' => Product::where('halal_status', 'certified')->count(),
+            'certified_products' => Product::where('halal_status', 'halal')->count(),
             'total_users' => User::count(),
             'total_auditors' => User::whereHas('roles', function($q) {
-                $q->where('name', 'auditor_halal');
+                $q->where('slug', 'auditor_halal');
             })->count(),
-            'pending_invoices' => Invoice::where('status', 'pending')->count(),
+            'pending_invoices' => Invoice::where('status', 'sent')->count(),
             'total_revenue' => Invoice::where('status', 'paid')->sum('total_amount'),
-            'pending_documents' => Document::where('verification_status', 'pending')->count(),
+            'pending_documents' => Document::where('status', 'pending_review')->count(),
             'total_audits' => Audit::count(),
         ];
 
@@ -42,9 +42,9 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        // Recent audits
-        $recent_audits = Audit::with(['submission', 'auditor'])
-            ->latest('audit_date')
+        // Recent audits (check if any exist)
+        $recent_audits = Audit::with(['submission', 'leadAuditor'])
+            ->latest('created_at')
             ->limit(5)
             ->get();
 
