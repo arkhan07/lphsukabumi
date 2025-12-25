@@ -41,6 +41,7 @@ class CreateProductsTable extends Migration
 
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index('submission_id');
         });

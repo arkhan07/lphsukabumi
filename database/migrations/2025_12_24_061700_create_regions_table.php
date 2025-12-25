@@ -21,6 +21,7 @@ class CreateRegionsTable extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('regions')->nullOnDelete();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index('type');
             $table->index('parent_id');
