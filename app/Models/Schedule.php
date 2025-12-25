@@ -13,33 +13,52 @@ class Schedule extends Model
     protected $fillable = [
         'assignment_id',
         'submission_id',
-        'auditor_id',
-        'scheduled_date',
-        'scheduled_time',
-        'duration_hours',
+        'created_by',
+        'title',
+        'description',
+        'activity_type',
+        'schedule_date',
+        'start_time',
+        'end_time',
+        'duration_minutes',
         'location',
         'location_address',
-        'location_latitude',
-        'location_longitude',
-        'audit_type',
+        'meeting_room',
+        'auditor_ids',
+        'auditee_ids',
+        'external_participants',
+        'agenda_items',
+        'objectives',
+        'preparation_needed',
         'status',
-        'notes',
-        'confirmation_status',
-        'confirmed_by',
-        'confirmed_at',
-        'started_at',
-        'completed_at',
         'cancellation_reason',
-        'cancelled_by',
-        'cancelled_at',
+        'rescheduled_from_id',
+        'reschedule_count',
+        'reschedule_reason',
+        'is_confirmed',
+        'confirmed_at',
+        'confirmed_by',
+        'send_reminder',
+        'reminder_hours_before',
+        'reminder_sent',
+        'reminder_sent_at',
+        'actual_start_time',
+        'actual_end_time',
+        'completion_notes',
     ];
 
     protected $casts = [
-        'scheduled_date' => 'date',
+        'schedule_date' => 'date',
+        'auditor_ids' => 'array',
+        'auditee_ids' => 'array',
+        'agenda_items' => 'array',
+        'is_confirmed' => 'boolean',
         'confirmed_at' => 'datetime',
-        'started_at' => 'datetime',
-        'completed_at' => 'datetime',
-        'cancelled_at' => 'datetime',
+        'send_reminder' => 'boolean',
+        'reminder_sent' => 'boolean',
+        'reminder_sent_at' => 'datetime',
+        'actual_start_time' => 'datetime',
+        'actual_end_time' => 'datetime',
     ];
 
     public function submission()
@@ -47,9 +66,29 @@ class Schedule extends Model
         return $this->belongsTo(Submission::class);
     }
 
-    public function auditor()
+    public function assignment()
     {
-        return $this->belongsTo(User::class, 'auditor_id');
+        return $this->belongsTo(Assignment::class);
+    }
+
+    public function auditors()
+    {
+        return $this->belongsToMany(User::class, 'auditor_ids');
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function confirmedBy()
+    {
+        return $this->belongsTo(User::class, 'confirmed_by');
+    }
+
+    public function rescheduledFrom()
+    {
+        return $this->belongsTo(Schedule::class, 'rescheduled_from_id');
     }
 
     public function audit()
