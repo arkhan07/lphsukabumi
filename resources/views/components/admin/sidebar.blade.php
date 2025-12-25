@@ -50,7 +50,7 @@
                 <i class="ri-arrow-down-s-line ms-auto"></i>
             </a>
             <ul class="sidebar-submenu collapse" id="auditMenu">
-                <li><a href="{{ route('admin.audits.schedule') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
+                <li><a href="{{ route('admin.audits.schedules') }}" class="sidebar-submenu-link">Jadwal Audit</a></li>
                 <li><a href="{{ route('admin.audits.reports') }}" class="sidebar-submenu-link">Laporan Audit</a></li>
                 <li><a href="{{ route('admin.audits.findings') }}" class="sidebar-submenu-link">Temuan Audit</a></li>
             </ul>
@@ -79,8 +79,8 @@
             </a>
             <ul class="sidebar-submenu collapse" id="documentMenu">
                 <li><a href="{{ route('admin.documents.index') }}" class="sidebar-submenu-link">Daftar Dokumen</a></li>
-                <li><a href="{{ route('admin.documents.upload') }}" class="sidebar-submenu-link">Upload Dokumen</a></li>
-                <li><a href="{{ route('admin.documents.verify') }}" class="sidebar-submenu-link">Verifikasi Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.create') }}" class="sidebar-submenu-link">Upload Dokumen</a></li>
+                <li><a href="{{ route('admin.documents.index') }}?verification_status=pending" class="sidebar-submenu-link">Verifikasi Dokumen</a></li>
             </ul>
         </li>
 
