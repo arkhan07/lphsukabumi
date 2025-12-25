@@ -96,10 +96,10 @@ class FinanceController extends Controller
             $validated['discount_amount'] = $validated['discount_amount'] ?? 0;
             $validated['total_amount'] = $validated['subtotal'] + $validated['tax_amount'] - $validated['discount_amount'];
             $validated['paid_amount'] = 0;
-            $validated['remaining_amount'] = $validated['total_amount'];
-            $validated['status'] = 'pending';
-            $validated['issued_by'] = auth()->id();
-            $validated['issued_at'] = now();
+            $validated['outstanding_amount'] = $validated['total_amount'];
+            $validated['status'] = 'draft';
+            $validated['user_id'] = Submission::find($validated['submission_id'])->user_id;
+            $validated['created_by'] = auth()->id();
 
             $invoice = Invoice::create($validated);
 
@@ -155,12 +155,12 @@ class FinanceController extends Controller
             'invoice_id' => 'required|exists:invoices,id',
             'payment_date' => 'required|date',
             'amount' => 'required|numeric|min:0',
-            'payment_method' => 'required|in:bank_transfer,cash,check,online',
+            'payment_method' => 'required|in:bank_transfer,cash,check,credit_card,virtual_account,e_wallet,other',
             'payment_proof' => 'required|image|mimes:jpeg,png,jpg,pdf|max:2048',
             'bank_name' => 'nullable|string',
             'account_number' => 'nullable|string',
-            'account_name' => 'nullable|string',
-            'transaction_reference' => 'nullable|string',
+            'account_holder_name' => 'nullable|string',
+            'transfer_reference_number' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
 
@@ -168,7 +168,8 @@ class FinanceController extends Controller
         try {
             // Upload payment proof
             if ($request->hasFile('payment_proof')) {
-                $validated['payment_proof'] = $request->file('payment_proof')->store('payments', 'public');
+                $validated['payment_proof_path'] = $request->file('payment_proof')->store('payments', 'public');
+                unset($validated['payment_proof']);
             }
 
             // Generate payment number
@@ -177,6 +178,7 @@ class FinanceController extends Controller
             $validated['payment_number'] = 'PAY-' . date('Ym') . '-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
 
             $validated['status'] = 'pending';
+            $validated['user_id'] = auth()->id();
             $payment = InvoicePayment::create($validated);
 
             DB::commit();
@@ -209,13 +211,13 @@ class FinanceController extends Controller
             // Update invoice
             $invoice = $payment->invoice;
             $invoice->paid_amount += $payment->amount;
-            $invoice->remaining_amount = $invoice->total_amount - $invoice->paid_amount;
+            $invoice->outstanding_amount = $invoice->total_amount - $invoice->paid_amount;
 
-            if ($invoice->remaining_amount <= 0) {
+            if ($invoice->outstanding_amount <= 0) {
                 $invoice->status = 'paid';
-                $invoice->paid_at = now();
+                $invoice->fully_paid_at = now();
             } else {
-                $invoice->status = 'partial';
+                $invoice->status = 'partial_payment';
             }
 
             $invoice->save();

@@ -24,8 +24,8 @@ class DocumentsController extends Controller
         }
 
         // Filter by verification status
-        if ($request->filled('verification_status')) {
-            $query->where('verification_status', $request->verification_status);
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
         }
 
         // Search
@@ -42,9 +42,9 @@ class DocumentsController extends Controller
         // Statistics
         $stats = [
             'total' => Document::count(),
-            'pending' => Document::where('verification_status', 'pending')->count(),
-            'verified' => Document::where('verification_status', 'verified')->count(),
-            'rejected' => Document::where('verification_status', 'rejected')->count(),
+            'pending' => Document::where('status', 'pending_review')->count(),
+            'approved' => Document::where('status', 'approved')->count(),
+            'rejected' => Document::where('status', 'rejected')->count(),
         ];
 
         return view('admin.documents.index', compact('documents', 'stats'));
@@ -87,10 +87,13 @@ class DocumentsController extends Controller
                 $validated['mime_type'] = $file->getMimeType();
             }
 
-            $validated['user_id'] = auth()->id();
-            $validated['verification_status'] = 'pending';
+            $validated['uploaded_by'] = auth()->id();
+            $validated['status'] = 'pending_review';
             $validated['is_required'] = $validated['is_required'] ?? false;
             $validated['version'] = 1;
+            $validated['is_latest_version'] = true;
+            $validated['document_category'] = 'general';
+            $validated['file_extension'] = $file->getClientOriginalExtension();
 
             $document = Document::create($validated);
 

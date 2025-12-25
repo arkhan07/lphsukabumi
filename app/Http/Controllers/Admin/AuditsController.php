@@ -18,7 +18,7 @@ class AuditsController extends Controller
      */
     public function schedules(Request $request)
     {
-        $query = Schedule::with(['submission', 'auditor']);
+        $query = Schedule::with(['submission', 'assignment']);
 
         // Filter by status
         if ($request->filled('status')) {
@@ -27,13 +27,13 @@ class AuditsController extends Controller
 
         // Filter by date range
         if ($request->filled('start_date')) {
-            $query->whereDate('scheduled_date', '>=', $request->start_date);
+            $query->whereDate('schedule_date', '>=', $request->start_date);
         }
         if ($request->filled('end_date')) {
-            $query->whereDate('scheduled_date', '<=', $request->end_date);
+            $query->whereDate('schedule_date', '<=', $request->end_date);
         }
 
-        $schedules = $query->latest('scheduled_date')->paginate(15);
+        $schedules = $query->latest('schedule_date')->paginate(15);
 
         $auditors = User::whereHas('roles', function($q) {
             $q->where('name', 'auditor_halal');
@@ -58,20 +58,24 @@ class AuditsController extends Controller
     public function storeSchedule(Request $request)
     {
         $validated = $request->validate([
+            'assignment_id' => 'required|exists:assignments,id',
             'submission_id' => 'required|exists:submissions,id',
-            'auditor_id' => 'required|exists:users,id',
-            'scheduled_date' => 'required|date',
-            'scheduled_time' => 'required',
-            'duration_hours' => 'nullable|integer|min:1',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'schedule_date' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'required',
             'location' => 'nullable|string',
             'location_address' => 'nullable|string',
-            'audit_type' => 'required|in:on_site,desk_review,hybrid',
-            'notes' => 'nullable|string',
+            'activity_type' => 'required|in:opening_meeting,document_review,facility_tour,interview,observation,sampling,testing,closing_meeting,other',
+            'auditor_ids' => 'nullable|array',
+            'objectives' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
         try {
             $validated['status'] = 'scheduled';
+            $validated['created_by'] = auth()->id();
             $schedule = Schedule::create($validated);
 
             // Update submission status
@@ -96,13 +100,16 @@ class AuditsController extends Controller
     public function updateSchedule(Request $request, Schedule $schedule)
     {
         $validated = $request->validate([
-            'scheduled_date' => 'required|date',
-            'scheduled_time' => 'required',
-            'duration_hours' => 'nullable|integer|min:1',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'schedule_date' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'required',
             'location' => 'nullable|string',
             'location_address' => 'nullable|string',
-            'audit_type' => 'required|in:on_site,desk_review,hybrid',
-            'notes' => 'nullable|string',
+            'activity_type' => 'required|in:opening_meeting,document_review,facility_tour,interview,observation,sampling,testing,closing_meeting,other',
+            'auditor_ids' => 'nullable|array',
+            'objectives' => 'nullable|string',
         ]);
 
         $schedule->update($validated);
@@ -134,7 +141,7 @@ class AuditsController extends Controller
      */
     public function reports(Request $request)
     {
-        $query = Audit::with(['submission', 'auditor', 'report']);
+        $query = Audit::with(['submission', 'leadAuditor', 'assignment']);
 
         // Filter by status
         if ($request->filled('status')) {
@@ -142,26 +149,26 @@ class AuditsController extends Controller
         }
 
         // Filter by audit result
-        if ($request->filled('audit_result')) {
-            $query->where('audit_result', $request->audit_result);
+        if ($request->filled('overall_result')) {
+            $query->where('overall_result', $request->overall_result);
         }
 
         // Date range filter
         if ($request->filled('start_date')) {
-            $query->whereDate('audit_date', '>=', $request->start_date);
+            $query->whereDate('planned_start_date', '>=', $request->start_date);
         }
         if ($request->filled('end_date')) {
-            $query->whereDate('audit_date', '<=', $request->end_date);
+            $query->whereDate('planned_start_date', '<=', $request->end_date);
         }
 
-        $audits = $query->latest('audit_date')->paginate(15);
+        $audits = $query->latest('planned_start_date')->paginate(15);
 
         // Statistics
         $stats = [
             'total' => Audit::count(),
-            'passed' => Audit::where('audit_result', 'passed')->count(),
-            'conditional' => Audit::where('audit_result', 'conditional')->count(),
-            'failed' => Audit::where('audit_result', 'failed')->count(),
+            'passed' => Audit::where('overall_result', 'passed')->count(),
+            'conditional' => Audit::where('overall_result', 'passed_with_conditions')->count(),
+            'failed' => Audit::where('overall_result', 'failed')->count(),
         ];
 
         return view('admin.audits.reports', compact('audits', 'stats'));
@@ -173,25 +180,33 @@ class AuditsController extends Controller
     public function storeReport(Request $request)
     {
         $validated = $request->validate([
-            'schedule_id' => 'required|exists:schedules,id',
+            'assignment_id' => 'required|exists:assignments,id',
             'submission_id' => 'required|exists:submissions,id',
-            'auditor_id' => 'required|exists:users,id',
-            'audit_date' => 'required|date',
-            'audit_start_time' => 'nullable',
-            'audit_end_time' => 'nullable',
-            'location' => 'nullable|string',
-            'audit_type' => 'required|in:on_site,desk_review,hybrid',
-            'audit_scope' => 'nullable|string',
-            'audit_result' => 'required|in:passed,conditional,failed',
-            'compliance_score' => 'nullable|numeric|min:0|max:100',
+            'lead_auditor_id' => 'required|exists:users,id',
+            'audit_type' => 'required|in:stage_1,stage_2,surveillance,re_certification,special',
+            'audit_scope' => 'required|string',
+            'planned_start_date' => 'required|date',
+            'planned_end_date' => 'required|date',
+            'actual_start_date' => 'nullable|date',
+            'actual_end_date' => 'nullable|date',
+            'audit_days' => 'nullable|integer|min:1',
+            'overall_result' => 'required|in:pending,passed,passed_with_conditions,failed,need_re_audit',
+            'audit_conclusion' => 'nullable|string',
             'recommendations' => 'nullable|string',
-            'conclusion' => 'nullable|string',
-            'next_steps' => 'nullable|string',
+            'total_findings' => 'nullable|integer|min:0',
+            'critical_findings' => 'nullable|integer|min:0',
+            'major_findings' => 'nullable|integer|min:0',
+            'minor_findings' => 'nullable|integer|min:0',
         ]);
 
         DB::beginTransaction();
         try {
-            $validated['status'] = 'submitted';
+            // Generate audit number
+            $lastAudit = Audit::latest('id')->first();
+            $nextNumber = $lastAudit ? (intval(substr($lastAudit->audit_number, -5)) + 1) : 1;
+            $validated['audit_number'] = 'AUD-' . date('Ym') . '-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+
+            $validated['status'] = 'completed';
             $audit = Audit::create($validated);
 
             // Update submission status
@@ -199,13 +214,6 @@ class AuditsController extends Controller
             $submission->update([
                 'status' => 'audit_completed',
                 'audit_completed_at' => now(),
-            ]);
-
-            // Update schedule status
-            $schedule = Schedule::find($validated['schedule_id']);
-            $schedule->update([
-                'status' => 'completed',
-                'completed_at' => now(),
             ]);
 
             DB::commit();
