@@ -15,6 +15,35 @@
             </a>
         </li>
 
+        @if(auth()->user()->hasRole('auditor_halal'))
+        <!-- Auditor Menu -->
+        <!-- Jadwal Audit -->
+        <li class="sidebar-menu-item">
+            <a href="{{ route('auditor.schedules') }}" class="sidebar-menu-link {{ request()->routeIs('auditor.schedules*') ? 'active' : '' }}">
+                <i class="ri-calendar-check-line"></i>
+                <span>Jadwal Audit Saya</span>
+            </a>
+        </li>
+
+        <!-- Laporan Audit -->
+        <li class="sidebar-menu-item">
+            <a href="{{ route('auditor.reports') }}" class="sidebar-menu-link {{ request()->routeIs('auditor.reports*') ? 'active' : '' }}">
+                <i class="ri-file-list-3-line"></i>
+                <span>Laporan Audit</span>
+            </a>
+        </li>
+
+        <!-- Temuan Audit -->
+        <li class="sidebar-menu-item">
+            <a href="{{ route('auditor.findings') }}" class="sidebar-menu-link {{ request()->routeIs('auditor.findings*') ? 'active' : '' }}">
+                <i class="ri-file-search-line"></i>
+                <span>Temuan Audit</span>
+            </a>
+        </li>
+
+        @elseif(auth()->user()->hasRole('admin_lph'))
+        <!-- Admin LPH Menu -->
+
         <!-- Permohonan -->
         <li class="sidebar-menu-item">
             <a href="#" class="sidebar-menu-link" data-bs-toggle="collapse" data-bs-target="#submissionMenu">
@@ -141,5 +170,6 @@
                 <span>Bantuan</span>
             </a>
         </li>
+        @endif
     </ul>
 </aside>

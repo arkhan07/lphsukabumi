@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::get('/whatsapp', [HomeController::class, 'whatsapp'])->name('whatsapp');
 Route::get('/sectionbahasa', [MultiBahasaController::class, 'index'])->name('sectionbahasa');
 
-Route::prefix('fitur')->name('fitur')->group(function () {
+Route::prefix('tentang')->name('tentang')->group(function () {
     Route::get('/', function () {
         return view('fitur', [
             "title" => "Tentang LPH Doa Bangsa - Lembaga Pemeriksa Halal Sukabumi",
@@ -409,6 +409,28 @@ Route::middleware(['auth', 'role:manajer_teknis'])->prefix('manajer-teknis')->na
 // Auditor Halal Routes
 Route::middleware(['auth', 'role:auditor_halal'])->prefix('auditor')->name('auditor.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Auditor\DashboardController::class, 'index'])->name('dashboard');
+
+    // Jadwal Audit
+    Route::get('/schedules', [App\Http\Controllers\Auditor\DashboardController::class, 'schedules'])->name('schedules');
+    Route::get('/schedules/{schedule}', [App\Http\Controllers\Auditor\DashboardController::class, 'showSchedule'])->name('schedules.show');
+    Route::post('/schedules/{schedule}/start', [App\Http\Controllers\Auditor\DashboardController::class, 'startAudit'])->name('schedules.start');
+    Route::post('/schedules/{schedule}/complete', [App\Http\Controllers\Auditor\DashboardController::class, 'completeAudit'])->name('schedules.complete');
+
+    // Laporan Audit
+    Route::get('/reports', [App\Http\Controllers\Auditor\DashboardController::class, 'reports'])->name('reports');
+    Route::get('/reports/create', [App\Http\Controllers\Auditor\DashboardController::class, 'createReport'])->name('reports.create');
+    Route::post('/reports', [App\Http\Controllers\Auditor\DashboardController::class, 'storeReport'])->name('reports.store');
+    Route::get('/reports/{report}', [App\Http\Controllers\Auditor\DashboardController::class, 'showReport'])->name('reports.show');
+    Route::get('/reports/{report}/edit', [App\Http\Controllers\Auditor\DashboardController::class, 'editReport'])->name('reports.edit');
+    Route::put('/reports/{report}', [App\Http\Controllers\Auditor\DashboardController::class, 'updateReport'])->name('reports.update');
+    Route::post('/reports/{report}/submit', [App\Http\Controllers\Auditor\DashboardController::class, 'submitReport'])->name('reports.submit');
+
+    // Temuan Audit
+    Route::get('/findings', [App\Http\Controllers\Auditor\DashboardController::class, 'findings'])->name('findings');
+    Route::get('/findings/create', [App\Http\Controllers\Auditor\DashboardController::class, 'createFinding'])->name('findings.create');
+    Route::post('/findings', [App\Http\Controllers\Auditor\DashboardController::class, 'storeFinding'])->name('findings.store');
+    Route::get('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFinding'])->name('findings.show');
+    Route::put('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'updateFinding'])->name('findings.update');
 });
 
 require __DIR__.'/auth.php';
