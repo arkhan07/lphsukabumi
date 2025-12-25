@@ -20,7 +20,7 @@
             <div class="w-[180px] mx-auto">
                 <h1 class="text-2xl">Perusahaan</h1>
                 <ul class="flex flex-col gap-2 font-normal mt-5">
-                    <li><a href="{{ route('fitur') }}" class="hover:underline">Tentang Kami</a></li>
+                    <li><a href="{{ route('tentang') }}" class="hover:underline">Tentang Kami</a></li>
                     <li><a href="{{ route('mitra') }}" class="hover:underline">Mitra</a></li>
                     <li><a href="{{ route('artikel') }}" class="hover:underline">Artikel</a></li>
                     <li><a href="{{ route('ketentuan') }}" class="hover:underline">Syarat & Ketentuan</a></li>

@@ -56,7 +56,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="{{ route('fitur') }}"
+                    <a href="{{ route('tentang') }}"
                         class="block py-2 px-2 text-darkteal hover:bg-darkteal hover:text-white rounded">Tentang</a>
                 </li>
                 <li>
@@ -69,9 +69,15 @@
                 </li>
                 @auth
                 <li>
-                    <a href="{{ route('dashboard') }}"
-                        class="bg-darkteal py-2 px-7 font-medium text-white text-center transform hover:scale-110 duration-150 rounded-md">
-                        Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="flex items-center gap-2" title="{{ auth()->user()->name }}">
+                        <div class="w-10 h-10 rounded-full bg-darkteal flex items-center justify-center text-white font-semibold overflow-hidden">
+                            @if(auth()->user()->avatar)
+                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
+                            @else
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            @endif
+                        </div>
+                    </a>
                 </li>
                 @else
                 <li>

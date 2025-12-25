@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::get('/whatsapp', [HomeController::class, 'whatsapp'])->name('whatsapp');
 Route::get('/sectionbahasa', [MultiBahasaController::class, 'index'])->name('sectionbahasa');
 
-Route::prefix('fitur')->name('fitur')->group(function () {
+Route::prefix('tentang')->name('tentang')->group(function () {
     Route::get('/', function () {
         return view('fitur', [
             "title" => "Tentang LPH Doa Bangsa - Lembaga Pemeriksa Halal Sukabumi",
