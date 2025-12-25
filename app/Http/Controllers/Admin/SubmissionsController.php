@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\DB;
 
 class SubmissionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:view_submissions')->only(['index', 'show']);
+        $this->middleware('permission:create_submissions')->only(['create', 'store']);
+        $this->middleware('permission:edit_submissions')->only(['edit', 'update']);
+        $this->middleware('permission:delete_submissions')->only('destroy');
+        $this->middleware('permission:manage_submissions')->only(['submit', 'approve', 'reject', 'updateStatus']);
+    }
+
     /**
      * Display a listing of submissions
      */
@@ -90,10 +100,13 @@ class SubmissionsController extends Controller
             'business_type_id' => 'nullable|exists:business_types,id',
             'npwp' => 'nullable|string|max:50',
             'nib' => 'nullable|string|max:50',
+            'halal_certificate_number' => 'nullable|string|max:100',
             'certification_type' => 'required|in:new,renewal,extension',
             'submission_date' => 'nullable|date',
             'target_completion_date' => 'nullable|date',
             'production_location' => 'nullable|string',
+            'location_latitude' => 'nullable|numeric|between:-90,90',
+            'location_longitude' => 'nullable|numeric|between:-180,180',
             'employee_count' => 'nullable|integer|min:0',
             'production_capacity' => 'nullable|numeric|min:0',
             'production_capacity_unit' => 'nullable|string|max:50',
@@ -160,19 +173,30 @@ class SubmissionsController extends Controller
             'business_type_id' => 'nullable|exists:business_types,id',
             'npwp' => 'nullable|string|max:50',
             'nib' => 'nullable|string|max:50',
+            'halal_certificate_number' => 'nullable|string|max:100',
             'certification_type' => 'required|in:new,renewal,extension',
             'target_completion_date' => 'nullable|date',
             'production_location' => 'nullable|string',
+            'location_latitude' => 'nullable|numeric|between:-90,90',
+            'location_longitude' => 'nullable|numeric|between:-180,180',
             'employee_count' => 'nullable|integer|min:0',
             'production_capacity' => 'nullable|numeric|min:0',
             'production_capacity_unit' => 'nullable|string|max:50',
             'notes' => 'nullable|string',
         ]);
 
-        $submission->update($validated);
+        DB::beginTransaction();
+        try {
+            $submission->update($validated);
 
-        return redirect()->route('admin.submissions.show', $submission)
-                       ->with('success', 'Permohonan berhasil diperbarui');
+            DB::commit();
+
+            return redirect()->route('admin.submissions.show', $submission)
+                           ->with('success', 'Permohonan berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Gagal memperbarui permohonan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -184,10 +208,18 @@ class SubmissionsController extends Controller
             return back()->with('error', 'Hanya permohonan draft yang dapat dihapus');
         }
 
-        $submission->delete();
+        DB::beginTransaction();
+        try {
+            $submission->delete();
 
-        return redirect()->route('admin.submissions.index')
-                       ->with('success', 'Permohonan berhasil dihapus');
+            DB::commit();
+
+            return redirect()->route('admin.submissions.index')
+                           ->with('success', 'Permohonan berhasil dihapus');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal menghapus permohonan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -196,7 +228,7 @@ class SubmissionsController extends Controller
     public function updateStatus(Request $request, Submission $submission)
     {
         $validated = $request->validate([
-            'status' => 'required|string',
+            'status' => 'required|in:draft,submitted,screening,screening_approved,screening_rejected,verification,verification_approved,verification_revision,ready_for_assignment,assigned,scheduled,audit_in_progress,audit_completed,report_submitted,report_accepted,report_revision,submitted_to_fatwa,submitted_to_bpjph,approved,rejected,cancelled,completed',
             'rejection_reason' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
@@ -233,6 +265,12 @@ class SubmissionsController extends Controller
                 case 'report_submitted':
                     $submission->report_submitted_at = now();
                     break;
+                case 'submitted_to_fatwa':
+                    $submission->submitted_to_fatwa_at = now();
+                    break;
+                case 'submitted_to_bpjph':
+                    $submission->submitted_to_bpjph_at = now();
+                    break;
                 case 'approved':
                     $submission->approved_at = now();
                     break;
@@ -261,12 +299,20 @@ class SubmissionsController extends Controller
             return back()->with('error', 'Hanya permohonan draft yang dapat diajukan');
         }
 
-        $submission->update([
-            'status' => 'submitted',
-            'submitted_at' => now(),
-        ]);
+        DB::beginTransaction();
+        try {
+            $submission->update([
+                'status' => 'submitted',
+                'submitted_at' => now(),
+            ]);
 
-        return back()->with('success', 'Permohonan berhasil diajukan');
+            DB::commit();
+
+            return back()->with('success', 'Permohonan berhasil diajukan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal mengajukan permohonan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -274,12 +320,20 @@ class SubmissionsController extends Controller
      */
     public function approve(Submission $submission)
     {
-        $submission->update([
-            'status' => 'approved',
-            'approved_at' => now(),
-        ]);
+        DB::beginTransaction();
+        try {
+            $submission->update([
+                'status' => 'approved',
+                'approved_at' => now(),
+            ]);
 
-        return back()->with('success', 'Permohonan berhasil disetujui');
+            DB::commit();
+
+            return back()->with('success', 'Permohonan berhasil disetujui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal menyetujui permohonan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -291,11 +345,19 @@ class SubmissionsController extends Controller
             'rejection_reason' => 'required|string',
         ]);
 
-        $submission->update([
-            'status' => 'rejected',
-            'rejection_reason' => $validated['rejection_reason'],
-        ]);
+        DB::beginTransaction();
+        try {
+            $submission->update([
+                'status' => 'rejected',
+                'rejection_reason' => $validated['rejection_reason'],
+            ]);
 
-        return back()->with('success', 'Permohonan berhasil ditolak');
+            DB::commit();
+
+            return back()->with('success', 'Permohonan berhasil ditolak');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal menolak permohonan: ' . $e->getMessage());
+        }
     }
 }

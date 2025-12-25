@@ -14,6 +14,243 @@ use Illuminate\Support\Facades\DB;
 class AuditsController extends Controller
 {
     /**
+     * Display a listing of audits
+     */
+    public function index(Request $request)
+    {
+        $query = Audit::with(['submission', 'leadAuditor', 'assignment']);
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by audit type
+        if ($request->filled('audit_type')) {
+            $query->where('audit_type', $request->audit_type);
+        }
+
+        // Filter by overall result
+        if ($request->filled('overall_result')) {
+            $query->where('overall_result', $request->overall_result);
+        }
+
+        // Filter by date range
+        if ($request->filled('start_date')) {
+            $query->whereDate('planned_start_date', '>=', $request->start_date);
+        }
+        if ($request->filled('end_date')) {
+            $query->whereDate('planned_start_date', '<=', $request->end_date);
+        }
+
+        // Search by audit number or company name
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('audit_number', 'like', "%{$search}%")
+                  ->orWhereHas('submission', function($q2) use ($search) {
+                      $q2->where('company_name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $audits = $query->latest('planned_start_date')->paginate(15);
+
+        // Statistics
+        $stats = [
+            'total' => Audit::count(),
+            'planned' => Audit::where('status', 'planned')->count(),
+            'in_progress' => Audit::where('status', 'in_progress')->count(),
+            'completed' => Audit::where('status', 'completed')->count(),
+            'passed' => Audit::where('overall_result', 'passed')->count(),
+            'failed' => Audit::where('overall_result', 'failed')->count(),
+        ];
+
+        return view('admin.audits.index', compact('audits', 'stats'));
+    }
+
+    /**
+     * Show the form for creating a new audit
+     */
+    public function create()
+    {
+        $submissions = Submission::whereIn('status', ['scheduled', 'assigned'])->get();
+        $auditors = User::whereHas('roles', function($q) {
+            $q->where('name', 'auditor_halal');
+        })->get();
+
+        return view('admin.audits.create', compact('submissions', 'auditors'));
+    }
+
+    /**
+     * Store a newly created audit
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'assignment_id' => 'required|exists:assignments,id',
+            'submission_id' => 'required|exists:submissions,id',
+            'lead_auditor_id' => 'required|exists:users,id',
+            'audit_type' => 'required|in:stage_1,stage_2,surveillance,re_certification,special',
+            'audit_scope' => 'required|string',
+            'audit_criteria' => 'nullable|array',
+            'audit_team' => 'nullable|array',
+            'planned_start_date' => 'required|date',
+            'planned_end_date' => 'required|date|after_or_equal:planned_start_date',
+            'audit_days' => 'nullable|integer|min:1',
+            'areas_audited' => 'nullable|array',
+            'processes_audited' => 'nullable|array',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            // Generate audit number
+            $lastAudit = Audit::latest('id')->first();
+            $nextNumber = $lastAudit ? (intval(substr($lastAudit->audit_number, -5)) + 1) : 1;
+            $validated['audit_number'] = 'AUD-' . date('Ym') . '-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+
+            $validated['status'] = 'planned';
+            $validated['overall_result'] = 'pending';
+            $validated['progress_percentage'] = 0;
+
+            $audit = Audit::create($validated);
+
+            // Update submission status
+            $submission = Submission::find($validated['submission_id']);
+            $submission->update([
+                'status' => 'audit_in_progress',
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.audits.show', $audit->id)
+                ->with('success', 'Audit berhasil dibuat');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Gagal membuat audit: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Display the specified audit
+     */
+    public function show(Audit $audit)
+    {
+        $audit->load([
+            'submission',
+            'assignment',
+            'leadAuditor',
+            'findings' => function($query) {
+                $query->latest();
+            }
+        ]);
+
+        // Finding statistics
+        $findingStats = [
+            'total' => $audit->findings->count(),
+            'critical' => $audit->findings->where('severity', 'critical')->count(),
+            'major' => $audit->findings->where('severity', 'major')->count(),
+            'minor' => $audit->findings->where('severity', 'minor')->count(),
+            'observation' => $audit->findings->where('severity', 'observation')->count(),
+            'open' => $audit->findings->where('status', 'open')->count(),
+            'resolved' => $audit->findings->where('status', 'resolved')->count(),
+        ];
+
+        return view('admin.audits.show', compact('audit', 'findingStats'));
+    }
+
+    /**
+     * Show the form for editing the specified audit
+     */
+    public function edit(Audit $audit)
+    {
+        // Only allow editing if audit is not completed
+        if ($audit->status === 'completed') {
+            return back()->with('error', 'Audit yang sudah selesai tidak dapat diedit');
+        }
+
+        $submissions = Submission::all();
+        $auditors = User::whereHas('roles', function($q) {
+            $q->where('name', 'auditor_halal');
+        })->get();
+
+        return view('admin.audits.edit', compact('audit', 'submissions', 'auditors'));
+    }
+
+    /**
+     * Update the specified audit
+     */
+    public function update(Request $request, Audit $audit)
+    {
+        // Only allow updating if audit is not completed
+        if ($audit->status === 'completed') {
+            return back()->with('error', 'Audit yang sudah selesai tidak dapat diubah');
+        }
+
+        $validated = $request->validate([
+            'lead_auditor_id' => 'required|exists:users,id',
+            'audit_type' => 'required|in:stage_1,stage_2,surveillance,re_certification,special',
+            'audit_scope' => 'required|string',
+            'audit_criteria' => 'nullable|array',
+            'audit_team' => 'nullable|array',
+            'planned_start_date' => 'required|date',
+            'planned_end_date' => 'required|date|after_or_equal:planned_start_date',
+            'actual_start_date' => 'nullable|date',
+            'actual_end_date' => 'nullable|date|after_or_equal:actual_start_date',
+            'audit_days' => 'nullable|integer|min:1',
+            'status' => 'required|in:planned,in_progress,completed,cancelled,on_hold',
+            'progress_percentage' => 'nullable|integer|min:0|max:100',
+            'areas_audited' => 'nullable|array',
+            'processes_audited' => 'nullable|array',
+            'personnel_interviewed' => 'nullable|array',
+            'opening_meeting_time' => 'nullable|date',
+            'opening_meeting_attendees' => 'nullable|array',
+            'opening_meeting_notes' => 'nullable|string',
+            'closing_meeting_time' => 'nullable|date',
+            'closing_meeting_attendees' => 'nullable|array',
+            'closing_meeting_notes' => 'nullable|string',
+            'overall_result' => 'required|in:pending,passed,passed_with_conditions,failed,need_re_audit',
+            'audit_conclusion' => 'nullable|string',
+            'recommendations' => 'nullable|string',
+            'audit_evidence' => 'nullable|array',
+            'audit_notes' => 'nullable|string',
+        ]);
+
+        $audit->update($validated);
+
+        return redirect()->route('admin.audits.show', $audit->id)
+            ->with('success', 'Audit berhasil diperbarui');
+    }
+
+    /**
+     * Remove the specified audit
+     */
+    public function destroy(Audit $audit)
+    {
+        // Only allow deletion if audit is planned or cancelled
+        if (!in_array($audit->status, ['planned', 'cancelled'])) {
+            return back()->with('error', 'Hanya audit dengan status planned atau cancelled yang dapat dihapus');
+        }
+
+        DB::beginTransaction();
+        try {
+            // Delete related findings
+            $audit->findings()->delete();
+
+            // Delete the audit
+            $audit->delete();
+
+            DB::commit();
+
+            return redirect()->route('admin.audits.index')
+                ->with('success', 'Audit berhasil dihapus');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal menghapus audit: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Display schedules
      */
     public function schedules(Request $request)

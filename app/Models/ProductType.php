@@ -12,11 +12,24 @@ class ProductType extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'description',
+        'business_type_id',
+        'category',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function businessType()
+    {
+        return $this->belongsTo(BusinessType::class);
     }
 }

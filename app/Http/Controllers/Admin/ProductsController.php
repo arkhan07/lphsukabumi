@@ -8,7 +8,6 @@ use App\Models\ProductType;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -23,9 +22,10 @@ class ProductsController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%")
-                  ->orWhere('brand', 'like', "%{$search}%");
+                $q->where('product_name', 'like', "%{$search}%")
+                  ->orWhere('product_code', 'like', "%{$search}%")
+                  ->orWhere('brand_name', 'like', "%{$search}%")
+                  ->orWhere('barcode', 'like', "%{$search}%");
             });
         }
 
@@ -39,6 +39,11 @@ class ProductsController extends Controller
             $query->where('halal_status', $request->halal_status);
         }
 
+        // Filter by active status
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
+        }
+
         $products = $query->latest()->paginate(15);
         $productTypes = ProductType::all();
 
@@ -48,6 +53,7 @@ class ProductsController extends Controller
             'halal' => Product::where('halal_status', 'halal')->count(),
             'not_halal' => Product::where('halal_status', 'not_halal')->count(),
             'doubtful' => Product::where('halal_status', 'doubtful')->count(),
+            'active' => Product::where('is_active', true)->count(),
         ];
 
         return view('admin.products.index', compact('products', 'productTypes', 'stats'));
@@ -71,30 +77,31 @@ class ProductsController extends Controller
     {
         $validated = $request->validate([
             'submission_id' => 'required|exists:submissions,id',
-            'product_type_id' => 'required|exists:product_types,id',
-            'name' => 'required|string|max:255',
-            'sku' => 'nullable|string|max:100',
-            'brand' => 'nullable|string|max:255',
-            'variant' => 'nullable|string|max:255',
-            'packaging' => 'nullable|string|max:255',
-            'weight' => 'nullable|numeric|min:0',
-            'weight_unit' => 'nullable|string|max:50',
-            'description' => 'nullable|string',
-            'ingredients' => 'nullable|string',
-            'halal_certificate_number' => 'nullable|string|max:255',
-            'certificate_issue_date' => 'nullable|date',
-            'certificate_expiry_date' => 'nullable|date',
+            'product_type_id' => 'nullable|exists:product_types,id',
+            'product_name' => 'required|string|max:255',
+            'product_code' => 'nullable|string|max:255',
+            'product_description' => 'nullable|string',
+            'brand_name' => 'nullable|string|max:255',
+            'packaging_type' => 'nullable|string|max:255',
+            'net_weight' => 'nullable|numeric|min:0',
+            'weight_unit' => 'nullable|string|max:255',
+            'barcode' => 'nullable|string|max:255',
+            'hs_code' => 'nullable|string|max:255',
             'halal_status' => 'required|in:halal,not_halal,doubtful',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'halal_notes' => 'nullable|string',
+            'monthly_production_volume' => 'nullable|integer|min:0',
+            'shelf_life_duration' => 'nullable|numeric|min:0',
+            'shelf_life_unit' => 'nullable|in:days,weeks,months,years',
+            'is_active' => 'nullable|boolean',
         ]);
+
+        // Set default values
+        if (!isset($validated['is_active'])) {
+            $validated['is_active'] = true;
+        }
 
         DB::beginTransaction();
         try {
-            // Handle image upload
-            if ($request->hasFile('image')) {
-                $validated['image_path'] = $request->file('image')->store('products', 'public');
-            }
-
             $product = Product::create($validated);
 
             DB::commit();
@@ -135,34 +142,26 @@ class ProductsController extends Controller
     {
         $validated = $request->validate([
             'submission_id' => 'required|exists:submissions,id',
-            'product_type_id' => 'required|exists:product_types,id',
-            'name' => 'required|string|max:255',
-            'sku' => 'nullable|string|max:100',
-            'brand' => 'nullable|string|max:255',
-            'variant' => 'nullable|string|max:255',
-            'packaging' => 'nullable|string|max:255',
-            'weight' => 'nullable|numeric|min:0',
-            'weight_unit' => 'nullable|string|max:50',
-            'description' => 'nullable|string',
-            'ingredients' => 'nullable|string',
-            'halal_certificate_number' => 'nullable|string|max:255',
-            'certificate_issue_date' => 'nullable|date',
-            'certificate_expiry_date' => 'nullable|date',
+            'product_type_id' => 'nullable|exists:product_types,id',
+            'product_name' => 'required|string|max:255',
+            'product_code' => 'nullable|string|max:255',
+            'product_description' => 'nullable|string',
+            'brand_name' => 'nullable|string|max:255',
+            'packaging_type' => 'nullable|string|max:255',
+            'net_weight' => 'nullable|numeric|min:0',
+            'weight_unit' => 'nullable|string|max:255',
+            'barcode' => 'nullable|string|max:255',
+            'hs_code' => 'nullable|string|max:255',
             'halal_status' => 'required|in:halal,not_halal,doubtful',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'halal_notes' => 'nullable|string',
+            'monthly_production_volume' => 'nullable|integer|min:0',
+            'shelf_life_duration' => 'nullable|numeric|min:0',
+            'shelf_life_unit' => 'nullable|in:days,weeks,months,years',
+            'is_active' => 'nullable|boolean',
         ]);
 
         DB::beginTransaction();
         try {
-            // Handle image upload
-            if ($request->hasFile('image')) {
-                // Delete old image
-                if ($product->image_path) {
-                    Storage::disk('public')->delete($product->image_path);
-                }
-                $validated['image_path'] = $request->file('image')->store('products', 'public');
-            }
-
             $product->update($validated);
 
             DB::commit();
@@ -182,11 +181,6 @@ class ProductsController extends Controller
     {
         DB::beginTransaction();
         try {
-            // Delete image
-            if ($product->image_path) {
-                Storage::disk('public')->delete($product->image_path);
-            }
-
             $product->delete();
 
             DB::commit();
@@ -204,7 +198,7 @@ class ProductsController extends Controller
      */
     public function categories()
     {
-        $categories = ProductType::withCount('products')->latest()->paginate(15);
+        $categories = ProductType::with('businessType')->withCount('products')->latest()->paginate(15);
 
         return view('admin.products.categories', compact('categories'));
     }
@@ -215,9 +209,18 @@ class ProductsController extends Controller
     public function storeCategory(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:product_types,name',
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255|unique:product_types,code',
             'description' => 'nullable|string',
+            'business_type_id' => 'nullable|exists:business_types,id',
+            'category' => 'nullable|string|max:255',
+            'is_active' => 'nullable|boolean',
         ]);
+
+        // Set default values
+        if (!isset($validated['is_active'])) {
+            $validated['is_active'] = true;
+        }
 
         ProductType::create($validated);
 
@@ -230,8 +233,12 @@ class ProductsController extends Controller
     public function updateCategory(Request $request, ProductType $category)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:product_types,name,' . $category->id,
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255|unique:product_types,code,' . $category->id,
             'description' => 'nullable|string',
+            'business_type_id' => 'nullable|exists:business_types,id',
+            'category' => 'nullable|string|max:255',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $category->update($validated);

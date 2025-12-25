@@ -16,14 +16,19 @@ class DocumentsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Document::with(['submission', 'user']);
+        $query = Document::with(['submission', 'uploader', 'reviewer']);
 
         // Filter by document type
         if ($request->filled('document_type')) {
             $query->where('document_type', $request->document_type);
         }
 
-        // Filter by verification status
+        // Filter by document category
+        if ($request->filled('document_category')) {
+            $query->where('document_category', $request->document_category);
+        }
+
+        // Filter by status
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -33,7 +38,8 @@ class DocumentsController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('document_name', 'like', "%{$search}%")
-                  ->orWhere('file_name', 'like', "%{$search}%");
+                  ->orWhere('file_name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -42,9 +48,11 @@ class DocumentsController extends Controller
         // Statistics
         $stats = [
             'total' => Document::count(),
+            'uploaded' => Document::where('status', 'uploaded')->count(),
             'pending' => Document::where('status', 'pending_review')->count(),
             'approved' => Document::where('status', 'approved')->count(),
             'rejected' => Document::where('status', 'rejected')->count(),
+            'revision' => Document::where('status', 'revision_required')->count(),
         ];
 
         return view('admin.documents.index', compact('documents', 'stats'));
@@ -112,9 +120,77 @@ class DocumentsController extends Controller
      */
     public function show(Document $document)
     {
-        $document->load(['submission', 'user', 'verifiedBy']);
+        $document->load(['submission', 'uploader', 'reviewer', 'parentDocument', 'childDocuments']);
 
         return view('admin.documents.show', compact('document'));
+    }
+
+    /**
+     * Show edit form for document
+     */
+    public function edit(Document $document)
+    {
+        $submissions = Submission::whereIn('status', ['submitted', 'screening', 'verification'])->get();
+
+        return view('admin.documents.edit', compact('document', 'submissions'));
+    }
+
+    /**
+     * Update document metadata
+     */
+    public function update(Request $request, Document $document)
+    {
+        $validated = $request->validate([
+            'submission_id' => 'required|exists:submissions,id',
+            'document_type' => 'required|string',
+            'document_category' => 'required|string',
+            'document_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'is_required' => 'nullable|boolean',
+            'valid_from' => 'nullable|date',
+            'valid_until' => 'nullable|date|after_or_equal:valid_from',
+            'is_public' => 'nullable|boolean',
+            'tags' => 'nullable|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            // Handle file replacement if new file uploaded
+            if ($request->hasFile('file')) {
+                // Delete old file
+                if (Storage::disk('public')->exists($document->file_path)) {
+                    Storage::disk('public')->delete($document->file_path);
+                }
+
+                // Upload new file
+                $file = $request->file('file');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('documents', $fileName, 'public');
+
+                $validated['file_name'] = $fileName;
+                $validated['file_path'] = $filePath;
+                $validated['file_size'] = $file->getSize();
+                $validated['mime_type'] = $file->getMimeType();
+                $validated['file_extension'] = $file->getClientOriginalExtension();
+
+                // Increment version if file changed
+                $validated['version'] = $document->version + 1;
+            }
+
+            $validated['is_required'] = $validated['is_required'] ?? false;
+            $validated['is_public'] = $validated['is_public'] ?? false;
+
+            $document->update($validated);
+
+            DB::commit();
+
+            return redirect()->route('admin.documents.show', $document)
+                           ->with('success', 'Dokumen berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Gagal memperbarui dokumen: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -125,6 +201,9 @@ class DocumentsController extends Controller
         if (!Storage::disk('public')->exists($document->file_path)) {
             return back()->with('error', 'File tidak ditemukan');
         }
+
+        // Increment download count
+        $document->increment('download_count');
 
         return Storage::disk('public')->download($document->file_path, $document->file_name);
     }
@@ -143,20 +222,28 @@ class DocumentsController extends Controller
     public function approve(Request $request, Document $document)
     {
         $validated = $request->validate([
-            'verification_notes' => 'nullable|string',
+            'review_notes' => 'nullable|string',
         ]);
 
-        $document->update([
-            'verification_status' => 'verified',
-            'verified_by' => auth()->id(),
-            'verified_at' => now(),
-            'verification_notes' => $validated['verification_notes'] ?? null,
-        ]);
+        DB::beginTransaction();
+        try {
+            $document->update([
+                'status' => 'approved',
+                'reviewed_by' => auth()->id(),
+                'reviewed_at' => now(),
+                'review_notes' => $validated['review_notes'] ?? null,
+            ]);
 
-        // Update submission document completion if needed
-        $this->updateSubmissionDocumentStatus($document->submission_id);
+            // Update submission document completion if needed
+            $this->updateSubmissionDocumentStatus($document->submission_id);
 
-        return back()->with('success', 'Dokumen berhasil diverifikasi');
+            DB::commit();
+
+            return back()->with('success', 'Dokumen berhasil disetujui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal menyetujui dokumen: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -165,17 +252,28 @@ class DocumentsController extends Controller
     public function reject(Request $request, Document $document)
     {
         $validated = $request->validate([
-            'verification_notes' => 'required|string',
+            'review_notes' => 'required|string',
         ]);
 
-        $document->update([
-            'verification_status' => 'rejected',
-            'verified_by' => auth()->id(),
-            'verified_at' => now(),
-            'verification_notes' => $validated['verification_notes'],
-        ]);
+        DB::beginTransaction();
+        try {
+            $document->update([
+                'status' => 'rejected',
+                'reviewed_by' => auth()->id(),
+                'reviewed_at' => now(),
+                'review_notes' => $validated['review_notes'],
+            ]);
 
-        return back()->with('success', 'Dokumen ditolak');
+            // Update submission document completion if needed
+            $this->updateSubmissionDocumentStatus($document->submission_id);
+
+            DB::commit();
+
+            return back()->with('success', 'Dokumen berhasil ditolak');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal menolak dokumen: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -184,17 +282,28 @@ class DocumentsController extends Controller
     public function requestRevision(Request $request, Document $document)
     {
         $validated = $request->validate([
-            'verification_notes' => 'required|string',
+            'review_notes' => 'required|string',
         ]);
 
-        $document->update([
-            'verification_status' => 'revision_required',
-            'verified_by' => auth()->id(),
-            'verified_at' => now(),
-            'verification_notes' => $validated['verification_notes'],
-        ]);
+        DB::beginTransaction();
+        try {
+            $document->update([
+                'status' => 'revision_required',
+                'reviewed_by' => auth()->id(),
+                'reviewed_at' => now(),
+                'review_notes' => $validated['review_notes'],
+            ]);
 
-        return back()->with('success', 'Revisi dokumen diminta');
+            // Update submission document completion if needed
+            $this->updateSubmissionDocumentStatus($document->submission_id);
+
+            DB::commit();
+
+            return back()->with('success', 'Revisi dokumen berhasil diminta');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal meminta revisi dokumen: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -236,12 +345,20 @@ class DocumentsController extends Controller
                 ->where('is_required', true)
                 ->count();
 
-            $verifiedRequired = Document::where('submission_id', $submissionId)
+            $approvedRequired = Document::where('submission_id', $submissionId)
                 ->where('is_required', true)
-                ->where('verification_status', 'verified')
+                ->where('status', 'approved')
                 ->count();
 
-            $submission->documents_completed = ($totalRequired > 0 && $totalRequired === $verifiedRequired);
+            $totalDocuments = Document::where('submission_id', $submissionId)->count();
+            $approvedDocuments = Document::where('submission_id', $submissionId)
+                ->where('status', 'approved')
+                ->count();
+
+            $submission->documents_completed = ($totalRequired > 0 && $totalRequired === $approvedRequired);
+            $submission->completeness_percentage = $totalDocuments > 0
+                ? round(($approvedDocuments / $totalDocuments) * 100)
+                : 0;
             $submission->save();
         }
     }
