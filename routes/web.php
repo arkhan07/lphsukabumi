@@ -258,62 +258,93 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
     // Submissions (Permohonan)
-    Route::prefix('submissions')->name('submissions.')->group(function () {
-        Route::get('/', function () { return view('admin.submissions.index'); })->name('index');
-        Route::get('/create', function () { return view('admin.submissions.create'); })->name('create');
-        Route::get('/{id}', function ($id) { return view('admin.submissions.show', compact('id')); })->name('show');
-        Route::get('/{id}/edit', function ($id) { return view('admin.submissions.edit', compact('id')); })->name('edit');
-    });
+    Route::resource('submissions', App\Http\Controllers\Admin\SubmissionsController::class);
+    Route::post('submissions/{submission}/submit', [App\Http\Controllers\Admin\SubmissionsController::class, 'submit'])->name('submissions.submit');
+    Route::post('submissions/{submission}/approve', [App\Http\Controllers\Admin\SubmissionsController::class, 'approve'])->name('submissions.approve');
+    Route::post('submissions/{submission}/reject', [App\Http\Controllers\Admin\SubmissionsController::class, 'reject'])->name('submissions.reject');
+    Route::post('submissions/{submission}/update-status', [App\Http\Controllers\Admin\SubmissionsController::class, 'updateStatus'])->name('submissions.update-status');
 
     // Products (Produk)
-    Route::prefix('products')->name('products.')->group(function () {
-        Route::get('/', function () { return view('admin.products.index'); })->name('index');
-        Route::get('/create', function () { return view('admin.products.create'); })->name('create');
-        Route::get('/{id}/edit', function ($id) { return view('admin.products.edit', compact('id')); })->name('edit');
-        Route::get('/categories', function () { return view('admin.products.categories'); })->name('categories');
-    });
+    Route::resource('products', App\Http\Controllers\Admin\ProductsController::class);
+    Route::get('products/categories/manage', [App\Http\Controllers\Admin\ProductsController::class, 'categories'])->name('products.categories');
+    Route::post('products/categories', [App\Http\Controllers\Admin\ProductsController::class, 'storeCategory'])->name('products.categories.store');
+    Route::put('products/categories/{category}', [App\Http\Controllers\Admin\ProductsController::class, 'updateCategory'])->name('products.categories.update');
+    Route::delete('products/categories/{category}', [App\Http\Controllers\Admin\ProductsController::class, 'destroyCategory'])->name('products.categories.destroy');
 
     // Audits (Audit)
     Route::prefix('audits')->name('audits.')->group(function () {
-        Route::get('/schedule', function () { return view('admin.audits.schedule'); })->name('schedule');
-        Route::get('/reports', function () { return view('admin.audits.reports'); })->name('reports');
-        Route::get('/findings', function () { return view('admin.audits.findings'); })->name('findings');
+        Route::get('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'schedules'])->name('schedules');
+        Route::post('/schedules', [App\Http\Controllers\Admin\AuditsController::class, 'storeSchedule'])->name('schedules.store');
+        Route::put('/schedules/{schedule}', [App\Http\Controllers\Admin\AuditsController::class, 'updateSchedule'])->name('schedules.update');
+        Route::post('/schedules/{schedule}/cancel', [App\Http\Controllers\Admin\AuditsController::class, 'cancelSchedule'])->name('schedules.cancel');
+
+        Route::get('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'reports'])->name('reports');
+        Route::post('/reports', [App\Http\Controllers\Admin\AuditsController::class, 'storeReport'])->name('reports.store');
+
+        Route::get('/findings', [App\Http\Controllers\Admin\AuditsController::class, 'findings'])->name('findings');
+        Route::post('/findings', [App\Http\Controllers\Admin\AuditsController::class, 'storeFinding'])->name('findings.store');
+        Route::put('/findings/{finding}', [App\Http\Controllers\Admin\AuditsController::class, 'updateFinding'])->name('findings.update');
+        Route::post('/findings/{finding}/resolve', [App\Http\Controllers\Admin\AuditsController::class, 'resolveFinding'])->name('findings.resolve');
+        Route::post('/findings/{finding}/verify', [App\Http\Controllers\Admin\AuditsController::class, 'verifyFinding'])->name('findings.verify');
     });
 
     // Finance (Keuangan)
     Route::prefix('finance')->name('finance.')->group(function () {
-        Route::get('/invoices', function () { return view('admin.finance.invoices'); })->name('invoices');
-        Route::get('/payments', function () { return view('admin.finance.payments'); })->name('payments');
-        Route::get('/fee-settings', function () { return view('admin.finance.fee-settings'); })->name('fee-settings');
+        Route::get('/invoices', [App\Http\Controllers\Admin\FinanceController::class, 'invoices'])->name('invoices');
+        Route::get('/invoices/create', [App\Http\Controllers\Admin\FinanceController::class, 'createInvoice'])->name('invoices.create');
+        Route::post('/invoices', [App\Http\Controllers\Admin\FinanceController::class, 'storeInvoice'])->name('invoices.store');
+
+        Route::get('/payments', [App\Http\Controllers\Admin\FinanceController::class, 'payments'])->name('payments');
+        Route::post('/payments', [App\Http\Controllers\Admin\FinanceController::class, 'storePayment'])->name('payments.store');
+        Route::post('/payments/{payment}/verify', [App\Http\Controllers\Admin\FinanceController::class, 'verifyPayment'])->name('payments.verify');
+        Route::post('/payments/{payment}/reject', [App\Http\Controllers\Admin\FinanceController::class, 'rejectPayment'])->name('payments.reject');
+
+        Route::get('/fee-settings', [App\Http\Controllers\Admin\FinanceController::class, 'feeSettings'])->name('fee-settings');
+        Route::post('/fee-settings', [App\Http\Controllers\Admin\FinanceController::class, 'storeFee'])->name('fees.store');
+        Route::put('/fee-settings/{fee}', [App\Http\Controllers\Admin\FinanceController::class, 'updateFee'])->name('fees.update');
+        Route::post('/fee-settings/{fee}/toggle', [App\Http\Controllers\Admin\FinanceController::class, 'toggleFee'])->name('fees.toggle');
     });
 
     // Documents (Dokumen)
-    Route::prefix('documents')->name('documents.')->group(function () {
-        Route::get('/', function () { return view('admin.documents.index'); })->name('index');
-        Route::get('/upload', function () { return view('admin.documents.upload'); })->name('upload');
-        Route::get('/verify', function () { return view('admin.documents.verify'); })->name('verify');
-    });
+    Route::resource('documents', App\Http\Controllers\Admin\DocumentsController::class);
+    Route::get('documents/{document}/download', [App\Http\Controllers\Admin\DocumentsController::class, 'download'])->name('documents.download');
+    Route::get('documents/{document}/verify', [App\Http\Controllers\Admin\DocumentsController::class, 'verify'])->name('documents.verify');
+    Route::post('documents/{document}/approve', [App\Http\Controllers\Admin\DocumentsController::class, 'approve'])->name('documents.approve');
+    Route::post('documents/{document}/reject', [App\Http\Controllers\Admin\DocumentsController::class, 'reject'])->name('documents.reject');
+    Route::post('documents/{document}/request-revision', [App\Http\Controllers\Admin\DocumentsController::class, 'requestRevision'])->name('documents.request-revision');
 
     // Reports (Laporan)
     Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/certification', function () { return view('admin.reports.certification'); })->name('certification');
-        Route::get('/financial', function () { return view('admin.reports.financial'); })->name('financial');
-        Route::get('/audits', function () { return view('admin.reports.audits'); })->name('audits');
+        Route::get('/certification', [App\Http\Controllers\Admin\ReportsController::class, 'certification'])->name('certification');
+        Route::get('/financial', [App\Http\Controllers\Admin\ReportsController::class, 'financial'])->name('financial');
+        Route::get('/audits', [App\Http\Controllers\Admin\ReportsController::class, 'audits'])->name('audits');
     });
 
     // Users (Pengguna)
-    Route::prefix('users')->name('users.')->group(function () {
-        Route::get('/', function () { return view('admin.users.index'); })->name('index');
-        Route::get('/create', function () { return view('admin.users.create'); })->name('create');
-        Route::get('/{id}/edit', function ($id) { return view('admin.users.edit', compact('id')); })->name('edit');
-        Route::get('/roles', function () { return view('admin.users.roles'); })->name('roles');
-    });
+    Route::resource('users', App\Http\Controllers\Admin\UsersController::class);
+    Route::get('users/roles/manage', [App\Http\Controllers\Admin\UsersController::class, 'rolesAndPermissions'])->name('users.roles');
+    Route::post('users/roles', [App\Http\Controllers\Admin\UsersController::class, 'storeRole'])->name('roles.store');
+    Route::put('users/roles/{role}', [App\Http\Controllers\Admin\UsersController::class, 'updateRole'])->name('roles.update');
+    Route::delete('users/roles/{role}', [App\Http\Controllers\Admin\UsersController::class, 'destroyRole'])->name('roles.destroy');
+    Route::post('users/roles/{role}/permissions', [App\Http\Controllers\Admin\UsersController::class, 'attachPermission'])->name('roles.permissions.attach');
+    Route::delete('users/roles/{role}/permissions/{permission}', [App\Http\Controllers\Admin\UsersController::class, 'detachPermission'])->name('roles.permissions.detach');
 
     // Master Data
     Route::prefix('master-data')->name('master-data.')->group(function () {
-        Route::get('/regions', function () { return view('admin.master-data.regions'); })->name('regions');
-        Route::get('/business-types', function () { return view('admin.master-data.business-types'); })->name('business-types');
-        Route::get('/product-types', function () { return view('admin.master-data.product-types'); })->name('product-types');
+        Route::get('/regions', [App\Http\Controllers\Admin\MasterDataController::class, 'regions'])->name('regions');
+        Route::post('/regions', [App\Http\Controllers\Admin\MasterDataController::class, 'storeRegion'])->name('regions.store');
+        Route::put('/regions/{region}', [App\Http\Controllers\Admin\MasterDataController::class, 'updateRegion'])->name('regions.update');
+        Route::delete('/regions/{region}', [App\Http\Controllers\Admin\MasterDataController::class, 'destroyRegion'])->name('regions.destroy');
+
+        Route::get('/business-types', [App\Http\Controllers\Admin\MasterDataController::class, 'businessTypes'])->name('business-types');
+        Route::post('/business-types', [App\Http\Controllers\Admin\MasterDataController::class, 'storeBusinessType'])->name('business-types.store');
+        Route::put('/business-types/{businessType}', [App\Http\Controllers\Admin\MasterDataController::class, 'updateBusinessType'])->name('business-types.update');
+        Route::delete('/business-types/{businessType}', [App\Http\Controllers\Admin\MasterDataController::class, 'destroyBusinessType'])->name('business-types.destroy');
+
+        Route::get('/product-types', [App\Http\Controllers\Admin\MasterDataController::class, 'productTypes'])->name('product-types');
+        Route::post('/product-types', [App\Http\Controllers\Admin\MasterDataController::class, 'storeProductType'])->name('product-types.store');
+        Route::put('/product-types/{productType}', [App\Http\Controllers\Admin\MasterDataController::class, 'updateProductType'])->name('product-types.update');
+        Route::delete('/product-types/{productType}', [App\Http\Controllers\Admin\MasterDataController::class, 'destroyProductType'])->name('product-types.destroy');
     });
 
     // Settings (Pengaturan)
