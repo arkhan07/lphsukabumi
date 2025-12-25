@@ -128,7 +128,7 @@
 
         <!-- Pengaturan -->
         <li class="sidebar-menu-item">
-            <a href="{{ route('admin.settings') }}" class="sidebar-menu-link">
+            <a href="{{ route('admin.settings.index') }}" class="sidebar-menu-link">
                 <i class="ri-settings-3-line"></i>
                 <span>Pengaturan</span>
             </a>
