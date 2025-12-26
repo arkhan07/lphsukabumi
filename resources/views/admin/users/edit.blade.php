@@ -149,33 +149,25 @@
 
                     <div class="row g-3">
                         @php
-                            $availableRoles = [
-                                'admin_lph' => ['label' => 'Admin LPH', 'icon' => 'ri-admin-line', 'color' => 'danger', 'description' => 'Administrator LPH dengan akses penuh'],
-                                'manajer_teknis' => ['label' => 'Manajer Teknis', 'icon' => 'ri-settings-3-line', 'color' => 'warning', 'description' => 'Manajer teknis yang mengelola proses sertifikasi'],
-                                'auditor_halal' => ['label' => 'Auditor Halal', 'icon' => 'ri-shield-check-line', 'color' => 'success', 'description' => 'Auditor yang melakukan pemeriksaan halal'],
-                                'pelaku_usaha' => ['label' => 'Pelaku Usaha', 'icon' => 'ri-building-line', 'color' => 'primary', 'description' => 'Perusahaan yang mengajukan sertifikasi halal'],
-                                'penyedia_halal' => ['label' => 'Penyedia Halal', 'icon' => 'ri-shopping-bag-line', 'color' => 'info', 'description' => 'Penyedia bahan atau produk halal'],
-                            ];
-
-                            // Get user's current roles
-                            $userRoles = old('roles', $user->roles->pluck('name')->toArray());
+                            // Get user's current role IDs
+                            $userRoleIds = old('roles', $user->roles->pluck('id')->toArray());
                         @endphp
 
-                        @foreach($availableRoles as $roleKey => $roleData)
+                        @foreach($roles as $role)
                         <div class="col-12 col-md-6">
                             <div class="form-check form-check-card">
                                 <input class="form-check-input @error('roles') is-invalid @enderror"
                                        type="checkbox"
                                        name="roles[]"
-                                       value="{{ $roleKey }}"
-                                       id="role_{{ $roleKey }}"
-                                       {{ in_array($roleKey, $userRoles) ? 'checked' : '' }}>
-                                <label class="form-check-label w-100" for="role_{{ $roleKey }}">
+                                       value="{{ $role->id }}"
+                                       id="role_{{ $role->id }}"
+                                       {{ in_array($role->id, $userRoleIds) ? 'checked' : '' }}>
+                                <label class="form-check-label w-100" for="role_{{ $role->id }}">
                                     <div class="d-flex align-items-start">
-                                        <i class="{{ $roleData['icon'] }} text-{{ $roleData['color'] }} me-2" style="font-size: 1.5rem;"></i>
+                                        <i class="ti ti-shield-check text-primary me-2" style="font-size: 1.5rem;"></i>
                                         <div>
-                                            <div style="font-weight: 600;">{{ $roleData['label'] }}</div>
-                                            <small class="text-secondary-light">{{ $roleData['description'] }}</small>
+                                            <div style="font-weight: 600;">{{ $role->display_name }}</div>
+                                            <small class="text-secondary">{{ $role->description ?? $role->name }}</small>
                                         </div>
                                     </div>
                                 </label>
