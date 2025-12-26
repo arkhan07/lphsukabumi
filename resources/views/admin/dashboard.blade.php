@@ -223,7 +223,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Jadwal Audit Mendatang</h3>
                             <div class="card-actions">
-                                <a href="{{ route('admin.audits.schedules.index') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.audits.schedules.index') }}" class="btn btn-primary">
                                     Lihat Semua
                                 </a>
                             </div>
@@ -265,7 +265,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Permohonan Terbaru</h3>
                             <div class="card-actions">
-                                <a href="{{ route('admin.submissions.index') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.submissions.index') }}" class="btn btn-primary">
                                     Lihat Semua
                                 </a>
                             </div>
