@@ -17,113 +17,69 @@
 
     <!-- Stats Cards -->
     <div class="row g-3 mb-4">
-        <!-- Total Pengguna Card -->
-        <div class="col-12 col-sm-6 col-md-6 col-lg-2-4">
-            <div class="card border-0 shadow-sm h-100 stats-card" style="border-radius: 16px; overflow: hidden; position: relative; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                <div class="card-body p-4 text-white" style="position: relative; z-index: 2;">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-wrapper me-3" style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                            <i class="ti ti-users" style="font-size: 1.75rem;"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Total Pengguna</div>
-                            <div style="font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.25rem;">{{ $stats['total'] ?? 0 }}</div>
-                        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <div class="card-custom h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Total Pengguna</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['total'] ?? 0 }}</div>
                     </div>
-                    <div class="d-flex align-items-center" style="font-size: 0.8rem; opacity: 0.9;">
-                        <i class="ti ti-trending-up me-1"></i>
-                        <span>Semua pengguna terdaftar</span>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-users" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
-                <div style="position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1;"></div>
             </div>
         </div>
-
-        <!-- Admin LPH Card -->
-        <div class="col-12 col-sm-6 col-md-6 col-lg-2-4">
-            <div class="card border-0 shadow-sm h-100 stats-card" style="border-radius: 16px; overflow: hidden; position: relative; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                <div class="card-body p-4 text-white" style="position: relative; z-index: 2;">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-wrapper me-3" style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                            <i class="ti ti-shield-star" style="font-size: 1.75rem;"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Admin LPH</div>
-                            <div style="font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.25rem;">{{ $stats['admin_lph'] ?? 0 }}</div>
-                        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <div class="card-custom h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Admin LPH</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['admin_lph'] ?? 0 }}</div>
                     </div>
-                    <div class="d-flex align-items-center" style="font-size: 0.8rem; opacity: 0.9;">
-                        <i class="ti ti-crown me-1"></i>
-                        <span>Administrator sistem</span>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-shield-star" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
-                <div style="position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1;"></div>
             </div>
         </div>
-
-        <!-- Auditor Card -->
-        <div class="col-12 col-sm-6 col-md-6 col-lg-2-4">
-            <div class="card border-0 shadow-sm h-100 stats-card" style="border-radius: 16px; overflow: hidden; position: relative; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                <div class="card-body p-4 text-white" style="position: relative; z-index: 2;">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-wrapper me-3" style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                            <i class="ti ti-shield-check" style="font-size: 1.75rem;"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Auditor</div>
-                            <div style="font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.25rem;">{{ $stats['auditor'] ?? 0 }}</div>
-                        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <div class="card-custom h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Auditor</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['auditor'] ?? 0 }}</div>
                     </div>
-                    <div class="d-flex align-items-center" style="font-size: 0.8rem; opacity: 0.9;">
-                        <i class="ti ti-clipboard-check me-1"></i>
-                        <span>Auditor halal aktif</span>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-shield-check" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
-                <div style="position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1;"></div>
             </div>
         </div>
-
-        <!-- Pelaku Usaha Card -->
-        <div class="col-12 col-sm-6 col-md-6 col-lg-2-4">
-            <div class="card border-0 shadow-sm h-100 stats-card" style="border-radius: 16px; overflow: hidden; position: relative; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                <div class="card-body p-4 text-white" style="position: relative; z-index: 2;">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-wrapper me-3" style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                            <i class="ti ti-building" style="font-size: 1.75rem;"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Pelaku Usaha</div>
-                            <div style="font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.25rem;">{{ $stats['pelaku_usaha'] ?? 0 }}</div>
-                        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <div class="card-custom h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Pelaku Usaha</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['pelaku_usaha'] ?? 0 }}</div>
                     </div>
-                    <div class="d-flex align-items-center" style="font-size: 0.8rem; opacity: 0.9;">
-                        <i class="ti ti-briefcase me-1"></i>
-                        <span>Perusahaan terdaftar</span>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-building" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
-                <div style="position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1;"></div>
             </div>
         </div>
-
-        <!-- Penyedia Halal Card -->
-        <div class="col-12 col-sm-6 col-md-6 col-lg-2-4">
-            <div class="card border-0 shadow-sm h-100 stats-card" style="border-radius: 16px; overflow: hidden; position: relative; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                <div class="card-body p-4 text-white" style="position: relative; z-index: 2;">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-wrapper me-3" style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                            <i class="ti ti-shopping-bag" style="font-size: 1.75rem;"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Penyedia Halal</div>
-                            <div style="font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.25rem;">{{ $stats['penyedia_halal'] ?? 0 }}</div>
-                        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <div class="card-custom h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Penyedia Halal</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['penyedia_halal'] ?? 0 }}</div>
                     </div>
-                    <div class="d-flex align-items-center" style="font-size: 0.8rem; opacity: 0.9;">
-                        <i class="ti ti-package me-1"></i>
-                        <span>Supplier halal</span>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-shopping-bag" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
-                <div style="position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1;"></div>
             </div>
         </div>
     </div>
@@ -204,17 +160,13 @@
                             @endif
                         </td>
                         <td style="padding: 1rem;">{{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}</td>
-                        <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group">
+                        <td style="padding: 1rem;">
+                            <div class="d-flex gap-2 justify-content-center">
                                 <a href="{{ route('admin.users.edit', $user->id) }}"
-                                   class="btn btn-outline-success"
-                                   title="Edit">
-                                    <i class="ri-edit-line"></i>
-                                </a>
-                                <a href="{{ route('admin.users.roles', $user->id) }}"
-                                   class="btn btn-outline-primary"
-                                   title="Kelola Role">
-                                    <i class="ri-shield-user-line"></i>
+                                   class="btn btn-sm btn-success"
+                                   title="Edit"
+                                   style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                    <i class="ti ti-edit" style="font-size: 1.1rem;"></i>
                                 </a>
                                 <form action="{{ route('admin.users.destroy', $user->id) }}"
                                       method="POST"
@@ -223,9 +175,10 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="btn btn-outline-danger"
-                                            title="Hapus">
-                                        <i class="ri-delete-bin-line"></i>
+                                            class="btn btn-sm btn-danger"
+                                            title="Hapus"
+                                            style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                        <i class="ti ti-trash" style="font-size: 1.1rem;"></i>
                                     </button>
                                 </form>
                             </div>
@@ -248,52 +201,18 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <style>
-        /* Custom grid for 5 columns */
-        @media (min-width: 992px) {
-            .col-lg-2-4 {
-                flex: 0 0 auto;
-                width: 20%;
-            }
-        }
-
-        /* Stats card animations */
-        .stats-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .stats-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18) !important;
-        }
-
-        .stats-card .icon-wrapper {
-            transition: all 0.3s ease;
-        }
-
-        .stats-card:hover .icon-wrapper {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        /* Perbesar tombol aksi */
-        .btn-group .btn {
-            min-width: 45px;
-            min-height: 38px;
-            padding: 0.5rem 0.75rem;
-            font-size: 1.1rem;
-        }
-        .btn-group .btn i {
-            font-size: 1.2rem;
-        }
-
-        /* Card custom enhancements */
+        /* Card custom styling */
         .card-custom {
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
         }
 
         .card-custom:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
     </style>
     @endpush

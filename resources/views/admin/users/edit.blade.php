@@ -151,26 +151,35 @@
                         @php
                             // Get user's current role IDs
                             $userRoleIds = old('roles', $user->roles->pluck('id')->toArray());
+
+                            $roleIcons = [
+                                'admin_lph' => 'ti-shield-star',
+                                'manajer_teknis' => 'ti-settings',
+                                'auditor_halal' => 'ti-shield-check',
+                                'pelaku_usaha' => 'ti-building',
+                                'penyedia_halal' => 'ti-shopping-bag'
+                            ];
                         @endphp
 
                         @foreach($roles as $role)
-                        <div class="col-12 col-md-6">
-                            <div class="form-check form-check-card">
-                                <input class="form-check-input @error('roles') is-invalid @enderror"
-                                       type="checkbox"
-                                       name="roles[]"
-                                       value="{{ $role->id }}"
-                                       id="role_{{ $role->id }}"
-                                       {{ in_array($role->id, $userRoleIds) ? 'checked' : '' }}>
-                                <label class="form-check-label w-100" for="role_{{ $role->id }}">
-                                    <div class="d-flex align-items-start">
-                                        <i class="ti ti-shield-check text-primary me-2" style="font-size: 1.5rem;"></i>
-                                        <div>
-                                            <div style="font-weight: 600;">{{ $role->display_name }}</div>
-                                            <small class="text-secondary">{{ $role->description ?? $role->name }}</small>
-                                        </div>
+                        <div class="col-12">
+                            <div class="form-check" style="padding: 1rem; border: 1px solid var(--neutral-200); border-radius: 6px; background-color: white;">
+                                <div class="d-flex align-items-center">
+                                    <input class="form-check-input @error('roles') is-invalid @enderror"
+                                           type="checkbox"
+                                           name="roles[]"
+                                           value="{{ $role->id }}"
+                                           id="role_{{ $role->id }}"
+                                           {{ in_array($role->id, $userRoleIds) ? 'checked' : '' }}
+                                           style="width: 20px; height: 20px; margin-right: 1rem; flex-shrink: 0;">
+                                    <div style="width: 40px; height: 40px; background-color: var(--neutral-100); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; flex-shrink: 0;">
+                                        <i class="ti {{ $roleIcons[$role->name] ?? 'ti-user' }}" style="font-size: 1.25rem; color: var(--neutral-600);"></i>
                                     </div>
-                                </label>
+                                    <label class="form-check-label flex-grow-1 mb-0" for="role_{{ $role->id }}" style="cursor: pointer;">
+                                        <div style="font-weight: 600; color: var(--neutral-900);">{{ $role->display_name }}</div>
+                                        <small class="text-secondary-light">{{ $role->description ?? $role->name }}</small>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         @endforeach
@@ -289,28 +298,13 @@
 
     @push('styles')
     <style>
-        .form-check-card {
-            padding: 1rem;
-            border: 2px solid var(--neutral-200);
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .form-check-card:hover {
-            border-color: var(--primary-600);
-            background-color: var(--neutral-50);
-        }
-
-        .form-check-card .form-check-input:checked ~ .form-check-label {
-            color: var(--primary-600);
-        }
-
-        .form-check-card .form-check-input {
-            margin-top: 0.5rem;
-        }
-
         .border-danger {
             border: 1px solid var(--danger-main) !important;
+        }
+
+        .form-check:hover {
+            background-color: var(--neutral-50) !important;
+            border-color: var(--primary-600) !important;
         }
     </style>
     @endpush
