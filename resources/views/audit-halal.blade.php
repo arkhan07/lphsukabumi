@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -7,76 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
     <meta name='description' itemprop='description' content={{ $description }}>
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NCNTDDPL');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Start Google tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QSSKFWH17L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-QSSKFWH17L');
-    </script>
-    <!-- End Google tag (gtag.js) - Google Analytics -->
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/61766aa1f7c0440a591fd06f/1fir912hm';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <!-- Facebook Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    <!-- End Facebook Pixel Code -->
 
     @include('partials.style')
 
@@ -90,115 +20,67 @@
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Beranda",
-                    "item": "https://saffmedic.com/"
+                    "item": "https://lpddb-sukabumi.com/"
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "Solusi - Klinik",
-                    "item": "https://saffmedic.com/klinik"
+                    "name": "Layanan - Audit Makanan",
+                    "item": "https://lpddb-sukabumi.com/audit-makanan"
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
-                    "name": "Solusi - Rumah Sakit",
-                    "item": "https://saffmedic.com/rumah-sakit"
+                    "name": "Layanan - Audit Minuman",
+                    "item": "https://lpddb-sukabumi.com/audit-minuman"
                 },
                 {
                     "@type": "ListItem",
                     "position": 4,
-                    "name": "Solusi - Apotek",
-                    "item": "https://saffmedic.com/apotek"
+                    "name": "Layanan - Audit Kosmetik",
+                    "item": "https://lpddb-sukabumi.com/audit-kosmetik"
                 },
                 {
                     "@type": "ListItem",
                     "position": 5,
-                    "name": "Solusi - Laboratorium",
-                    "item": "https://saffmedic.com/laboratorium"
+                    "name": "Layanan - Audit Obat-obatan",
+                    "item": "https://lpddb-sukabumi.com/audit-obat"
                 },
                 {
                     "@type": "ListItem",
                     "position": 6,
-                    "name": "Solusi- Praktek Dokter",
-                    "item": "https://saffmedic.com/praktek-dokter"
+                    "name": "Layanan - Audit Bahan Baku",
+                    "item": "https://lpddb-sukabumi.com/audit-bahan-baku"
                 },
                 {
                     "@type": "ListItem",
                     "position": 7,
-                    "name": "Fitur - Keuangan",
-                    "item": "https://saffmedic.com/keuangan"
+                    "name": "Proses Audit Halal",
+                    "item": "https://lpddb-sukabumi.com/proses-audit"
                 },
                 {
                     "@type": "ListItem",
                     "position": 8,
-                    "name": "Fitur - MCU",
-                    "item": "https://saffmedic.com/mcu"
+                    "name": "Biaya Audit",
+                    "item": "https://lpddb-sukabumi.com/biaya-audit"
                 },
                 {
                     "@type": "ListItem",
                     "position": 9,
-                    "name": "Fitur - Farmasi",
-                    "item": "https://saffmedic.com/farmasi"
+                    "name": "Kontak",
+                    "item": "https://lpddb-sukabumi.com/kontak"
                 },
                 {
                     "@type": "ListItem",
                     "position": 10,
-                    "name": "Fitur - Penunjang",
-                    "item": "https://saffmedic.com/penunjang"
+                    "name": "Artikel",
+                    "item": "https://lpddb-sukabumi.com/artikel"
                 },
                 {
                     "@type": "ListItem",
                     "position": 11,
-                    "name": "Fitur - Antrian",
-                    "item": "https://saffmedic.com/antrian"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 12,
-                    "name": "Fitur - E-Rekam Medis",
-                    "item": "https://saffmedic.com/rekammediselektronik"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 13,
-                    "name": "Fitur - Odontogram",
-                    "item": "https://saffmedic.com/odontogram"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 14,
-                    "name": "Fitur",
-                    "item": "https://saffmedic.com/fitur"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 15,
-                    "name": "Harga",
-                    "item": "https://saffmedic.com/harga"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 16,
-                    "name": "Kontak",
-                    "item": "https://saffmedic.com/kontak"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 17,
-                    "name": "Kententuan",
-                    "item": "https://saffmedic.com/ketentuan"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 18,
-                    "name": "Artikel",
-                    "item": "https://saffmedic.com/artikel"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 19,
-                    "name": "Mitra",
-                    "item": "https://saffmedic.com/mitra"
+                    "name": "Tentang Kami",
+                    "item": "https://lpddb-sukabumi.com/tentang-kami"
                 }
             ]
         }
@@ -213,179 +95,98 @@
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": "Apa yang dimaksud dengan SIMRS?",
+                    "name": "Apa yang dimaksud dengan Audit Halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "SIMRS (Sistem Manajemen Rumah Sakit) adalah sistem informasi yang dirancang khusus untuk mengelola dan memfasilitasi berbagai aspek operasional dalam sebuah rumah sakit, mencakup fitur-fitur seperti antrian, admisi, keperawatan, keuangan, dan lainnya."
+                        "text": "Audit Halal adalah proses pemeriksaan dan verifikasi yang sistematis untuk memastikan bahwa produk, bahan baku, proses produksi, dan fasilitas telah memenuhi semua persyaratan kehalalan sesuai dengan standar yang ditetapkan oleh BPJPH."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SIMRS SAFFMedic dapat di custome?",
+                    "name": "Apakah Audit Halal dapat dilakukan untuk UKM?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, SIMRS SAFFMedic dapat disesuaikan (semi-custome). Fitur-fitur dapat ditambahkan dan disesuaikan dengan kebutuhan rumah sakit, memberikan fleksibilitas dalam penggunaan sistem."
+                        "text": "Ya, LPH Doa Bangsa Sukabumi memberikan layanan audit halal untuk semua skala usaha, dari UKM hingga perusahaan besar. Untuk UKM, kami memberikan pendampingan khusus dan solusi yang sesuai dengan kapasitas usaha."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apa yang dimaksud dengan \"semi-custome\" pada SIMRS SAFFMedic?",
+                    "name": "Apa yang dimaksud dengan \"audit komprehensif\" pada layanan LPH Doa Bangsa Sukabumi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "\"Semi-custome\" pada SIMRS SAFFMedic berarti memungkinkan penambahan dan penyesuaian fitur sesuai kebutuhan rumah sakit, memberikan kontrol sebagian atas fungsionalitas sistem."
+                        "text": "\"Audit komprehensif\" berarti kami melakukan pemeriksaan menyeluruh terhadap seluruh aspek produksi, mulai dari bahan baku, proses produksi, fasilitas penyimpanan, hingga distribusi produk untuk memastikan kepatuhan terhadap standar halal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SIMRS SAFFMedic berbasis Web, dan dapat dioperasikan tanpa terhubung ke Internet?",
+                    "name": "Apakah audit halal dilakukan secara online atau offline?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, SIMRS SAFFMedic berbasis web, namun memerlukan koneksi internet selama penggunaan. Penerapan pada server lokal dapat dilakukan dengan persetujuan antara pihak SAFFMedic dan rumah sakit."
+                        "text": "Audit halal dilakukan melalui kombinasi pemeriksaan dokumen online dan kunjungan lapangan (offline) ke fasilitas produksi. Kunjungan lapangan diperlukan untuk memverifikasi langsung kondisi dan proses produksi."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana proses penerapan SIMRS SAFFMedic pada server lokal di rumah sakit?",
+                    "name": "Bagaimana proses audit halal di fasilitas produksi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Proses penerapan pada server lokal dapat dilakukan dengan kesepakatan antara SAFFMedic dan rumah sakit. Persetujuan ini memastikan integrasi dan kesiapan sistem dengan infrastruktur lokal rumah sakit."
+                        "text": "Proses audit di fasilitas produksi meliputi pemeriksaan bahan baku, observasi proses produksi, verifikasi peralatan, wawancara dengan personil, dan pengecekan sistem penyimpanan serta distribusi."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apa saja fitur yang terdapat dalam SIMRS SAFFMedic, dan apakah fitur-fitur tersebut dapat ditambahkan atau disesuaikan?",
+                    "name": "Apa saja aspek yang diperiksa dalam audit halal, dan apakah aspek-aspek tersebut dapat disesuaikan dengan kebutuhan spesifik?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "SIMRS SAFFMedic mencakup fitur seperti Antrian, Admisi, Keperawatan, Keuangan, dan Penunjang untuk Laboratorium, Farmasi, MCU, dll. Fitur-fitur ini dapat ditambahkan dan disesuaikan sesuai dengan kebutuhan rumah sakit."
+                        "text": "Audit halal mencakup pemeriksaan bahan baku, proses produksi, fasilitas, personil, peralatan, dan dokumen. Kami dapat menyesuaikan fokus audit sesuai dengan kebutuhan spesifik perusahaan dan karakteristik produk."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana harga paket berlangganan SIMRS SAFFMedic ditentukan?",
+                    "name": "Bagaimana biaya audit halal ditentukan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Harga paket berlangganan SIMRS SAFFMedic tertera sebagai harga paket yang mencakup fitur-fitur tertentu. Harga dapat bervariasi tergantung pada paket yang dipilih dan dapat mencakup pelatihan dan pendampingan virtual."
+                        "text": "Biaya audit halal ditentukan berdasarkan jenis produk, kompleksitas proses produksi, jumlah lokasi fasilitas, dan cakupan audit yang diperlukan. Kami memberikan penawaran yang transparan setelah melakukan assessment awal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Jika rumah sakit ingin menerapkan SIMRS pada server lokal, apakah paket yang diambil adalah paket hybrid?",
+                    "name": "Jika perusahaan memiliki beberapa lokasi produksi, apakah audit dilakukan di semua lokasi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, jika rumah sakit ingin menerapkan SIMRS pada server lokal, paket yang diambil adalah paket hybrid, memungkinkan penggunaan sistem secara lokal dengan penyesuaian fitur."
+                        "text": "Ya, jika perusahaan memiliki beberapa lokasi produksi yang berbeda, audit perlu dilakukan di setiap lokasi untuk memastikan konsistensi penerapan sistem jaminan halal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah harga paket berlangganan SIMRS SAFFMedic sudah termasuk pelatihan dan pendampingan virtual?",
+                    "name": "Apakah biaya audit sudah termasuk konsultasi dan pelatihan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, harga paket berlangganan SIMRS SAFFMedic sudah termasuk pelatihan dan pendampingan virtual, memastikan pengguna mendapatkan dukungan yang diperlukan."
+                        "text": "Ya, biaya audit sudah termasuk konsultasi awal, pelatihan personil terkait sistem jaminan halal, dan pendampingan selama proses audit berlangsung."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah harga paket berlangganan mencakup biaya kunjungan offline dan akomodasi?",
+                    "name": "Apakah biaya audit mencakup biaya perjalanan dan akomodasi auditor?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Tidak, harga paket berlangganan tidak mencakup biaya kunjungan offline dan akomodasi. Biaya ini dapat dikenakan tambahan jika dibutuhkan."
+                        "text": "Biaya audit umumnya sudah mencakup biaya perjalanan dan akomodasi auditor untuk kunjungan lapangan dalam wilayah yang telah disepakati. Untuk lokasi yang sangat jauh, mungkin ada tambahan biaya."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana integrasi dengan pihak ketiga pada SIMRS SAFFMedic diimplementasikan?",
+                    "name": "Bagaimana integrasi audit halal dengan sistem manajemen yang sudah ada di perusahaan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Integrasi dengan pihak ketiga memerlukan kerjasama antara rumah sakit dan SAFFMedic untuk membangun hubungan API. Proses ini dapat dilakukan dengan koordinasi antara kedua belah pihak"
+                        "text": "Kami melakukan pendekatan yang kolaboratif untuk mengintegrasikan sistem jaminan halal dengan sistem manajemen yang sudah ada di perusahaan, seperti ISO, HACCP, atau GMP."
                     }
                 }
             ]
         }
     </script>
-
-    {{-- <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NCNTDDPL');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/61766aa1f7c0440a591fd06f/1fir912hm';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <script type="text/javascript" src="https://gass.co.id/gassv3.min.js?v=3"></script>
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-674058545"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'AW-674058545');
-    </script>
-    <script>
-        gass.run({
-            adw_tag: 'AW-674058545',
-            campaign_id: 1,
-            interval: 2
-        }, function(data) {});
-    </script> --}}
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCNTDDPL" height="0" width="0"
-            style="display:none;visibility:hidden">
-        </iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div>
         @include('partials.navbar')
 
@@ -393,12 +194,12 @@
         <section class="container mx-auto mt-20" data-aos="fade-right" data-aos-duration="1000">
             <div class="md:w-4/5 mx-auto rounded-xl bg-darkteal flex flex-col md:flex-row gap-10 p-5">
                 <div class="md:w-[50%]">
-                    <img src="img/sc1bg.png" alt="Rumah Sakit">
+                    <img src="img/sc1bg.png" alt="Audit Halal">
                 </div>
 
                 <div class="md:w-1/3 text-white md:mt-24">
-                    <h1 class="md:text-3xl text-xl font-bold mb-2">Solusi untuk Rumah Sakit yang ingin efisien</h1>
-                    <p>Meningkatkan Keefektifan Rumah Sakit Berbagai Tipe dengan SIMRS SAFFMedic</p>
+                    <h1 class="md:text-3xl text-xl font-bold mb-2">Solusi Audit Halal untuk Perusahaan yang Ingin Tepat dan Akurat</h1>
+                    <p>Meningkatkan Kepastian Kehalalan Produk dengan Audit Komprehensif oleh LPH Doa Bangsa Sukabumi</p>
                 </div>
             </div>
         </section>
@@ -409,49 +210,43 @@
             <div class="wrapper flex items-center justify-center p-5">
                 <div class="slider flex space-x-14 md:space-x-14 w-[1000px] overflow-hidden relative bg-white">
                     <div class="slidee space-x-10 h-[400px] flex items-center">
-                        <div
-                            class=" w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
-                            <a href="{{ route('rumah-sakit') }}">
-                                <img src="img/rawat_inaps2.png" class="w-[30%] mx-auto" alt="">
-                                <p class="text-center text-white text-xl">Rawat Inap</p>
+                        <div class=" w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
+                            <a href="/audit-makanan">
+                                <img src="img/rawat_inaps2.png" class="w-[30%] mx-auto" alt="Audit Makanan">
+                                <p class="text-center text-white text-xl">Audit Makanan</p>
                             </a>
                         </div>
-                        <div
-                            class=" w-[300px] bg-darkteal bg-over py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
-                            <a href="{{ route('praktek-dokter') }}">
-                                <img src="img/polis2.png" class="w-[30%] mx-auto" alt="">
-                                <p class="text-center text-white text-xl">Poli</p>
+                        <div class=" w-[300px] bg-darkteal bg-over py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
+                            <a href="/audit-minuman">
+                                <img src="img/polis2.png" class="w-[30%] mx-auto" alt="Audit Minuman">
+                                <p class="text-center text-white text-xl">Audit Minuman</p>
                             </a>
                         </div>
-                        <div
-                            class=" w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
-                            <a href="{{ route('farmasi') }}">
-                                <img src="img/farmasis2.png" class="w-[30%] mx-auto" alt="">
-                                <p class="text-center text-white text-xl">Farmasi</p>
+                        <div class=" w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
+                            <a href="/audit-kosmetik">
+                                <img src="img/farmasis2.png" class="w-[30%] mx-auto" alt="Audit Kosmetik">
+                                <p class="text-center text-white text-xl">Audit Kosmetik</p>
                             </a>
                         </div>
                     </div>
 
                     <div class="slidee space-x-10 h-[400px] flex items-center">
-                        <div
-                            class=" w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
-                            <a href="{{ route('penunjang') }}">
-                                <img src="img/penunjangs2.png" class="w-[30%] mx-auto" alt="">
-                                <p class="text-center text-white text-xl">Penunjang</p>
+                        <div class=" w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
+                            <a href="/audit-obat">
+                                <img src="img/penunjangs2.png" class="w-[30%] mx-auto" alt="Audit Obat-obatan">
+                                <p class="text-center text-white text-xl">Audit Obat</p>
                             </a>
                         </div>
-                        <div
-                            class="w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
-                            <a href="{{ route('antrian') }}">
-                                <img src="img/antrians2.png" class="w-[30%] mx-auto" alt="">
-                                <p class="text-center text-white text-xl">Antrian</p>
+                        <div class="w-[300px] bg-darkteal bg-cover py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
+                            <a href="/audit-bahan-baku">
+                                <img src="img/antrians2.png" class="w-[30%] mx-auto" alt="Audit Bahan Baku">
+                                <p class="text-center text-white text-xl">Audit Bahan Baku</p>
                             </a>
                         </div>
-                        <div
-                            class="w-[300px] bg-darkteal bg-over py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
-                            <a href="{{ route('keuangan') }}">
-                                <img src="img/keuangans2.png" class="w-[30%] mx-auto" alt="">
-                                <p class="text-center text-white text-xl">Keuangan</p>
+                        <div class="w-[300px] bg-darkteal bg-over py-7 transform hover:scale-110 snap-always snap-center rounded-xl">
+                            <a href="/audit-jasa">
+                                <img src="img/keuangans2.png" class="w-[30%] mx-auto" alt="Audit Jasa">
+                                <p class="text-center text-white text-xl">Audit Jasa</p>
                             </a>
                         </div>
                     </div>
@@ -484,7 +279,6 @@
                 }
 
                 @media (max-width: 576px) {
-
                     .slider::before,
                     .slider::after {
                         height: 300px;
@@ -514,7 +308,6 @@
                         0% {
                             transform: translateX(0);
                         }
-
                         100% {
                             transform: translateX(-100%);
                         }
@@ -525,7 +318,6 @@
                     0% {
                         transform: translateX(0);
                     }
-
                     100% {
                         transform: translateX(-100%);
                     }
@@ -538,42 +330,42 @@
         {{-- Section3 --}}
         <section class="container mx-auto my-20" data-aos="fade-down" data-aos-duration="1000">
             <div class="font-semibold text-2xl text-deepturqoise text-center mb-40">
-                <h1 class="md:w-1/4 mx-auto mb-10">Memberikan banyak manfaat untuk Rumah Sakit</h1>
-                <img src="img/SIMRS.png" width="60%" class="md:w-[45%] mx-auto" alt="SIMRS">
+                <h1 class="md:w-1/4 mx-auto mb-10">Memberikan banyak manfaat untuk Perusahaan Anda</h1>
+                <img src="img/SIMRS.png" width="60%" class="md:w-[45%] mx-auto" alt="Proses Audit Halal">
             </div>
 
             <div class="md:w-4/5 mx-auto text-deepturqoise" data-aos="fade-down" data-aos-duration="1000">
                 <div class="text-center text-xl">
-                    <h1 class="font-bold">Administrasi yang efisien</h1>
+                    <h1 class="font-bold">Audit yang Efisien dan Akurat</h1>
                 </div>
                 <div class="md:w-[900px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 p-8">
                     <div class="border-2 border-deepturqoise p-5 rounded-md">
-                        <div class="flex items-center font-semibold gap-x-2 mb-3 ">
-                            <img src="img/pasien_sc4.png" width="30" alt="Pasien">
-                            <h2>Mengelola Pasien</h2>
+                        <div class="flex items-center font-semibold gap-x-2 mb-3">
+                            <img src="img/pasien_sc4.png" width="30" alt="Bahan Baku">
+                            <h2>Pemeriksaan Bahan Baku</h2>
                         </div>
-                        <p>Fitur Admisi yang lengkap untuk mengelola pendaftaran pasien dengan cepat dan mudah</p>
+                        <p>Audit menyeluruh terhadap semua bahan baku untuk memastikan kehalalan dan asal-usul yang jelas</p>
                     </div>
                     <div class="border-2 border-deepturqoise p-5 rounded-md">
                         <div class="flex items-center font-semibold gap-x-2 mb-3">
-                            <img src="img/web_sc4.png" width="30" alt="Web">
-                            <h2>Web Base</h2>
+                            <img src="img/web_sc4.png" width="30" alt="Proses Produksi">
+                            <h2>Audit Proses Produksi</h2>
                         </div>
-                        <p>Sistem manajemen berbasis web yang memungkinkan akses data administrasi secara real-time</p>
+                        <p>Verifikasi seluruh tahapan proses produksi untuk mencegah kontaminasi dan memastikan kepatuhan halal</p>
                     </div>
                     <div class="border-2 border-deepturqoise p-5 rounded-md">
                         <div class="flex items-center font-semibold gap-x-2 mb-3">
-                            <img src="img/rekam_sc4.png" width="30" alt="Rekam Medis">
-                            <h2>Rekam Medis Elektronik</h2>
+                            <img src="img/rekam_sc4.png" width="30" alt="Dokumen">
+                            <h2>Verifikasi Dokumen</h2>
                         </div>
-                        <p>Pengelolaan proses administrasi yang efektif karna menggunakan Rekam Medis Elektronik</p>
+                        <p>Pemeriksaan kelengkapan dan keabsahan dokumen pendukung kehalalan produk</p>
                     </div>
                     <div class="border-2 border-deepturqoise p-5 rounded-md">
                         <div class="flex items-center font-semibold gap-x-2 mb-3">
-                            <img src="img/keuangan_sc4.png" width="30" alt="Keuangan">
-                            <h2>Mengelola Keuangan</h2>
+                            <img src="img/keuangan_sc4.png" width="30" alt="Fasilitas">
+                            <h2>Audit Fasilitas</h2>
                         </div>
-                        <p>Administrasi keuangan dan tagihan pembayaran pasien dapat dikelola lebih mudah</p>
+                        <p>Pemeriksaan kondisi fasilitas produksi, penyimpanan, dan distribusi untuk memastikan standar halal</p>
                     </div>
                 </div>
             </div>
@@ -585,7 +377,7 @@
         <section class="container mx-auto my-20" data-aos="fade-up-right" data-aos-duration="1000">
             <div class="md:w-5/6 mx-auto text-deepturqoise">
                 <div class="text-center text-xl font-bold mb-20">
-                    <h1>Manajemen Rawat Inap Yang tepat</h1>
+                    <h1>Audit Lapangan yang Mendalam</h1>
                 </div>
 
                 <div class="flex flex-col md:flex-row justify-center p-5">
@@ -600,7 +392,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </span>
-                            Monitoring pasien secara real-time dan pengelolaan ketersediaan tempat tidur secara efisien
+                            Observasi langsung proses produksi untuk memastikan tidak ada pelanggaran prinsip halal
                         </li>
                         <li>
                             <span>
@@ -611,9 +403,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </span>
-                            SIMRS SAFFMedic menyediakan informasi yang akurat dan terkini tentang ketersediaan kamar
-                            rawat inap,
-                            termasuk tipe kamar
+                            Wawancara dengan personil kunci untuk memahami pemahaman dan implementasi sistem jaminan halal
                         </li>
                         <li>
                             <span>
@@ -624,7 +414,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </span>
-                            Integrasi dengan Poli, ruang tindakan, Farmasi, instalasi Gizi, dll
+                            Pemeriksaan peralatan produksi untuk memastikan kebersihan dan tidak adanya kontaminasi silang
                         </li>
                         <li>
                             <span>
@@ -635,20 +425,14 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </span>
-                            Customisasi fitur dan laporan apabila diperlukan oleh Rumah Sakit
+                            Dokumentasi temuan audit secara rinci dengan foto dan catatan untuk referensi dan tindak lanjut
                         </li>
                     </ul>
 
                     <div class="md:w-[500px] order-1 md:order-2">
-                        <img src="img/manajemen-inap.png" alt="Manajemen Rawat Inap">
+                        <img src="img/manajemen-inap.png" alt="Audit Lapangan">
                         <div class="bg-darkteal text-white font-semibold px-10 py-16">
-                            <p>Dengan menggunakan SIMRS SAFFMedic, rumah sakit dapat meningkatkan efisiensi dan kualitas
-                                layanan
-                                rawat inap mereka. Sistem ini membantu mengurangi birokrasi dan meningkatkan koordinasi
-                                antara
-                                berbagai departemen kesehatan dalam rumah sakit, sehingga pasien mendapatkan perawatan
-                                yang
-                                lebih baik dan lebih terkoordinasi.
+                            <p>Dengan menggunakan jasa audit LPH Doa Bangsa Sukabumi, perusahaan dapat meningkatkan kepercayaan konsumen terhadap kehalalan produk mereka. Audit komprehensif kami membantu mengidentifikasi potensi risiko, memberikan rekomendasi perbaikan, dan memastikan kepatuhan terhadap standar halal yang berlaku.
                             </p>
                         </div>
                     </div>
@@ -661,18 +445,18 @@
         {{-- Section5 --}}
         <section data-aos="fade-down" data-aos-duration="1000">
             <div class="text-center font-bold text-deepturqoise mb-16 mt-40">
-                <h1>Mengapa beralih ke SIMRS SAFFMedic?</h1>
+                <h1>Mengapa memilih Audit Halal oleh LPH Doa Bangsa Sukabumi?</h1>
             </div>
 
             <div class="flex justify-center gap-5 p-5">
                 <img src="img/line-dot.png" class="md:w-6" alt="">
                 <ul class="flex flex-col text-deepturqoise font-medium gap-3">
-                    <li>Berbasis Web, sehingga tidak memerlukan biaya <br> pengadaan dan pemeliharaan Server</li>
-                    <li>Senantiasa update setiap ada usulan, masukan <br> ataupun permintaan dari user</li>
-                    <li>Terletak pada data center yang aman yang memiliki <br> standarisasi pengelolaan server</li>
-                    <li>Semi Custome yang memungkinkan pengguna <br> meminta pernambahan modul ataupun laporan</li>
-                    <li>Sistem telah terintegrasi dari semua layanan</li>
-                    <li>Menyediakan layanan migrasi gratis untuk <br> perpindahan dari sistem lama kepada SAFFMedic</li>
+                    <li>Tim auditor yang berpengalaman dan kompeten di bidang pemeriksaan halal</li>
+                    <li>Pendekatan audit yang komprehensif dan sesuai dengan standar BPJPH</li>
+                    <li>Proses audit yang transparan dengan komunikasi intensif dengan klien</li>
+                    <li>Fleksibilitas dalam penyesuaian cakupan audit sesuai kebutuhan spesifik perusahaan</li>
+                    <li>Laporan audit yang rinci dan mudah dipahami dengan rekomendasi tindakan perbaikan</li>
+                    <li>Pendampingan pasca-audit untuk implementasi rekomendasi dan perbaikan sistem</li>
                 </ul>
             </div>
         </section>
@@ -681,206 +465,131 @@
         {{-- Section6 --}}
         <section class="container mx-auto my-20 p-5" data-aos="fade-down" data-aos-duration="1000">
             <div class="text-center text-deepturqoise mb-10">
-                <h1 class="md:text-3xl text-2xl font-bold mb-3">Tipe Rumah Sakit</h1>
-                <h2 class="font-semibold">Dapat diiplementasikan pada semua type Rumah Sakit</h2>
-                <p>SAFFMedic Memberikan SIMRS dengan harga terjangkau <br>
-                    serta menghadirkan fitur Semi Custome</p>
+                <h1 class="md:text-3xl text-2xl font-bold mb-3">Jenis Audit Halal</h1>
+                <h2 class="font-semibold">Kami menyediakan berbagai jenis layanan audit sesuai kebutuhan</h2>
+                <p>LPH Doa Bangsa Sukabumi memberikan layanan audit halal yang komprehensif <br>
+                    untuk memastikan kepatuhan terhadap standar kehalalan</p>
             </div>
 
             <div class="flex flex-wrap justify-center gap-10 text-darkteal">
                 <div class="w-[120px] mx-auto md:mx-0 py-2 bg-[#F4F4F4] rounded-xl shadow-xl">
-                    <img src="img/typea_sc7.png" class="w-[40%] mx-auto" alt="Type A">
-                    <h2 class="text-center">Type A</h2>
+                    <img src="img/typea_sc7.png" class="w-[40%] mx-auto" alt="Audit Awal">
+                    <h2 class="text-center text-sm">Audit Awal</h2>
                 </div>
                 <div class="w-[120px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
-                    <img src="img/typeb_sc7.png" class="w-[60%] mx-auto" alt="Type B">
-                    <h2 class="text-center">Type B</h2>
+                    <img src="img/typeb_sc7.png" class="w-[60%] mx-auto" alt="Audit Rutin">
+                    <h2 class="text-center text-sm">Audit Rutin</h2>
                 </div>
                 <div class="w-[120px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
-                    <img src="img/typec_sc7.png" class="w-[60%] mx-auto" alt="Type C">
-                    <h2 class="text-center">Type C</h2>
+                    <img src="img/typec_sc7.png" class="w-[60%] mx-auto" alt="Audit Khusus">
+                    <h2 class="text-center text-sm">Audit Khusus</h2>
                 </div>
                 <div class="w-[120px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
-                    <img src="img/typed_sc7.png" class="w-[50%] mx-auto" alt="Type D">
-                    <h2 class="text-center">Type D</h2>
+                    <img src="img/typed_sc7.png" class="w-[50%] mx-auto" alt="Surveilan">
+                    <h2 class="text-center text-sm">Surveilan</h2>
                 </div>
             </div>
         </section>
-        {{-- End Section6}}
+        {{-- End Section6 --}}
 
-    {{-- FAQ --}}
-
-        {{-- Desktop (Tab) --}}
+        {{-- FAQ --}}
         <div class="py-10 md:pt-20 md:pb-28 bg-[#f1f4f7] mt-10 md:mt-20" data-aos="fade-down"
             data-aos-duration="1000">
             <div class="text max-w-screen-lg mx-auto text-center text-darkgreen text-sm md:text-xl px-5 md:px-0">
                 <h1 class="font-bold text-2xl md:text-5xl mb-3">FAQ</h1>
-                <p>SIMRS SAFFMedic</p>
+                <p>Audit Halal LPH Doa Bangsa Sukabumi</p>
             </div>
 
             <div class="max-w-screen-lg mx-auto bg-white rounded-lg ps-10 py-10 hidden md:flex mt-10">
                 <div id="child-scroll" class="tab w-1/3 h-[450px] overflow-y-auto space-y-3">
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none active"
-                        onclick="openCity(event, '1')">1. Apa yang dimaksud dengan SIMRS?</button>
+                        onclick="openCity(event, '1')">1. Apa yang dimaksud dengan Audit Halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '2')">2. akah SIMRS SAFFMedic dapat di custome?</button>
+                        onclick="openCity(event, '2')">2. Apakah Audit Halal dapat dilakukan untuk UKM?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '3')">3. Apa yang dimaksud dengan "semi-custome" pada SIMRS
-                        SAFFMedic?</button>
+                        onclick="openCity(event, '3')">3. Apa yang dimaksud dengan "audit komprehensif" pada layanan LPH Doa Bangsa Sukabumi?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '4')">4. Apakah SIMRS SAFFMedic berbasis Web, dan dapat dioperasikan
-                        tanpa
-                        terhubung ke Internet?</button>
+                        onclick="openCity(event, '4')">4. Apakah audit halal dilakukan secara online atau offline?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '5')">5. Bagaimana proses penerapan SIMRS SAFFMedic pada server lokal
-                        di rumah
-                        sakit?</button>
+                        onclick="openCity(event, '5')">5. Bagaimana proses audit halal di fasilitas produksi?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '6')">6. Apa saja fitur yang terdapat dalam SIMRS SAFFMedic, dan
-                        apakah
-                        fitur-fitur tersebut dapat ditambahkan atau disesuaikan?</button>
+                        onclick="openCity(event, '6')">6. Apa saja aspek yang diperiksa dalam audit halal, dan apakah aspek-aspek tersebut dapat disesuaikan dengan kebutuhan spesifik?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '7')">7. Bagaimana harga paket berlangganan SIMRS SAFFMedic
-                        ditentukan?</button>
+                        onclick="openCity(event, '7')">7. Bagaimana biaya audit halal ditentukan?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '8')">8. Jika rumah sakit ingin menerapkan SIMRS pada server lokal,
-                        apakah
-                        paket yang diambil adalah paket hybrid?</button>
+                        onclick="openCity(event, '8')">8. Jika perusahaan memiliki beberapa lokasi produksi, apakah audit dilakukan di semua lokasi?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '9')">9. Apakah harga paket berlangganan SIMRS SAFFMedic sudah
-                        termasuk
-                        pelatihan dan pendampingan virtual?</button>
+                        onclick="openCity(event, '9')">9. Apakah biaya audit sudah termasuk konsultasi dan pelatihan?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '10')">10. Apakah harga paket berlangganan mencakup biaya kunjungan
-                        offline
-                        dan
-                        akomodasi?</button>
+                        onclick="openCity(event, '10')">10. Apakah biaya audit mencakup biaya perjalanan dan akomodasi auditor?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '11')">11. Bagaimana integrasi dengan pihak ketiga pada SIMRS
-                        SAFFMedic
-                        diimplementasikan?</button>
+                        onclick="openCity(event, '11')">11. Bagaimana integrasi audit halal dengan sistem manajemen yang sudah ada di perusahaan?</button>
                 </div>
 
                 <div id="1" class="tabcontent text-lg w-2/3 px-16 h-96 transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa yang dimaksud dengan SIMRS?</h3>
-                    <p>SIMRS (Sistem Manajemen Rumah Sakit) adalah sistem informasi yang dirancang khusus untuk
-                        mengelola dan
-                        memfasilitasi berbagai aspek operasional dalam sebuah rumah sakit, mencakup fitur-fitur seperti
-                        antrian,
-                        admisi, keperawatan, keuangan, dan lainnya.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa yang dimaksud dengan Audit Halal?</h3>
+                    <p>Audit Halal adalah proses pemeriksaan dan verifikasi yang sistematis untuk memastikan bahwa produk, bahan baku, proses produksi, dan fasilitas telah memenuhi semua persyaratan kehalalan sesuai dengan standar yang ditetapkan oleh BPJPH.</p>
                 </div>
 
                 <div id="2" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SIMRS SAFFMedic dapat di custome?</h3>
-                    <p>Ya, SIMRS SAFFMedic dapat disesuaikan (semi-custome). Fitur-fitur dapat ditambahkan dan
-                        disesuaikan
-                        dengan kebutuhan rumah sakit, memberikan fleksibilitas dalam penggunaan sistem.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah Audit Halal dapat dilakukan untuk UKM?</h3>
+                    <p>Ya, LPH Doa Bangsa Sukabumi memberikan layanan audit halal untuk semua skala usaha, dari UKM hingga perusahaan besar. Untuk UKM, kami memberikan pendampingan khusus dan solusi yang sesuai dengan kapasitas usaha.</p>
                 </div>
 
                 <div id="3" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa yang dimaksud dengan "semi-custome" pada
-                        SIMRS
-                        SAFFMedic?</h3>
-                    <p>"Semi-custome" pada SIMRS SAFFMedic berarti memungkinkan penambahan dan penyesuaian fitur sesuai
-                        kebutuhan rumah sakit, memberikan kontrol sebagian atas fungsionalitas sistem.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa yang dimaksud dengan "audit komprehensif" pada layanan LPH Doa Bangsa Sukabumi?</h3>
+                    <p>"Audit komprehensif" berarti kami melakukan pemeriksaan menyeluruh terhadap seluruh aspek produksi, mulai dari bahan baku, proses produksi, fasilitas penyimpanan, hingga distribusi produk untuk memastikan kepatuhan terhadap standar halal.</p>
                 </div>
 
                 <div id="4" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SIMRS SAFFMedic berbasis Web, dan dapat
-                        dioperasikan tanpa terhubung ke Internet?</h3>
-                    <p>Ya, SIMRS SAFFMedic berbasis web, namun memerlukan koneksi internet selama penggunaan. Penerapan
-                        pada
-                        server lokal dapat dilakukan dengan persetujuan antara pihak SAFFMedic dan rumah sakit.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah audit halal dilakukan secara online atau offline?</h3>
+                    <p>Audit halal dilakukan melalui kombinasi pemeriksaan dokumen online dan kunjungan lapangan (offline) ke fasilitas produksi. Kunjungan lapangan diperlukan untuk memverifikasi langsung kondisi dan proses produksi.</p>
                 </div>
 
                 <div id="5" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana proses penerapan SIMRS SAFFMedic pada
-                        server
-                        lokal di rumah sakit?</h3>
-                    <p>Proses penerapan pada server lokal dapat dilakukan dengan kesepakatan antara SAFFMedic dan rumah
-                        sakit.
-                        Persetujuan ini memastikan integrasi dan kesiapan sistem dengan infrastruktur lokal rumah sakit.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana proses audit halal di fasilitas produksi?</h3>
+                    <p>Proses audit di fasilitas produksi meliputi pemeriksaan bahan baku, observasi proses produksi, verifikasi peralatan, wawancara dengan personil, dan pengecekan sistem penyimpanan serta distribusi.</p>
                 </div>
 
                 <div id="6" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa saja fitur yang terdapat dalam SIMRS
-                        SAFFMedic, dan
-                        apakah fitur-fitur tersebut dapat ditambahkan atau disesuaikan?
-                    </h3>
-                    <p>SIMRS SAFFMedic mencakup fitur seperti Antrian, Admisi, Keperawatan, Keuangan, dan Penunjang
-                        untuk
-                        Laboratorium, Farmasi, MCU, dll. Fitur-fitur ini dapat ditambahkan dan disesuaikan sesuai dengan
-                        kebutuhan rumah sakit.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa saja aspek yang diperiksa dalam audit halal, dan apakah aspek-aspek tersebut dapat disesuaikan dengan kebutuhan spesifik?</h3>
+                    <p>Audit halal mencakup pemeriksaan bahan baku, proses produksi, fasilitas, personil, peralatan, dan dokumen. Kami dapat menyesuaikan fokus audit sesuai dengan kebutuhan spesifik perusahaan dan karakteristik produk.</p>
                 </div>
 
                 <div id="7" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana harga paket berlangganan SIMRS
-                        SAFFMedic
-                        ditentukan?
-                    </h3>
-                    <p>Harga paket berlangganan SIMRS SAFFMedic tertera sebagai harga paket yang mencakup fitur-fitur
-                        tertentu.
-                        Harga dapat bervariasi tergantung pada paket yang dipilih dan dapat mencakup pelatihan dan
-                        pendampingan
-                        virtual.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana biaya audit halal ditentukan?</h3>
+                    <p>Biaya audit halal ditentukan berdasarkan jenis produk, kompleksitas proses produksi, jumlah lokasi fasilitas, dan cakupan audit yang diperlukan. Kami memberikan penawaran yang transparan setelah melakukan assessment awal.</p>
                 </div>
 
                 <div id="8" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4"> Jika rumah sakit ingin menerapkan SIMRS pada
-                        server
-                        lokal, apakah paket yang diambil adalah paket hybrid?
-                    </h3>
-                    <p>Ya, jika rumah sakit ingin menerapkan SIMRS pada server lokal, paket yang diambil adalah paket
-                        hybrid,
-                        memungkinkan penggunaan sistem secara lokal dengan penyesuaian fitur.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Jika perusahaan memiliki beberapa lokasi produksi, apakah audit dilakukan di semua lokasi?</h3>
+                    <p>Ya, jika perusahaan memiliki beberapa lokasi produksi yang berbeda, audit perlu dilakukan di setiap lokasi untuk memastikan konsistensi penerapan sistem jaminan halal.</p>
                 </div>
 
                 <div id="9" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah harga paket berlangganan SIMRS SAFFMedic
-                        sudah
-                        termasuk pelatihan dan pendampingan virtual?
-                    </h3>
-                    <p>Ya, harga paket berlangganan SIMRS SAFFMedic sudah termasuk pelatihan dan pendampingan virtual,
-                        memastikan pengguna mendapatkan dukungan yang diperlukan.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah biaya audit sudah termasuk konsultasi dan pelatihan?</h3>
+                    <p>Ya, biaya audit sudah termasuk konsultasi awal, pelatihan personil terkait sistem jaminan halal, dan pendampingan selama proses audit berlangsung.</p>
                 </div>
+
                 <div id="10" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah harga paket berlangganan mencakup biaya
-                        kunjungan
-                        offline dan akomodasi?
-                    </h3>
-                    <p>Tidak, harga paket berlangganan tidak mencakup biaya kunjungan offline dan akomodasi. Biaya ini
-                        dapat
-                        dikenakan tambahan jika dibutuhkan.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah biaya audit mencakup biaya perjalanan dan akomodasi auditor?</h3>
+                    <p>Biaya audit umumnya sudah mencakup biaya perjalanan dan akomodasi auditor untuk kunjungan lapangan dalam wilayah yang telah disepakati. Untuk lokasi yang sangat jauh, mungkin ada tambahan biaya.</p>
                 </div>
+
                 <div id="11" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana integrasi dengan pihak ketiga pada
-                        SIMRS
-                        SAFFMedic diimplementasikan?
-                    </h3>
-                    <p>Integrasi dengan pihak ketiga memerlukan kerjasama antara rumah sakit dan SAFFMedic untuk
-                        membangun
-                        hubungan API. Proses ini dapat dilakukan dengan koordinasi antara kedua belah pihak
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana integrasi audit halal dengan sistem manajemen yang sudah ada di perusahaan?</h3>
+                    <p>Kami melakukan pendekatan yang kolaboratif untuk mengintegrasikan sistem jaminan halal dengan sistem manajemen yang sudah ada di perusahaan, seperti ISO, HACCP, atau GMP.</p>
                 </div>
             </div>
 
@@ -891,7 +600,7 @@
                         <input type="checkbox" id="input1" class="absolute peer opacity-0">
                         <label for="input1"
                             class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            yang dimaksud dengan SIMRS?</label>
+                            yang dimaksud dengan Audit Halal?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -901,10 +610,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-8 md:mt-0 text-deepturqoise opacity-95">
-                            <p>SIMRS (Sistem Manajemen Rumah Sakit) adalah sistem informasi yang dirancang khusus untuk
-                                mengelola dan memfasilitasi berbagai aspek operasional dalam sebuah rumah sakit,
-                                mencakup
-                                fitur-fitur seperti antrian, admisi, keperawatan, keuangan, dan lainnya.</p>
+                            <p>Audit Halal adalah proses pemeriksaan dan verifikasi yang sistematis untuk memastikan bahwa produk, bahan baku, proses produksi, dan fasilitas telah memenuhi semua persyaratan kehalalan sesuai dengan standar yang ditetapkan oleh BPJPH.</p>
                         </div>
                     </div>
 
@@ -914,7 +620,7 @@
                         <input type="checkbox" id="input2" class="absolute peer opacity-0">
                         <label for="input2"
                             class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SIMRS SAFFMedic dapat di custome?
+                            Audit Halal dapat dilakukan untuk UKM?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -925,10 +631,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, SIMRS SAFFMedic dapat disesuaikan (semi-custome). Fitur-fitur dapat ditambahkan dan
-                                disesuaikan dengan kebutuhan rumah sakit, memberikan fleksibilitas dalam penggunaan
-                                sistem.
-                            </p>
+                            <p>Ya, LPH Doa Bangsa Sukabumi memberikan layanan audit halal untuk semua skala usaha, dari UKM hingga perusahaan besar.</p>
                         </div>
                     </div>
 
@@ -938,7 +641,7 @@
                         <input type="checkbox" id="input3" class="absolute peer opacity-0">
                         <label for="input3"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            yang dimaksud dengan "semi-custome" pada SIMRS SAFFMedic?
+                            yang dimaksud dengan "audit komprehensif" pada layanan LPH Doa Bangsa Sukabumi?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -949,10 +652,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>"Semi-custome" pada SIMRS SAFFMedic berarti memungkinkan penambahan dan penyesuaian fitur
-                                sesuai
-                                kebutuhan rumah sakit, memberikan kontrol sebagian atas fungsionalitas sistem.
-                            </p>
+                            <p>"Audit komprehensif" berarti kami melakukan pemeriksaan menyeluruh terhadap seluruh aspek produksi untuk memastikan kepatuhan terhadap standar halal.</p>
                         </div>
                     </div>
 
@@ -962,7 +662,7 @@
                         <input type="checkbox" id="input4" class="absolute peer opacity-0">
                         <label for="input4"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SIMRS SAFFMedic berbasis Web, dan dapat dioperasikan tanpa terhubung ke Internet?
+                            audit halal dilakukan secara online atau offline?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -973,11 +673,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-8 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, SIMRS SAFFMedic berbasis web, namun memerlukan koneksi internet selama penggunaan.
-                                Penerapan
-                                pada server lokal dapat dilakukan dengan persetujuan antara pihak SAFFMedic dan rumah
-                                sakit.
-                            </p>
+                            <p>Audit halal dilakukan melalui kombinasi pemeriksaan dokumen online dan kunjungan lapangan (offline) ke fasilitas produksi.</p>
                         </div>
                     </div>
 
@@ -987,7 +683,7 @@
                         <input type="checkbox" id="input5" class="absolute peer opacity-0">
                         <label for="input5"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            proses penerapan SIMRS SAFFMedic pada server lokal di rumah sakit?
+                            proses audit halal di fasilitas produksi?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -998,12 +694,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-4 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Proses penerapan pada server lokal dapat dilakukan dengan kesepakatan antara SAFFMedic
-                                dan rumah
-                                sakit. Persetujuan ini memastikan integrasi dan kesiapan sistem dengan infrastruktur
-                                lokal rumah
-                                sakit.
-                            </p>
+                            <p>Proses audit di fasilitas produksi meliputi pemeriksaan bahan baku, observasi proses produksi, verifikasi peralatan, wawancara dengan personil, dan pengecekan sistem penyimpanan serta distribusi.</p>
                         </div>
                     </div>
 
@@ -1013,9 +704,7 @@
                         <input type="checkbox" id="input6" class="absolute peer opacity-0">
                         <label for="input6"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            saja fitur yang terdapat dalam SIMRS SAFFMedic, dan apakah fitur-fitur tersebut dapat
-                            ditambahkan
-                            atau disesuaikan?
+                            saja aspek yang diperiksa dalam audit halal, dan apakah aspek-aspek tersebut dapat disesuaikan dengan kebutuhan spesifik?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1026,12 +715,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-5 md:mt-0 text-deepturqoise opacity-95">
-                            <p>SIMRS SAFFMedic mencakup fitur seperti Antrian, Admisi, Keperawatan, Keuangan, dan
-                                Penunjang
-                                untuk Laboratorium, Farmasi, MCU, dll. Fitur-fitur ini dapat ditambahkan dan disesuaikan
-                                sesuai
-                                dengan kebutuhan rumah sakit.
-                            </p>
+                            <p>Audit halal mencakup pemeriksaan bahan baku, proses produksi, fasilitas, personil, peralatan, dan dokumen. Kami dapat menyesuaikan fokus audit sesuai dengan kebutuhan spesifik perusahaan.</p>
                         </div>
                     </div>
 
@@ -1041,7 +725,7 @@
                         <input type="checkbox" id="input7" class="absolute peer opacity-0">
                         <label for="input7"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            harga paket berlangganan SIMRS SAFFMedic ditentukan?
+                            biaya audit halal ditentukan?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1052,12 +736,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Harga paket berlangganan SIMRS SAFFMedic tertera sebagai harga paket yang mencakup
-                                fitur-fitur
-                                tertentu. Harga dapat bervariasi tergantung pada paket yang dipilih dan dapat mencakup
-                                pelatihan
-                                dan pendampingan virtual.
-                            </p>
+                            <p>Biaya audit halal ditentukan berdasarkan jenis produk, kompleksitas proses produksi, jumlah lokasi fasilitas, dan cakupan audit yang diperlukan.</p>
                         </div>
                     </div>
 
@@ -1067,8 +746,7 @@
                         <input type="checkbox" id="input8" class="absolute peer opacity-0">
                         <label for="input8"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Jika
-                            rumah sakit ingin menerapkan SIMRS pada server lokal, apakah paket yang diambil adalah paket
-                            hybrid?
+                            perusahaan memiliki beberapa lokasi produksi, apakah audit dilakukan di semua lokasi?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1079,10 +757,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, jika rumah sakit ingin menerapkan SIMRS pada server lokal, paket yang diambil adalah
-                                paket
-                                hybrid, memungkinkan penggunaan sistem secara lokal dengan penyesuaian fitur.
-                            </p>
+                            <p>Ya, jika perusahaan memiliki beberapa lokasi produksi yang berbeda, audit perlu dilakukan di setiap lokasi untuk memastikan konsistensi penerapan sistem jaminan halal.</p>
                         </div>
                     </div>
 
@@ -1092,7 +767,7 @@
                         <input type="checkbox" id="input9" class="absolute peer opacity-0">
                         <label for="input9"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            harga paket berlangganan SIMRS SAFFMedic sudah termasuk pelatihan dan pendampingan virtual?
+                            biaya audit sudah termasuk konsultasi dan pelatihan?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1103,10 +778,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, harga paket berlangganan SIMRS SAFFMedic sudah termasuk pelatihan dan pendampingan
-                                virtual,
-                                memastikan pengguna mendapatkan dukungan yang diperlukan.
-                            </p>
+                            <p>Ya, biaya audit sudah termasuk konsultasi awal, pelatihan personil terkait sistem jaminan halal, dan pendampingan selama proses audit berlangsung.</p>
                         </div>
                     </div>
 
@@ -1116,7 +788,7 @@
                         <input type="checkbox" id="input10" class="absolute peer opacity-0">
                         <label for="input10"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            harga paket berlangganan mencakup biaya kunjungan offline dan akomodasi?
+                            biaya audit mencakup biaya perjalanan dan akomodasi auditor?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1127,10 +799,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Tidak, harga paket berlangganan tidak mencakup biaya kunjungan offline dan akomodasi.
-                                Biaya ini
-                                dapat dikenakan tambahan jika dibutuhkan.
-                            </p>
+                            <p>Biaya audit umumnya sudah mencakup biaya perjalanan dan akomodasi auditor untuk kunjungan lapangan dalam wilayah yang telah disepakati.</p>
                         </div>
                     </div>
 
@@ -1140,7 +809,7 @@
                         <input type="checkbox" id="input11" class="absolute peer opacity-0">
                         <label for="input11"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            integrasi dengan pihak ketiga pada SIMRS SAFFMedic diimplementasikan?
+                            integrasi audit halal dengan sistem manajemen yang sudah ada di perusahaan?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1151,10 +820,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Integrasi dengan pihak ketiga memerlukan kerjasama antara rumah sakit dan SAFFMedic untuk
-                                membangun hubungan API. Proses ini dapat dilakukan dengan koordinasi antara kedua belah
-                                pihak
-                            </p>
+                            <p>Kami melakukan pendekatan yang kolaboratif untuk mengintegrasikan sistem jaminan halal dengan sistem manajemen yang sudah ada di perusahaan.</p>
                         </div>
                     </div>
 
@@ -1249,22 +915,22 @@
         {{-- Section7 --}}
         <section class="my-28 p-5" data-aos="zoom-in-up" data-aos-duration="1100">
             <div class="md:w-2/5 mx-auto text-center text-darkgreen mb-20 text-xl">
-                <h1 class="font-bold mb-5">Bergabunglah segera !</h1>
-                <p>Dapatkan Kemudahan dan Efisiensi Terbaik dalam Manajemen Rumah Sakit dengan SIMRS SAFFMedic</p>
+                <h1 class="font-bold mb-5">Mulai Audit Halal Anda Sekarang!</h1>
+                <p>Dapatkan Kepastian Kehalalan Produk dengan Audit Komprehensif oleh LPH Doa Bangsa Sukabumi</p>
             </div>
             <div class="flex md:flex-row flex-col justify-center w-fit mx-auto md:gap-7 mb-20">
                 <a role="button">
                     <div
                         class="flex justify-center items-center p-3 bg-emerald md:w-[220px] text-white font-semibold rounded-md mb-5">
                         <img class="mr-3" src="img/demo.png" width="25" alt="Demo">
-                        <a href="{{ route('form-request-demo') }}">Atur Jadwal Demo</a>
+                        <a href="/whatsapp">Jadwal Konsultasi</a>
                     </div>
                 </a>
                 <a role="button">
                     <div
                         class="flex justify-center items-center p-3 bg-darkteal md:w-[220px] text-white font-semibold rounded-md mb-5">
                         <img class="mr-3" src="img/whatsappicon.png" width="25" alt="Whatsapp">
-                        <a href="/whatsapp">Hubungi Kami</a>
+                        <a href="/whatsapp">Auditor Kami</a>
                     </div>
                 </a>
             </div>
@@ -1295,10 +961,6 @@
         </a>
     </div>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCNTDDPL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 </body>
 @include('partials.js')
 

@@ -15,8 +15,11 @@
             <div class="card-custom" style="border-left: 4px solid var(--success-main);">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Total Terbayar</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">Rp 125M</div>
+                        <div class="text-secondary-light" style="font-size: 0.875rem;">Total Terverifikasi</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">
+                            Rp {{ number_format($stats['verified_amount'] ?? 0, 0, ',', '.') }}
+                        </div>
+                        <small class="text-secondary-light">{{ $stats['verified'] ?? 0 }} pembayaran</small>
                     </div>
                     <div class="stat-icon success" style="width: 50px; height: 50px;">
                         <i class="ri-money-dollar-circle-line"></i>
@@ -29,7 +32,10 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="text-secondary-light" style="font-size: 0.875rem;">Pending Verifikasi</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">Rp 15M</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">
+                            Rp {{ number_format($stats['pending_amount'] ?? 0, 0, ',', '.') }}
+                        </div>
+                        <small class="text-secondary-light">{{ $stats['pending'] ?? 0 }} pembayaran</small>
                     </div>
                     <div class="stat-icon warning" style="width: 50px; height: 50px;">
                         <i class="ri-time-line"></i>
@@ -42,7 +48,10 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="text-secondary-light" style="font-size: 0.875rem;">Bulan Ini</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">Rp 45M</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">
+                            Rp {{ number_format($stats['this_month_amount'] ?? 0, 0, ',', '.') }}
+                        </div>
+                        <small class="text-secondary-light">Terverifikasi</small>
                     </div>
                     <div class="stat-icon info" style="width: 50px; height: 50px;">
                         <i class="ri-calendar-line"></i>
@@ -57,12 +66,14 @@
         <div class="card-header-custom">
             <h5 class="card-title mb-0">Semua Pembayaran</h5>
             <div class="d-flex gap-2">
-                <select class="form-select" style="width: 150px;">
-                    <option value="">Semua Status</option>
-                    <option value="verified">Terverifikasi</option>
-                    <option value="pending">Pending</option>
-                    <option value="rejected">Ditolak</option>
-                </select>
+                <form method="GET" action="{{ route('admin.finance.payments') }}" class="d-flex gap-2">
+                    <select name="status" class="form-select" style="width: 150px;" onchange="this.form.submit()">
+                        <option value="">Semua Status</option>
+                        <option value="verified" {{ request('status') == 'verified' ? 'selected' : '' }}>Terverifikasi</option>
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Ditolak</option>
+                    </select>
+                </form>
             </div>
         </div>
         <div class="table-responsive">
@@ -80,68 +91,130 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($payments as $payment)
+                    @php
+                        $statusBadge = match($payment->status) {
+                            'pending' => 'warning',
+                            'verified' => 'success',
+                            'rejected' => 'danger',
+                            default => 'secondary'
+                        };
+
+                        $statusLabel = match($payment->status) {
+                            'pending' => 'Pending',
+                            'verified' => 'Terverifikasi',
+                            'rejected' => 'Ditolak',
+                            default => $payment->status
+                        };
+
+                        $methodLabel = match($payment->payment_method) {
+                            'bank_transfer' => 'Transfer Bank',
+                            'cash' => 'Tunai',
+                            'check' => 'Cek',
+                            'credit_card' => 'Kartu Kredit',
+                            'virtual_account' => 'Virtual Account',
+                            'e_wallet' => 'E-Wallet',
+                            'other' => 'Lainnya',
+                            default => $payment->payment_method
+                        };
+                    @endphp
                     <tr>
-                        <td style="padding: 1rem;"><strong>PAY/2024/12/001</strong></td>
-                        <td style="padding: 1rem;">INV/2024/12/001</td>
-                        <td style="padding: 1rem;">PT. Halal Jaya Makmur</td>
-                        <td style="padding: 1rem;">Transfer Bank</td>
-                        <td style="padding: 1rem;"><strong>Rp 4.000.000</strong></td>
-                        <td style="padding: 1rem;">24 Des 2024</td>
-                        <td style="padding: 1rem;"><span class="badge-custom badge-warning">Pending</span></td>
+                        <td style="padding: 1rem;"><strong>{{ $payment->payment_number }}</strong></td>
+                        <td style="padding: 1rem;">
+                            <a href="{{ route('admin.finance.invoices.show', $payment->invoice) }}" class="text-primary">
+                                {{ $payment->invoice->invoice_number }}
+                            </a>
+                        </td>
+                        <td style="padding: 1rem;">{{ $payment->invoice->submission->company_name ?? '-' }}</td>
+                        <td style="padding: 1rem;">{{ $methodLabel }}</td>
+                        <td style="padding: 1rem;"><strong>Rp {{ number_format($payment->amount, 0, ',', '.') }}</strong></td>
+                        <td style="padding: 1rem;">{{ $payment->payment_date->format('d M Y') }}</td>
+                        <td style="padding: 1rem;">
+                            <span class="badge-custom badge-{{ $statusBadge }}">{{ $statusLabel }}</span>
+                        </td>
                         <td style="padding: 1rem; text-align: center;">
                             <div class="btn-group btn-group-sm">
-                                <button class="btn btn-sm btn-outline-primary" title="Detail">
+                                <a href="{{ route('admin.finance.payments.show', $payment) }}"
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="Detail">
                                     <i class="ri-eye-line"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-success" title="Verifikasi">
-                                    <i class="ri-check-line"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger" title="Tolak">
+                                </a>
+                                @if($payment->status === 'pending')
+                                <form method="POST"
+                                      action="{{ route('admin.finance.payments.verify', $payment) }}"
+                                      style="display: inline;"
+                                      onsubmit="return confirm('Verifikasi pembayaran ini?')">
+                                    @csrf
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-success"
+                                            title="Verifikasi">
+                                        <i class="ri-check-line"></i>
+                                    </button>
+                                </form>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-danger"
+                                        title="Tolak"
+                                        onclick="showRejectModal({{ $payment->id }})">
                                     <i class="ri-close-line"></i>
                                 </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1rem;"><strong>PAY/2024/12/002</strong></td>
-                        <td style="padding: 1rem;">INV/2024/12/002</td>
-                        <td style="padding: 1rem;">CV. Berkah Selalu</td>
-                        <td style="padding: 1rem;">Transfer Bank</td>
-                        <td style="padding: 1rem;"><strong>Rp 3.500.000</strong></td>
-                        <td style="padding: 1rem;">23 Des 2024</td>
-                        <td style="padding: 1rem;"><span class="badge-custom badge-success">Terverifikasi</span></td>
-                        <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-sm btn-outline-primary" title="Detail">
-                                    <i class="ri-eye-line"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-info" title="Bukti">
+                                @elseif($payment->payment_proof_path)
+                                <a href="{{ asset('storage/' . $payment->payment_proof_path) }}"
+                                   target="_blank"
+                                   class="btn btn-sm btn-outline-info"
+                                   title="Bukti">
                                     <i class="ri-download-line"></i>
-                                </button>
+                                </a>
+                                @endif
                             </div>
                         </td>
                     </tr>
+                    @empty
                     <tr>
-                        <td style="padding: 1rem;"><strong>PAY/2024/12/003</strong></td>
-                        <td style="padding: 1rem;">INV/2024/12/005</td>
-                        <td style="padding: 1rem;">UD. Maju Bersama</td>
-                        <td style="padding: 1rem;">Virtual Account</td>
-                        <td style="padding: 1rem;"><strong>Rp 4.500.000</strong></td>
-                        <td style="padding: 1rem;">22 Des 2024</td>
-                        <td style="padding: 1rem;"><span class="badge-custom badge-success">Terverifikasi</span></td>
-                        <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-sm btn-outline-primary" title="Detail">
-                                    <i class="ri-eye-line"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-info" title="Bukti">
-                                    <i class="ri-download-line"></i>
-                                </button>
+                        <td colspan="8" style="padding: 2rem; text-align: center;">
+                            <div class="text-secondary-light">
+                                <i class="ri-inbox-line" style="font-size: 3rem;"></i>
+                                <p class="mt-2 mb-0">Tidak ada data pembayaran</p>
                             </div>
                         </td>
                     </tr>
+                    @endforelse
                 </tbody>
             </table>
+        </div>
+
+        @if($payments->hasPages())
+        <div class="card-footer" style="padding: 1rem;">
+            {{ $payments->links() }}
+        </div>
+        @endif
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal fade" id="rejectModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" id="rejectForm">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tolak Pembayaran</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Alasan Penolakan <span class="text-danger">*</span></label>
+                            <textarea name="verification_notes"
+                                      class="form-control"
+                                      rows="4"
+                                      required
+                                      placeholder="Jelaskan alasan penolakan pembayaran"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Tolak Pembayaran</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -170,6 +243,13 @@
                 pageLength: 10
             });
         });
+
+        function showRejectModal(paymentId) {
+            const modal = new bootstrap.Modal(document.getElementById('rejectModal'));
+            const form = document.getElementById('rejectForm');
+            form.action = '{{ route("admin.finance.payments.reject", ":id") }}'.replace(':id', paymentId);
+            modal.show();
+        }
     </script>
     @endpush
 </x-layouts.admin.app>

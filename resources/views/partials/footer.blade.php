@@ -3,8 +3,7 @@
         <div
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-center font-semibold text-darkgreen md:gap-0 gap-y-10 gap-x-5">
             <div class="w-[200px] mx-auto">
-                <h1 class="text-3xl font-bold text-darkteal mb-3">LPH Doa Bangsa</h1>
-                <p class="font-normal text-sm">Lembaga Pemeriksa Halal terpercaya di Sukabumi</p>
+            <img src="../img/logo.webp" width="100%" alt="LPH">
             </div>
 
             <div class="w-[180px] mx-auto md:me-0">

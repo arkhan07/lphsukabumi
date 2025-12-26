@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -7,76 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
     <meta name='description' itemprop='description' content={{ $description }}>
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NCNTDDPL');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Start Google tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QSSKFWH17L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-QSSKFWH17L');
-    </script>
-    <!-- End Google tag (gtag.js) - Google Analytics -->
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/61766aa1f7c0440a591fd06f/1fir912hm';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <!-- Facebook Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    <!-- End Facebook Pixel Code -->
 
     @include('partials.style')
 
@@ -90,115 +20,67 @@
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Beranda",
-                    "item": "https://saffmedic.com/"
+                    "item": "https://lpddb-sukabumi.com/"
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "Solusi - Klinik",
-                    "item": "https://saffmedic.com/klinik"
+                    "name": "Layanan - Konsultasi Makanan",
+                    "item": "https://lpddb-sukabumi.com/konsultasi-makanan"
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
-                    "name": "Solusi - Rumah Sakit",
-                    "item": "https://saffmedic.com/rumah-sakit"
+                    "name": "Layanan - Konsultasi Minuman",
+                    "item": "https://lpddb-sukabumi.com/konsultasi-minuman"
                 },
                 {
                     "@type": "ListItem",
                     "position": 4,
-                    "name": "Solusi - Apotek",
-                    "item": "https://saffmedic.com/apotek"
+                    "name": "Layanan - Konsultasi Kosmetik",
+                    "item": "https://lpddb-sukabumi.com/konsultasi-kosmetik"
                 },
                 {
                     "@type": "ListItem",
                     "position": 5,
-                    "name": "Solusi - Laboratorium",
-                    "item": "https://saffmedic.com/laboratorium"
+                    "name": "Layanan - Konsultasi Obat-obatan",
+                    "item": "https://lpddb-sukabumi.com/konsultasi-obat"
                 },
                 {
                     "@type": "ListItem",
                     "position": 6,
-                    "name": "Solusi- Praktek Dokter",
-                    "item": "https://saffmedic.com/praktek-dokter"
+                    "name": "Layanan - Konsultasi Bahan Baku",
+                    "item": "https://lpddb-sukabumi.com/konsultasi-bahan-baku"
                 },
                 {
                     "@type": "ListItem",
                     "position": 7,
-                    "name": "Fitur - Keuangan",
-                    "item": "https://saffmedic.com/keuangan"
+                    "name": "Proses Konsultasi Halal",
+                    "item": "https://lpddb-sukabumi.com/proses-konsultasi"
                 },
                 {
                     "@type": "ListItem",
                     "position": 8,
-                    "name": "Fitur - MCU",
-                    "item": "https://saffmedic.com/mcu"
+                    "name": "Biaya Konsultasi",
+                    "item": "https://lpddb-sukabumi.com/biaya-konsultasi"
                 },
                 {
                     "@type": "ListItem",
                     "position": 9,
-                    "name": "Fitur - Farmasi",
-                    "item": "https://saffmedic.com/farmasi"
+                    "name": "Kontak",
+                    "item": "https://lpddb-sukabumi.com/kontak"
                 },
                 {
                     "@type": "ListItem",
                     "position": 10,
-                    "name": "Fitur - Penunjang",
-                    "item": "https://saffmedic.com/penunjang"
+                    "name": "Artikel",
+                    "item": "https://lpddb-sukabumi.com/artikel"
                 },
                 {
                     "@type": "ListItem",
                     "position": 11,
-                    "name": "Fitur - Antrian",
-                    "item": "https://saffmedic.com/antrian"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 12,
-                    "name": "Fitur - E-Rekam Medis",
-                    "item": "https://saffmedic.com/rekammediselektronik"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 13,
-                    "name": "Fitur - Odontogram",
-                    "item": "https://saffmedic.com/odontogram"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 14,
-                    "name": "Fitur",
-                    "item": "https://saffmedic.com/fitur"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 15,
-                    "name": "Harga",
-                    "item": "https://saffmedic.com/harga"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 16,
-                    "name": "Kontak",
-                    "item": "https://saffmedic.com/kontak"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 17,
-                    "name": "Kententuan",
-                    "item": "https://saffmedic.com/ketentuan"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 18,
-                    "name": "Artikel",
-                    "item": "https://saffmedic.com/artikel"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 19,
-                    "name": "Mitra",
-                    "item": "https://saffmedic.com/mitra"
+                    "name": "Tentang Kami",
+                    "item": "https://lpddb-sukabumi.com/tentang-kami"
                 }
             ]
         }
@@ -213,171 +95,91 @@
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": "Apa itu SAFFMedic Apotek?",
+                    "name": "Apa itu Konsultasi Halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "SAFFMedic Apotek adalah bagian dari aplikasi SIM Klinik dan SIMRS yang dilengkapi dengan modul apotek. Modul ini dapat diterapkan secara terpisah dan mandiri oleh toko apotek tanpa harus menjalankan sistem klinik."
+                        "text": "Konsultasi Halal adalah layanan bimbingan dan pendampingan yang diberikan oleh LPH Doa Bangsa Sukabumi kepada pelaku usaha untuk mempersiapkan dan melaksanakan proses sertifikasi halal sesuai dengan standar BPJPH."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apa keunggulan SAFFMedic Apotek?",
+                    "name": "Apa keunggulan Konsultasi Halal LPH Doa Bangsa Sukabumi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Keunggulan SAFFMedic Apotek terletak pada integrasinya dengan SIM Klinik dan SIMRS. Aplikasi ini dapat dijalankan pada fasilitas kesehatan seperti klinik dan rumah sakit. Fitur unggulan termasuk penjualan, pembelian, pengelolaan stok, batch number, expire, pembukuan keuangan, akuntansi, modul antrian, penerimaan resep digital, dan laporan lengkap yang dapat disesuaikan."
+                        "text": "Keunggulan kami terletak pada tim konsultan yang berpengalaman, pendekatan yang personal sesuai kebutuhan usaha, dan pemahaman mendalam tentang regulasi halal yang berlaku di Indonesia."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SAFFMedic Apotek dapat dijalankan secara terpisah?",
+                    "name": "Apakah Konsultasi Halal dapat dilakukan untuk UKM?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, SAFFMedic Apotek dapat dijalankan secara mandiri tanpa harus terhubung dengan sistem klinik. Toko apotek dapat menggunakan aplikasi ini secara terpisah."
+                        "text": "Ya, LPH Doa Bangsa Sukabumi memberikan layanan konsultasi halal untuk semua skala usaha, dari UKM hingga perusahaan besar. Untuk UKM, kami memberikan solusi yang sesuai dengan kapasitas dan kebutuhan usaha."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apa saja fitur yang disediakan oleh Apotek SAFFMedic?",
+                    "name": "Apa saja yang dibahas dalam Konsultasi Halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Fitur utama meliputi penjualan, pembelian, pengelolaan stok, batch number, expire, pembukuan keuangan, akuntansi, modul antrian, penerimaan resep digital, dan laporan yang dapat disesuaikan."
+                        "text": "Konsultasi mencakup analisis kebutuhan, persiapan dokumen, penyusunan sistem jaminan halal, pelatihan personil, dan persiapan audit sertifikasi."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana manajemen stok di Apotek SAFFMedic?",
+                    "name": "Bagaimana sistem konsultasi dilakukan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Manajemen stok pada SAFFMedic Apotek menggunakan sistem FIFO (First In, First Out) untuk pengaturan inventory."
+                        "text": "Konsultasi dilakukan melalui kombinasi pertemuan online, komunikasi via email/WhatsApp, dan kunjungan lapangan jika diperlukan untuk memahami kondisi usaha secara langsung."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SAFFMedic Apotek berbasis cloud?",
+                    "name": "Apakah konsultasi halal berbasis online?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, SAFFMedic Apotek berbasis cloud dan tidak memerlukan instalasi desktop. Aplikasi dapat diakses secara online."
+                        "text": "Ya, sebagian besar konsultasi dapat dilakukan secara online melalui video conference, telepon, dan komunikasi digital. Namun, kunjungan lapangan mungkin diperlukan untuk kasus tertentu."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah ada biaya langganan untuk menggunakan SAFFMedic Apotek?",
+                    "name": "Apakah ada biaya untuk konsultasi halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, pengguna harus berlangganan untuk menggunakan SAFFMedic Apotek. Informasi lebih lanjut mengenai tarif dan biaya dapat ditemukan pada fitur harga."
+                        "text": "Ya, terdapat biaya untuk layanan konsultasi yang disesuaikan dengan kompleksitas kebutuhan dan durasi pendampingan yang diperlukan."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah pelatihan dan dukungan online disertakan dalam paket harga?",
+                    "name": "Apakah konsultasi sudah termasuk pendampingan hingga sertifikat diterbitkan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, paket harga SAFFMedic Apotek sudah termasuk pelatihan virtual dan dukungan online untuk membantu pengguna dalam penggunaan aplikasi."
+                        "text": "Ya, paket konsultasi kami mencakup pendampingan dari awal persiapan hingga sertifikat halal diterbitkan, termasuk bantuan selama proses audit."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah harga paket juga mencakup pengembangan dan update?",
+                    "name": "Apakah biaya konsultasi juga mencakup revisi dokumen dan pelatihan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, harga paket SAFFMedic Apotek mencakup pengembangan dan update. Pengguna akan mendapatkan pembaruan secara berkala tanpa biaya tambahan."
+                        "text": "Ya, biaya konsultasi sudah mencakup revisi dokumen, pelatihan personil, dan bimbingan implementasi sistem jaminan halal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana cara mendapatkan SAFFMedic Apotek?",
+                    "name": "Bagaimana cara memulai Konsultasi Halal dengan LPH Doa Bangsa Sukabumi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Anda dapat menghubungi tim SAFFMedic untuk informasi lebih lanjut dan proses pemesanan. Kontak dan informasi lebih lanjut dapat ditemukan di situs web resmi SAFFMedic."
+                        "text": "Anda dapat menghubungi tim kami melalui WhatsApp, telepon, atau mengisi form konsultasi di website untuk mendapatkan sesi konsultasi awal secara gratis."
                     }
                 }
             ]
         }
     </script>
 
-    {{-- <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NCNTDDPL');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/61766aa1f7c0440a591fd06f/1fir912hm';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <script type="text/javascript" src="https://gass.co.id/gassv3.min.js?v=3"></script>
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-674058545"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'AW-674058545');
-    </script>
-    <script>
-        gass.run({
-            adw_tag: 'AW-674058545',
-            campaign_id: 1,
-            interval: 2
-        }, function(data) {});
-    </script> --}}
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCNTDDPL" height="0" width="0"
-            style="display:none;visibility:hidden">
-        </iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div>
         @include('partials.navbar')
 
@@ -385,22 +187,17 @@
         <section class="container mx-auto my-20">
             <div class="flex flex-col md:flex-row justify-center items-center gap-10 p-5">
                 <div class="md:w-[45%]">
-                    <img src="img/apotek-bg-element1.png" class="" alt="Apotek">
+                    <img src="img/apotek-bg-element1.png" class="" alt="Konsultasi Halal">
                 </div>
                 <div class="md:w-1/3">
                     <div class="text-darkgreen font-bold">
-                        <h1 class="text-3xl">MANDIRI ATAU TERPISAH</h1>
-                        <h2 class="text-2xl">Bebas sesuai yang Kamu suka</h2>
-                        <h3 class="mt-2 mb-1 text-deepturqoise font-semibold">SAFFMedic memiliki Fitur Apotik
-                            terintegrasi</h3>
+                        <h1 class="text-3xl">KONSULTASI GRATIS ATAU BERBAYAR</h1>
+                        <h2 class="text-2xl">Pilih sesuai kebutuhan bisnis Anda</h2>
+                        <h3 class="mt-2 mb-1 text-deepturqoise font-semibold">LPH Doa Bangsa Sukabumi memiliki layanan Konsultasi Halal terintegrasi</h3>
                         <p class="font-normal text-deepturqoise">
-                            Kamu bebas pilih, hanya menggunakan Apotik,
-                            atau gabung dalam Klinik yang tersentraslisasi
+                            Anda bebas memilih, mulai dari konsultasi gratis untuk pemahaman awal, atau konsultasi berbayar untuk pendampingan lengkap
                             <br><br>
-                            Aplikasi dan Fitur Apotek SAFFMedic merupakan software yang digunakan secara online dengan
-                            harga
-                            yang
-                            murah
+                            Layanan Konsultasi Halal LPH Doa Bangsa Sukabumi merupakan bimbingan profesional dengan harga yang kompetitif dan transparan
                         </p>
                         <!-- Modal toggle -->
                         <button data-modal-target="static-modal" data-modal-toggle="static-modal"
@@ -425,7 +222,7 @@
                                 <div
                                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-darkgreen">
                                     <h3 class="text-xl font-semibold text-white">
-                                        PLATFORM SIMRS
+                                        LAYANAN KONSULTASI HALAL
                                     </h3>
                                     <button type="button"
                                         class="text-white bg-transparent hover:bg-gray-200 hover:text-darkgreen rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -440,61 +237,17 @@
                                 <!-- Modal body -->
                                 <div class="p-4 md:p-5 space-y-4">
                                     <p class="text-base leading-relaxed text-gray-500">
-                                        Platform SIMRS digunakan untuk mengoptimalkan operasional FASKES.
+                                        Layanan Konsultasi Halal digunakan untuk membantu pelaku usaha dalam mempersiapkan dan menjalani proses sertifikasi halal sesuai dengan standar BPJPH.
                                         <br><br>
-                                        Platform SIMRS adalah sistem informasi manajemen rumah sakit yang dirancang
-                                        khusus untuk
-                                        membantu mengelola data dan proses operasional di fasilitas kesehatan. Dengan
-                                        menggunakan
-                                        platform ini, FASKES dapat meningkatkan efisiensi dan efektivitas dalam
-                                        pengelolaan
-                                        layanan
-                                        kesehatan.
+                                        Konsultasi Halal adalah bimbingan profesional yang diberikan oleh Lembaga Pemeriksa Halal terdaftar untuk memastikan bahwa produk, proses produksi, dan fasilitas telah memenuhi semua persyaratan kehalalan yang berlaku.
                                         <br><br>
-                                        Dalam pengoperasiannya, platform SIMRS memiliki beberapa fitur yang sangat
-                                        berguna.
-                                        Pertama,
-                                        platform ini memungkinkan FASKES untuk mengelola data pasien dengan lebih mudah
-                                        dan
-                                        teratur.
-                                        Semua informasi medis pasien dapat diakses dengan mudah dan aman, mulai dari
-                                        riwayat
-                                        medis
-                                        hingga hasil tes laboratorium.
+                                        Dalam pelaksanaannya, layanan konsultasi mencakup beberapa aspek penting. Pertama, tim konsultan akan membantu Anda memahami regulasi dan persyaratan sertifikasi halal yang berlaku. Mereka akan menjelaskan secara detail dokumen-dokumen yang diperlukan, proses pemeriksaan, dan kriteria yang harus dipenuhi.
                                         <br><br>
-                                        Selain itu, platform SIMRS juga memiliki modul untuk mengelola jadwal dan
-                                        pendaftaran
-                                        pasien.
-                                        FASKES dapat mengatur jadwal dokter, memantau jumlah pasien yang datang, dan
-                                        membuat
-                                        sistem
-                                        antrian yang efisien. Dengan demikian, waktu tunggu pasien dapat diminimalisir
-                                        dan
-                                        pengalaman
-                                        mereka dalam mengakses layanan kesehatan menjadi lebih baik.
+                                        Selain itu, konsultan juga akan membantu dalam penyusunan dan penyempurnaan dokumen-dokumen pendukung sertifikasi. Mereka akan memastikan bahwa semua dokumen telah lengkap, benar, dan sesuai dengan format yang ditetapkan oleh BPJPH.
                                         <br><br>
-                                        Selain itu, platform SIMRS juga dapat membantu FASKES dalam mengelola stok obat
-                                        dan
-                                        inventaris
-                                        fasilitas kesehatan. FASKES dapat melacak persediaan obat yang tersedia,
-                                        mengatur
-                                        pembelian
-                                        suplai baru, dan mengelola distribusi obat yang efisien. Hal ini akan membantu
-                                        FASKES
-                                        dalam
-                                        menghindari kekurangan persediaan obat dan meningkatkan pelayanan pasien.
+                                        Konsultan juga akan memberikan rekomendasi untuk perbaikan sistem dan proses produksi jika diperlukan. Mereka akan membantu mengidentifikasi potensi risiko dan memberikan solusi untuk memastikan kepatuhan terhadap standar halal.
                                         <br><br>
-                                        Dengan semua fitur dan manfaat yang ditawarkan oleh platform SIMRS, FASKES dapat
-                                        meningkatkan
-                                        efektivitas dan efisiensi operasional mereka. Penggunaan platform ini akan
-                                        membantu
-                                        FASKES untuk
-                                        mengelola data dengan lebih baik, meningkatkan pengalaman pasien, dan memastikan
-                                        ketersediaan
-                                        stok obat yang memadai. Sebagai hasilnya, FASKES dapat memberikan layanan
-                                        kesehatan yang
-                                        lebih
-                                        baik kepada masyarakat.
+                                        Dengan layanan konsultasi yang komprehensif, pelaku usaha dapat mempersiapkan diri dengan lebih baik untuk menghadapi proses sertifikasi halal. Pendampingan profesional akan mengurangi risiko penolakan sertifikat dan mempercepat proses penerbitan sertifikat halal.
                                     </p>
                                 </div>
                                 <!-- Modal footer -->
@@ -510,7 +263,7 @@
                         <div
                             class="flex justify-center items-center p-3 bg-darkteal md:w-[220px] text-white font-semibold rounded-md mt-5">
                             <img class="mr-3" src="img/whatsappicon.png" width="25" alt="Whatsapp">
-                            <a href="/whatsapp">Hubungi Kami</a>
+                            <a href="/whatsapp">Hubungi Konsultan Kami</a>
                         </div>
                     </a>
                 </div>
@@ -521,26 +274,24 @@
         {{-- Section2 --}}
         <section class="container mx-auto my-20 bg-lightsage" data-aos="fade-down" data-aos-duration="1000">
             <div class="text-center py-10">
-                <h1 class="text-darkteal text-3xl font-bold">Sistem Apotik SAFFMedic <br>
-                    Fitur lebih lengkap, harga lebih murah</h1>
-                <p class="text-deepturqoise md:w-[520px] mx-auto mt-4">Harga yang murah, membuat pengeluaranmu makin
-                    hemat
-                    SAFFmedic dilengkapi dengan fitur yang dapat dikembangkan</p>
+                <h1 class="text-darkteal text-3xl font-bold">Konsultasi Halal LPH Doa Bangsa Sukabumi <br>
+                    Lebih lengkap, lebih terjangkau</h1>
+                <p class="text-deepturqoise md:w-[520px] mx-auto mt-4">Harga yang kompetitif, membuat investasi Anda semakin hemat. Layanan kami dilengkapi dengan pendekatan yang dapat disesuaikan dengan kebutuhan spesifik usaha Anda</p>
             </div>
 
             <div
                 class="flex flex-col md:flex-row md:gap-10 gap-5 justify-center text-darkgreen font-semibold text-2xl pb-32 px-5">
                 <ul class="w-fit mx-auto md:mx-0 flex flex-col md:gap-10 gap-5 md:mt-10">
-                    <li class="border-b-2 border-b-turqoise px-5 py-2">Fitur Pembelian</li>
-                    <li class="border-b-2 border-b-turqoise px-5 py-2">Fitur Keuangan</li>
+                    <li class="border-b-2 border-b-turqoise px-5 py-2">Analisis Kebutuhan</li>
+                    <li class="border-b-2 border-b-turqoise px-5 py-2">Penyusunan Dokumen</li>
                 </ul>
                 <div class="md:w-[50%] order-2 md:order-1">
-                    <img src="img/apotik_fitur.png" class="mx-auto" alt=" Fitur Apotek">
+                    <img src="img/apotik_fitur.png" class="mx-auto" alt="Proses Konsultasi">
                 </div>
                 <ul class="w-fit mx-auto md:mx-0 flex flex-col md:gap-20 gap-5 md:mt-10 order-1 md:order-2">
-                    <li class="border-b-2 border-b-turqoise px-5 py-2">Fitur Penjualan</li>
-                    <li class="border-b-2 border-b-turqoise px-5 py-2">inventory obat</li>
-                    <li class="border-b-2 border-b-turqoise px-5 py-2">Gudang / Depo</li>
+                    <li class="border-b-2 border-b-turqoise px-5 py-2">Pelatihan Personil</li>
+                    <li class="border-b-2 border-b-turqoise px-5 py-2">Pendampingan Audit</li>
+                    <li class="border-b-2 border-b-turqoise px-5 py-2">Follow-up Pasca Sertifikasi</li>
                 </ul>
             </div>
         </section>
@@ -551,163 +302,119 @@
             <div class="flex flex-col md:flex-row justify-center gap-5 items-center p-5">
                 <div class="md:w-1/3 order-2 md:order-1">
                     <div class="md:w-4/5 text-darkgreen font-bold">
-                        <h1 class="text-3xl">Resep Dokter</h1>
-                        <h2 class="text-2xl">Tinggalkan cara manual</h2>
-                        <h3 class="mt-2 mb-1 text-deepturqoise font-semibold">Submit resep dari ruang pemeriksaan</h3>
-                        <p class="font-normal text-deepturqoise">Pasien tidak perlu membawa kertas resep,
-                            Petugas apotik cukup lihat dari dashboard</p>
+                        <h1 class="text-3xl">Konsultasi Dokumen</h1>
+                        <h2 class="text-2xl">Tinggalkan kebingungan administrasi</h2>
+                        <h3 class="mt-2 mb-1 text-deepturqoise font-semibold">Panduan lengkap penyusunan dokumen sertifikasi</h3>
+                        <p class="font-normal text-deepturqoise">Anda tidak perlu khawatir dengan kerumitan dokumen,
+                            Konsultan kami akan memandu Anda langkah demi langkah</p>
                         <a role="button">
                             <div
-                                class="flex justify-center items-center p-3 bg-darkteal md:w-[220px] text-white font-semibold rounded-md mt-5    ">
+                                class="flex justify-center items-center p-3 bg-darkteal md:w-[220px] text-white font-semibold rounded-md mt-5">
                                 <img class="mr-3" src="img/whatsappicon.png" width="25" alt="Whatsapp">
-                                <a href="/whatsapp">Hubungi Kami</a>
+                                <a href="/whatsapp">Konsultasi Sekarang</a>
                             </div>
                         </a>
                     </div>
                 </div>
                 <img src="img/resep-dokter.png" width="100%" class="md:w-[40%] order-1 md:order-2"
-                    alt="Resep Dokter">
+                    alt="Konsultasi Dokumen">
             </div>
         </section>
         {{-- End Section3 --}}
 
         {{-- FAQ --}}
-
-        {{-- Desktop (Tab) --}}
         <div class="py-10 md:pt-20 md:pb-28 bg-[#f1f4f7] mt-10 md:mt-20" data-aos="fade-down"
             data-aos-duration="1000">
             <div class="text max-w-screen-lg mx-auto text-center text-darkgreen text-sm md:text-xl px-5 md:px-0">
                 <h1 class="font-bold text-2xl md:text-5xl mb-3">FAQ</h1>
-                <p>SAFFMedic Apotek</p>
+                <p>Konsultasi Halal LPH Doa Bangsa Sukabumi</p>
             </div>
 
             <div class="max-w-screen-lg mx-auto bg-white rounded-lg ps-10 py-10 hidden md:flex mt-10">
                 <div id="child-scroll" class="tab w-1/3 h-[450px] overflow-y-auto space-y-3">
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none active"
-                        onclick="openCity(event, '1')">1. Apa itu SAFFMedic Apotek?</button>
+                        onclick="openCity(event, '1')">1. Apa itu Konsultasi Halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '2')">2. Apa keunggulan SAFFMedic Apotek?</button>
+                        onclick="openCity(event, '2')">2. Apa keunggulan Konsultasi Halal LPH Doa Bangsa Sukabumi?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '3')">3. Apakah SAFFMedic Apotek dapat dijalankan secara
-                        terpisah?</button>
+                        onclick="openCity(event, '3')">3. Apakah Konsultasi Halal dapat dilakukan untuk UKM?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '4')">4. Apa saja fitur yang disediakan oleh Apotek
-                        SAFFMedic?</button>
+                        onclick="openCity(event, '4')">4. Apa saja yang dibahas dalam Konsultasi Halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '5')">5. Bagaimana manajemen stok di Apotek SAFFMedic?</button>
+                        onclick="openCity(event, '5')">5. Bagaimana sistem konsultasi dilakukan?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '6')">6. Apakah SAFFMedic Apotek berbasis cloud?</button>
+                        onclick="openCity(event, '6')">6. Apakah konsultasi halal berbasis online?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '7')">7. Apakah ada biaya langganan untuk menggunakan SAFFMedic
-                        Apotek?</button>
+                        onclick="openCity(event, '7')">7. Apakah ada biaya untuk konsultasi halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '8')">8. Apakah pelatihan dan dukungan online disertakan dalam
-                        paket
-                        harga?</button>
+                        onclick="openCity(event, '8')">8. Apakah konsultasi sudah termasuk pendampingan hingga sertifikat diterbitkan?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '9')">9. Apakah harga paket juga mencakup pengembangan dan
-                        update?</button>
+                        onclick="openCity(event, '9')">9. Apakah biaya konsultasi juga mencakup revisi dokumen dan pelatihan?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '10')">10. Bagaimana cara mendapatkan SAFFMedic Apotek?</button>
+                        onclick="openCity(event, '10')">10. Bagaimana cara memulai Konsultasi Halal dengan LPH Doa Bangsa Sukabumi?</button>
                 </div>
 
                 <div id="1" class="tabcontent text-lg w-2/3 px-16 h-96 transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa itu SAFFMedic Apotek?</h3>
-                    <p>SAFFMedic Apotek adalah bagian dari aplikasi SIM Klinik dan SIMRS yang dilengkapi dengan
-                        modul apotek.
-                        Modul ini dapat diterapkan secara terpisah dan mandiri oleh toko apotek tanpa harus
-                        menjalankan sistem
-                        klinik.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa itu Konsultasi Halal?</h3>
+                    <p>Konsultasi Halal adalah layanan bimbingan dan pendampingan yang diberikan oleh LPH Doa Bangsa Sukabumi kepada pelaku usaha untuk mempersiapkan dan melaksanakan proses sertifikasi halal sesuai dengan standar BPJPH.</p>
                 </div>
 
                 <div id="2" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa keunggulan SAFFMedic Apotek?</h3>
-                    <p>Keunggulan SAFFMedic Apotek terletak pada integrasinya dengan SIM Klinik dan SIMRS. Aplikasi
-                        ini dapat
-                        dijalankan pada fasilitas kesehatan seperti klinik dan rumah sakit. Fitur unggulan termasuk
-                        penjualan,
-                        pembelian, pengelolaan stok, batch number, expire, pembukuan keuangan, akuntansi, modul
-                        antrian,
-                        penerimaan resep digital, dan laporan lengkap yang dapat disesuaikan.
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa keunggulan Konsultasi Halal LPH Doa Bangsa Sukabumi?</h3>
+                    <p>Keunggulan kami terletak pada tim konsultan yang berpengalaman, pendekatan yang personal sesuai kebutuhan usaha, dan pemahaman mendalam tentang regulasi halal yang berlaku di Indonesia.
                     </p>
                 </div>
 
                 <div id="3" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SAFFMedic Apotek dapat dijalankan
-                        secara
-                        terpisah?</h3>
-                    <p>Ya, SAFFMedic Apotek dapat dijalankan secara mandiri tanpa harus terhubung dengan sistem
-                        klinik. Toko
-                        apotek dapat menggunakan aplikasi ini secara terpisah.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah Konsultasi Halal dapat dilakukan untuk UKM?</h3>
+                    <p>Ya, LPH Doa Bangsa Sukabumi memberikan layanan konsultasi halal untuk semua skala usaha, dari UKM hingga perusahaan besar. Untuk UKM, kami memberikan solusi yang sesuai dengan kapasitas dan kebutuhan usaha.</p>
                 </div>
 
                 <div id="4" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa saja fitur yang disediakan oleh Apotek
-                        SAFFMedic?
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa saja yang dibahas dalam Konsultasi Halal?
                     </h3>
-                    <p>Fitur utama meliputi penjualan, pembelian, pengelolaan stok, batch number, expire, pembukuan
-                        keuangan,
-                        akuntansi, modul antrian, penerimaan resep digital, dan laporan yang dapat disesuaikan.</p>
+                    <p>Konsultasi mencakup analisis kebutuhan, persiapan dokumen, penyusunan sistem jaminan halal, pelatihan personil, dan persiapan audit sertifikasi.</p>
                 </div>
 
                 <div id="5" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana manajemen stok di Apotek
-                        SAFFMedic?</h3>
-                    <p>Manajemen stok pada SAFFMedic Apotek menggunakan sistem FIFO (First In, First Out) untuk
-                        pengaturan
-                        inventory.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana sistem konsultasi dilakukan?</h3>
+                    <p>Konsultasi dilakukan melalui kombinasi pertemuan online, komunikasi via email/WhatsApp, dan kunjungan lapangan jika diperlukan untuk memahami kondisi usaha secara langsung.</p>
                 </div>
 
                 <div id="6" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SAFFMedic Apotek berbasis cloud?</h3>
-                    <p>Ya, SAFFMedic Apotek berbasis cloud dan tidak memerlukan instalasi desktop. Aplikasi dapat
-                        diakses secara
-                        online.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah konsultasi halal berbasis online?</h3>
+                    <p>Ya, sebagian besar konsultasi dapat dilakukan secara online melalui video conference, telepon, dan komunikasi digital. Namun, kunjungan lapangan mungkin diperlukan untuk kasus tertentu.</p>
                 </div>
 
                 <div id="7" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah ada biaya langganan untuk menggunakan
-                        SAFFMedic
-                        Apotek?</h3>
-                    <p>Ya, pengguna harus berlangganan untuk menggunakan SAFFMedic Apotek. Informasi lebih lanjut
-                        mengenai tarif
-                        dan biaya dapat ditemukan pada fitur harga.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah ada biaya untuk konsultasi halal?</h3>
+                    <p>Ya, terdapat biaya untuk layanan konsultasi yang disesuaikan dengan kompleksitas kebutuhan dan durasi pendampingan yang diperlukan.</p>
                 </div>
 
                 <div id="8" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4"> Apakah pelatihan dan dukungan online
-                        disertakan dalam
-                        paket harga?</h3>
-                    <p>Ya, paket harga SAFFMedic Apotek sudah termasuk pelatihan virtual dan dukungan online untuk
-                        membantu
-                        pengguna dalam penggunaan aplikasi.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4"> Apakah konsultasi sudah termasuk pendampingan hingga sertifikat diterbitkan?</h3>
+                    <p>Ya, paket konsultasi kami mencakup pendampingan dari awal persiapan hingga sertifikat halal diterbitkan, termasuk bantuan selama proses audit.</p>
                 </div>
 
                 <div id="9" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah harga paket juga mencakup
-                        pengembangan dan
-                        update?</h3>
-                    <p>Ya, harga paket SAFFMedic Apotek mencakup pengembangan dan update. Pengguna akan mendapatkan
-                        pembaruan
-                        secara berkala tanpa biaya tambahan.
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah biaya konsultasi juga mencakup revisi dokumen dan pelatihan?</h3>
+                    <p>Ya, biaya konsultasi sudah mencakup revisi dokumen, pelatihan personil, dan bimbingan implementasi sistem jaminan halal.
                     </p>
                 </div>
                 <div id="10" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana cara mendapatkan SAFFMedic Apotek?
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana cara memulai Konsultasi Halal dengan LPH Doa Bangsa Sukabumi?
                     </h3>
-                    <p>Anda dapat menghubungi tim SAFFMedic untuk informasi lebih lanjut dan proses pemesanan.
-                        Kontak dan
-                        informasi lebih lanjut dapat ditemukan di situs web resmi SAFFMedic.
+                    <p>Anda dapat menghubungi tim kami melalui WhatsApp, telepon, atau mengisi form konsultasi di website untuk mendapatkan sesi konsultasi awal secara gratis.
                     </p>
                 </div>
             </div>
@@ -719,7 +426,7 @@
                         <input type="checkbox" id="input1" class="absolute peer opacity-0">
                         <label for="input1"
                             class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            itu SAFFMedic Apotek?</label>
+                            itu Konsultasi Halal?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -730,11 +437,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-8 md:mt-0 text-deepturqoise opacity-95">
-                            <p>SAFFMedic Apotek adalah bagian dari aplikasi SIM Klinik dan SIMRS yang dilengkapi
-                                dengan modul
-                                apotek. Modul ini dapat diterapkan secara terpisah dan mandiri oleh toko apotek
-                                tanpa harus
-                                menjalankan sistem klinik.</p>
+                            <p>Konsultasi Halal adalah layanan bimbingan dan pendampingan yang diberikan oleh LPH Doa Bangsa Sukabumi kepada pelaku usaha untuk mempersiapkan dan melaksanakan proses sertifikasi halal sesuai dengan standar BPJPH.</p>
                         </div>
                     </div>
 
@@ -744,7 +447,7 @@
                         <input type="checkbox" id="input2" class="absolute peer opacity-0">
                         <label for="input2"
                             class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            keunggulan SAFFMedic Apotek?</label>
+                            keunggulan Konsultasi Halal LPH Doa Bangsa Sukabumi?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -755,14 +458,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Keunggulan SAFFMedic Apotek terletak pada integrasinya dengan SIM Klinik dan SIMRS.
-                                Aplikasi ini
-                                dapat dijalankan pada fasilitas kesehatan seperti klinik dan rumah sakit. Fitur
-                                unggulan
-                                termasuk penjualan, pembelian, pengelolaan stok, batch number, expire, pembukuan
-                                keuangan,
-                                akuntansi, modul antrian, penerimaan resep digital, dan laporan lengkap yang dapat
-                                disesuaikan.
+                            <p>Keunggulan kami terletak pada tim konsultan yang berpengalaman, pendekatan yang personal sesuai kebutuhan usaha, dan pemahaman mendalam tentang regulasi halal yang berlaku di Indonesia.
                             </p>
                         </div>
                     </div>
@@ -773,7 +469,7 @@
                         <input type="checkbox" id="input3" class="absolute peer opacity-0">
                         <label for="input3"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SAFFMedic Apotek dapat dijalankan secara terpisah?</label>
+                            Konsultasi Halal dapat dilakukan untuk UKM?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -784,9 +480,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, SAFFMedic Apotek dapat dijalankan secara mandiri tanpa harus terhubung dengan
-                                sistem klinik.
-                                Toko apotek dapat menggunakan aplikasi ini secara terpisah.</p>
+                            <p>Ya, LPH Doa Bangsa Sukabumi memberikan layanan konsultasi halal untuk semua skala usaha, dari UKM hingga perusahaan besar.</p>
                         </div>
                     </div>
 
@@ -796,7 +490,7 @@
                         <input type="checkbox" id="input4" class="absolute peer opacity-0">
                         <label for="input4"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            saja fitur yang disediakan oleh Apotek SAFFMedic?</label>
+                            saja yang dibahas dalam Konsultasi Halal?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -807,10 +501,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-8 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Fitur utama meliputi penjualan, pembelian, pengelolaan stok, batch number, expire,
-                                pembukuan
-                                keuangan, akuntansi, modul antrian, penerimaan resep digital, dan laporan yang dapat
-                                disesuaikan.
+                            <p>Konsultasi mencakup analisis kebutuhan, persiapan dokumen, penyusunan sistem jaminan halal, pelatihan personil, dan persiapan audit sertifikasi.
                             </p>
                         </div>
                     </div>
@@ -821,7 +512,7 @@
                         <input type="checkbox" id="input5" class="absolute peer opacity-0">
                         <label for="input5"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            manajemen stok di Apotek SAFFMedic?</label>
+                            sistem konsultasi dilakukan?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -832,9 +523,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-4 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Manajemen stok pada SAFFMedic Apotek menggunakan sistem FIFO (First In, First Out)
-                                untuk
-                                pengaturan inventory.</p>
+                            <p>Konsultasi dilakukan melalui kombinasi pertemuan online, komunikasi via email/WhatsApp, dan kunjungan lapangan jika diperlukan.</p>
                         </div>
                     </div>
 
@@ -844,7 +533,7 @@
                         <input type="checkbox" id="input6" class="absolute peer opacity-0">
                         <label for="input6"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SAFFMedic Apotek berbasis cloud?</label>
+                            konsultasi halal berbasis online?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -855,9 +544,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-5 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, SAFFMedic Apotek berbasis cloud dan tidak memerlukan instalasi desktop. Aplikasi
-                                dapat
-                                diakses secara online.
+                            <p>Ya, sebagian besar konsultasi dapat dilakukan secara online melalui video conference, telepon, dan komunikasi digital.
                             </p>
                         </div>
                     </div>
@@ -868,7 +555,7 @@
                         <input type="checkbox" id="input7" class="absolute peer opacity-0">
                         <label for="input7"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">
-                            Apakah ada biaya langganan untuk menggunakan SAFFMedic Apotek?</label>
+                            Apakah ada biaya untuk konsultasi halal?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -879,9 +566,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, pengguna harus berlangganan untuk menggunakan SAFFMedic Apotek. Informasi lebih
-                                lanjut
-                                mengenai tarif dan biaya dapat ditemukan pada fitur harga
+                            <p>Ya, terdapat biaya untuk layanan konsultasi yang disesuaikan dengan kompleksitas kebutuhan dan durasi pendampingan yang diperlukan.
                             </p>
                         </div>
                     </div>
@@ -892,7 +577,7 @@
                         <input type="checkbox" id="input8" class="absolute peer opacity-0">
                         <label for="input8"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            pelatihan dan dukungan online disertakan dalam paket harga?</label>
+                            konsultasi sudah termasuk pendampingan hingga sertifikat diterbitkan?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -903,9 +588,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, paket harga SAFFMedic Apotek sudah termasuk pelatihan virtual dan dukungan online
-                                untuk
-                                membantu pengguna dalam penggunaan aplikasi.</p>
+                            <p>Ya, paket konsultasi kami mencakup pendampingan dari awal persiapan hingga sertifikat halal diterbitkan, termasuk bantuan selama proses audit.</p>
                         </div>
                     </div>
 
@@ -915,7 +598,7 @@
                         <input type="checkbox" id="input9" class="absolute peer opacity-0">
                         <label for="input9"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            harga paket juga mencakup pengembangan dan update?</label>
+                            biaya konsultasi juga mencakup revisi dokumen dan pelatihan?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -926,9 +609,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, harga paket SAFFMedic Apotek mencakup pengembangan dan update. Pengguna akan
-                                mendapatkan
-                                pembaruan secara berkala tanpa biaya tambahan.</p>
+                            <p>Ya, biaya konsultasi sudah mencakup revisi dokumen, pelatihan personil, dan bimbingan implementasi sistem jaminan halal.</p>
                         </div>
                     </div>
 
@@ -938,7 +619,7 @@
                         <input type="checkbox" id="input10" class="absolute peer opacity-0">
                         <label for="input10"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            cara mendapatkan SAFFMedic Apotek?</label>
+                            cara memulai Konsultasi Halal dengan LPH Doa Bangsa Sukabumi?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -949,9 +630,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Anda dapat menghubungi tim SAFFMedic untuk informasi lebih lanjut dan proses
-                                pemesanan. Kontak
-                                dan informasi lebih lanjut dapat ditemukan di situs web resmi SAFFMedic.
+                            <p>Anda dapat menghubungi tim kami melalui WhatsApp, telepon, atau mengisi form konsultasi di website untuk mendapatkan sesi konsultasi awal secara gratis.
                             </p>
                         </div>
                     </div>
@@ -1047,27 +726,25 @@
         {{-- Section4 --}}
         <section class="container mx-auto my-20 p-5" data-aos="fade-down" data-aos-duration="1000">
             <div class="text-2xl md:text-3xl font-bold text-center text-darkgreen">
-                <h1>Mudah terhubung <br>
-                    dan selalu memberi solusi</h1>
+                <h1>Mudah diakses <br>
+                    dan selalu memberikan solusi terbaik</h1>
             </div>
 
             <div class="flex flex-wrap justify-center gap-10 text-center text-darkgreen my-20">
                 <div class="w-[320px]">
-                    <img src="img/metode-pembayaran.png" class="w-[20%] mx-auto mb-5" alt="Metode Pembayaran">
-                    <h1 class="md:text-2xl text-xl font-bold">Metode Pembayaran</h1>
-                    <p>Metode pembayaran yang dapat disesuaikan dengan fasilitas Apotek</p>
+                    <img src="img/metode-pembayaran.png" class="w-[20%] mx-auto mb-5" alt="Metode Konsultasi">
+                    <h1 class="md:text-2xl text-xl font-bold">Metode Konsultasi Fleksibel</h1>
+                    <p>Konsultasi dapat dilakukan secara online atau offline sesuai kebutuhan dan kenyamanan klien</p>
                 </div>
                 <div class="w-[320px]">
-                    <img src="img/koneksi-semua-layanan.png" class="w-[20%] mx-auto mb-5" alt="Koneksi">
-                    <h1 class="md:text-2xl text-xl font-bold">Koneksi semua layanan</h1>
-                    <p>Semua layanan yang di izinkan dapat melihat ketersediaan obat, kerja akan lebih mudah</p>
+                    <img src="img/koneksi-semua-layanan.png" class="w-[20%] mx-auto mb-5" alt="Tim Ahli">
+                    <h1 class="md:text-2xl text-xl font-bold">Tim Konsultan Ahli</h1>
+                    <p>Didukung oleh tim konsultan yang berpengalaman dan memahami regulasi halal secara mendalam</p>
                 </div>
                 <div class="w-[320px]">
-                    <img src="img/database-terpusat.png" class="w-[20%] mx-auto mb-5" alt="Database Terpisah">
-                    <h1 class="md:text-2xl text-xl font-bold">Database terpisah</h1>
-                    <p>Tidak perlu khawatir
-                        datamu transaksimu akan tersimpan
-                        indah pada SAFFMedic</p>
+                    <img src="img/database-terpusat.png" class="w-[20%] mx-auto mb-5" alt="Dokumen Terkelola">
+                    <h1 class="md:text-2xl text-xl font-bold">Dokumen Terkelola dengan Baik</h1>
+                    <p>Tidak perlu khawatir tentang kerumitan dokumen, kami akan membantu mengelola dan menyusunnya dengan rapi</p>
                 </div>
             </div>
 
@@ -1075,47 +752,17 @@
 
             <div class="md:w-4/5 mx-auto rounded-lg p-10 my-20 shadow-lg">
                 <p class="text-deepturqoise">
-                    SAFFMedic adalah aplikasi apotek atau software apotek berbasis cloud dengan metode online yang
-                    dapat
-                    digunakan terpisah atau diintegrasikan dengan klinik atau rumah sakit. Aplikasi apotek ini
-                    lengkap dan
-                    murah, serta telah dilengkapi dengan fitur pembukuan dan manajemen stok yang memudahkan pengguna
-                    dalam
-                    mengelola apotek mereka.
+                    LPH Doa Bangsa Sukabumi adalah penyedia layanan konsultasi halal yang profesional dan terpercaya dengan metode pendekatan yang dapat disesuaikan dengan kebutuhan spesifik usaha Anda. Layanan konsultasi kami lengkap dan terjangkau, serta telah dilengkapi dengan pemahaman mendalam tentang regulasi halal yang berlaku di Indonesia.
                     <br><br>
-                    Dengan SAFFMedic, apotek Anda akan dapat mengoptimalkan efisiensi operasional dengan menggunakan
-                    teknologi
-                    cloud. Aplikasi ini memungkinkan Anda untuk mengakses data apotek secara real-time dari mana
-                    saja dan kapan
-                    saja, sehingga memudahkan pengelolaan apotek Anda tanpa harus terbatas pada satu tempat.
+                    Dengan layanan konsultasi kami, usaha Anda akan dapat mengoptimalkan persiapan sertifikasi halal dengan bimbingan profesional. Layanan ini memungkinkan Anda untuk mendapatkan pemahaman yang komprehensif tentang persyaratan sertifikasi halal dari mana saja dan kapan saja, sehingga memudahkan persiapan Anda tanpa harus terbatas pada satu lokasi.
                     <br><br>
-                    Selain itu, SAFFMedic juga dapat diintegrasikan dengan klinik atau rumah sakit yang Anda miliki.
-                    Dengan
-                    menggabungkan data dari berbagai unit pelayanan kesehatan, Anda dapat memantau stok obat-obatan,
-                    mengelola
-                    resep, dan mengatur penjualan dengan lebih efisien.
+                    Selain itu, konsultasi kami juga dapat disesuaikan dengan karakteristik spesifik usaha Anda, baik itu UKM, perusahaan menengah, atau korporasi besar. Dengan pendekatan yang personal, kami dapat memberikan solusi yang tepat sesuai dengan kapasitas dan kebutuhan usaha Anda.
                     <br><br>
-                    Aplikasi apotek SAFFMedic juga dilengkapi dengan fitur pembukuan yang memudahkan pengguna dalam
-                    mengelola
-                    keuangan apotek. Anda dapat melakukan pencatatan transaksi penjualan, pembelian, dan pengeluaran
-                    dengan
-                    mudah dan akurat. Dengan adanya fitur ini, Anda dapat memantau arus kas apotek Anda secara
-                    efektif dan
-                    membuat laporan keuangan yang lengkap.
+                    Layanan konsultasi LPH Doa Bangsa Sukabumi juga dilengkapi dengan bimbingan penyusunan dokumen yang memudahkan pengusaha dalam mempersiapkan kelengkapan administrasi sertifikasi halal. Anda dapat mendapatkan panduan lengkap tentang dokumen-dokumen yang diperlukan, format yang harus diikuti, dan cara penyusunan yang benar. Dengan adanya bimbingan ini, Anda dapat mempersiapkan dokumen dengan lebih efektif dan mengurangi risiko penolakan.
                     <br><br>
-                    Selain itu, fitur manajemen stok pada SAFFMedic memungkinkan Anda untuk mengontrol persediaan
-                    obat-obatan
-                    dengan lebih baik. Anda dapat melacak jumlah stok yang tersedia, mengatur pemesanan ulang secara
-                    otomatis,
-                    dan memantau tanggal kadaluwarsa obat-obatan. Dengan demikian, Anda dapat menghindari kekurangan
-                    stok atau
-                    kelebihan persediaan yang tidak efisien.
+                    Selain itu, konsultasi kami mencakup pelatihan personil untuk memastikan bahwa tim internal perusahaan memahami dan dapat menerapkan sistem jaminan halal dengan baik. Anda dapat mendapatkan pembekalan tentang prinsip-prinsip halal, sistem manajemen halal, dan implementasinya dalam proses produksi. Dengan demikian, Anda dapat membangun sistem yang berkelanjutan dan memastikan konsistensi kepatuhan terhadap standar halal.
                     <br><br>
-                    Dengan SAFFMedic, Anda tidak perlu lagi khawatir tentang pengelolaan apotek yang rumit dan
-                    memakan waktu.
-                    Aplikasi ini memberikan solusi yang komprehensif dan terjangkau untuk memenuhi kebutuhan
-                    pengelolaan apotek
-                    Anda. Dapatkan SAFFMedic sekarang dan tingkatkan efisiensi operasional apotek Anda!
+                    Dengan LPH Doa Bangsa Sukabumi, Anda tidak perlu lagi khawatir tentang kerumitan persiapan sertifikasi halal. Layanan konsultasi kami memberikan solusi yang komprehensif dan terjangkau untuk memenuhi kebutuhan persiapan sertifikasi halal usaha Anda. Dapatkan layanan konsultasi kami sekarang dan tingkatkan peluang keberhasilan sertifikasi halal usaha Anda!
                 </p>
             </div>
         </section>
@@ -1145,10 +792,6 @@
         </a>
     </div>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCNTDDPL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 </body>
 @include('partials.js')
 

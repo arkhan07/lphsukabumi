@@ -1,7 +1,7 @@
 <nav class="bg-white border-gray-200 sticky top-0 z-10 shadow-md">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="{{ route('home') }}" class="md:w-1/5 w-2/5 flex items-center">
-            <span class="text-2xl font-bold text-darkteal">LPH Doa Bangsa</span>
+        <a href="/" class="md:w-1/5 w-2/5">
+            <img src="{{ '../img/logo.webp' }}" alt="Saffmedic Logo">
         </a>
         <button data-collapse-toggle="navbar-dropdown" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-darkgreen rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -56,12 +56,8 @@
                     </div>
                 </li>
                 <li>
-                    <a href="{{ route('tentang') }}"
+                    <a href="/tentang"
                         class="block py-2 px-2 text-darkteal hover:bg-darkteal hover:text-white rounded">Tentang</a>
-                </li>
-                <li>
-                    <a href="{{ route('harga') }}"
-                        class="block py-2 px-2 text-darkteal hover:bg-darkteal hover:text-white rounded">Biaya</a>
                 </li>
                 <li>
                     <a href="{{ route('kontak') }}"
@@ -80,11 +76,11 @@
                     </a>
                 </li>
                 @else
-                <li>
-                    <a href="{{ route('login') }}"
-                        class="bg-darkteal py-2 px-7 font-medium text-white text-center transform hover:scale-110 duration-150 rounded-md">
-                        Login</a>
-                </li>
+                        <a href="{{ route('login') }}">
+                            <p
+                                class="bg-darkteal py-2 px-7 font-medium text-white text-center transform hover:scale-110 duration-150 rounded-md">
+                                Login</p>
+                        </a>
                 @endauth
             </ul>
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -7,76 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
     <meta name='description' itemprop='description' content={{ $description }}>
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NCNTDDPL');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Start Google tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QSSKFWH17L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-QSSKFWH17L');
-    </script>
-    <!-- End Google tag (gtag.js) - Google Analytics -->
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/61766aa1f7c0440a591fd06f/1fir912hm';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <!-- Facebook Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    <!-- End Facebook Pixel Code -->
 
     @include('partials.style')
 
@@ -90,115 +20,67 @@
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Beranda",
-                    "item": "https://saffmedic.com/"
+                    "item": "https://lpddb-sukabumi.com/"
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "Solusi - Klinik",
-                    "item": "https://saffmedic.com/klinik"
+                    "name": "Layanan - Sertifikasi Makanan",
+                    "item": "https://lpddb-sukabumi.com/sertifikasi-makanan"
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
-                    "name": "Solusi - Rumah Sakit",
-                    "item": "https://saffmedic.com/rumah-sakit"
+                    "name": "Layanan - Sertifikasi Minuman",
+                    "item": "https://lpddb-sukabumi.com/sertifikasi-minuman"
                 },
                 {
                     "@type": "ListItem",
                     "position": 4,
-                    "name": "Solusi - Apotek",
-                    "item": "https://saffmedic.com/apotek"
+                    "name": "Layanan - Sertifikasi Kosmetik",
+                    "item": "https://lpddb-sukabumi.com/sertifikasi-kosmetik"
                 },
                 {
                     "@type": "ListItem",
                     "position": 5,
-                    "name": "Solusi - Laboratorium",
-                    "item": "https://saffmedic.com/laboratorium"
+                    "name": "Layanan - Sertifikasi Obat-obatan",
+                    "item": "https://lpddb-sukabumi.com/sertifikasi-obat"
                 },
                 {
                     "@type": "ListItem",
                     "position": 6,
-                    "name": "Solusi- Praktek Dokter",
-                    "item": "https://saffmedic.com/praktek-dokter"
+                    "name": "Layanan - Sertifikasi Bahan Baku",
+                    "item": "https://lpddb-sukabumi.com/sertifikasi-bahan-baku"
                 },
                 {
                     "@type": "ListItem",
                     "position": 7,
-                    "name": "Fitur - Keuangan",
-                    "item": "https://saffmedic.com/keuangan"
+                    "name": "Proses Sertifikasi",
+                    "item": "https://lpddb-sukabumi.com/proses-sertifikasi"
                 },
                 {
                     "@type": "ListItem",
                     "position": 8,
-                    "name": "Fitur - MCU",
-                    "item": "https://saffmedic.com/mcu"
+                    "name": "Biaya Sertifikasi",
+                    "item": "https://lpddb-sukabumi.com/biaya"
                 },
                 {
                     "@type": "ListItem",
                     "position": 9,
-                    "name": "Fitur - Farmasi",
-                    "item": "https://saffmedic.com/farmasi"
+                    "name": "Kontak",
+                    "item": "https://lpddb-sukabumi.com/kontak"
                 },
                 {
                     "@type": "ListItem",
                     "position": 10,
-                    "name": "Fitur - Penunjang",
-                    "item": "https://saffmedic.com/penunjang"
+                    "name": "Artikel",
+                    "item": "https://lpddb-sukabumi.com/artikel"
                 },
                 {
                     "@type": "ListItem",
                     "position": 11,
-                    "name": "Fitur - Antrian",
-                    "item": "https://saffmedic.com/antrian"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 12,
-                    "name": "Fitur - E-Rekam Medis",
-                    "item": "https://saffmedic.com/rekammediselektronik"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 13,
-                    "name": "Fitur - Odontogram",
-                    "item": "https://saffmedic.com/odontogram"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 14,
-                    "name": "Fitur",
-                    "item": "https://saffmedic.com/fitur"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 15,
-                    "name": "Harga",
-                    "item": "https://saffmedic.com/harga"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 16,
-                    "name": "Kontak",
-                    "item": "https://saffmedic.com/kontak"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 17,
-                    "name": "Kententuan",
-                    "item": "https://saffmedic.com/ketentuan"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 18,
-                    "name": "Artikel",
-                    "item": "https://saffmedic.com/artikel"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 19,
-                    "name": "Mitra",
-                    "item": "https://saffmedic.com/mitra"
+                    "name": "Tentang Kami",
+                    "item": "https://lpddb-sukabumi.com/tentang-kami"
                 }
             ]
         }
@@ -206,7 +88,6 @@
     <!--End of breadcrumb list Script-->
 
     <!-- FAQ Schema -->
-
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -214,179 +95,90 @@
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": "Apa itu SIM Klinik SAFFMedic?",
+                    "name": "Apa itu LPH Doa Bangsa Sukabumi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "SIM Klinik SAFFMedic adalah aplikasi berbasis web yang dirancang untuk mendukung operasional klinik. Fitur-fiturnya mencakup administrasi, rekam medis, apotek, antrian, dan penunjang laboratorium."
+                        "text": "LPH Doa Bangsa Sukabumi adalah Lembaga Pemeriksa Halal yang telah terdaftar dan diakui secara resmi oleh Badan Penyelenggara Jaminan Produk Halal (BPJPH). Kami berwenang melakukan pemeriksaan dan audit halal untuk berbagai jenis produk."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apa saja fitur utama SIM Klinik SAFFMedic?",
+                    "name": "Berapa lama proses sertifikasi halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Fitur utama SIM Klinik SAFFMedic meliputi ADMISI, rekam medis, apotek, antrian, dan penunjang untuk laboratorium."
+                        "text": "Proses sertifikasi halal umumnya memerlukan waktu 30-60 hari kerja, tergantung pada kompleksitas produk, kelengkapan dokumen, dan kesiapan fasilitas produksi."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana cara mengakses SIM Klinik SAFFMedic?",
+                    "name": "Dokumen apa saja yang diperlukan untuk sertifikasi halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "SIM Klinik SAFFMedic dapat diakses dengan mudah karena berbasis web. Anda hanya perlu koneksi internet dan browser web untuk menggunakan aplikasi ini."
+                        "text": "Dokumen yang diperlukan antara lain: akta perusahaan, SIUP, NIB, daftar produk, spesifikasi bahan baku, diagram alir proses, sertifikat halal bahan baku (jika ada), dan dokumen pendukung lainnya."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Untuk jenis fasilitas kesehatan apa SIM Klinik SAFFMedic cocok?",
+                    "name": "Apakah sertifikat halal dari LPH Doa Bangsa Sukabumi diakui secara nasional?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "SIM Klinik SAFFMedic dapat digunakan di berbagai jenis fasilitas kesehatan, termasuk praktek dokter, puskesmas, klinik, dan rumah sakit."
+                        "text": "Ya, sertifikat halal yang kami terbitkan diakui secara resmi oleh BPJPH dan berlaku di seluruh wilayah Indonesia."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SIM Klinik SAFFMedic dapat disesuaikan dengan poli atau ruangan tertentu?",
+                    "name": "Berapa biaya sertifikasi halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, SIM Klinik SAFFMedic dapat disetup sesuai dengan poli atau ruangan yang diperlukan, sehingga sesuai dengan kebutuhan spesifik fasilitas kesehatan."
+                        "text": "Biaya sertifikasi bervariasi tergantung pada jenis produk, jumlah varian, kompleksitas proses, dan lokasi fasilitas. Kami memberikan penawaran yang transparan setelah melakukan assessment awal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Bagaimana cara melihat biaya penggunaan SIM Klinik?",
+                    "name": "Apakah LPH Doa Bangsa Sukabumi melayani sertifikasi untuk UKM?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Biaya penggunaan SIM Klinik dapat dilihat di halaman harga yang tersedia. Informasi terkait biaya pelatihan, pendampingan, dan pembaruan fitur juga dapat ditemukan di sana."
+                        "text": "Tentu saja. Kami memberikan layanan sertifikasi halal untuk semua skala usaha, dari UKM hingga perusahaan besar."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SIM Klinik SAFFMedic dapat disesuaikan sesuai kebutuhan?",
+                    "name": "Bagaimana jika produk saya menggunakan bahan impor?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, SIM Klinik SAFFMedic dapat disesuaikan sesuai dengan keperluan spesifik Anda, sehingga dapat memenuhi kebutuhan khusus fasilitas kesehatan Anda."
+                        "text": "Kami tetap dapat melakukan sertifikasi untuk produk yang menggunakan bahan impor dengan syarat tersedia dokumen yang menunjukkan kehalalan bahan impor tersebut."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah biaya yang tertera sudah termasuk pelatihan dan pendampingan?",
+                    "name": "Berapa lama masa berlaku sertifikat halal?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, biaya yang tertera sudah mencakup pelatihan dan pendampingan secara virtual. Ini memastikan bahwa pengguna dapat memanfaatkan aplikasi dengan efektif."
+                        "text": "Sertifikat halal umumnya berlaku selama 4 (empat) tahun dengan kewajiban surveilan tahunan untuk memastikan konsistensi penerapan sistem jaminan halal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SAFFMedic menyediakan dukungan untuk impor data pasien dan rekam medis dari file Excel?",
+                    "name": "Apakah ada pelatihan yang disediakan untuk tim internal perusahaan?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Ya, tim SAFFMedic dapat melakukan impor data pasien dan rekam medis dari file Excel tanpa biaya tambahan."
+                        "text": "Ya, kami menyediakan pelatihan dan workshop tentang sistem jaminan halal, persiapan sertifikasi, dan pemahaman regulasi halal."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "Apakah SAFFMedic memiliki versi aplikasi desktop?",
+                    "name": "Bagaimana cara memulai proses sertifikasi dengan LPH Doa Bangsa Sukabumi?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Tidak, SAFFMedic saat ini hanya tersedia dalam bentuk web base dan tidak mengembangkan aplikasi dalam bentuk instaler desktop."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Bagaimana cara mendapatkan dukungan teknis tambahan?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Untuk mendapatkan dukungan teknis tambahan, Anda dapat menghubungi tim dukungan pelanggan SAFFMedic melalui kontak yang disediakan di situs www.safmedic.com"
+                        "text": "Anda dapat menghubungi kami melalui WhatsApp, telepon, atau mengisi form konsultasi di website kami untuk pertemuan awal dan penyusunan rencana sertifikasi."
                     }
                 }
             ]
         }
     </script>
-
-    {{-- <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NCNTDDPL');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/61766aa1f7c0440a591fd06f/1fir912hm';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <script type="text/javascript" src="https://gass.co.id/gassv3.min.js?v=3"></script>
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-674058545"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'AW-674058545');
-    </script>
-    <script>
-        gass.run({
-            adw_tag: 'AW-674058545',
-            campaign_id: 1,
-            interval: 2
-        }, function(data) {});
-    </script> --}}
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCNTDDPL" height="0" width="0"
-            style="display:none;visibility:hidden">
-        </iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div>
         @include('partials.navbar')
 
@@ -394,32 +186,23 @@
         <section class="container mx-auto my-20" data-aos="fade-right" data-aos-duration="1000">
             <div class="flex flex-col md:flex-row justify-center gap-10 p-5">
                 <div class="md:w-[40%]">
-                    <img src="img/klinik-p.png" alt="Klinik">
+                    <img src="img/klinik-p.png" alt="Proses Sertifikasi Halal">
                 </div>
                 <div class="md:w-1/3">
-                    <h1 class="text-darkgreen text-3xl font-semibold mb-5">Aplikasi Klinik Dengan Kemampuan Online
-                        Menjadi Lebih
-                        Fleksibel</h1>
-                    <p class="text-deepturqoise mb-16 md:text-justify">Aplikasi klinik adalah sebuah solusi perangkat
-                        lunak yang
-                        dirancang khusus
-                        untuk membantu manajemen dan
-                        operasional sebuah klinik atau praktik medis, SAFFMedic. SAFFMedic menawarkan berbagai fitur
-                        yang sangat
-                        berguna bagi praktisi medis, staf administrasi, dan pasien. Aplikasi klinik SAFFMedic memiliki
-                        peran
-                        penting dalam mengoptimalkan efisiensi dan kualitas layanan yang diberikan oleh klinik.
+                    <h1 class="text-darkgreen text-3xl font-semibold mb-5">Sertifikasi Halal dengan Proses Cepat dan Terpercaya</h1>
+                    <p class="text-deepturqoise mb-16 md:text-justify">LPH Doa Bangsa Sukabumi adalah Lembaga Pemeriksa Halal yang telah terdaftar dan diakui secara resmi oleh Badan Penyelenggara Jaminan Produk Halal (BPJPH). Kami menyediakan layanan sertifikasi halal komprehensif untuk berbagai jenis produk, mulai dari makanan, minuman, kosmetik, obat-obatan, hingga bahan baku industri.
+                        <br><br>
+                        Dengan tim auditor yang berpengalaman dan kompeten, kami memastikan setiap proses pemeriksaan dilakukan sesuai dengan standar yang ditetapkan BPJPH. Kami berkomitmen membantu pelaku usaha mendapatkan sertifikasi halal yang sah dan terpercaya dengan proses yang efisien dan transparan.
                     </p>
 
                     <a role="button">
-                        <div
-                            class="flex justify-center items-center p-3 bg-darkteal md:w-[220px] text-white font-semibold rounded-md">
+                        <div class="flex justify-center items-center p-3 bg-darkteal md:w-[220px] text-white font-semibold rounded-md">
                             <img class="mr-3" src="img/whatsappicon.png" width="25" alt="Whatsapp">
                             <a href="/whatsapp">Hubungi Kami</a>
                         </div>
                     </a>
                 </div>
-            </div>F
+            </div>
         </section>
         <hr class="w-3/5 mx-auto">
         {{-- End Section1 --}}
@@ -429,14 +212,9 @@
             <div class="flex flex-col md:flex-row justify-center gap-64 p-5">
                 <div class="md:w-1/4 text-deepturqoise">
                     <div>
-                        <h1 class="md:text-3xl md:no-underline text-xl underline">SIM Klinik Rawat Jalan</h1>
-                        <h2 class="md:text-3xl mb-2 mt-5">Aplikasi klinik dengan <br> fitur rawat jalan</h2>
-                        <p class="">Pada umumnya, klinik atau rumah sakit menyediakan layanan praktek dokter dalam
-                            bentuk kegiatan rawat
-                            jalan. Fitur ini bertujuan untuk memudahkan pengelolaan kegiatan rawat jalan, mulai dari
-                            pendaftaran, pendistribusian pasien ke poli-poli yang sesuai, dan pengolahan data pasien
-                            yang
-                            terpusat.</p>
+                        <h1 class="md:text-3xl md:no-underline text-xl underline">Proses Sertifikasi Halal</h1>
+                        <h2 class="md:text-3xl mb-2 mt-5">Tahapan Sertifikasi Halal <br> yang Transparan</h2>
+                        <p class="">Proses sertifikasi halal di LPH Doa Bangsa Sukabumi dilakukan secara bertahap dengan prinsip transparansi dan profesionalisme. Setiap tahap dirancang untuk memastikan produk Anda memenuhi semua persyaratan kehalalan sesuai standar nasional.</p>
                         <!-- Modal toggle -->
                         <button data-modal-target="static-modal2" data-modal-toggle="static-modal2"
                             class="rounded-lg text-darkgreen transition-transform transform hover:scale-110"type="button">
@@ -460,7 +238,7 @@
                                 <div
                                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-darkgreen">
                                     <h3 class="text-xl font-semibold text-white">
-                                        SIMRS Rawat Jalan
+                                        Proses Sertifikasi Halal Lengkap
                                     </h3>
                                     <button data-modal-target="static-modal" data-modal-toggle="static-modal"
                                         class="rounded-lg text-darkgreen transition-transform transform hover:scale-110"type="button">
@@ -478,37 +256,23 @@
                                 <!-- Modal body -->
                                 <div class="p-4 md:p-5 space-y-4">
                                     <p class="text-base leading-relaxed text-gray-500">
-                                        Pendataan dan Pelayanan: <br> Mempercepat kerja, hasil yang lebih akurat
+                                        Proses sertifikasi halal di LPH Doa Bangsa Sukabumi meliputi beberapa tahapan penting:
                                         <br><br>
-                                        Dalam dunia kerja, efisiensi dan keakuratan merupakan faktor utama yang sangat
-                                        diinginkan. Hal ini berlaku juga dalam proses pendataan dan pelayanan di
-                                        berbagai
-                                        bidang.
+                                        1. Konsultasi Awal: Klien melakukan konsultasi untuk memahami persyaratan dan proses sertifikasi.
                                         <br><br>
-                                        Pertama-tama, bagi pendataan, kecepatan dalam mengumpulkan informasi menjadi
-                                        faktor
-                                        penting. Dalam hal ini, teknologi informasi dapat memberikan kontribusi besar
-                                        dalam
-                                        mempercepat proses pengumpulan data. Misalnya, dengan menggunakan aplikasi atau
-                                        perangkat lunak khusus, data dapat dikumpulkan dengan mudah dan cepat,
-                                        mengurangi risiko
-                                        kesalahan manusia dan juga waktu yang dibutuhkan. Selain itu, dengan adanya
-                                        teknologi,
-                                        data bisa diakses secara real-time, sehingga keputusan dapat diambil dengan
-                                        lebih cepat
-                                        berdasarkan informasi terbaru.
+                                        2. Pendaftaran dan Pengumpulan Dokumen: Klien mengisi formulir pendaftaran dan mengumpulkan dokumen yang diperlukan.
                                         <br><br>
-                                        Dalam kesimpulannya, dalam dunia kerja, pendataan yang cepat dan akurat dapat
-                                        menjadi
-                                        faktor penentu kesuksesan. Dengan menggunakan teknologi informasi dan melibatkan
-                                        prosedur yang jelas, pendataan dapat ditingkatkan dalam segi kecepatan dan
-                                        akurasi.
-                                        Selain itu, pelayanan yang cepat dan responsif juga dapat memberikan kepuasan
-                                        kepada
-                                        pelanggan. Oleh karena itu, mengintegrasikan teknologi dalam pendataan dan
-                                        pelayanan
-                                        menjadi langkah yang penting untuk menghasilkan hasil yang lebih tepat dan
-                                        efisien.
+                                        3. Assessment Dokumen: Tim auditor kami mengevaluasi kelengkapan dan keabsahan dokumen yang diajukan.
+                                        <br><br>
+                                        4. Audit Lapangan: Dilakukan kunjungan ke fasilitas produksi untuk memverifikasi proses dan bahan baku.
+                                        <br><br>
+                                        5. Uji Laboratorium (jika diperlukan): Pengujian sampel produk di laboratorium terakreditasi.
+                                        <br><br>
+                                        6. Evaluasi Hasil: Tim melakukan evaluasi menyeluruh berdasarkan hasil audit dan uji laboratorium.
+                                        <br><br>
+                                        7. Penerbitan Sertifikat: Jika memenuhi persyaratan, sertifikat halal diterbitkan.
+                                        <br><br>
+                                        8. Surveilan Tahunan: Pemantauan berkala untuk memastikan konsistensi penerapan sistem jaminan halal.
                                     </p>
                                 </div>
                                 <!-- Modal footer -->
@@ -521,23 +285,22 @@
                         </div>
                     </div>
                     <div class="mt-16">
-                        <h2 class="font-semibold mb-3">Yang terdapat dalam Rawat Jalan</h2>
-                        <p>Beberapa inputan yang diterima pada rawat jalan dapat disesuaikan sesuai dengan kebutuhan
-                            Faskes.</p>
+                        <h2 class="font-semibold mb-3">Keunggulan Proses Kami</h2>
+                        <p>Proses yang jelas, komunikasi yang intensif, dan pendampingan dari awal hingga sertifikat diterbitkan.</p>
                     </div>
                 </div>
 
                 <div class="md:w-1/3">
-                    <img src="img/p-solusi-rawat.png" width="100%" class="" alt="Rawat Jalan">
+                    <img src="img/p-solusi-rawat.png" width="100%" class="" alt="Proses Sertifikasi">
                     <ul
                         class="flex flex-col md:flex-row md:items-center gap-y-2  gap-x-5 mt-8 font-semibold text-deepturqoise">
                         <li class="flex items-center gap-x-2">
                             <img src="img/checkfill.png" width="30" alt="chekcfill">
-                            Efektif dalam Pelayanan
+                            Proses Transparan
                         </li>
                         <li class="flex items-cente gap-x-2">
                             <img src="img/checkfill.png" width="30" alt="chekcfill">
-                            Cepat dalam tindakan
+                            Tim Auditor Berpengalaman
                         </li>
                     </ul>
                 </div>
@@ -550,33 +313,28 @@
         <section class="container mx-auto my-20" data-aos="fade-up-right" data-aos-duration="1000">
             <div class="flex flex-col md:flex-row justify-center gap-10 p-5">
                 <div class="md:w-2/5">
-                    <img src="img/p-solusi-inap.png" width="90%" alt="Rawat Inap">
+                    <img src="img/p-solusi-inap.png" width="90%" alt="Audit Lapangan">
                     <ul
                         class="flex flex-col md:flex-row md:items-center gap-y-2 gap-x-32 mt-8 font-semibold text-deepturqoise">
                         <li class="flex items-center gap-x-2">
                             <img src="img/checkfill.png" width="30" alt="chekcfill">
-                            Mudah terhubung
+                            Audit Komprehensif
                         </li>
                         <li class="flex items-cente gap-x-2">
                             <img src="img/checkfill.png" width="30" alt="chekcfill">
-                            Data tersentral
+                            Pendampingan Penuh
                         </li>
                     </ul>
                 </div>
 
                 <div class="md:w-[500px] text-deepturqoise">
                     <div>
-                        <h1 class="md:text-3xl md:no-underline text-xl underline">Rawat Inap</h1>
-                        <h2 class="md:text-3xl text-2xl mb-2 mt-5">Mudah digunakan <br>
-                            dan Mudah terhubung</h2>
-                        <p class="">Bagi Klinik yang dilengkapi dengan fasilitas Rawat Inap, pengelolaan dan
-                            pengendalian
-                            data pasien
-                            dalam kamar atau ruangan menjadi lebih mudah dan nyaman.
+                        <h1 class="md:text-3xl md:no-underline text-xl underline">Audit dan Pemeriksaan</h1>
+                        <h2 class="md:text-3xl text-2xl mb-2 mt-5">Audit Menyeluruh <br>
+                            untuk Kepastian Halal</h2>
+                        <p class="">Kami melakukan audit komprehensif terhadap seluruh aspek produksi, mulai dari bahan baku, proses produksi, fasilitas penyimpanan, hingga distribusi produk. Tim auditor kami yang kompeten akan memastikan setiap detail diperiksa dengan teliti.
                             <br><br>
-                            Fitur ini memungkinkan pengelola untuk dengan mudah mengatur serta mengontrol data pasien
-                            yang
-                            berada di kamar atau ruangan.
+                            Audit dilakukan dengan pendekatan yang kolaboratif, membantu pelaku usaha memahami dan menerapkan sistem jaminan halal yang benar sesuai dengan standar yang berlaku.
                         </p>
                         <!-- Modal toggle -->
                         <button data-modal-target="static-modal2" data-modal-toggle="static-modal2"
@@ -601,7 +359,7 @@
                                 <div
                                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-darkgreen">
                                     <h3 class="text-xl font-semibold text-white">
-                                        SIMRS Rawat Inap
+                                        Proses Audit Halal
                                     </h3>
                                     <button type="button"
                                         class="text-white bg-transparent hover:bg-gray-200 hover:text-darkgreen rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -617,33 +375,23 @@
                                 <!-- Modal body -->
                                 <div class="p-4 md:p-5 space-y-4">
                                     <p class="text-base leading-relaxed text-gray-500">
-                                        Manfaat menggunakan SIMRS SAFFMedic untuk mengelola data pasien rawat inap
-                                        sangat
-                                        signifikan. Berikut adalah beberapa manfaatnya:
+                                        Audit halal yang kami lakukan mencakup beberapa aspek penting:
                                         <br><br>
-                                        1. Efisiensi pengelolaan data: Dengan menggunakan SIMRS SAFFMedic, pengelolaan
-                                        data
-                                        pasien rawat inap dapat dilakukan secara efisien dan cepat. Semua informasi
-                                        pasien,
-                                        seperti riwayat medis, hasil tes, dan pengobatan dapat diakses dan dikelola
-                                        dengan mudah
-                                        dalam satu sistem.
+                                        1. Audit Bahan Baku: Pemeriksaan kehalalan semua bahan baku, bahan tambahan, dan bahan penolong yang digunakan.
                                         <br><br>
-                                        2. Koordinasi tim medis: SIMRS SAFFMedic memungkinkan tim medis yang terdiri
-                                        dari
-                                        dokter, perawat, dan tenaga medis lainnya untuk berkomunikasi dan berkoordinasi
-                                        dengan
-                                        lebih baik. Masing-masing anggota tim dapat dengan mudah mengakses data pasien
-                                        dan
-                                        melihat perubahan yang telah dilakukan oleh anggota tim lainnya, sehingga
-                                        memberikan
-                                        perawatan yang konsisten dan terkoordinasi.
+                                        2. Audit Proses Produksi: Verifikasi seluruh tahapan proses produksi, termasuk pencampuran, pengolahan, pengemasan, dan penyimpanan.
                                         <br><br>
-                                        Dengan manfaat-manfaat tersebut, penggunaan SIMRS SAFFMedic dalam mengelola data
-                                        pasien
-                                        rawat inap akan membantu meningkatkan efisiensi, keselamatan, dan kualitas
-                                        perawatan
-                                        kesehatan.
+                                        3. Audit Fasilitas: Pemeriksaan kondisi fasilitas produksi, kebersihan, dan pencegahan kontaminasi silang.
+                                        <br><br>
+                                        4. Audit Dokumen: Verifikasi semua dokumen pendukung, termasuk sertifikat halal bahan baku, MSDS, dan spesifikasi produk.
+                                        <br><br>
+                                        5. Audit Sistem: Evaluasi sistem manajemen halal yang diterapkan perusahaan.
+                                        <br><br>
+                                        6. Audit Personil: Verifikasi pemahaman dan kompetensi personil terkait sistem jaminan halal.
+                                        <br><br>
+                                        7. Audit Peralatan: Pemeriksaan kondisi dan kebersihan peralatan produksi.
+                                        <br><br>
+                                        Setiap temuan audit akan didokumentasikan secara rinci dan dibahas dengan perusahaan untuk perbaikan dan peningkatan sistem.
                                     </p>
                                 </div>
                                 <!-- Modal footer -->
@@ -656,36 +404,35 @@
                         </div>
                     </div>
                     <div class="mt-10">
-                        <h2 class="font-semibold mb-3">Yang terdapat dalam Rawat Inap</h2>
-                        <p>Beberapa inputan yang didapatkan pada rawat inap, dan inputan ini dapat di custome sesuai
-                            kebutuhan
-                            Faskes</p>
+                        <h2 class="font-semibold mb-3">Aspek yang Diaudit</h2>
+                        <p>Audit kami mencakup semua aspek yang relevan dengan kehalalan produk</p>
                         <div class="flex flex-col md:flex-row gap-10 mb-3 ms-5">
                             <ul class="marker:text-3xl list-image-check">
-                                <li>Data pasien</li>
-                                <li>Kondisi Umum</li>
-                                <li>Kondisi Fisik</li>
-                                <li> Diagnosa ICD 10</li>
+                                <li>Bahan Baku</li>
+                                <li>Proses Produksi</li>
+                                <li>Fasilitas Produksi</li>
+                                <li>Sistem Penyimpanan</li>
                             </ul>
                             <ul class="marker:text-3xl list-image-check">
-                                <li>Prosedur ICD 9</li>
-                                <li>Tindakan</li>
-                                <li>BHP</li>
-                                <li>SOAP & Resep</li>
+                                <li>Dokumen Pendukung</li>
+                                <li>Rantai Pasok</li>
+                                <li>Personil</li>
+                                <li>Peralatan</li>
                             </ul>
                             <ul class="marker:text-3xl list-image-check">
-                                <li>Penunjang</li>
-                                <li>Kesimpulan</li>
-                                <li>Lampiran</li>
-                                <li>Custome</li>
+                                <li>Sistem Manajemen</li>
+                                <li>Pengemasan</li>
+                                <li>Distribusi</li>
+                                <li>Pelabelan</li>
                             </ul>
                         </div>
                     </div>
                     <div class="mt-10">
-                        <h2 class="font-semibold mb-3">Manajemen Ruang</h2>
+                        <h2 class="font-semibold mb-3">Output Audit</h2>
                         <ul class="marker:text-3xl list-image-check ms-5">
-                            <li>Kamar Inap</li>
-                            <li>Ranjang</li>
+                            <li>Laporan Audit Lengkap</li>
+                            <li>Rekomendasi Perbaikan</li>
+                            <li>Sertifikat Halal (jika lolos)</li>
                         </ul>
                     </div>
                 </div>
@@ -696,7 +443,7 @@
                     <div
                         class="flex justify-center items-center p-3 bg-darkgreen md:w-[220px] text-white font-semibold rounded-md mb-5">
                         <img class="mr-3" src="img/demo.png" width="25" alt="Demo">
-                        <a href="{{ route('form-request-demo') }}">Ajukan Demo</a>
+                        <a href="{{ route('whatsapp') }}">Ajukan Konsultasi</a>
                     </div>
                 </a>
             </div>
@@ -704,159 +451,95 @@
         {{-- End Section3 --}}
 
         {{-- FAQ --}}
-
-        {{-- Desktop (Tab) --}}
         <div class="py-10 md:pt-20 md:pb-28 bg-[#f1f4f7] mt-10 md:mt-20" data-aos="fade-down"
             data-aos-duration="1000">
             <div class="text max-w-screen-lg mx-auto text-center text-darkgreen text-sm md:text-xl px-5 md:px-0">
                 <h1 class="font-bold text-2xl md:text-5xl mb-3">FAQ</h1>
-                <p>SIM Klinik SAFFMedic</p>
+                <p>Layanan Sertifikasi Halal LPH Doa Bangsa Sukabumi</p>
             </div>
 
             <div class="max-w-screen-lg mx-auto bg-white rounded-lg ps-10 py-10 hidden md:flex mt-10">
                 <div id="child-scroll" class="tab w-1/3 h-[450px] overflow-y-auto space-y-3">
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none active"
-                        onclick="openCity(event, '1')">1. Apa itu SIM Klinik SAFFMedic?</button>
+                        onclick="openCity(event, '1')">1. Apa itu LPH Doa Bangsa Sukabumi?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '2')">2. Apa saja fitur utama SIM Klinik SAFFMedic?</button>
+                        onclick="openCity(event, '2')">2. Berapa lama proses sertifikasi halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '3')">3. Bagaimana cara mengakses SIM Klinik SAFFMedic?</button>
+                        onclick="openCity(event, '3')">3. Dokumen apa saja yang diperlukan untuk sertifikasi halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '4')">4. Untuk jenis fasilitas kesehatan apa SIM Klinik SAFFMedic
-                        cocok?</button>
+                        onclick="openCity(event, '4')">4. Apakah sertifikat halal dari LPH Doa Bangsa Sukabumi diakui secara nasional?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '5')">5. Apakah SIM Klinik SAFFMedic dapat disesuaikan dengan poli
-                        atau
-                        ruangan tertentu?</button>
+                        onclick="openCity(event, '5')">5. Berapa biaya sertifikasi halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '6')">6. Bagaimana cara melihat biaya penggunaan SIM Klinik?</button>
+                        onclick="openCity(event, '6')">6. Apakah LPH Doa Bangsa Sukabumi melayani sertifikasi untuk UKM?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '7')">7. Apakah SIM Klinik SAFFMedic dapat disesuaikan sesuai
-                        kebutuhan?</button>
+                        onclick="openCity(event, '7')">7. Bagaimana jika produk saya menggunakan bahan impor?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '8')">8. Apakah biaya yang tertera sudah termasuk pelatihan dan
-                        pendampingan?</button>
+                        onclick="openCity(event, '8')">8. Berapa lama masa berlaku sertifikat halal?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '9')">9. Apakah SAFFMedic menyediakan dukungan untuk impor data pasien
-                        dan
-                        rekam medis dari file Excel?</button>
+                        onclick="openCity(event, '9')">9. Apakah ada pelatihan yang disediakan untuk tim internal perusahaan?</button>
                     <button
                         class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '10')">10. Apakah SAFFMedic memiliki versi aplikasi desktop?</button>
-                    <button
-                        class="tablinks overflow-hidden text-lg w-full py-6 px-4 text-left rounded-lg hover:bg-darkteal hover:text-white focus:outline-none"
-                        onclick="openCity(event, '11')">11. Bagaimana cara mendapatkan dukungan teknis
-                        tambahan?</button>
+                        onclick="openCity(event, '10')">10. Bagaimana cara memulai proses sertifikasi dengan LPH Doa Bangsa Sukabumi?</button>
                 </div>
 
                 <div id="1" class="tabcontent text-lg w-2/3 px-16 h-96 transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa itu SIM Klinik SAFFMedic?</h3>
-                    <p>SIM Klinik SAFFMedic adalah aplikasi berbasis web yang dirancang untuk mendukung operasional
-                        klinik.
-                        Fitur-fiturnya mencakup administrasi, rekam medis, apotek, antrian, dan penunjang laboratorium.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa itu LPH Doa Bangsa Sukabumi?</h3>
+                    <p>LPH Doa Bangsa Sukabumi adalah Lembaga Pemeriksa Halal yang telah terdaftar dan diakui secara resmi oleh Badan Penyelenggara Jaminan Produk Halal (BPJPH). Kami berwenang melakukan pemeriksaan dan audit halal untuk berbagai jenis produk seperti makanan, minuman, kosmetik, obat-obatan, dan bahan baku industri.</p>
                 </div>
 
                 <div id="2" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apa saja fitur utama SIM Klinik SAFFMedic?</h3>
-                    <p>Fitur utama SIM Klinik SAFFMedic meliputi ADMISI, rekam medis, apotek, antrian, dan penunjang
-                        untuk
-                        laboratorium.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Berapa lama proses sertifikasi halal?</h3>
+                    <p>Proses sertifikasi halal umumnya memerlukan waktu 30-60 hari kerja, tergantung pada kompleksitas produk, kelengkapan dokumen, dan kesiapan fasilitas produksi. Kami berusaha memproses secepat mungkin tanpa mengorbankan kualitas pemeriksaan.</p>
                 </div>
 
                 <div id="3" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana cara mengakses SIM Klinik SAFFMedic?
-                    </h3>
-                    <p>SIM Klinik SAFFMedic dapat diakses dengan mudah karena berbasis web. Anda hanya perlu koneksi
-                        internet
-                        dan browser web untuk menggunakan aplikasi ini.</p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Dokumen apa saja yang diperlukan untuk sertifikasi halal?</h3>
+                    <p>Dokumen yang diperlukan antara lain: akta perusahaan, SIUP, NIB, daftar produk, spesifikasi bahan baku, diagram alir proses, sertifikat halal bahan baku (jika ada), dan dokumen pendukung lainnya. Tim kami akan memberikan checklist lengkap sesuai dengan jenis produk Anda.</p>
                 </div>
 
                 <div id="4" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Untuk jenis fasilitas kesehatan apa SIM Klinik
-                        SAFFMedic
-                        cocok?</h3>
-                    <p>SIM Klinik SAFFMedic dapat digunakan di berbagai jenis fasilitas kesehatan, termasuk praktek
-                        dokter,
-                        puskesmas, klinik, dan rumah sakit.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah sertifikat halal dari LPH Doa Bangsa Sukabumi diakui secara nasional?</h3>
+                    <p>Ya, sertifikat halal yang kami terbitkan diakui secara resmi oleh BPJPH dan berlaku di seluruh wilayah Indonesia. Sertifikat tersebut dapat digunakan untuk keperluan perdagangan, ekspor, dan pemenuhan regulasi lainnya.</p>
                 </div>
 
                 <div id="5" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SIM Klinik SAFFMedic dapat disesuaikan
-                        dengan
-                        poli atau ruangan tertentu?</h3>
-                    <p>Ya, SIM Klinik SAFFMedic dapat disetup sesuai dengan poli atau ruangan yang diperlukan, sehingga
-                        sesuai
-                        dengan kebutuhan spesifik fasilitas kesehatan.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Berapa biaya sertifikasi halal?</h3>
+                    <p>Biaya sertifikasi bervariasi tergantung pada jenis produk, jumlah varian, kompleksitas proses, dan lokasi fasilitas. Kami memberikan penawaran yang transparan setelah melakukan assessment awal. Silakan hubungi kami untuk konsultasi dan penawaran yang disesuaikan dengan kebutuhan Anda.</p>
                 </div>
 
                 <div id="6" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana cara melihat biaya penggunaan SIM
-                        Klinik?</h3>
-                    <p>Biaya penggunaan SIM Klinik dapat dilihat di halaman harga yang tersedia. Informasi terkait biaya
-                        pelatihan, pendampingan, dan pembaruan fitur juga dapat ditemukan di sana.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah LPH Doa Bangsa Sukabumi melayani sertifikasi untuk UKM?</h3>
+                    <p>Tentu saja. Kami memberikan layanan sertifikasi halal untuk semua skala usaha, dari UKM hingga perusahaan besar. Untuk UKM, kami memberikan pendampingan khusus dan solusi yang sesuai dengan kapasitas usaha.</p>
                 </div>
 
                 <div id="7" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SIM Klinik SAFFMedic dapat disesuaikan
-                        sesuai
-                        kebutuhan?
-                    </h3>
-                    <p>Ya, SIM Klinik SAFFMedic dapat disesuaikan sesuai dengan keperluan spesifik Anda, sehingga dapat
-                        memenuhi
-                        kebutuhan khusus fasilitas kesehatan Anda.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana jika produk saya menggunakan bahan impor?</h3>
+                    <p>Kami tetap dapat melakukan sertifikasi untuk produk yang menggunakan bahan impor. Yang penting adalah tersedia dokumen yang menunjukkan kehalalan bahan impor tersebut, seperti sertifikat halal dari lembaga yang diakui atau dokumen lain yang dapat dipertanggungjawabkan.</p>
                 </div>
 
                 <div id="8" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4"> Apakah biaya yang tertera sudah termasuk
-                        pelatihan dan
-                        pendampingan?
-                    </h3>
-                    <p>Ya, biaya yang tertera sudah mencakup pelatihan dan pendampingan secara virtual. Ini memastikan
-                        bahwa
-                        pengguna dapat memanfaatkan aplikasi dengan efektif.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Berapa lama masa berlaku sertifikat halal?</h3>
+                    <p>Sertifikat halal umumnya berlaku selama 4 (empat) tahun. Namun, terdapat kewajiban untuk melakukan surveilan tahunan untuk memastikan konsistensi penerapan sistem jaminan halal. Kami akan mengingatkan Anda ketika mendekati masa perpanjangan sertifikat.</p>
                 </div>
 
                 <div id="9" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SAFFMedic menyediakan dukungan untuk
-                        impor data
-                        pasien dan rekam medis dari file Excel?
-                    </h3>
-                    <p>Ya, tim SAFFMedic dapat melakukan impor data pasien dan rekam medis dari file Excel tanpa biaya
-                        tambahan.
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah ada pelatihan yang disediakan untuk tim internal perusahaan?</h3>
+                    <p>Ya, kami menyediakan pelatihan dan workshop tentang sistem jaminan halal, persiapan sertifikasi, dan pemahaman regulasi halal. Pelatihan dapat disesuaikan dengan kebutuhan spesifik perusahaan Anda.</p>
                 </div>
+
                 <div id="10" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Apakah SAFFMedic memiliki versi aplikasi
-                        desktop?</h3>
-                    <p>Tidak, SAFFMedic saat ini hanya tersedia dalam bentuk web base dan tidak mengembangkan aplikasi
-                        dalam
-                        bentuk instaler desktop.
-                    </p>
-                </div>
-                <div id="11" class="tabcontent text-lg w-2/3 px-16 h-96 hidden transition-opacity">
-                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana cara mendapatkan dukungan teknis
-                        tambahan?
-                    </h3>
-                    <p>Untuk mendapatkan dukungan teknis tambahan, Anda dapat menghubungi tim dukungan pelanggan
-                        SAFFMedic
-                        melalui kontak yang disediakan di situs www.safmedic.com
-                    </p>
+                    <h3 class="text-2xl font-bold text-darkgreen mb-4">Bagaimana cara memulai proses sertifikasi dengan LPH Doa Bangsa Sukabumi?</h3>
+                    <p>Anda dapat menghubungi kami melalui WhatsApp, telepon, atau mengisi form konsultasi di website kami. Tim kami akan menjadwalkan pertemuan awal untuk memahami kebutuhan Anda, memberikan penjelasan proses, dan menyusun rencana sertifikasi yang sesuai dengan kondisi usaha Anda.</p>
                 </div>
             </div>
 
@@ -867,7 +550,7 @@
                         <input type="checkbox" id="input1" class="absolute peer opacity-0">
                         <label for="input1"
                             class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            itu SIM Klinik SAFFMedic?</label>
+                            itu LPH Doa Bangsa Sukabumi?</label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -877,11 +560,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-8 md:mt-0 text-deepturqoise opacity-95">
-                            <p>SIM Klinik SAFFMedic adalah aplikasi berbasis web yang dirancang untuk mendukung
-                                operasional
-                                klinik. Fitur-fiturnya mencakup administrasi, rekam medis, apotek, antrian, dan
-                                penunjang
-                                laboratorium.</p>
+                            <p>LPH Doa Bangsa Sukabumi adalah Lembaga Pemeriksa Halal yang telah terdaftar dan diakui secara resmi oleh Badan Penyelenggara Jaminan Produk Halal (BPJPH). Kami berwenang melakukan pemeriksaan dan audit halal untuk berbagai jenis produk.</p>
                         </div>
                     </div>
 
@@ -890,8 +569,8 @@
                     <div class="relative md:w-[450px] mt-16">
                         <input type="checkbox" id="input2" class="absolute peer opacity-0">
                         <label for="input2"
-                            class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Apa
-                            saja fitur utama SIM Klinik SAFFMedic?
+                            class="flex items-center ps-4 text-base pe-16 md:mx-0 md:pe-10 h-[50px] ms-3 cursor-pointer select-none">Berapa
+                            lama proses sertifikasi halal?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -902,10 +581,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Fitur utama SIM Klinik SAFFMedic meliputi ADMISI, rekam medis, apotek, antrian, dan
-                                penunjang
-                                untuk laboratorium.
-                            </p>
+                            <p>Proses sertifikasi halal umumnya memerlukan waktu 30-60 hari kerja, tergantung pada kompleksitas produk, kelengkapan dokumen, dan kesiapan fasilitas produksi.</p>
                         </div>
                     </div>
 
@@ -914,8 +590,8 @@
                     <div class="relative md:w-[450px] mt-16">
                         <input type="checkbox" id="input3" class="absolute peer opacity-0">
                         <label for="input3"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            cara mengakses SIM Klinik SAFFMedic?
+                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Dokumen
+                            apa saja yang diperlukan untuk sertifikasi halal?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -926,10 +602,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>SIM Klinik SAFFMedic dapat diakses dengan mudah karena berbasis web. Anda hanya perlu
-                                koneksi
-                                internet dan browser web untuk menggunakan aplikasi ini
-                            </p>
+                            <p>Dokumen yang diperlukan antara lain: akta perusahaan, SIUP, NIB, daftar produk, spesifikasi bahan baku, diagram alir proses, sertifikat halal bahan baku (jika ada), dan dokumen pendukung lainnya.</p>
                         </div>
                     </div>
 
@@ -938,8 +611,8 @@
                     <div class="relative md:w-[450px] mt-10">
                         <input type="checkbox" id="input4" class="absolute peer opacity-0">
                         <label for="input4"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Untuk
-                            jenis fasilitas kesehatan apa SIM Klinik SAFFMedic cocok?
+                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
+                            sertifikat halal dari LPH Doa Bangsa Sukabumi diakui secara nasional?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -950,10 +623,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-8 md:mt-0 text-deepturqoise opacity-95">
-                            <p>SIM Klinik SAFFMedic dapat digunakan di berbagai jenis fasilitas kesehatan, termasuk
-                                praktek
-                                dokter, puskesmas, klinik, dan rumah sakit.
-                            </p>
+                            <p>Ya, sertifikat halal yang kami terbitkan diakui secara resmi oleh BPJPH dan berlaku di seluruh wilayah Indonesia.</p>
                         </div>
                     </div>
 
@@ -962,8 +632,8 @@
                     <div class="relative md:w-[450px] mt-8">
                         <input type="checkbox" id="input5" class="absolute peer opacity-0">
                         <label for="input5"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SIM Klinik SAFFMedic dapat disesuaikan dengan poli atau ruangan tertentu?
+                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Berapa
+                            biaya sertifikasi halal?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -974,10 +644,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-4 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, SIM Klinik SAFFMedic dapat disetup sesuai dengan poli atau ruangan yang diperlukan,
-                                sehingga
-                                sesuai dengan kebutuhan spesifik fasilitas kesehatan.
-                            </p>
+                            <p>Biaya sertifikasi bervariasi tergantung pada jenis produk, jumlah varian, kompleksitas proses, dan lokasi fasilitas. Kami memberikan penawaran yang transparan setelah melakukan assessment awal.</p>
                         </div>
                     </div>
 
@@ -986,8 +653,8 @@
                     <div class="relative md:w-[450px] mt-8">
                         <input type="checkbox" id="input6" class="absolute peer opacity-0">
                         <label for="input6"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            cara melihat biaya penggunaan SIM Klinik?
+                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
+                            LPH Doa Bangsa Sukabumi melayani sertifikasi untuk UKM?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -998,10 +665,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-5 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Biaya penggunaan SIM Klinik dapat dilihat di halaman harga yang tersedia. Informasi
-                                terkait biaya
-                                pelatihan, pendampingan, dan pembaruan fitur juga dapat ditemukan di sana.
-                            </p>
+                            <p>Tentu saja. Kami memberikan layanan sertifikasi halal untuk semua skala usaha, dari UKM hingga perusahaan besar.</p>
                         </div>
                     </div>
 
@@ -1010,8 +674,8 @@
                     <div class="relative md:w-[450px] mt-16">
                         <input type="checkbox" id="input7" class="absolute peer opacity-0">
                         <label for="input7"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SIM Klinik SAFFMedic dapat disesuaikan sesuai kebutuhan?
+                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
+                            jika produk saya menggunakan bahan impor?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1022,9 +686,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, SIM Klinik SAFFMedic dapat disesuaikan sesuai dengan keperluan spesifik Anda,
-                                sehingga dapat
-                                memenuhi kebutuhan khusus fasilitas kesehatan Anda.
+                            <p>Kami tetap dapat melakukan sertifikasi untuk produk yang menggunakan bahan impor dengan syarat tersedia dokumen yang menunjukkan kehalalan bahan impor tersebut.</p>
                         </div>
                     </div>
 
@@ -1033,8 +695,8 @@
                     <div class="relative md:w-[450px] mt-16">
                         <input type="checkbox" id="input8" class="absolute peer opacity-0">
                         <label for="input8"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            biaya yang tertera sudah termasuk pelatihan dan pendampingan?
+                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Berapa
+                            lama masa berlaku sertifikat halal?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1045,10 +707,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-14 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, biaya yang tertera sudah mencakup pelatihan dan pendampingan secara virtual. Ini
-                                memastikan
-                                bahwa pengguna dapat memanfaatkan aplikasi dengan efektif.
-                            </p>
+                            <p>Sertifikat halal umumnya berlaku selama 4 (empat) tahun dengan kewajiban surveilan tahunan untuk memastikan konsistensi penerapan sistem jaminan halal.</p>
                         </div>
                     </div>
 
@@ -1058,7 +717,7 @@
                         <input type="checkbox" id="input9" class="absolute peer opacity-0">
                         <label for="input9"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SAFFMedic menyediakan dukungan untuk impor data pasien dan rekam medis dari file Excel?
+                            ada pelatihan yang disediakan untuk tim internal perusahaan?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1069,10 +728,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Ya, tim SAFFMedic dapat melakukan impor data pasien dan rekam medis dari file Excel tanpa
-                                biaya
-                                tambahan.
-                            </p>
+                            <p>Ya, kami menyediakan pelatihan dan workshop tentang sistem jaminan halal, persiapan sertifikasi, dan pemahaman regulasi halal.</p>
                         </div>
                     </div>
 
@@ -1081,32 +737,8 @@
                     <div class="relative md:w-[450px] mt-14">
                         <input type="checkbox" id="input10" class="absolute peer opacity-0">
                         <label for="input10"
-                            class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Apakah
-                            SAFFMedic memiliki versi aplikasi desktop?
-                        </label>
-                        <div
-                            class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" style="fill: #166F61;transform: ;msFilter:;">
-                                <path d="M16.939 7.939 12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z"></path>
-                            </svg>
-                        </div>
-                        <div
-                            class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Tidak, SAFFMedic saat ini hanya tersedia dalam bentuk web base dan tidak mengembangkan
-                                aplikasi
-                                dalam bentuk instaler desktop
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="w-[200px] bg-deepturqoise h-[1px] ms-7 mt-4"></div>
-
-                    <div class="relative md:w-[450px] mt-14">
-                        <input type="checkbox" id="input11" class="absolute peer opacity-0">
-                        <label for="input11"
                             class="flex items-center ps-4 text-base pe-16 md:pe-10 md:mx-0 h-[50px] ms-3 cursor-pointer select-none">Bagaimana
-                            cara mendapatkan dukungan teknis tambahan?
+                            cara memulai proses sertifikasi dengan LPH Doa Bangsa Sukabumi?
                         </label>
                         <div
                             class="absolute top-[15px] right-[30px] rotate-0 peer-checked:rotate-180 duration-200 cursor-pointer">
@@ -1117,9 +749,7 @@
                         </div>
                         <div
                             class="max-h-0 overflow-hidden peer-checked:max-h-full ps-9 pe-7 text-base mt-12 md:mt-0 text-deepturqoise opacity-95">
-                            <p>Untuk mendapatkan dukungan teknis tambahan, Anda dapat menghubungi tim dukungan pelanggan
-                                SAFFMedic melalui kontak yang disediakan di situs www.safmedic.com
-                            </p>
+                            <p>Anda dapat menghubungi kami melalui WhatsApp, telepon, atau mengisi form konsultasi di website kami untuk pertemuan awal dan penyusunan rencana sertifikasi.</p>
                         </div>
                     </div>
 
@@ -1214,20 +844,27 @@
         {{-- Section4 --}}
         <section class="container mx-auto my-20 p-5" data-aos="fade-right" data-aos-duration="1000">
             <div class="md:w-1/3 text-darkgreen text-center mx-auto mb-10">
-                <h1 class="text-3xl font-bold mb-3">Tipe Faskes</h1>
-                <h2 class="font-semibold">Dapat diiplementasikan pada semua type FASKES</h2>
-                <p>SAFFMedic Memberikan SIMRS dengan harga terjangkau
-                    serta menghadirkan fitur Semi Custome</p>
+                <h1 class="text-3xl font-bold mb-3">Jenis Produk yang Disertifikasi</h1>
+                <h2 class="font-semibold">Kami melayani sertifikasi halal untuk berbagai jenis produk</h2>
+                <p>LPH Doa Bangsa Sukabumi siap membantu sertifikasi produk Anda sesuai dengan standar BPJPH</p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-center gap-10 text-darkteal">
                 <div class="w-[180px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
-                    <img src="img/pratama-klinik.png" class="w-[50%] mx-auto" alt="Pratama">
-                    <h2 class="text-center text-3xl">Pratama</h2>
+                    <img src="img/pratama-klinik.png" class="w-[50%] mx-auto" alt="Makanan">
+                    <h2 class="text-center text-3xl">Makanan</h2>
                 </div>
                 <div class="w-[180px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
-                    <img src="img/utama-klinik.png" class="w-[60%] mx-auto" alt="Utama">
-                    <h2 class="text-center text-3xl mt-2">Utama</h2>
+                    <img src="img/utama-klinik.png" class="w-[60%] mx-auto" alt="Minuman">
+                    <h2 class="text-center text-3xl mt-2">Minuman</h2>
+                </div>
+                <div class="w-[180px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
+                    <img src="img/pratama-klinik.png" class="w-[50%] mx-auto" alt="Kosmetik">
+                    <h2 class="text-center text-3xl">Kosmetik</h2>
+                </div>
+                <div class="w-[180px] mx-auto md:mx-0 py-5 bg-[#F4F4F4] rounded-xl shadow-xl">
+                    <img src="img/utama-klinik.png" class="w-[60%] mx-auto" alt="Obat-obatan">
+                    <h2 class="text-center text-3xl mt-2">Obat-obatan</h2>
                 </div>
             </div>
         </section>
@@ -1257,10 +894,6 @@
         </a>
     </div>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCNTDDPL" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 </body>
 @include('partials.js')
 

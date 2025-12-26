@@ -197,6 +197,12 @@ class FinanceController extends Controller
             'pending' => InvoicePayment::where('status', 'pending')->count(),
             'verified' => InvoicePayment::where('status', 'verified')->count(),
             'rejected' => InvoicePayment::where('status', 'rejected')->count(),
+            'verified_amount' => InvoicePayment::where('status', 'verified')->sum('amount'),
+            'pending_amount' => InvoicePayment::where('status', 'pending')->sum('amount'),
+            'this_month_amount' => InvoicePayment::whereMonth('payment_date', date('m'))
+                                                  ->whereYear('payment_date', date('Y'))
+                                                  ->where('status', 'verified')
+                                                  ->sum('amount'),
         ];
 
         return view('admin.finance.payments', compact('payments', 'stats'));

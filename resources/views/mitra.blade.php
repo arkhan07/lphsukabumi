@@ -1,4 +1,6 @@
-@extends('layout.app') @section('content')
+@extends('layout.app')
+
+@section('content')
 {{-- Section1 --}}
 <section
     class="container mx-auto md:p-0"
@@ -11,13 +13,10 @@
         >
             <div class="p-4 md:p-0 order-2 md:order-1">
                 <h1 class="font-bold md:py-0 text-3xl text-white">
-                    Bisnis dan kerjasama
+                    Bisnis dan Kerjasama
                 </h1>
                 <p class="text-white mt-4">
-                    Kami berkomitmen untuk terus tumbuh dan berkembang serta
-                    menghadirkan produk berkualitas guna memberikan kenyamanan
-                    dan kepuasan kepada konsumen. Kami dengan tulus membuka diri
-                    untuk menjalin kerjasama.
+                    Sebagai Lembaga Pemeriksa Halal yang terpercaya dan profesional, kami membuka peluang kemitraan untuk bersama-sama mengembangkan ekosistem produk halal di Indonesia. Kami berkomitmen untuk menjalin kerjasama yang saling menguntungkan dengan berbagai pihak dalam mendukung sertifikasi halal yang berkualitas.
                 </p>
             </div>
             <img
@@ -45,89 +44,56 @@
 
             <div class="md:w-3/5 md:text-justify text-deepturqoise">
                 <p class="">
-                    Sebagai aplikasi SIMKLINIK dan SIMRS yang berpotensi besar
-                    di bidang bisnis, SAFFMedic hadir untuk mendukung
-                    pertumbuhan yang pesat dalam sektor layanan kesehatan,
-                    seperti praktek dokter, klinik, dan rumah sakit. Dengan
-                    adanya kebijakan dan regulasi pemerintah yang mendorong
-                    Fasilitas Kesehatan (FASKES) untuk menerapkan Rekam Medis
-                    Elektronik (RME), SAFFMedic menawarkan solusi lengkap untuk
-                    mengelola operasional klinik dan rumah sakit secara efisien.
+                    Sebagai Lembaga Pemeriksa Halal yang terakreditasi, kami hadir untuk mendukung pertumbuhan industri halal di Indonesia yang semakin pesat. Dengan adanya Undang-Undang No. 33 Tahun 2014 tentang Jaminan Produk Halal, permintaan akan sertifikasi halal meningkat signifikan di berbagai sektor industri.
                 </p>
                 <br />
-                <h1 class="font-bold">Peluang dan Potensi Bisnis SAFFMedic:</h1>
+                <h1 class="font-bold">Peluang dan Potensi Bisnis Halal:</h1>
                 <br />
                 <p>
-                    Software as a Service (SaaS) adalah model bisnis yang
-                    berkembang pesat, terutama dalam era digital. SAFFMedic
-                    sebagai solusi SaaS dalam manajemen rekam medis, pembukuan,
-                    dan keuangan, memberikan peluang bisnis yang sangat
-                    menjanjikan.
+                    Pasar produk halal global terus berkembang dengan pesat. Indonesia sebagai negara dengan populasi muslim terbesar di dunia memiliki potensi yang sangat besar dalam pengembangan industri halal. Sertifikasi halal bukan hanya kebutuhan keagamaan, tetapi juga menjadi nilai tambah dan keunggulan kompetitif dalam pasar global.
                 </p>
                 <br />
                 <p>
-                    Dengan basis cloud, SAFFMedic menawarkan kemudahan akses dan
-                    penggunaan tanpa perlu instalasi perangkat lunak tambahan.
-                    Seluruh data dan proses disimpan secara aman di cloud,
-                    memungkinkan pengguna untuk mengelola rekam medis, laporan
-                    keuangan, faktur, serta transaksi secara real-time dari mana
-                    saja dan kapan saja.
+                    Dengan berkembangnya kesadaran konsumen akan pentingnya produk halal, industri makanan, minuman, obat-obatan, kosmetika, dan produk turunan lainnya membutuhkan sertifikasi halal sebagai standar mutu dan keamanan. Ini menciptakan peluang bisnis yang sangat menjanjikan dalam penyediaan jasa sertifikasi halal.
                 </p>
                 <br />
-                <h1 class="font-bold">Keuntungan Menggunakan SAFFMedic:</h1>
+                <h1 class="font-bold">Keuntungan Bermitra dengan Kami:</h1>
                 <br />
                 <ol class="list-decimal">
                     <li>
-                        <h1 class="font-bold">Efisiensi Waktu dan Biaya:</h1>
-                        Dengan SAFFMedic, pengelolaan laporan keuangan,
-                        pembuatan faktur, pelacakan pembayaran, serta pencatatan
-                        transaksi menjadi lebih cepat dan mudah. Ini membantu
-                        klinik dan rumah sakit mengurangi biaya operasional
-                        sekaligus meningkatkan efisiensi kerja.
+                        <h1 class="font-bold">Kredibilitas dan Pengakuan:</h1>
+                        Sebagai Lembaga Pemeriksa Halal yang terakreditasi, kami memiliki kredibilitas tinggi dan diakui oleh Badan Penyelenggara Jaminan Produk Halal (BPJPH). Mitra kami akan mendapatkan kepercayaan dari pelanggan dan industri.
                     </li>
                     <li>
-                        <h1 class="font-bold">Akses Real-Time:</h1>
-                        Pengguna dapat memantau dan mengakses data rekam medis
-                        maupun keuangan kapan pun dan di mana pun, selama
-                        terhubung dengan internet, memberikan fleksibilitas yang
-                        lebih besar dalam pengelolaan fasilitas kesehatan.
+                        <h1 class="font-bold">Jaringan Luas dan Ekspansi Pasar:</h1>
+                        Dengan bergabung bersama kami, mitra dapat mengakses jaringan pelaku usaha halal yang luas, mulai dari UKM hingga perusahaan multinasional, serta peluang ekspansi pasar domestik dan internasional.
                     </li>
                     <li>
                         <h1 class="font-bold">
-                            Kompatibilitas untuk Berbagai Skala Bisnis:
+                            Dukungan Teknis dan Pelatihan:
                         </h1>
-                        SAFFMedic dirancang untuk dapat digunakan oleh klinik
-                        kecil hingga rumah sakit besar, dengan fitur-fitur yang
-                        dapat disesuaikan dengan kebutuhan setiap fasilitas
-                        kesehatan.
+                        Kami menyediakan dukungan teknis lengkap, pelatihan auditor halal, konsultasi sistem jaminan halal, dan pembinaan berkelanjutan untuk memastikan keberhasilan mitra dalam mengembangkan bisnis sertifikasi halal.
+                    </li>
+                    <li>
+                        <h1 class="font-bold">
+                            Model Bisnis Berkelanjutan:
+                        </h1>
+                        Dengan model bisnis berbasis sertifikasi berulang dan surveilan tahunan, mitra dapat menikmati pendapatan yang berkelanjutan dan stabil dari bisnis sertifikasi halal.
                     </li>
                 </ol>
                 <br />
-                <h1 class="font-bold">Prospek Bisnis SAFFMedic:</h1>
+                <h1 class="font-bold">Prospek Bisnis Sertifikasi Halal:</h1>
                 <br />
                 <p>
-                    Dengan pertumbuhan industri kesehatan yang pesat dan
-                    meningkatnya adopsi teknologi digital, permintaan akan
-                    solusi manajemen klinik yang efisien seperti SAFFMedic akan
-                    terus meningkat. Model bisnis berbasis langganan (bulanan
-                    atau tahunan) yang diusung SAFFMedic juga memberikan
-                    stabilitas pendapatan jangka panjang serta potensi
-                    pertumbuhan yang berkelanjutan.
+                    Dengan pertumbuhan industri halal yang mencapai 10-15% per tahun secara global, prospek bisnis sertifikasi halal sangat cerah. Regulasi yang semakin ketat dan kesadaran konsumen yang meningkat menjadikan sertifikasi halal sebagai kebutuhan wajib bagi pelaku usaha.
                 </p>
                 <br />
                 <p>
-                    Untuk mencapai keberhasilan yang lebih besar, SAFFMedic akan
-                    terus berinovasi dan memperbarui fitur-fiturnya sesuai
-                    dengan tren industri dan regulasi kesehatan terbaru. Dengan
-                    demikian, SAFFMedic berkomitmen untuk selalu memberikan
-                    solusi terbaik bagi pelanggannya.
+                    Kami terus berinovasi dan mengembangkan layanan sertifikasi halal yang komprehensif, mulai dari sertifikasi produk, sistem jaminan halal, pelatihan auditor internal, hingga konsultasi pengembangan produk halal. Dengan teknologi dan metodologi terkini, kami memastikan proses sertifikasi yang efisien, akurat, dan terpercaya.
                 </p>
                 <br />
                 <p>
-                    Secara keseluruhan, SAFFMedic adalah pilihan tepat untuk
-                    fasilitas kesehatan yang ingin mengadopsi solusi modern
-                    berbasis SaaS, dengan potensi pertumbuhan bisnis yang cerah
-                    di masa depan.
+                    Bergabunglah dengan kami sebagai mitra dalam mengembangkan ekosistem halal yang berkualitas dan terpercaya di Indonesia. Bersama-sama kita dapat berkontribusi dalam membangun industri halal nasional yang kompetitif di pasar global.
                 </p>
             </div>
         </div>
@@ -145,7 +111,7 @@
     <div class="w-2/5 mx-auto text-center text-darkgreen text-2xl font-bold">
         <h1 class="mb-3">Bentuk Kerjasama</h1>
         <h2 class="text-darkteal font-medium">
-            Beberapa bentuk kerjasama yang dapat dilakukan dengan SAFFMedic
+            Peluang kemitraan dalam pengembangan bisnis sertifikasi halal
         </h2>
     </div>
 
@@ -157,7 +123,7 @@
                 <a
                     role="button"
                     id="buttoncont1"
-                    onclick="toggleContent('tbcontent1', 'buttoncont1',)"
+                    onclick="toggleContent('tbcontent1', 'buttoncont1')"
                 >
                     <div
                         class="flex items-center buttoncont border-b-2 w-full h-14 bg-transparent hover:border-darkteal"
@@ -167,25 +133,25 @@
                             width="40"
                             class="mr-5"
                         />
-                        <h1>Mitra dan keagenan</h1>
+                        <h1>Mitra dan Keagenan</h1>
                     </div>
                 </a>
                 <a
                     role="button"
                     id="buttoncont2"
-                    onclick="toggleContent('tbcontent2', 'buttoncont2',)"
+                    onclick="toggleContent('tbcontent2', 'buttoncont2')"
                 >
                     <div
                         class="flex items-center buttoncont mt-3 border-b-2 w-full h-14 bg-transparent hover:border-darkteal"
                     >
                         <img src="img/afiliasi.png" width="40" class="mr-5" />
-                        <h1>Afiliasi</h1>
+                        <h1>Afiliasi Sertifikasi</h1>
                     </div>
                 </a>
                 <a
                     role="button"
                     id="buttoncont3"
-                    onclick="toggleContent('tbcontent3', 'buttoncont3',)"
+                    onclick="toggleContent('tbcontent3', 'buttoncont3')"
                 >
                     <div
                         class="flex items-center buttoncont mt-3 border-b-2 w-full h-14 bg-transparent hover:border-darkteal"
@@ -195,19 +161,19 @@
                             width="40"
                             class="mr-5"
                         />
-                        <h1>Kerjasama Umum</h1>
+                        <h1>Kerjasama Institusi</h1>
                     </div>
                 </a>
                 <a
                     role="button"
                     id="buttoncont4"
-                    onclick="toggleContent('tbcontent4', 'buttoncont4',)"
+                    onclick="toggleContent('tbcontent4', 'buttoncont4')"
                 >
                     <div
                         class="flex items-center buttoncont mt-3 border-b-2 w-full h-14 bg-transparent hover:border-darkteal"
                     >
                         <img src="img/btob.png" width="40" class="mr-5" />
-                        <h1>B to B</h1>
+                        <h1>Business Partner</h1>
                     </div>
                 </a>
             </div>
@@ -218,99 +184,128 @@
                     <div id="tbcontent1" class="tbcontent">
                         <div class="text-deepturqoise font-medium">
                             <h1 class="font-bold mb-5 text-xl">
-                                Mitra dan keagenan
+                                Mitra dan Keagenan Sertifikasi Halal
                             </h1>
                             <p class="font-normal md:text-justify">
-                                SAFFMedic adalah perusahaan yang membuka peluang
-                                bagi individu yang ingin menjadi Mitra atau Agen
-                                di setiap wilayah. Kami memiliki visi untuk
-                                menjadikan Anda sebagai Bisnis Partner yang
-                                memiliki hak istimewa dalam memasarkan Produk
-                                SAFFMedic. Bagi Anda yang memiliki usaha seperti
-                                Konsultan Keuangan atau Toko Komputer, menjadi
-                                Mitra keagenan Aplikasi Pembukuan SAFFMedic
-                                adalah pilihan yang tepat.
+                                Kami membuka peluang kemitraan sebagai Agen atau Perwakilan Resmi Lembaga Pemeriksa Halal di berbagai wilayah di Indonesia. Program ini dirancang untuk individu atau perusahaan yang ingin mengembangkan bisnis dalam bidang sertifikasi halal dengan dukungan penuh dari lembaga yang telah terakreditasi.
                                 <br /><br />
-                                Salah satu keuntungan besar menjadi Mitra atau
-                                Agen SAFFMedic adalah Anda berpeluang
-                                mendapatkan komisi rutin berkesinambungan.
-                                Setiap pelanggan yang membeli aplikasi SAFFMedic
-                                dan memperpanjang penggunaannya akan memberikan
-                                Anda komisi yang terus mengalir. Ini berarti
-                                pendapatan Anda akan terus berkembang seiring
-                                dengan jumlah pelanggan yang terus bertambah.
-                                <br /><br />
-                                Kami yakin bahwa menjadi Mitra atau Agen
-                                SAFFMedic akan memberikan Anda kesempatan untuk
-                                menjadi bagian dari perusahaan yang sedang
-                                berkembang dengan cepat. Kami menyediakan
-                                dukungan dan bantuan penuh untuk membantu Anda
-                                dalam mengembangkan usaha Anda. Bergabunglah
-                                dengan kami sekarang dan jadilah bagian dari
-                                kesuksesan bersama SAFFMedic.
+                                <strong>Keuntungan Menjadi Mitra:</strong>
+                                <ul class="list-disc ml-6 mt-3">
+                                    <li>Hak eksklusif sebagai perwakilan resmi di wilayah tertentu</li>
+                                    <li>Komisi yang kompetitif untuk setiap klien yang disertifikasi</li>
+                                    <li>Pendapatan berkelanjutan dari surveilan tahunan</li>
+                                    <li>Pelatihan dan sertifikasi auditor halal gratis</li>
+                                    <li>Dukungan pemasaran dan materi promosi</li>
+                                    <li>Akses ke database pelaku usaha potensial</li>
+                                </ul>
+                                <br />
+                                <strong>Syarat Menjadi Mitra:</strong>
+                                <ul class="list-disc ml-6 mt-3">
+                                    <li>Memiliki latar belakang bisnis atau pemasaran</li>
+                                    <li>Memiliki jaringan dengan pelaku usaha (terutama UKM)</li>
+                                    <li>Komitmen untuk mengembangkan bisnis sertifikasi halal</li>
+                                    <li>Memenuhi target penjualan yang disepakati</li>
+                                </ul>
+                                <br />
+                                Program kemitraan ini sangat cocok untuk konsultan bisnis, lembaga pelatihan, atau pengusaha yang ingin mengembangkan portofolio bisnis di industri halal.
                             </p>
                         </div>
                     </div>
 
                     <div id="tbcontent2" class="tbcontent">
                         <div class="text-deepturqoise mb-10">
-                            <h1 class="font-bold mb-5 text-xl">Afiliasi</h1>
+                            <h1 class="font-bold mb-5 text-xl">Program Afiliasi Sertifikasi</h1>
                             <p class="font-normal md:text-justify">
-                                Anda ingin menghasilkan pendapatan tambahan
-                                secara perorangan, Anda dapat bergabung dengan
-                                Program Afiliasi SAFFMedic. Untuk informasi
-                                lebih lanjut, silakan klik link berikut ini.
+                                Program Afiliasi dirancang untuk individu atau organisasi yang ingin mendapatkan penghasilan tambahan dengan mereferensikan klien potensial untuk melakukan sertifikasi halal. Program ini sangat fleksibel dan dapat diikuti oleh siapapun tanpa investasi awal.
+                                <br /><br />
+                                <strong>Cara Kerja Program Afiliasi:</strong>
+                                <ul class="list-disc ml-6 mt-3">
+                                    <li>Daftar sebagai afiliasi melalui website kami</li>
+                                    <li>Dapatkan link referral unik</li>
+                                    <li>Promosikan layanan sertifikasi halal kami</li>
+                                    <li>Dapatkan komisi untuk setiap klien yang teregistrasi</li>
+                                    <li>Komisi tambahan untuk klien yang melakukan sertifikasi</li>
+                                </ul>
+                                <br />
+                                <strong>Tingkat Komisi:</strong>
+                                <ul class="list-disc ml-6 mt-3">
+                                    <li>Komisi registrasi: 10% dari biaya pendaftaran</li>
+                                    <li>Komisi sertifikasi: 15% dari total biaya sertifikasi</li>
+                                    <li>Komisi berulang: 5% dari biaya surveilan tahunan</li>
+                                </ul>
+                                <br />
+                                Program afiliasi ini ideal untuk influencer, content creator, akademisi, atau profesional yang memiliki jaringan luas di industri makanan, farmasi, atau kosmetika.
                             </p>
                         </div>
                     </div>
 
                     <div id="tbcontent3" class="tbcontent">
                         <div class="text-deepturqoise">
-                            <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-4 mb-5">
                                 <img
                                     src="img/investasi.png"
                                     width="50"
                                     alt=""
-                                    class="pb-5"
                                 />
-                                <h1 class="font-bold text-2xl">Investor</h1>
+                                <h1 class="font-bold text-2xl">Kerjasama Institusi</h1>
                             </div>
-                            <p class="font-normal">
-                                Kami terbuka dan memberikan kesempatan kerjasama
-                                kepada siapa pun yang ingin melakukan
-                                pengembangan bisnis bersama kami. SAFFMedic
-                                merupakan bisnis yang sedang berkembang dengan
-                                tekad dan semangat yang kuat untuk menyediakan
-                                solusi pembukuan Digital bagi usaha kecil dan
-                                menengah.
+                            <p class="font-normal md:text-justify">
+                                Kami membuka kerjasama dengan berbagai institusi pendidikan, organisasi kemasyarakatan, dan lembaga pemerintah dalam pengembangan ekosistem halal di Indonesia.
+                                <br /><br />
+                                <strong>Bentuk Kerjasama Institusi:</strong>
+                                <ul class="list-disc ml-6 mt-3">
+                                    <li><strong>Universitas dan Politeknik:</strong> Kerjasama penelitian, pengembangan kurikulum halal, dan pelatihan mahasiswa</li>
+                                    <li><strong>Asosiasi Industri:</strong> Program sertifikasi kolektif untuk anggota, workshop, dan seminar halal</li>
+                                    <li><strong>Pemerintah Daerah:</strong> Program pendampingan sertifikasi halal untuk UKM lokal</li>
+                                    <li><strong>Organisasi Keagamaan:</strong> Sosialisasi dan edukasi tentang pentingnya sertifikasi halal</li>
+                                    <li><strong>Lembaga Pelatihan:</strong> Pengembangan program sertifikasi auditor halal</li>
+                                </ul>
+                                <br />
+                                <strong>Manfaat Kerjasama:</strong>
+                                <ul class="list-disc ml-6 mt-3">
+                                    <li>Pengembangan kapasitas sumber daya manusia halal</li>
+                                    <li>Penelitian dan pengembangan standar halal</li>
+                                    <li>Peningkatan jumlah produk bersertifikat halal</li>
+                                    <li>Penguatan ekosistem halal nasional</li>
+                                </ul>
                             </p>
                         </div>
                     </div>
 
                     <div id="tbcontent4" class="tbcontent">
                         <div class="text-darkgreen">
-                            <h1 class="font-bold mb-5 text-xl">B to B</h1>
+                            <h1 class="font-bold mb-5 text-xl">Business Partnership</h1>
                             <p class="font-normal text-justify">
-                                Membuka kerjasama yang saling menguntungkan
-                                antara penyedia teknologi dan penyedia
-                                informasi.
+                                Kami membuka peluang kerjasama B2B (Business to Business) dengan berbagai perusahaan yang ingin mengintegrasikan layanan sertifikasi halal dalam model bisnis mereka.
                             </p>
 
                             <div class="my-10">
-                                <h1>Contoh bidang teknologi</h1>
-                                <ul class="list-image-check list-inside">
-                                    <li>Penyedia server</li>
-                                    <li>Penyedia cloud</li>
-                                    <li>Penyedia data senter</li>
+                                <h1 class="font-bold mb-3">Kerjasama dengan Penyedia Teknologi:</h1>
+                                <ul class="list-disc list-inside">
+                                    <li><strong>Laboratorium Analisis:</strong> Kerjasama dalam pengujian sampel produk</li>
+                                    <li><strong>Perusahaan IT:</strong> Pengembangan sistem manajemen halal berbasis digital</li>
+                                    <li><strong>Penyedia Cloud:</strong> Infrastruktur untuk database sertifikasi halal</li>
+                                    <li><strong>Startup HalalTech:</strong> Pengembangan aplikasi dan platform halal</li>
+                                </ul>
+                            </div>
+
+                            <div class="my-10">
+                                <h1 class="font-bold mb-3">Kerjasama dengan Penyedia Jasa:</h1>
+                                <ul class="list-disc list-inside">
+                                    <li><strong>Konsultan Hukum dan Bisnis:</strong> Paket layanan lengkap untuk klien</li>
+                                    <li><strong>Perusahaan Logistik:</strong> Sistem traceability produk halal</li>
+                                    <li><strong>Lembaga Sertifikasi Internasional:</strong> Mutual recognition agreement</li>
+                                    <li><strong>Perusahaan Asuransi:</strong> Produk asuransi khusus industri halal</li>
                                 </ul>
                             </div>
 
                             <div>
-                                <h1>Contoh bidang media</h1>
-                                <ul class="list-image-check list-inside">
-                                    <li>Influenser</li>
-                                    <li>Youtuber</li>
-                                    <li>Digital Marketing</li>
+                                <h1 class="font-bold mb-3">Kerjasama Pemasaran dan Media:</h1>
+                                <ul class="list-disc list-inside">
+                                    <li><strong>Digital Agency:</strong> Kampanye pemasaran produk halal</li>
+                                    <li><strong>Media Partner:</strong> Konten edukasi dan promosi sertifikasi halal</li>
+                                    <li><strong>Event Organizer:</strong> Seminar, workshop, dan pameran halal</li>
+                                    <li><strong>Influencer Halal:</strong> Brand ambassador produk halal</li>
                                 </ul>
                             </div>
                         </div>
@@ -321,13 +316,11 @@
 
         <script>
             function toggleContent(tbContentId, activeButtonContId) {
-                const tbContentElements =
-                    document.querySelectorAll(".tbcontent");
-                const buttonContElements =
-                    document.querySelectorAll(".buttoncont");
+                const tbContentElements = document.querySelectorAll(".tbcontent");
+                const buttonContElements = document.querySelectorAll(".buttoncont");
 
                 tbContentElements.forEach((tbContent) => {
-                    tbContent.style.display = "none"; // Hide all tbcontent initially
+                    tbContent.style.display = "none";
                 });
 
                 buttonContElements.forEach((buttonCont) => {
@@ -336,10 +329,9 @@
                 });
 
                 const activeTbContent = document.getElementById(tbContentId);
-                const activeButtonCont =
-                    document.getElementById(activeButtonContId);
+                const activeButtonCont = document.getElementById(activeButtonContId);
 
-                activeTbContent.style.display = "block"; // Display the selected tbcontent
+                activeTbContent.style.display = "block";
                 activeButtonCont.classList.add("border-darkteal");
                 activeButtonCont.classList.remove("bg-transparent");
             }
@@ -360,7 +352,7 @@
     <div
         class="sm:w-3/4 text-darkgreen mx-auto border-2 shadow-lg rounded-xl p-5"
     >
-        <h1 class="text-2xl font-bold text-center mt-5">Spirit Kami</h1>
+        <h1 class="text-2xl font-bold text-center mt-5">Visi dan Misi Kami</h1>
         <div class="flex flex-col md:w-3/5 mt-24 mb-16 mx-auto">
             <h1 class="text-2xl font-bold">Visi Kami</h1>
             <div class="p-5 text-sm md:text-base text-deepturqoise">
@@ -372,9 +364,7 @@
                         alt="badge"
                     />
                     <p>
-                        Kami bertujuan untuk menjadi perusahaan yang menyediakan
-                        sistem informasi untuk membantu pihak Layanan Kesehatan
-                        dalam menerapkan SIMRS secara optimal.
+                        Menjadi Lembaga Pemeriksa Halal terdepan dan terpercaya yang berkontribusi dalam pengembangan ekosistem halal Indonesia yang berdaya saing global.
                     </p>
                 </div>
                 <div class="flex items-center mb-3">
@@ -385,11 +375,7 @@
                         alt="badge"
                     />
                     <p>
-                        Berperan aktif dalam meningkatkan kualitas Sistem
-                        Informasi Manajemen Rumah Sakit (SIMRS). Tujuannya
-                        adalah agar SIMRS memiliki daya guna yang tinggi serta
-                        dapat membantu kelancaran operasional Fasilitas
-                        Kesehatan.
+                        Mendorong terwujudnya industri halal Indonesia yang berkualitas, transparan, dan diakui secara internasional melalui sertifikasi halal yang kredibel.
                     </p>
                 </div>
                 <div class="flex items-center mb-3">
@@ -400,8 +386,7 @@
                         alt="badge"
                     />
                     <p>
-                        Meyakini potensi pertumbuhan FASKES serta dampaknya
-                        terhadap peningkatan pelayanan yang optimal.
+                        Menjadi mitra strategis bagi pelaku usaha dalam meningkatkan nilai tambah produk melalui sertifikasi halal yang profesional dan akuntabel.
                     </p>
                 </div>
                 <div class="flex items-center mb-3">
@@ -412,9 +397,7 @@
                         alt="badge"
                     />
                     <p>
-                        Percaya pada kekuatan Sumber Daya Manusia yang memiliki
-                        talenta berkompetensi tinggi guna menerapkan teknologi
-                        yang canggih.
+                        Berkontribusi aktif dalam pengembangan standar halal nasional dan internasional yang sesuai dengan prinsip syariah dan kebutuhan industri.
                     </p>
                 </div>
             </div>
@@ -422,12 +405,63 @@
 
         <div class="md:w-3/5 mx-auto mb-16">
             <h1 class="text-2xl font-bold mb-3">Misi Kami</h1>
-            <p class="text-deepturqoise">
-                Menjadi perusahaan penyedia solusi dengan menawarkan alternatif
-                teknologi informasi yang terjangkau dan dikembangkan dengan
-                baik. Memberi solusi, menawarkan alternatif dalam pemanfaataan
-                teknologi informasi yang terjangkau dan terlayani
-            </p>
+            <div class="text-deepturqoise">
+                <div class="flex items-center mb-3">
+                    <img
+                        class="mr-4 pb-2"
+                        src="img/badge.png"
+                        width="30"
+                        alt="badge"
+                    />
+                    <p>
+                        Menyediakan layanan sertifikasi halal yang profesional, transparan, dan sesuai dengan standar nasional dan internasional.
+                    </p>
+                </div>
+                <div class="flex items-center mb-3">
+                    <img
+                        class="mr-4 pb-2"
+                        src="img/badge.png"
+                        width="30"
+                        alt="badge"
+                    />
+                    <p>
+                        Mengembangkan sistem pemeriksaan halal yang akurat, efisien, dan berbasis teknologi terkini.
+                    </p>
+                </div>
+                <div class="flex items-center mb-3">
+                    <img
+                        class="mr-4 pb-2"
+                        src="img/badge.png"
+                        width="30"
+                        alt="badge"
+                    />
+                    <p>
+                        Membangun jaringan kemitraan yang luas dengan berbagai stakeholder untuk pengembangan industri halal.
+                    </p>
+                </div>
+                <div class="flex items-center mb-3">
+                    <img
+                        class="mr-4 pb-2"
+                        src="img/badge.png"
+                        width="30"
+                        alt="badge"
+                    />
+                    <p>
+                        Melakukan edukasi dan sosialisasi tentang pentingnya sertifikasi halal kepada masyarakat dan pelaku usaha.
+                    </p>
+                </div>
+                <div class="flex items-center mb-3">
+                    <img
+                        class="mr-4 pb-2"
+                        src="img/badge.png"
+                        width="30"
+                        alt="badge"
+                    />
+                    <p>
+                        Meningkatkan kompetensi sumber daya manusia dalam bidang pemeriksaan dan sertifikasi halal.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -441,39 +475,37 @@
 >
     <div class="text-darkteal md:w-1/5 w-1/2 text-center mx-auto">
         <h1 class="text-lg">
-            Maju, Tumbuh, dan berkembang
-            <b>Tertarik Program ini?</b>
+            Siap Berkembang Bersama?
+            <b>Tertarik Bermitra?</b>
         </h1>
     </div>
 
     <div class="flex flex-row gap-x-16 justify-center mt-8">
-        <img src="img/message.png" width="70" />
-        <img src="img/meeting.png" width="70" />
-        <img src="img/coffe.png" width="70" />
+        <img src="img/message.png" width="70" alt="Konsultasi" />
+        <img src="img/meeting.png" width="70" alt="Meeting" />
+        <img src="img/coffe.png" width="70" alt="Diskusi" />
     </div>
 
     <div class="w-fit mt-12 mx-auto">
         <div
             class="flex md:flex-row flex-col justify-center w-fit mx-auto md:gap-5"
         >
-            <a role="button">
+            <a href="{{ route('form-request-demo') }}" role="button">
                 <div
-                    class="flex justify-center p-2 bg-darkteal md:w-[200px] text-white font-semibold rounded-md mb-5"
+                    class="flex justify-center p-2 bg-darkteal md:w-[200px] text-white font-semibold rounded-md mb-5 hover:bg-darkgreen transition duration-300"
                 >
                     <img
                         class="mr-3"
                         src="img/demo.png"
                         width="25"
-                        alt="virtual"
+                        alt="Konsultasi"
                     />
-                    <a href="{{ route('form-request-demo') }}"
-                        >Jadwalkan Demo</a
-                    >
+                    Konsultasi Gratis
                 </div>
             </a>
-            <a role="button">
+            <a href="/whatsapp" role="button">
                 <div
-                    class="flex justify-center p-2 bg-darkteal md:w-[200px] text-white font-semibold rounded-md mb-5"
+                    class="flex justify-center p-2 bg-darkteal md:w-[200px] text-white font-semibold rounded-md mb-5 hover:bg-darkgreen transition duration-300"
                 >
                     <img
                         class="mr-3"
@@ -481,23 +513,26 @@
                         width="25"
                         alt="Whatsapp"
                     />
-                    <a href="/whatsapp">Hubungi Kami</a>
+                    Hubungi Kami
                 </div>
             </a>
-            <a role="button">
+            <a href="mailto:mitra@lembagapemeriksahalal.co.id" role="button">
                 <div
-                    class="flex justify-center p-2 bg-darkteal md:w-[200px] text-white font-semibold rounded-md mb-5"
+                    class="flex justify-center p-2 bg-darkteal md:w-[200px] text-white font-semibold rounded-md mb-5 hover:bg-darkgreen transition duration-300"
                 >
                     <img
                         class="mr-3"
                         src="img/email_gray.png"
                         width="30"
-                        alt="Demo"
+                        alt="Email"
                     />
-                    <a href="{{ route('form-request-demo') }}">e-Mail</a>
+                    Email Kami
                 </div>
             </a>
         </div>
+        <p class="text-center text-gray-600 mt-4 text-sm">
+            Untuk informasi lebih detail tentang program kemitraan, silakan hubungi kami melalui salah satu channel di atas
+        </p>
     </div>
 </section>
 {{-- End Section5 --}}
