@@ -2,6 +2,6 @@
 
 @section('content')
     <section>
-        <script type="text/javascript" src="https://form.jotform.com/jsform/240144177071449"></script>
+        <script type="text/javascript" src="#"></script>
     </section>
 @endsection
