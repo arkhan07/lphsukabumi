@@ -282,7 +282,7 @@
                                         <td>{{ $product->product_code }}</td>
                                         <td>{{ $product->productType->name ?? '-' }}</td>
                                         <td>
-                                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-outline-primary">
+                                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-outline-primary">
                                                 <i class="ri-edit-line"></i>
                                             </a>
                                         </td>
@@ -331,7 +331,7 @@
                                     <small class="text-muted">{{ $document->file_name }}</small>
                                 </div>
                                 <div>
-                                    <a href="{{ Storage::url($document->file_path) }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                    <a href="{{ Storage::url($document->file_path) }}" class="btn btn-outline-primary" target="_blank">
                                         <i class="ri-download-line"></i>
                                     </a>
                                 </div>

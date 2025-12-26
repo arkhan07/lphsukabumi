@@ -179,7 +179,7 @@
             <div class="card-custom">
                 <div class="card-header-custom">
                     <h5 class="card-title mb-0">Distribusi Hasil Audit</h5>
-                    <div class="btn-group btn-group-sm" role="group">
+                    <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary active">Bulanan</button>
                         <button type="button" class="btn btn-outline-primary">Mingguan</button>
                         <button type="button" class="btn btn-outline-primary">Harian</button>

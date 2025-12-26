@@ -169,22 +169,22 @@
                             <span class="badge-custom {{ $config['class'] }}">{{ $config['text'] }}</span>
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group">
                                 <button type="button"
-                                        class="btn btn-sm btn-outline-primary"
+                                        class="btn btn-outline-primary"
                                         onclick="showPaymentDetail({{ $payment->id }})"
                                         title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </button>
                                 @if($payment->status === 'pending')
                                 <button type="button"
-                                        class="btn btn-sm btn-outline-success"
+                                        class="btn btn-outline-success"
                                         onclick="verifyPayment({{ $payment->id }})"
                                         title="Verifikasi">
                                     <i class="ri-checkbox-circle-line"></i>
                                 </button>
                                 <button type="button"
-                                        class="btn btn-sm btn-outline-danger"
+                                        class="btn btn-outline-danger"
                                         onclick="rejectPayment({{ $payment->id }})"
                                         title="Tolak">
                                     <i class="ri-close-circle-line"></i>
@@ -192,7 +192,7 @@
                                 @endif
                                 @if($payment->payment_proof)
                                 <a href="{{ Storage::url($payment->payment_proof) }}"
-                                   class="btn btn-sm btn-outline-info"
+                                   class="btn btn-outline-info"
                                    target="_blank"
                                    title="Lihat Bukti">
                                     <i class="ri-file-text-line"></i>

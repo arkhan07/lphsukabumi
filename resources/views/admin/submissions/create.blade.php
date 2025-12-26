@@ -476,7 +476,7 @@
                 <div class="product-item" id="product-${productIndex}">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h6 class="mb-0">Produk #${productIndex}</h6>
-                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProduct(${productIndex})">
+                        <button type="button" class="btn btn-outline-danger" onclick="removeProduct(${productIndex})">
                             <i class="ri-delete-bin-line"></i>
                         </button>
                     </div>

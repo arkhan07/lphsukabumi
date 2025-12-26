@@ -30,7 +30,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-secondary-light">5 Pengguna</small>
-                    <button class="btn btn-sm btn-outline-primary">Edit Role</button>
+                    <button class="btn btn-outline-primary">Edit Role</button>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-secondary-light">12 Pengguna</small>
-                    <button class="btn btn-sm btn-outline-primary">Edit Role</button>
+                    <button class="btn btn-outline-primary">Edit Role</button>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-secondary-light">15 Pengguna</small>
-                    <button class="btn btn-sm btn-outline-primary">Edit Role</button>
+                    <button class="btn btn-outline-primary">Edit Role</button>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-secondary-light">156 Pengguna</small>
-                    <button class="btn btn-sm btn-outline-primary">Edit Role</button>
+                    <button class="btn btn-outline-primary">Edit Role</button>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-secondary-light">46 Pengguna</small>
-                    <button class="btn btn-sm btn-outline-primary">Edit Role</button>
+                    <button class="btn btn-outline-primary">Edit Role</button>
                 </div>
             </div>
         </div>

@@ -133,9 +133,9 @@
                             <span class="badge-custom badge-{{ $statusBadge }}">{{ $statusLabel }}</span>
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group">
                                 <a href="{{ route('admin.finance.payments.show', $payment) }}"
-                                   class="btn btn-sm btn-outline-primary"
+                                   class="btn btn-outline-primary"
                                    title="Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
@@ -146,13 +146,13 @@
                                       onsubmit="return confirm('Verifikasi pembayaran ini?')">
                                     @csrf
                                     <button type="submit"
-                                            class="btn btn-sm btn-outline-success"
+                                            class="btn btn-outline-success"
                                             title="Verifikasi">
                                         <i class="ri-check-line"></i>
                                     </button>
                                 </form>
                                 <button type="button"
-                                        class="btn btn-sm btn-outline-danger"
+                                        class="btn btn-outline-danger"
                                         title="Tolak"
                                         onclick="showRejectModal({{ $payment->id }})">
                                     <i class="ri-close-line"></i>
@@ -160,7 +160,7 @@
                                 @elseif($payment->payment_proof_path)
                                 <a href="{{ asset('storage/' . $payment->payment_proof_path) }}"
                                    target="_blank"
-                                   class="btn btn-sm btn-outline-info"
+                                   class="btn btn-outline-info"
                                    title="Bukti">
                                     <i class="ri-download-line"></i>
                                 </a>

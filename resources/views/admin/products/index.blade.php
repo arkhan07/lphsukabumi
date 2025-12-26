@@ -174,16 +174,16 @@
                                 @endif
                             </td>
                             <td style="padding: 1rem; text-align: center;">
-                                <div class="btn-group btn-group-sm">
+                                <div class="btn-group">
                                     <a href="{{ route('admin.products.show', $product->id) }}"
-                                       class="btn btn-sm btn-outline-primary" title="Detail">
+                                       class="btn btn-outline-primary" title="Detail">
                                         <i class="ri-eye-line"></i>
                                     </a>
                                     <a href="{{ route('admin.products.edit', $product->id) }}"
-                                       class="btn btn-sm btn-outline-success" title="Edit">
+                                       class="btn btn-outline-success" title="Edit">
                                         <i class="ri-edit-line"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                    <button type="button" class="btn btn-outline-danger"
                                             title="Hapus"
                                             onclick="confirmDelete({{ $product->id }})">
                                         <i class="ri-delete-bin-line"></i>

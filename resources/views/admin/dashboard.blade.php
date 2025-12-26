@@ -2,273 +2,331 @@
     <x-slot name="title">Dashboard Admin LPH</x-slot>
 
     <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Dashboard Admin LPH</h2>
-            <p class="text-secondary-light mb-0">Selamat datang, {{ auth()->user()->name }}! Kelola operasional LPH Doa Bangsa Sukabumi</p>
-        </div>
-        <div>
-            <a href="{{ route('admin.submissions.create') }}" class="btn btn-primary">
-                <i class="ri-add-line me-2"></i>
-                Tambah Permohonan
-            </a>
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">Dashboard Admin LPH</h2>
+                    <div class="text-secondary mt-1">Selamat datang, {{ auth()->user()->name }}! Kelola operasional LPH Doa Bangsa Sukabumi</div>
+                </div>
+                <div class="col-auto ms-auto">
+                    <a href="{{ route('admin.submissions.create') }}" class="btn btn-primary">
+                        <i class="ti ti-plus me-1"></i>
+                        Tambah Permohonan
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Statistics Cards -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon primary">
-                    <i class="ri-file-list-3-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Total Permohonan</div>
-                    <div class="stat-value">{{ number_format($stats['total_submissions']) }}</div>
-                    <div class="stat-trend {{ $stats['total_submissions'] > 0 ? 'up' : '' }}">
-                        <i class="ri-file-list-line"></i>
-                        Total keseluruhan
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon success">
-                    <i class="ri-checkbox-circle-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Sertifikat Disetujui</div>
-                    <div class="stat-value">{{ number_format($stats['approved_submissions']) }}</div>
-                    <div class="stat-trend {{ $stats['approved_submissions'] > 0 ? 'up' : '' }}">
-                        <i class="ri-percent-line"></i>
-                        {{ $stats['total_submissions'] > 0 ? number_format(($stats['approved_submissions'] / $stats['total_submissions']) * 100, 1) : 0 }}% approval rate
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon warning">
-                    <i class="ri-time-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Dalam Proses</div>
-                    <div class="stat-value">{{ number_format($stats['pending_submissions']) }}</div>
-                    <div class="stat-trend">
-                        <i class="ri-hourglass-line"></i>
-                        {{ $stats['total_submissions'] > 0 ? number_format(($stats['pending_submissions'] / $stats['total_submissions']) * 100, 1) : 0 }}% dari total
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i class="ri-user-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Total Pelaku Usaha</div>
-                    <div class="stat-value">{{ number_format($stats['total_users']) }}</div>
-                    <div class="stat-trend {{ $stats['total_users'] > 0 ? 'up' : '' }}">
-                        <i class="ri-user-follow-line"></i>
-                        Terdaftar di sistem
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Additional Stats Row -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon danger">
-                    <i class="ri-file-warning-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Perlu Verifikasi</div>
-                    <div class="stat-value">{{ number_format($stats['pending_documents']) }}</div>
-                    <div class="stat-trend {{ $stats['pending_documents'] > 0 ? 'up' : '' }}">
-                        <i class="ri-file-list-2-line"></i>
-                        Dokumen pending
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon purple">
-                    <i class="ri-file-search-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Audit Bulan Ini</div>
-                    <div class="stat-value">{{ number_format($stats['audits_this_month']) }}</div>
-                    <div class="stat-trend {{ $stats['audits_completed_this_month'] > 0 ? 'up' : '' }}">
-                        <i class="ri-checkbox-circle-line"></i>
-                        {{ $stats['audits_completed_this_month'] }} selesai
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon success">
-                    <i class="ri-money-dollar-circle-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Pendapatan Bulan Ini</div>
-                    <div class="stat-value">Rp {{ number_format($stats['revenue_this_month'] / 1000000, 1) }}M</div>
-                    <div class="stat-trend {{ $stats['revenue_this_month'] > 0 ? 'up' : '' }}">
-                        <i class="ri-line-chart-line"></i>
-                        Total bulan ini
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i class="ri-product-hunt-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Total Produk Tersertifikasi</div>
-                    <div class="stat-value">{{ number_format($stats['certified_products']) }}</div>
-                    <div class="stat-trend {{ $stats['certified_products'] > 0 ? 'up' : '' }}">
-                        <i class="ri-shield-check-line"></i>
-                        Produk halal
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts Row -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-lg-8">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Statistik Permohonan {{ now()->year }}</h5>
-                </div>
-                <div id="submissionsChart"></div>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-4">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Status Permohonan</h5>
-                </div>
-                <div id="statusChart"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Upcoming Audits & Recent Submissions -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-lg-6">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Jadwal Audit Mendatang</h5>
-                    <a href="{{ route('admin.audits.schedules.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
-                </div>
-                <div class="list-group list-group-flush">
-                    @forelse($recent_audits as $audit)
-                    <div class="list-group-item d-flex justify-content-between align-items-start" style="border: none; padding: 1rem 0; {{ !$loop->first ? 'border-top: 1px solid var(--neutral-200);' : '' }}">
-                        <div class="me-auto">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <div class="stat-icon {{ $loop->first ? 'info' : ($loop->iteration == 2 ? 'warning' : 'primary') }}" style="width: 40px; height: 40px; font-size: 1rem;">
-                                    <i class="ri-calendar-check-line"></i>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <!-- Total Permohonan -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-primary text-white avatar">
+                                        <i class="ti ti-file-text"></i>
+                                    </span>
                                 </div>
-                                <div>
-                                    <h6 class="mb-0" style="font-size: 0.9rem; font-weight: 600;">{{ $audit->submission->company_name ?? $audit->submission->user->name ?? 'N/A' }}</h6>
-                                    <small class="text-secondary-light">{{ $audit->audit_type ?? 'Audit Halal' }}</small>
+                                <div class="col">
+                                    <div class="font-weight-medium">Total Permohonan</div>
+                                    <div class="text-secondary">Total keseluruhan</div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center gap-2 text-secondary-light" style="font-size: 0.875rem;">
-                                <i class="ri-time-line"></i>
-                                <span>{{ $audit->planned_start_date ? $audit->planned_start_date->format('d M Y - H:i') : 'Belum dijadwalkan' }} WIB</span>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['total_submissions']) }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sertifikat Disetujui -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-success text-white avatar">
+                                        <i class="ti ti-checkbox"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Sertifikat Disetujui</div>
+                                    <div class="text-secondary">
+                                        {{ $stats['total_submissions'] > 0 ? number_format(($stats['approved_submissions'] / $stats['total_submissions']) * 100, 1) : 0 }}% approval rate
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['approved_submissions']) }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dalam Proses -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-warning text-white avatar">
+                                        <i class="ti ti-clock"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Dalam Proses</div>
+                                    <div class="text-secondary">
+                                        {{ $stats['total_submissions'] > 0 ? number_format(($stats['pending_submissions'] / $stats['total_submissions']) * 100, 1) : 0 }}% dari total
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['pending_submissions']) }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Pelaku Usaha -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-info text-white avatar">
+                                        <i class="ti ti-users"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Total Pelaku Usaha</div>
+                                    <div class="text-secondary">Terdaftar di sistem</div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['total_users']) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Stats Row -->
+            <div class="row row-deck row-cards mt-3">
+                <!-- Perlu Verifikasi -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-danger text-white avatar">
+                                        <i class="ti ti-alert-circle"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Perlu Verifikasi</div>
+                                    <div class="text-secondary">Dokumen pending</div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['pending_documents']) }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit Bulan Ini -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-purple text-white avatar">
+                                        <i class="ti ti-search"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Audit Bulan Ini</div>
+                                    <div class="text-secondary">{{ $stats['audits_completed_this_month'] }} selesai</div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['audits_this_month']) }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pendapatan Bulan Ini -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-teal text-white avatar">
+                                        <i class="ti ti-currency-dollar"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Pendapatan Bulan Ini</div>
+                                    <div class="text-secondary">Total bulan ini</div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">Rp {{ number_format($stats['revenue_this_month'] / 1000000, 1) }}M</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Produk Tersertifikasi -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card card-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="bg-cyan text-white avatar">
+                                        <i class="ti ti-package"></i>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <div class="font-weight-medium">Total Produk Tersertifikasi</div>
+                                    <div class="text-secondary">Produk halal</div>
+                                </div>
+                            </div>
+                            <div class="h1 mt-3 mb-0">{{ number_format($stats['certified_products']) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row row-deck row-cards mt-3">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Statistik Permohonan {{ now()->year }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="submissionsChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Status Permohonan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="statusChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Audits & Recent Submissions -->
+            <div class="row row-deck row-cards mt-3">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Jadwal Audit Mendatang</h3>
+                            <div class="card-actions">
+                                <a href="{{ route('admin.audits.schedules.index') }}" class="btn btn-primary btn-sm">
+                                    Lihat Semua
+                                </a>
                             </div>
                         </div>
-                        <span class="badge-custom badge-{{ $audit->status == 'planned' ? 'info' : 'warning' }}">
-                            {{ ucfirst($audit->status) }}
-                        </span>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                @forelse($recent_audits as $audit)
+                                <div class="list-group-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="avatar" style="background-image: url(https://ui-avatars.com/api/?name={{ urlencode($audit->submission->company_name ?? 'A') }}&background=166F61&color=fff)"></span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-bold">{{ $audit->submission->company_name ?? $audit->submission->user->name ?? 'N/A' }}</div>
+                                            <div class="text-secondary">
+                                                <i class="ti ti-calendar"></i> {{ $audit->planned_start_date ? $audit->planned_start_date->format('d M Y - H:i') : 'Belum dijadwalkan' }} WIB
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <span class="badge bg-{{ $audit->status == 'planned' ? 'info' : 'warning' }}">
+                                                {{ ucfirst($audit->status) }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @empty
+                                <div class="list-group-item text-center py-5">
+                                    <i class="ti ti-calendar" style="font-size: 3rem; color: var(--tblr-border-color);"></i>
+                                    <div class="text-secondary mt-2">Tidak ada audit yang dijadwalkan</div>
+                                </div>
+                                @endforelse
+                            </div>
+                        </div>
                     </div>
-                    @empty
-                    <div class="text-center py-4">
-                        <i class="ri-calendar-line" style="font-size: 3rem; color: var(--neutral-400);"></i>
-                        <p class="text-secondary-light mt-2">Tidak ada audit yang dijadwalkan</p>
-                    </div>
-                    @endforelse
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 col-lg-6">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Permohonan Terbaru</h5>
-                    <a href="{{ route('admin.submissions.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>No. Permohonan</th>
-                                <th>Pelaku Usaha</th>
-                                <th>Status</th>
-                                <th>Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($recent_submissions as $submission)
-                            <tr>
-                                <td><strong>{{ $submission->submission_number ?? '-' }}</strong></td>
-                                <td>{{ $submission->company_name ?? $submission->user->name ?? '-' }}</td>
-                                <td>
-                                    @php
-                                        $statusBadge = match($submission->status) {
-                                            'draft' => 'secondary',
-                                            'submitted', 'screening' => 'info',
-                                            'verification' => 'warning',
-                                            'approved', 'completed' => 'success',
-                                            'rejected' => 'danger',
-                                            'audit_in_progress', 'assigned' => 'purple',
-                                            default => 'secondary'
-                                        };
-                                        $statusLabel = match($submission->status) {
-                                            'draft' => 'Draft',
-                                            'submitted' => 'Diajukan',
-                                            'screening' => 'Screening',
-                                            'verification' => 'Verifikasi',
-                                            'approved' => 'Disetujui',
-                                            'completed' => 'Selesai',
-                                            'rejected' => 'Ditolak',
-                                            'audit_in_progress' => 'Audit',
-                                            'assigned' => 'Ditugaskan',
-                                            default => ucfirst($submission->status)
-                                        };
-                                    @endphp
-                                    <span class="badge-custom badge-{{ $statusBadge }}">{{ $statusLabel }}</span>
-                                </td>
-                                <td>{{ $submission->created_at->format('d M Y') }}</td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="4" class="text-center py-4">
-                                    <i class="ri-file-list-line" style="font-size: 2rem; color: var(--neutral-400);"></i>
-                                    <p class="text-secondary-light mt-2 mb-0">Belum ada permohonan</p>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Permohonan Terbaru</h3>
+                            <div class="card-actions">
+                                <a href="{{ route('admin.submissions.index') }}" class="btn btn-primary btn-sm">
+                                    Lihat Semua
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-vcenter card-table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No. Permohonan</th>
+                                            <th>Pelaku Usaha</th>
+                                            <th>Status</th>
+                                            <th>Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($recent_submissions as $submission)
+                                        <tr>
+                                            <td class="fw-bold">{{ $submission->submission_number ?? '-' }}</td>
+                                            <td>{{ $submission->company_name ?? $submission->user->name ?? '-' }}</td>
+                                            <td>
+                                                @php
+                                                    $statusBadge = match($submission->status) {
+                                                        'draft' => 'secondary',
+                                                        'submitted', 'screening' => 'info',
+                                                        'verification' => 'warning',
+                                                        'approved', 'completed' => 'success',
+                                                        'rejected' => 'danger',
+                                                        'audit_in_progress', 'assigned' => 'purple',
+                                                        default => 'secondary'
+                                                    };
+                                                    $statusLabel = match($submission->status) {
+                                                        'draft' => 'Draft',
+                                                        'submitted' => 'Diajukan',
+                                                        'screening' => 'Screening',
+                                                        'verification' => 'Verifikasi',
+                                                        'approved' => 'Disetujui',
+                                                        'completed' => 'Selesai',
+                                                        'rejected' => 'Ditolak',
+                                                        'audit_in_progress' => 'Audit',
+                                                        'assigned' => 'Ditugaskan',
+                                                        default => ucfirst($submission->status)
+                                                    };
+                                                @endphp
+                                                <span class="badge bg-{{ $statusBadge }}-lt">{{ $statusLabel }}</span>
+                                            </td>
+                                            <td>{{ $submission->created_at->format('d M Y') }}</td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center py-5">
+                                                <i class="ti ti-file-text" style="font-size: 2rem; color: var(--tblr-border-color);"></i>
+                                                <div class="text-secondary mt-2">Belum ada permohonan</div>
+                                            </td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -284,7 +342,8 @@
             }],
             chart: {
                 type: 'area',
-                height: 350,
+                height: 300,
+                fontFamily: 'inherit',
                 toolbar: {
                     show: false
                 }
@@ -309,8 +368,8 @@
                 type: 'gradient',
                 gradient: {
                     shadeIntensity: 1,
-                    opacityFrom: 0.7,
-                    opacityTo: 0.2,
+                    opacityFrom: 0.4,
+                    opacityTo: 0.1,
                 }
             }
         };
@@ -327,7 +386,8 @@
             ],
             chart: {
                 type: 'donut',
-                height: 350
+                height: 300,
+                fontFamily: 'inherit'
             },
             labels: ['Dalam Proses', 'Verifikasi', 'Audit', 'Disetujui'],
             colors: ['#f59e0b', '#3b82f6', '#7c3aed', '#10b981'],

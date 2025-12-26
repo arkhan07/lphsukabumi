@@ -209,10 +209,10 @@
         <div class="card-header-custom">
             <h5 class="card-title mb-0">Daftar Permohonan</h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-success" onclick="exportData('excel')">
+                <button class="btn btn-outline-success" onclick="exportData('excel')">
                     <i class="ri-file-excel-line me-1"></i> Excel
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="exportData('pdf')">
+                <button class="btn btn-outline-danger" onclick="exportData('pdf')">
                     <i class="ri-file-pdf-line me-1"></i> PDF
                 </button>
             </div>
@@ -272,18 +272,18 @@
                             {{ $submission->submission_date ? $submission->submission_date->format('d M Y') : '-' }}
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.submissions.show', $submission->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.submissions.show', $submission->id) }}" class="btn btn-outline-primary" title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
-                                <a href="{{ route('admin.submissions.edit', $submission->id) }}" class="btn btn-sm btn-outline-success" title="Edit">
+                                <a href="{{ route('admin.submissions.edit', $submission->id) }}" class="btn btn-outline-success" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
-                                <button class="btn btn-sm btn-outline-danger" onclick="deleteSubmission({{ $submission->id }})" title="Hapus">
+                                <button class="btn btn-outline-danger" onclick="deleteSubmission({{ $submission->id }})" title="Hapus">
                                     <i class="ri-delete-bin-line"></i>
                                 </button>
-                                <div class="btn-group btn-group-sm">
-                                    <button class="btn btn-sm btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" title="Update Status">
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" title="Update Status">
                                         <i class="ri-refresh-line"></i>
                                     </button>
                                     <ul class="dropdown-menu">

@@ -191,13 +191,13 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="editFee({{ $fee->id }})" title="Edit">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary" onclick="editFee({{ $fee->id }})" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </button>
                                 <form method="POST" action="{{ route('admin.finance.fees.toggle', $fee) }}" style="display: inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-{{ $fee->is_active ? 'warning' : 'success' }}" title="{{ $fee->is_active ? 'Nonaktifkan' : 'Aktifkan' }}">
+                                    <button type="submit" class="btn btn-outline-{{ $fee->is_active ? 'warning' : 'success' }}" title="{{ $fee->is_active ? 'Nonaktifkan' : 'Aktifkan' }}">
                                         <i class="ri-{{ $fee->is_active ? 'close' : 'check' }}-line"></i>
                                     </button>
                                 </form>

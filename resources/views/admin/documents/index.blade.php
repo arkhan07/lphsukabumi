@@ -182,10 +182,10 @@
         <div class="card-header-custom">
             <h5 class="card-title mb-0">Daftar Dokumen</h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-success" onclick="exportData('excel')">
+                <button class="btn btn-outline-success" onclick="exportData('excel')">
                     <i class="ri-file-excel-line me-1"></i> Excel
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="exportData('pdf')">
+                <button class="btn btn-outline-danger" onclick="exportData('pdf')">
                     <i class="ri-file-pdf-line me-1"></i> PDF
                 </button>
             </div>
@@ -278,30 +278,30 @@
                             <small class="text-secondary-light">{{ $document->created_at ? $document->created_at->format('H:i') : '' }}</small>
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group">
                                 <a href="{{ route('admin.documents.show', $document->id) }}"
-                                   class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                                   class="btn btn-outline-primary" title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
                                 <a href="{{ route('admin.documents.download', $document->id) }}"
-                                   class="btn btn-sm btn-outline-info" title="Download">
+                                   class="btn btn-outline-info" title="Download">
                                     <i class="ri-download-line"></i>
                                 </a>
                                 @if($document->status === 'pending_review' || $document->status === 'uploaded')
-                                <button class="btn btn-sm btn-outline-success"
+                                <button class="btn btn-outline-success"
                                         onclick="updateStatus({{ $document->id }}, 'approved')" title="Approve">
                                     <i class="ri-checkbox-line"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger"
+                                <button class="btn btn-outline-danger"
                                         onclick="updateStatus({{ $document->id }}, 'rejected')" title="Reject">
                                     <i class="ri-close-line"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-warning"
+                                <button class="btn btn-outline-warning"
                                         onclick="updateStatus({{ $document->id }}, 'revision_required')" title="Request Revision">
                                     <i class="ri-edit-line"></i>
                                 </button>
                                 @endif
-                                <button class="btn btn-sm btn-outline-danger"
+                                <button class="btn btn-outline-danger"
                                         onclick="deleteDocument({{ $document->id }})" title="Hapus">
                                     <i class="ri-delete-bin-line"></i>
                                 </button>

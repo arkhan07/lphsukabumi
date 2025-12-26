@@ -200,10 +200,10 @@
         <div class="card-header-custom">
             <h5 class="card-title mb-0">Semua Temuan</h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-success" onclick="exportData('excel')">
+                <button class="btn btn-outline-success" onclick="exportData('excel')">
                     <i class="ri-file-excel-line me-1"></i> Excel
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="exportData('pdf')">
+                <button class="btn btn-outline-danger" onclick="exportData('pdf')">
                     <i class="ri-file-pdf-line me-1"></i> PDF
                 </button>
             </div>
@@ -289,22 +289,22 @@
                             </span>
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.audits.findings.show', $finding->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.audits.findings.show', $finding->id) }}" class="btn btn-outline-primary" title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
                                 @if($finding->status != 'closed')
-                                <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#updateCARModal{{ $finding->id }}" title="Update CAR">
+                                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#updateCARModal{{ $finding->id }}" title="Update CAR">
                                     <i class="ri-pencil-line"></i>
                                 </button>
                                 @endif
                                 @if($finding->action_status == 'completed' && $finding->status != 'closed')
-                                <button class="btn btn-sm btn-outline-info" onclick="verifyFinding({{ $finding->id }})" title="Verifikasi">
+                                <button class="btn btn-outline-info" onclick="verifyFinding({{ $finding->id }})" title="Verifikasi">
                                     <i class="ri-shield-check-line"></i>
                                 </button>
                                 @endif
                                 @if($finding->action_status == 'verified' && $finding->status != 'closed')
-                                <button class="btn btn-sm btn-outline-success" onclick="closeFinding({{ $finding->id }})" title="Tutup Temuan">
+                                <button class="btn btn-outline-success" onclick="closeFinding({{ $finding->id }})" title="Tutup Temuan">
                                     <i class="ri-check-double-line"></i>
                                 </button>
                                 @endif

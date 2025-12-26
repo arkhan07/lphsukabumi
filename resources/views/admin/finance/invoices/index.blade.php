@@ -191,22 +191,22 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group">
                                 <a href="{{ route('admin.finance.invoices.show', $invoice->id) }}"
-                                   class="btn btn-sm btn-outline-primary"
+                                   class="btn btn-outline-primary"
                                    title="Lihat">
                                     <i class="ri-eye-line"></i>
                                 </a>
                                 @if($invoice->payment_status !== 'paid')
                                 <a href="{{ route('admin.finance.invoices.edit', $invoice->id) }}"
-                                   class="btn btn-sm btn-outline-success"
+                                   class="btn btn-outline-success"
                                    title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
                                 @endif
                                 @if($invoice->payment_status === 'draft')
                                 <button type="button"
-                                        class="btn btn-sm btn-outline-info"
+                                        class="btn btn-outline-info"
                                         onclick="sendInvoice({{ $invoice->id }})"
                                         title="Kirim">
                                     <i class="ri-send-plane-line"></i>
@@ -219,7 +219,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="btn btn-sm btn-outline-danger"
+                                            class="btn btn-outline-danger"
                                             title="Hapus"
                                             {{ $invoice->payment_status === 'paid' ? 'disabled' : '' }}>
                                         <i class="ri-delete-bin-line"></i>

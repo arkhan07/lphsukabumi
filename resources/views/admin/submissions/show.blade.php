@@ -198,7 +198,7 @@
                                             <span class="badge-custom badge-success">Aktif</span>
                                         </td>
                                         <td style="padding: 1rem;">
-                                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-outline-primary">
+                                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-outline-primary">
                                                 <i class="ri-eye-line"></i>
                                             </a>
                                         </td>
@@ -241,10 +241,10 @@
                                         </div>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="{{ Storage::url($document->file_path) }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                        <a href="{{ Storage::url($document->file_path) }}" class="btn btn-outline-primary" target="_blank">
                                             <i class="ri-eye-line me-1"></i>Lihat
                                         </a>
-                                        <a href="{{ Storage::url($document->file_path) }}" class="btn btn-sm btn-outline-success" download>
+                                        <a href="{{ Storage::url($document->file_path) }}" class="btn btn-outline-success" download>
                                             <i class="ri-download-line me-1"></i>Download
                                         </a>
                                     </div>
@@ -330,7 +330,7 @@
                                             </span>
                                         </td>
                                         <td style="padding: 1rem;">
-                                            <a href="{{ route('admin.finance.invoices.show', $invoice->id) }}" class="btn btn-sm btn-outline-primary">
+                                            <a href="{{ route('admin.finance.invoices.show', $invoice->id) }}" class="btn btn-outline-primary">
                                                 <i class="ri-eye-line"></i>
                                             </a>
                                         </td>
