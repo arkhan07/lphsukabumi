@@ -18,6 +18,9 @@
             --tblr-primary: #166F61;
             --tblr-primary-rgb: 22, 111, 97;
         }
+        body {
+            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
+        }
         .btn-primary {
             background-color: var(--tblr-primary) !important;
             border-color: var(--tblr-primary) !important;
@@ -28,12 +31,12 @@
         }
     </style>
 </head>
-<body class="d-flex flex-column bg-white">
+<body class="d-flex flex-column">
     <div class="page page-center">
         <div class="container container-tight py-4">
             <div class="text-center mb-4">
                 <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark">
-                    <img src="{{ asset('assets/images/logo.png') }}" height="60" alt="LPH Doa Bangsa">
+                    <img src="{{ '../img/logo.webp' }}" height="60" alt="LPH Doa Bangsa">
                 </a>
             </div>
 
@@ -139,6 +142,10 @@
                         <div class="text-secondary">Portal ini hanya untuk staff LPH Doa Bangsa Sukabumi. Role akan otomatis terdeteksi berdasarkan email Anda.</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="text-center text-white mt-3">
+                <small>&copy; {{ date('Y') }} LPH Doa Bangsa Sukabumi. All rights reserved.</small>
             </div>
         </div>
     </div>

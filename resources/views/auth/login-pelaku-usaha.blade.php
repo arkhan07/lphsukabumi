@@ -1,139 +1,153 @@
-<!-- meta tags and other links -->
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login Pelaku Usaha - LPH Doa Bangsa Sukabumi</title>
 
-<x-auth.head>
-    <x-slot name="title">Login Pelaku Usaha</x-slot>
-</x-auth.head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
-<body>
-    <section class="auth bg-base d-flex flex-wrap">
-        <div class="auth-left d-lg-block d-none">
-            <div class="d-flex align-items-center flex-column h-100 justify-content-center">
-                <img src="{{ asset('assets/images/auth/auth-img.png') }}" alt="LPH Doa Bangsa" style="max-width: 100%; height: auto;">
+    <!-- Tabler CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <style>
+        :root {
+            --tblr-primary: #166F61;
+            --tblr-primary-rgb: 22, 111, 97;
+        }
+        body {
+            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
+        }
+        .btn-primary {
+            background-color: var(--tblr-primary) !important;
+            border-color: var(--tblr-primary) !important;
+        }
+        .btn-primary:hover {
+            background-color: #125950 !important;
+            border-color: #125950 !important;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column">
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark">
+                    <img src="{{ '../img/logo.webp' }}" height="60" alt="LPH Doa Bangsa">
+                </a>
             </div>
-        </div>
-        <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
-            <div class="max-w-464-px mx-auto w-100">
-                <div>
-                    <a href="{{ url('/') }}" class="mb-40 max-w-290-px">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="LPH Doa Bangsa" style="max-height: 60px;">
-                    </a>
-                    <h4 class="mb-12">Login Pelaku Usaha</h4>
-                    <p class="mb-32 text-secondary-light text-lg">Selamat datang! Silakan masukkan detail akun Anda</p>
+
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="h2 text-center mb-4">Login Pelaku Usaha</h2>
+                    <p class="text-secondary text-center mb-4">Selamat datang! Silakan masukkan detail akun Anda</p>
+
+                    @if (session('status'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <div class="d-flex">
+                                <div><i class="ti ti-check"></i></div>
+                                <div class="ms-2">{{ session('status') }}</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="d-flex">
+                                <div><i class="ti ti-alert-circle"></i></div>
+                                <div class="ms-2">
+                                    <h4 class="alert-title">Error!</h4>
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('login') }}" autocomplete="off">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="ti ti-mail"></i>
+                                </span>
+                                <input type="email" name="email" class="form-control"
+                                       placeholder="email@example.com"
+                                       value="{{ old('email') }}"
+                                       required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">Kata Sandi</label>
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="ti ti-key"></i>
+                                </span>
+                                <input type="password" name="password" class="form-control"
+                                       placeholder="Kata sandi Anda"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-check">
+                                        <input type="checkbox" name="remember" class="form-check-input"/>
+                                        <span class="form-check-label">Ingat saya di perangkat ini</span>
+                                    </label>
+                                </div>
+                                <div class="col-auto">
+                                    @if (Route::has('password.request'))
+                                        <a href="{{ route('password.request') }}" class="small" tabindex="-1">Lupa kata sandi?</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="ti ti-login me-1"></i>
+                                Masuk
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center text-secondary mt-3">
+                        Belum punya akun? <a href="{{ route('register') }}" tabindex="-1">Daftar di sini</a>
+                    </div>
                 </div>
 
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul style="margin: 0; padding-left: 20px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <div class="icon-field mb-16">
-                        <span class="icon top-50 translate-middle-y">
-                            <iconify-icon icon="mage:email"></iconify-icon>
-                        </span>
-                        <input
-                            type="email"
-                            name="email"
-                            class="form-control h-56-px bg-neutral-50 radius-12"
-                            placeholder="Email"
-                            value="{{ old('email') }}"
-                            required
-                            autofocus
-                        >
-                    </div>
-
-                    <div class="position-relative mb-20">
-                        <div class="icon-field">
-                            <span class="icon top-50 translate-middle-y">
-                                <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
-                            </span>
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control h-56-px bg-neutral-50 radius-12"
-                                id="your-password"
-                                placeholder="Kata Sandi"
-                                required
-                            >
-                        </div>
-                        <span
-                            class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
-                            data-toggle="#your-password"
-                        ></span>
-                    </div>
-
-                    <div class="">
-                        <div class="d-flex justify-content-between gap-2">
-                            <div class="form-check style-check d-flex align-items-center">
-                                <input
-                                    class="form-check-input border border-neutral-300"
-                                    type="checkbox"
-                                    name="remember"
-                                    id="remeber"
-                                >
-                                <label class="form-check-label" for="remeber">Ingat Saya</label>
-                            </div>
-                            @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="text-primary-600 fw-medium">Lupa Kata Sandi?</a>
-                            @endif
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <small class="text-secondary">
+                                Login untuk <strong>Staff Lembaga</strong>?
+                                <a href="{{ route('login.staff') }}">Klik di sini</a>
+                            </small>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32">
-                        Masuk
-                    </button>
-
-                    <div class="mt-32 text-center text-sm">
-                        <p class="mb-0">Belum punya akun? <a href="{{ route('register') }}" class="text-primary-600 fw-semibold">Daftar Sekarang</a></p>
-                    </div>
-
-                    <div class="mt-24 text-center">
-                        <p class="mb-0 text-secondary-light" style="font-size: 0.875rem;">
-                            Login untuk <strong>Staff Lembaga</strong>? <a href="{{ route('login.staff') }}" class="text-primary-600 fw-semibold">Klik di sini</a>
-                        </p>
-                    </div>
-                </form>
+            <div class="text-center text-white mt-3">
+                <small>&copy; {{ date('Y') }} LPH Doa Bangsa Sukabumi. All rights reserved.</small>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- jQuery (needed for password toggle) -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <script>
-        // ================== Password Show Hide Js Start ==========
-        function initializePasswordToggle(toggleSelector) {
-            $(toggleSelector).on("click", function() {
-                $(this).toggleClass("ri-eye-off-line");
-                var input = $($(this).attr("data-toggle"));
-                if (input.attr("type") === "password") {
-                    input.attr("type", "text");
-                } else {
-                    input.attr("type", "password");
-                }
-            });
-        }
-        // Call the function
-        initializePasswordToggle(".toggle-password");
-        // ========================= Password Show Hide Js End ===========================
-    </script>
+    <!-- Tabler Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
 </body>
 </html>
