@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'whatsapp',
+        'profile_photo',
     ];
 
     /**
@@ -184,5 +186,21 @@ class User extends Authenticatable
         }
 
         return $permissions->unique('id');
+    }
+
+    /**
+     * Get profile photo URL with fallback to default avatar
+     *
+     * @return string
+     */
+    public function getProfilePhotoUrlAttribute()
+    {
+        if ($this->profile_photo && file_exists(public_path($this->profile_photo))) {
+            return asset($this->profile_photo);
+        }
+
+        // Generate initials-based avatar using UI Avatars
+        $name = urlencode($this->name);
+        return "https://ui-avatars.com/api/?name={$name}&size=200&background=166F61&color=ffffff&bold=true";
     }
 }

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SettingsController extends Controller
 {
@@ -14,36 +17,142 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        // Load current settings from config or .env
+        // Get settings from database, fallback to .env
         $settings = [
+            'email' => Setting::getByGroup('email'),
+            'whatsapp' => Setting::getByGroup('whatsapp'),
+            'recaptcha' => Setting::getByGroup('recaptcha'),
+            'appearance' => Setting::getByGroup('appearance'),
+        ];
+
+        // Legacy settings from .env for backwards compatibility
+        $legacySettings = [
             'app_name' => config('app.name', 'LPH Doa Bangsa Sukabumi'),
             'app_email' => env('MAIL_FROM_ADDRESS', 'info@lphsukabumi.com'),
             'app_phone' => env('APP_PHONE', '0266-123456'),
             'app_address' => env('APP_ADDRESS', 'Jl. Raya Sukabumi No. 123, Sukabumi, Jawa Barat 43121'),
-
-            // Email Settings
-            'mail_host' => env('MAIL_HOST', 'smtp.gmail.com'),
-            'mail_port' => env('MAIL_PORT', '587'),
-            'mail_username' => env('MAIL_USERNAME', 'noreply@lphsukabumi.com'),
-            'mail_encryption' => env('MAIL_ENCRYPTION', 'tls'),
-
-            // Certification Settings
             'cert_validity_years' => env('CERT_VALIDITY_YEARS', 2),
             'payment_due_days' => env('PAYMENT_DUE_DAYS', 14),
             'default_cert_fee' => env('DEFAULT_CERT_FEE', 2500000),
             'default_audit_fee' => env('DEFAULT_AUDIT_FEE', 1500000),
-
-            // Notification Settings
-            'notif_email' => env('NOTIF_EMAIL_ENABLED', true),
-            'notif_sms' => env('NOTIF_SMS_ENABLED', false),
-            'notif_whatsapp' => env('NOTIF_WHATSAPP_ENABLED', true),
         ];
 
-        return view('admin.settings', compact('settings'));
+        return view('admin.settings.index', compact('settings', 'legacySettings'));
     }
 
     /**
-     * Update general settings
+     * Update settings
+     */
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            // SMTP settings
+            'smtp_host' => 'nullable|string',
+            'smtp_port' => 'nullable|numeric',
+            'smtp_username' => 'nullable|string',
+            'smtp_password' => 'nullable|string',
+            'smtp_encryption' => 'nullable|string|in:tls,ssl,none',
+            'smtp_from_address' => 'nullable|email',
+            'smtp_from_name' => 'nullable|string',
+
+            // WhatsApp settings
+            'whatsapp_enabled' => 'nullable|boolean',
+            'whatsapp_api_url' => 'nullable|url',
+            'whatsapp_api_key' => 'nullable|string',
+            'whatsapp_sender_number' => 'nullable|string',
+            'whatsapp_welcome_message' => 'nullable|string',
+            'whatsapp_verification_message' => 'nullable|string',
+            'whatsapp_payment_reminder' => 'nullable|string',
+            'whatsapp_status_update' => 'nullable|string',
+
+            // reCAPTCHA settings
+            'recaptcha_enabled' => 'nullable|boolean',
+            'recaptcha_site_key' => 'nullable|string',
+            'recaptcha_secret_key' => 'nullable|string',
+
+            // Appearance settings
+            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'site_favicon' => 'nullable|image|mimes:png,ico|max:512',
+            'site_name' => 'nullable|string',
+            'site_description' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('admin.settings.index')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Handle file uploads
+        if ($request->hasFile('site_logo')) {
+            // Delete old logo if exists
+            $oldLogo = Setting::get('site_logo');
+            if ($oldLogo && File::exists(public_path($oldLogo))) {
+                File::delete(public_path($oldLogo));
+            }
+
+            $logoPath = $request->file('site_logo')->store('uploads/logo', 'public');
+            Setting::set('site_logo', 'storage/' . $logoPath);
+        }
+
+        if ($request->hasFile('site_favicon')) {
+            // Delete old favicon if exists
+            $oldFavicon = Setting::get('site_favicon');
+            if ($oldFavicon && File::exists(public_path($oldFavicon))) {
+                File::delete(public_path($oldFavicon));
+            }
+
+            $faviconPath = $request->file('site_favicon')->store('uploads/favicon', 'public');
+            Setting::set('site_favicon', 'storage/' . $faviconPath);
+        }
+
+        // Update all other settings
+        foreach ($request->except(['_token', '_method', 'site_logo', 'site_favicon']) as $key => $value) {
+            // Convert checkboxes to boolean
+            if (in_array($key, ['whatsapp_enabled', 'recaptcha_enabled'])) {
+                $value = $request->has($key) ? '1' : '0';
+            }
+
+            // Skip empty password fields (so we don't overwrite existing passwords)
+            if (in_array($key, ['smtp_password', 'whatsapp_api_key', 'recaptcha_secret_key']) && empty($value)) {
+                continue;
+            }
+
+            Setting::set($key, $value);
+        }
+
+        // Clear settings cache
+        Setting::clearCache();
+
+        // Update .env file for email settings
+        if ($request->has('smtp_host')) {
+            $this->updateEnvFile([
+                'MAIL_MAILER' => 'smtp',
+                'MAIL_HOST' => $request->smtp_host,
+                'MAIL_PORT' => $request->smtp_port,
+                'MAIL_USERNAME' => $request->smtp_username,
+                'MAIL_PASSWORD' => $request->smtp_password,
+                'MAIL_ENCRYPTION' => $request->smtp_encryption,
+                'MAIL_FROM_ADDRESS' => $request->smtp_from_address,
+                'MAIL_FROM_NAME' => '"' . $request->smtp_from_name . '"',
+            ]);
+        }
+
+        // Clear config cache
+        try {
+            Artisan::call('config:clear');
+        } catch (\Exception $e) {
+            // Ignore if command fails
+        }
+
+        return redirect()
+            ->route('admin.settings.index')
+            ->with('success', 'Pengaturan berhasil diperbarui!');
+    }
+
+    /**
+     * Update general settings (legacy)
      */
     public function updateGeneral(Request $request)
     {
@@ -54,49 +163,18 @@ class SettingsController extends Controller
             'app_address' => 'required|string',
         ]);
 
-        // Update .env file
         $this->updateEnvFile([
-            'APP_NAME' => $validated['app_name'],
+            'APP_NAME' => '"' . $validated['app_name'] . '"',
             'MAIL_FROM_ADDRESS' => $validated['app_email'],
             'APP_PHONE' => $validated['app_phone'],
-            'APP_ADDRESS' => $validated['app_address'],
+            'APP_ADDRESS' => '"' . $validated['app_address'] . '"',
         ]);
 
         return back()->with('success', 'Pengaturan umum berhasil diperbarui');
     }
 
     /**
-     * Update email settings
-     */
-    public function updateEmail(Request $request)
-    {
-        $validated = $request->validate([
-            'mail_host' => 'required|string|max:255',
-            'mail_port' => 'required|numeric|min:1|max:65535',
-            'mail_username' => 'required|string|max:255',
-            'mail_password' => 'nullable|string|max:255',
-            'mail_encryption' => 'required|in:tls,ssl',
-        ]);
-
-        $envData = [
-            'MAIL_HOST' => $validated['mail_host'],
-            'MAIL_PORT' => $validated['mail_port'],
-            'MAIL_USERNAME' => $validated['mail_username'],
-            'MAIL_ENCRYPTION' => $validated['mail_encryption'],
-        ];
-
-        // Only update password if provided
-        if (!empty($validated['mail_password'])) {
-            $envData['MAIL_PASSWORD'] = $validated['mail_password'];
-        }
-
-        $this->updateEnvFile($envData);
-
-        return back()->with('success', 'Pengaturan email berhasil diperbarui');
-    }
-
-    /**
-     * Update certification settings
+     * Update certification settings (legacy)
      */
     public function updateCertification(Request $request)
     {
@@ -118,23 +196,58 @@ class SettingsController extends Controller
     }
 
     /**
-     * Update notification settings
+     * Test SMTP connection
      */
-    public function updateNotifications(Request $request)
+    public function testSmtp(Request $request)
     {
-        $validated = $request->validate([
-            'notif_email' => 'nullable|boolean',
-            'notif_sms' => 'nullable|boolean',
-            'notif_whatsapp' => 'nullable|boolean',
-        ]);
+        try {
+            $testEmail = $request->input('test_email', auth()->user()->email);
 
-        $this->updateEnvFile([
-            'NOTIF_EMAIL_ENABLED' => $validated['notif_email'] ?? false ? 'true' : 'false',
-            'NOTIF_SMS_ENABLED' => $validated['notif_sms'] ?? false ? 'true' : 'false',
-            'NOTIF_WHATSAPP_ENABLED' => $validated['notif_whatsapp'] ?? false ? 'true' : 'false',
-        ]);
+            \Mail::raw('Ini adalah email tes dari LPH Doa Bangsa Sukabumi. Jika Anda menerima email ini, konfigurasi SMTP Anda sudah benar.', function ($message) use ($testEmail) {
+                $message->to($testEmail)
+                    ->subject('Test Email - LPH Doa Bangsa Sukabumi');
+            });
 
-        return back()->with('success', 'Pengaturan notifikasi berhasil diperbarui');
+            return response()->json([
+                'success' => true,
+                'message' => 'Email tes berhasil dikirim ke ' . $testEmail
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengirim email: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Test WhatsApp connection
+     */
+    public function testWhatsapp(Request $request)
+    {
+        try {
+            $testNumber = $request->input('test_number');
+
+            $whatsappService = app(\App\Services\WhatsAppService::class);
+            $result = $whatsappService->sendMessage(
+                $testNumber,
+                'Ini adalah pesan tes dari LPH Doa Bangsa Sukabumi. Jika Anda menerima pesan ini, konfigurasi WhatsApp Anda sudah benar.'
+            );
+
+            if ($result['success']) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Pesan WhatsApp berhasil dikirim ke ' . $testNumber
+                ]);
+            } else {
+                throw new \Exception($result['message'] ?? 'Gagal mengirim pesan WhatsApp');
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengirim pesan WhatsApp: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -143,7 +256,7 @@ class SettingsController extends Controller
     public function uploadLogo(Request $request)
     {
         $request->validate([
-            'logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
         ]);
 
         if ($request->hasFile('logo')) {
@@ -159,6 +272,10 @@ class SettingsController extends Controller
             $fileName = 'logo.' . $file->getClientOriginalExtension();
             $file->move(public_path('assets/images'), $fileName);
 
+            // Update settings
+            Setting::set('site_logo', 'assets/images/' . $fileName);
+            Setting::clearCache();
+
             return back()->with('success', 'Logo berhasil diupload');
         }
 
@@ -170,19 +287,7 @@ class SettingsController extends Controller
      */
     public function testEmail(Request $request)
     {
-        try {
-            $testEmail = $request->input('test_email', auth()->user()->email);
-
-            // Send test email
-            \Mail::raw('Ini adalah email test dari sistem LPH Doa Bangsa Sukabumi.', function ($message) use ($testEmail) {
-                $message->to($testEmail)
-                        ->subject('Test Email - LPH Doa Bangsa');
-            });
-
-            return back()->with('success', 'Email test berhasil dikirim ke ' . $testEmail);
-        } catch (\Exception $e) {
-            return back()->with('error', 'Gagal mengirim email test: ' . $e->getMessage());
-        }
+        return $this->testSmtp($request);
     }
 
     /**
@@ -194,8 +299,17 @@ class SettingsController extends Controller
         $envContent = File::get($envFile);
 
         foreach ($data as $key => $value) {
-            // Escape special characters and wrap in quotes if contains spaces
-            $quotedValue = (strpos($value, ' ') !== false || empty($value)) ? '"' . str_replace('"', '\"', $value) . '"' : $value;
+            // Skip if value is null
+            if ($value === null) {
+                continue;
+            }
+
+            // Escape special characters and wrap in quotes if needed
+            if (!is_numeric($value) && strpos($value, ' ') !== false && !str_starts_with($value, '"')) {
+                $quotedValue = '"' . str_replace('"', '\"', $value) . '"';
+            } else {
+                $quotedValue = $value;
+            }
 
             // Check if key exists
             if (preg_match("/^{$key}=.*/m", $envContent)) {
@@ -211,7 +325,7 @@ class SettingsController extends Controller
 
         // Clear config cache
         try {
-            \Artisan::call('config:clear');
+            Artisan::call('config:clear');
         } catch (\Exception $e) {
             // Ignore if command fails
         }

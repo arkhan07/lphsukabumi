@@ -388,13 +388,24 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
     // Settings (Pengaturan)
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('index');
+        Route::post('/update', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('update');
         Route::post('/general', [App\Http\Controllers\Admin\SettingsController::class, 'updateGeneral'])->name('update-general');
         Route::post('/email', [App\Http\Controllers\Admin\SettingsController::class, 'updateEmail'])->name('update-email');
         Route::post('/certification', [App\Http\Controllers\Admin\SettingsController::class, 'updateCertification'])->name('update-certification');
         Route::post('/notifications', [App\Http\Controllers\Admin\SettingsController::class, 'updateNotifications'])->name('update-notifications');
         Route::post('/logo', [App\Http\Controllers\Admin\SettingsController::class, 'uploadLogo'])->name('upload-logo');
         Route::post('/test-email', [App\Http\Controllers\Admin\SettingsController::class, 'testEmail'])->name('test-email');
+        Route::post('/test-smtp', [App\Http\Controllers\Admin\SettingsController::class, 'testSmtp'])->name('test-smtp');
+        Route::post('/test-whatsapp', [App\Http\Controllers\Admin\SettingsController::class, 'testWhatsapp'])->name('test-whatsapp');
         Route::get('/system-info', [App\Http\Controllers\Admin\SettingsController::class, 'systemInfo'])->name('system-info');
+    });
+
+    // Profile (Profil)
+    Route::prefix('profile')->name('profile')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\ProfileController::class, 'index']);
+        Route::post('/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('.update');
+        Route::post('/password', [App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('.password');
+        Route::delete('/photo', [App\Http\Controllers\Admin\ProfileController::class, 'deletePhoto'])->name('.delete-photo');
     });
 
     // Help (Bantuan)
