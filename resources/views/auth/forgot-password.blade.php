@@ -1,79 +1,114 @@
-<!-- meta tags and other links -->
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Lupa Kata Sandi - LPH Doa Bangsa Sukabumi</title>
 
-<x-auth.head>
-    <x-slot name="title">Lupa Kata Sandi</x-slot>
-</x-auth.head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
-<body>
-    <section class="auth forgot-password-page bg-base d-flex flex-wrap">
-        <div class="auth-left d-lg-block d-none">
-            <div class="d-flex align-items-center flex-column h-100 justify-content-center">
-                <img src="{{ asset('assets/images/auth/forgot-pass-img.png') }}" alt="Lupa Password" style="max-width: 100%; height: auto;">
+    <!-- Tabler CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <style>
+        :root {
+            --tblr-primary: #166F61;
+            --tblr-primary-rgb: 22, 111, 97;
+        }
+        .btn-primary {
+            background-color: var(--tblr-primary) !important;
+            border-color: var(--tblr-primary) !important;
+        }
+        .btn-primary:hover {
+            background-color: #125950 !important;
+            border-color: #125950 !important;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column bg-white">
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark">
+                    <img src="{{ asset('assets/images/logo.png') }}" height="60" alt="LPH Doa Bangsa">
+                </a>
             </div>
-        </div>
-        <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
-            <div class="max-w-464-px mx-auto w-100">
-                <div>
-                    <a href="{{ url('/') }}" class="mb-40 max-w-290-px">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="LPH Doa Bangsa" style="max-height: 60px;">
-                    </a>
-                    <h4 class="mb-12">Lupa Kata Sandi</h4>
-                    <p class="mb-32 text-secondary-light text-lg">Masukkan alamat email yang terkait dengan akun Anda dan kami akan mengirimkan link untuk reset kata sandi Anda.</p>
+
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="h2 text-center mb-4">Lupa Kata Sandi?</h2>
+                    <p class="text-secondary text-center mb-4">Masukkan alamat email Anda dan kami akan mengirimkan link untuk reset kata sandi.</p>
+
+                    @if (session('status'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <div class="d-flex">
+                                <div><i class="ti ti-check"></i></div>
+                                <div class="ms-2">{{ session('status') }}</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="d-flex">
+                                <div><i class="ti ti-alert-circle"></i></div>
+                                <div class="ms-2">
+                                    <h4 class="alert-title">Error!</h4>
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.email') }}" autocomplete="off">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="ti ti-mail"></i>
+                                </span>
+                                <input type="email" name="email" class="form-control"
+                                       placeholder="email@example.com"
+                                       value="{{ old('email') }}"
+                                       required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="ti ti-mail me-1"></i>
+                                Kirim Link Reset Password
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center text-secondary mt-3">
+                        <a href="{{ route('login') }}" tabindex="-1">
+                            <i class="ti ti-arrow-left me-1"></i>
+                            Kembali ke Login
+                        </a>
+                    </div>
                 </div>
+            </div>
 
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul style="margin: 0; padding-left: 20px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('password.email') }}">
-                    @csrf
-
-                    <div class="icon-field">
-                        <span class="icon top-50 translate-middle-y">
-                            <iconify-icon icon="mage:email"></iconify-icon>
-                        </span>
-                        <input
-                            type="email"
-                            name="email"
-                            class="form-control h-56-px bg-neutral-50 radius-12"
-                            placeholder="Masukkan Email"
-                            value="{{ old('email') }}"
-                            required
-                            autofocus
-                        >
-                    </div>
-
-                    <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32">
-                        Kirim Link Reset Password
-                    </button>
-
-                    <div class="text-center mt-24">
-                        <a href="{{ route('login') }}" class="text-primary-600 fw-bold">Kembali ke Login</a>
-                    </div>
-
-                    <div class="mt-120 text-center text-sm">
-                        <p class="mb-0">Sudah punya akun? <a href="{{ route('login') }}" class="text-primary-600 fw-semibold">Login</a></p>
-                    </div>
-                </form>
+            <div class="text-center text-secondary mt-3">
+                <small>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></small>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Tabler Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
 </body>
 </html>
