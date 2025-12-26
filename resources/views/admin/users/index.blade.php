@@ -203,6 +203,18 @@
     @push('styles')
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <style>
+        /* Perbesar tombol aksi */
+        .btn-group .btn {
+            min-width: 45px;
+            min-height: 38px;
+            padding: 0.5rem 0.75rem;
+            font-size: 1.1rem;
+        }
+        .btn-group .btn i {
+            font-size: 1.2rem;
+        }
+    </style>
     @endpush
 
     @push('scripts')
