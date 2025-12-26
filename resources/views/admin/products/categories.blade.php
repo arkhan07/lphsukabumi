@@ -21,41 +21,41 @@
 
     <!-- Stats -->
     <div class="row g-3 mb-4">
-        <div class="col-12 col-md-4">
-            <div class="card-custom" style="border-left: 4px solid var(--primary-600);">
+        <div class="col-6 col-md-4">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Total Kategori</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $categories->total() }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Total Kategori</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $categories->total() }}</div>
                     </div>
-                    <div class="stat-icon primary" style="width: 50px; height: 50px;">
-                        <i class="ri-folder-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-folder" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-4">
-            <div class="card-custom" style="border-left: 4px solid var(--success-main);">
+        <div class="col-6 col-md-4">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Kategori Aktif</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $categories->where('is_active', true)->count() }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Kategori Aktif</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $categories->where('is_active', true)->count() }}</div>
                     </div>
-                    <div class="stat-icon success" style="width: 50px; height: 50px;">
-                        <i class="ri-checkbox-circle-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-check" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-4">
-            <div class="card-custom" style="border-left: 4px solid var(--info-main);">
+        <div class="col-6 col-md-4">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Total Produk</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $categories->sum('products_count') }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Total Produk</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $categories->sum('products_count') }}</div>
                     </div>
-                    <div class="stat-icon info" style="width: 50px; height: 50px;">
-                        <i class="ri-product-hunt-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-package" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
@@ -112,13 +112,22 @@
                                 <span class="badge-custom badge-secondary">Nonaktif</span>
                             @endif
                         </td>
-                        <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-outline-success" onclick="editCategory({{ $category->id }})" title="Edit">
-                                    <i class="ri-edit-line"></i>
+                        <td style="padding: 1rem;">
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button type="button"
+                                        class="btn btn-sm btn-success"
+                                        onclick="editCategory({{ $category->id }})"
+                                        title="Edit"
+                                        style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                    <i class="ti ti-edit" style="font-size: 1.1rem;"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline-danger" onclick="deleteCategory({{ $category->id }})" title="Hapus" {{ $category->products_count > 0 ? 'disabled' : '' }}>
-                                    <i class="ri-delete-bin-line"></i>
+                                <button type="button"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="deleteCategory({{ $category->id }})"
+                                        title="Hapus"
+                                        {{ $category->products_count > 0 ? 'disabled' : '' }}
+                                        style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                    <i class="ti ti-trash" style="font-size: 1.1rem;"></i>
                                 </button>
                             </div>
                         </td>
@@ -259,6 +268,24 @@
             </div>
         </div>
     </div>
+
+    @push('styles')
+    <style>
+        /* Card custom styling */
+        .card-custom {
+            background: white;
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .card-custom:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+    @endpush
 
     @push('scripts')
     <script>
