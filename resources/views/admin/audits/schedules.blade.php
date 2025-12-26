@@ -361,6 +361,7 @@
 
     <script>
         let calendar;
+        let dataTable;
 
         $(document).ready(function() {
             // Initialize Calendar
@@ -389,26 +390,6 @@
                 }
             });
             calendar.render();
-
-            // Initialize DataTable
-            $('#schedulesTable').DataTable({
-                language: {
-                    lengthMenu: "Tampilkan _MENU_ data per halaman",
-                    zeroRecords: "Data tidak ditemukan",
-                    info: "Menampilkan halaman _PAGE_ dari _PAGES_",
-                    infoEmpty: "Tidak ada data tersedia",
-                    infoFiltered: "(difilter dari _MAX_ total data)",
-                    search: "Cari:",
-                    paginate: {
-                        first: "Pertama",
-                        last: "Terakhir",
-                        next: "Selanjutnya",
-                        previous: "Sebelumnya"
-                    }
-                },
-                order: [[1, 'asc']],
-                pageLength: 10
-            });
         });
 
         function toggleView(view) {
@@ -423,6 +404,31 @@
                 document.getElementById('listView').style.display = 'block';
                 document.getElementById('calendarViewBtn').classList.remove('active');
                 document.getElementById('listViewBtn').classList.add('active');
+
+                // Initialize DataTable only when list view is shown
+                if (!dataTable) {
+                    dataTable = $('#schedulesTable').DataTable({
+                        language: {
+                            lengthMenu: "Tampilkan _MENU_ data per halaman",
+                            zeroRecords: "Data tidak ditemukan",
+                            info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                            infoEmpty: "Tidak ada data tersedia",
+                            infoFiltered: "(difilter dari _MAX_ total data)",
+                            search: "Cari:",
+                            paginate: {
+                                first: "Pertama",
+                                last: "Terakhir",
+                                next: "Selanjutnya",
+                                previous: "Sebelumnya"
+                            }
+                        },
+                        order: [[1, 'asc']],
+                        pageLength: 10
+                    });
+                } else {
+                    // Adjust column sizing if already initialized
+                    dataTable.columns.adjust().draw();
+                }
             }
         }
 
