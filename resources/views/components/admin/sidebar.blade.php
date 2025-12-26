@@ -30,7 +30,7 @@
 
                     <!-- Permohonan Saya -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('submissions*') ? 'active' : '' }}" href="{{ route('pelaku-usaha.submissions.index') }}">
+                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.submissions*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text"></i>
                             </span>
@@ -40,7 +40,7 @@
 
                     <!-- Produk Saya -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products*') ? 'active' : '' }}" href="{{ route('pelaku-usaha.products.index') }}">
+                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.products*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-package"></i>
                             </span>
@@ -50,7 +50,7 @@
 
                     <!-- Dokumen Saya -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('documents*') ? 'active' : '' }}" href="{{ route('pelaku-usaha.documents.index') }}">
+                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.documents*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-folder"></i>
                             </span>
@@ -59,16 +59,16 @@
                     </li>
 
                     <!-- Keuangan -->
-                    <li class="nav-item dropdown {{ request()->routeIs('finance*') || request()->routeIs('invoices*') || request()->routeIs('payments*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-finance-pu" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('finance*') || request()->routeIs('invoices*') || request()->routeIs('payments*') ? 'true' : 'false' }}">
+                    <li class="nav-item dropdown {{ request()->routeIs('pelaku_usaha.finance*') || request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-finance-pu" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('pelaku_usaha.finance*') || request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'true' : 'false' }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-currency-dollar"></i>
                             </span>
                             <span class="nav-link-title">Keuangan</span>
                         </a>
-                        <div class="dropdown-menu {{ request()->routeIs('finance*') || request()->routeIs('invoices*') || request()->routeIs('payments*') ? 'show' : '' }}" id="navbar-finance-pu">
-                            <a class="dropdown-item" href="{{ route('pelaku-usaha.invoices.index') }}">Invoice Saya</a>
-                            <a class="dropdown-item" href="{{ route('pelaku-usaha.payments.index') }}">Riwayat Pembayaran</a>
+                        <div class="dropdown-menu {{ request()->routeIs('pelaku_usaha.finance*') || request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'show' : '' }}" id="navbar-finance-pu">
+                            <a class="dropdown-item" href="{{ route('pelaku_usaha.dashboard') }}">Invoice Saya</a>
+                            <a class="dropdown-item" href="{{ route('pelaku_usaha.dashboard') }}">Riwayat Pembayaran</a>
                         </div>
                     </li>
 
@@ -87,7 +87,7 @@
 
                     <!-- Laporan Audit -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('auditor.reports*') ? 'active' : '' }}" href="{{ route('auditor.reports') }}">
+                        <a class="nav-link {{ request()->routeIs('auditor.reports*') ? 'active' : '' }}" href="{{ route('auditor.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text"></i>
                             </span>
@@ -97,7 +97,7 @@
 
                     <!-- Temuan Audit -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('auditor.findings*') ? 'active' : '' }}" href="{{ route('auditor.findings') }}">
+                        <a class="nav-link {{ request()->routeIs('auditor.findings*') ? 'active' : '' }}" href="{{ route('auditor.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-search"></i>
                             </span>
@@ -117,8 +117,8 @@
                             <span class="nav-link-title">Permohonan</span>
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.submissions*') ? 'show' : '' }}" id="navbar-submissions-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.submissions.index') }}">Daftar Permohonan</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.submissions.review') }}">Review Permohonan</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Daftar Permohonan</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Review Permohonan</a>
                         </div>
                     </li>
 
@@ -131,8 +131,8 @@
                             <span class="nav-link-title">Produk</span>
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.products*') ? 'show' : '' }}" id="navbar-products-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.products.index') }}">Daftar Produk</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.products.review') }}">Review Produk</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Daftar Produk</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Review Produk</a>
                         </div>
                     </li>
 
@@ -145,15 +145,15 @@
                             <span class="nav-link-title">Audit</span>
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.audits*') ? 'show' : '' }}" id="navbar-audits-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.audits.schedules') }}">Jadwal Audit</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.audits.assignments') }}">Penugasan Auditor</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.audits.reports') }}">Laporan Audit</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Jadwal Audit</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Penugasan Auditor</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Laporan Audit</a>
                         </div>
                     </li>
 
                     <!-- Dokumen -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('manajer_teknis.documents*') ? 'active' : '' }}" href="{{ route('manajer_teknis.documents.verification') }}">
+                        <a class="nav-link {{ request()->routeIs('manajer_teknis.documents*') ? 'active' : '' }}" href="{{ route('manajer_teknis.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-folder"></i>
                             </span>
@@ -170,8 +170,8 @@
                             <span class="nav-link-title">Laporan</span>
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.reports*') ? 'show' : '' }}" id="navbar-reports-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.reports.certification') }}">Laporan Sertifikasi</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.reports.audits') }}">Laporan Audit</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Laporan Sertifikasi</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Laporan Audit</a>
                         </div>
                     </li>
 
