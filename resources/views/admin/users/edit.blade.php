@@ -246,28 +246,6 @@
                     </div>
                 </div>
 
-                <!-- Danger Zone -->
-                <div class="card-custom border-danger mb-3">
-                    <h5 class="mb-3 text-danger" style="font-weight: 600;">
-                        <i class="ri-alert-line me-2"></i>Danger Zone
-                    </h5>
-
-                    <p class="text-secondary-light small mb-3">
-                        Menghapus pengguna akan menghapus semua data terkait secara permanen.
-                    </p>
-
-                    <form action="{{ route('admin.users.destroy', $user->id) }}"
-                          method="POST"
-                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini? Tindakan ini tidak dapat dibatalkan!');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger w-100">
-                            <i class="ri-delete-bin-line me-2"></i>
-                            Hapus Pengguna
-                        </button>
-                    </form>
-                </div>
-
                 <!-- Info Card -->
                 <div class="alert alert-info" role="alert">
                     <i class="ri-information-line me-2"></i>
@@ -282,6 +260,32 @@
             </div>
         </div>
     </form>
+
+    <!-- Danger Zone - Outside main form -->
+    <div class="row g-3 mt-3">
+        <div class="col-12 col-lg-8 offset-lg-0 col-xl-4 offset-xl-8">
+            <div class="card-custom border-danger">
+                <h5 class="mb-3 text-danger" style="font-weight: 600;">
+                    <i class="ri-alert-line me-2"></i>Danger Zone
+                </h5>
+
+                <p class="text-secondary-light small mb-3">
+                    Menghapus pengguna akan menghapus semua data terkait secara permanen.
+                </p>
+
+                <form action="{{ route('admin.users.destroy', $user->id) }}"
+                      method="POST"
+                      onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini? Tindakan ini tidak dapat dibatalkan!');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="ri-delete-bin-line me-2"></i>
+                        Hapus Pengguna
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     @push('styles')
     <style>
