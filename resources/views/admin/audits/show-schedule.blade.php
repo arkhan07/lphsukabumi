@@ -6,7 +6,7 @@
             <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Detail Jadwal Audit</h2>
             <p class="text-secondary-light mb-0">{{ $schedule->title }}</p>
         </div>
-        <a href="{{ route('admin.audits.schedules') }}" class="btn btn-outline-primary">
+        <a href="{{ route('admin.audits.schedules.index') }}" class="btn btn-outline-primary">
             <i class="ri-arrow-left-line me-2"></i>
             Kembali
         </a>
