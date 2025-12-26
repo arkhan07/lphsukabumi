@@ -21,54 +21,54 @@
 
     <!-- Stats Cards -->
     <div class="row g-3 mb-4">
-        <div class="col-12 col-md-3">
-            <div class="card-custom" style="border-left: 4px solid var(--primary-600);">
+        <div class="col-6 col-md-3">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Total Produk</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['total'] ?? 0 }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Total Produk</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['total'] ?? 0 }}</div>
                     </div>
-                    <div class="stat-icon primary" style="width: 50px; height: 50px;">
-                        <i class="ri-product-hunt-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-package" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-3">
-            <div class="card-custom" style="border-left: 4px solid var(--success-main);">
+        <div class="col-6 col-md-3">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Halal</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['halal'] ?? 0 }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Halal</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['halal'] ?? 0 }}</div>
                     </div>
-                    <div class="stat-icon success" style="width: 50px; height: 50px;">
-                        <i class="ri-checkbox-circle-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-check" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-3">
-            <div class="card-custom" style="border-left: 4px solid var(--danger-main);">
+        <div class="col-6 col-md-3">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Tidak Halal</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['not_halal'] ?? 0 }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Tidak Halal</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['not_halal'] ?? 0 }}</div>
                     </div>
-                    <div class="stat-icon danger" style="width: 50px; height: 50px;">
-                        <i class="ri-close-circle-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-x" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-3">
-            <div class="card-custom" style="border-left: 4px solid var(--warning-main);">
+        <div class="col-6 col-md-3">
+            <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Meragukan</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['doubtful'] ?? 0 }}</div>
+                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Meragukan</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['doubtful'] ?? 0 }}</div>
                     </div>
-                    <div class="stat-icon warning" style="width: 50px; height: 50px;">
-                        <i class="ri-question-line"></i>
+                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="ti ti-help" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
                     </div>
                 </div>
             </div>
@@ -173,20 +173,26 @@
                                     <span class="text-secondary-light">Belum ada</span>
                                 @endif
                             </td>
-                            <td style="padding: 1rem; text-align: center;">
-                                <div class="btn-group">
+                            <td style="padding: 1rem;">
+                                <div class="d-flex gap-2 justify-content-center">
                                     <a href="{{ route('admin.products.show', $product->id) }}"
-                                       class="btn btn-outline-primary" title="Detail">
-                                        <i class="ri-eye-line"></i>
+                                       class="btn btn-sm btn-primary"
+                                       title="Detail"
+                                       style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                        <i class="ti ti-eye" style="font-size: 1.1rem;"></i>
                                     </a>
                                     <a href="{{ route('admin.products.edit', $product->id) }}"
-                                       class="btn btn-outline-success" title="Edit">
-                                        <i class="ri-edit-line"></i>
+                                       class="btn btn-sm btn-success"
+                                       title="Edit"
+                                       style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                        <i class="ti ti-edit" style="font-size: 1.1rem;"></i>
                                     </a>
-                                    <button type="button" class="btn btn-outline-danger"
+                                    <button type="button"
+                                            class="btn btn-sm btn-danger"
                                             title="Hapus"
-                                            onclick="confirmDelete({{ $product->id }})">
-                                        <i class="ri-delete-bin-line"></i>
+                                            onclick="confirmDelete({{ $product->id }})"
+                                            style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                        <i class="ti ti-trash" style="font-size: 1.1rem;"></i>
                                     </button>
                                 </div>
                             </td>
@@ -218,6 +224,24 @@
         @csrf
         @method('DELETE')
     </form>
+
+    @push('styles')
+    <style>
+        /* Card custom styling */
+        .card-custom {
+            background: white;
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .card-custom:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+    @endpush
 
     @push('scripts')
     <script>
