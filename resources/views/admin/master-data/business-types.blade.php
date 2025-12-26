@@ -167,11 +167,11 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-sm btn-outline-primary" onclick="editBusinessType({{ $type->id }})" title="Edit">
+                            <div class="btn-group">
+                                <button class="btn btn-outline-primary" onclick="editBusinessType({{ $type->id }})" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" onclick="deleteBusinessType({{ $type->id }})" title="Hapus">
+                                <button class="btn btn-outline-danger" onclick="deleteBusinessType({{ $type->id }})" title="Hapus">
                                     <i class="ri-delete-bin-line"></i>
                                 </button>
                             </div>

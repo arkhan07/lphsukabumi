@@ -203,10 +203,10 @@
         <div class="card-header-custom">
             <h5 class="card-title mb-0">Semua Laporan Audit</h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-success" onclick="exportData('excel')">
+                <button class="btn btn-outline-success" onclick="exportData('excel')">
                     <i class="ri-file-excel-line me-1"></i> Excel
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="exportData('pdf')">
+                <button class="btn btn-outline-danger" onclick="exportData('pdf')">
                     <i class="ri-file-pdf-line me-1"></i> PDF
                 </button>
             </div>
@@ -289,21 +289,21 @@
                             </span>
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.audits.reports.show', $report->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.audits.reports.show', $report->id) }}" class="btn btn-outline-primary" title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
                                 @if($report->status != 'approved')
-                                <a href="{{ route('admin.audits.reports.edit', $report->id) }}" class="btn btn-sm btn-outline-success" title="Edit">
+                                <a href="{{ route('admin.audits.reports.edit', $report->id) }}" class="btn btn-outline-success" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
                                 @endif
                                 @if($report->status == 'submitted')
-                                <button class="btn btn-sm btn-outline-info" onclick="approveReport({{ $report->id }})" title="Approve">
+                                <button class="btn btn-outline-info" onclick="approveReport({{ $report->id }})" title="Approve">
                                     <i class="ri-checkbox-circle-line"></i>
                                 </button>
                                 @endif
-                                <a href="{{ route('admin.audits.reports.download', $report->id) }}" class="btn btn-sm btn-outline-danger" title="Download PDF" target="_blank">
+                                <a href="{{ route('admin.audits.reports.download', $report->id) }}" class="btn btn-outline-danger" title="Download PDF" target="_blank">
                                     <i class="ri-download-line"></i>
                                 </a>
                             </div>

@@ -184,7 +184,7 @@
             <div class="card-custom">
                 <div class="card-header-custom">
                     <h5 class="card-title mb-0">Produk Berdasarkan Jenis</h5>
-                    <div class="btn-group btn-group-sm" role="group">
+                    <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary active">Top {{ min(10, $productTypeDistribution->count()) }}</button>
                     </div>
                 </div>

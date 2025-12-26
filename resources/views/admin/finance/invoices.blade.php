@@ -184,20 +184,20 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.finance.invoices.show', $invoice->id) }}" class="btn btn-sm btn-outline-primary" title="Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.finance.invoices.show', $invoice->id) }}" class="btn btn-outline-primary" title="Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
-                                <button class="btn btn-sm btn-outline-info" onclick="downloadInvoice({{ $invoice->id }})" title="Download">
+                                <button class="btn btn-outline-info" onclick="downloadInvoice({{ $invoice->id }})" title="Download">
                                     <i class="ri-download-line"></i>
                                 </button>
                                 @if($invoice->status !== 'paid' && $invoice->status !== 'cancelled')
-                                <button class="btn btn-sm btn-outline-success" onclick="confirmPayment({{ $invoice->id }})" title="Konfirmasi Bayar">
+                                <button class="btn btn-outline-success" onclick="confirmPayment({{ $invoice->id }})" title="Konfirmasi Bayar">
                                     <i class="ri-check-line"></i>
                                 </button>
                                 @endif
                                 @if($invoice->due_date && $invoice->due_date->isPast() && $invoice->status !== 'paid')
-                                <button class="btn btn-sm btn-outline-danger" onclick="sendReminder({{ $invoice->id }})" title="Kirim Reminder">
+                                <button class="btn btn-outline-danger" onclick="sendReminder({{ $invoice->id }})" title="Kirim Reminder">
                                     <i class="ri-mail-send-line"></i>
                                 </button>
                                 @endif

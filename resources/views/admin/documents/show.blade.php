@@ -249,7 +249,7 @@
                                     </td>
                                     <td style="padding: 0.75rem;">
                                         <a href="{{ route('admin.documents.show', $document->parentDocument->id) }}"
-                                           class="btn btn-sm btn-outline-primary">
+                                           class="btn btn-outline-primary">
                                             <i class="ri-eye-line"></i> Lihat
                                         </a>
                                     </td>
@@ -301,7 +301,7 @@
                                     </td>
                                     <td style="padding: 0.75rem;">
                                         <a href="{{ route('admin.documents.show', $child->id) }}"
-                                           class="btn btn-sm btn-outline-primary">
+                                           class="btn btn-outline-primary">
                                             <i class="ri-eye-line"></i> Lihat
                                         </a>
                                     </td>

@@ -216,10 +216,10 @@
         <div class="card-header-custom">
             <h5 class="card-title mb-0">Daftar Audit</h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-success" onclick="exportData('excel')">
+                <button class="btn btn-outline-success" onclick="exportData('excel')">
                     <i class="ri-file-excel-line me-1"></i> Excel
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="exportData('pdf')">
+                <button class="btn btn-outline-danger" onclick="exportData('pdf')">
                     <i class="ri-file-pdf-line me-1"></i> PDF
                 </button>
             </div>
@@ -306,19 +306,19 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.audits.show', $audit->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.audits.show', $audit->id) }}" class="btn btn-outline-primary" title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
                                 @if($audit->status != 'completed')
-                                <a href="{{ route('admin.audits.edit', $audit->id) }}" class="btn btn-sm btn-outline-success" title="Edit">
+                                <a href="{{ route('admin.audits.edit', $audit->id) }}" class="btn btn-outline-success" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
                                 @endif
-                                <a href="{{ route('admin.audits.findings.create', $audit->id) }}" class="btn btn-sm btn-outline-warning" title="Tambah Temuan">
+                                <a href="{{ route('admin.audits.findings.create', $audit->id) }}" class="btn btn-outline-warning" title="Tambah Temuan">
                                     <i class="ri-error-warning-line"></i>
                                 </a>
-                                <button class="btn btn-sm btn-outline-info" onclick="generateReport({{ $audit->id }})" title="Generate Laporan">
+                                <button class="btn btn-outline-info" onclick="generateReport({{ $audit->id }})" title="Generate Laporan">
                                     <i class="ri-file-text-line"></i>
                                 </button>
                             </div>

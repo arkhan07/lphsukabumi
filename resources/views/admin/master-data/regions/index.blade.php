@@ -123,9 +123,9 @@
                         </td>
                         <td style="padding: 1rem;">{{ $region->created_at ? $region->created_at->format('d M Y') : '-' }}</td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group">
                                 <a href="{{ route('admin.master-data.regions.edit', $region->id) }}"
-                                   class="btn btn-sm btn-outline-success"
+                                   class="btn btn-outline-success"
                                    title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
@@ -136,7 +136,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="btn btn-sm btn-outline-danger"
+                                            class="btn btn-outline-danger"
                                             title="Hapus">
                                         <i class="ri-delete-bin-line"></i>
                                     </button>

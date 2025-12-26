@@ -171,14 +171,14 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group">
                                 <a href="{{ route('admin.finance.fees.edit', $fee->id) }}"
-                                   class="btn btn-sm btn-outline-success"
+                                   class="btn btn-outline-success"
                                    title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
                                 <button type="button"
-                                        class="btn btn-sm btn-outline-{{ $fee->is_active ? 'warning' : 'info' }}"
+                                        class="btn btn-outline-{{ $fee->is_active ? 'warning' : 'info' }}"
                                         onclick="toggleStatus({{ $fee->id }}, {{ $fee->is_active ? 'false' : 'true' }})"
                                         title="{{ $fee->is_active ? 'Nonaktifkan' : 'Aktifkan' }}">
                                     <i class="ri-{{ $fee->is_active ? 'close' : 'check' }}-line"></i>
@@ -190,7 +190,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="btn btn-sm btn-outline-danger"
+                                            class="btn btn-outline-danger"
                                             title="Hapus">
                                         <i class="ri-delete-bin-line"></i>
                                     </button>

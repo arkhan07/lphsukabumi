@@ -320,11 +320,11 @@
                                     </span>
                                 </td>
                                 <td style="padding: 1rem; text-align: center;">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('admin.audits.findings.show', $finding->id) }}" class="btn btn-sm btn-outline-primary" title="Detail">
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.audits.findings.show', $finding->id) }}" class="btn btn-outline-primary" title="Detail">
                                             <i class="ri-eye-line"></i>
                                         </a>
-                                        <a href="{{ route('admin.audits.findings.edit', $finding->id) }}" class="btn btn-sm btn-outline-success" title="Edit">
+                                        <a href="{{ route('admin.audits.findings.edit', $finding->id) }}" class="btn btn-outline-success" title="Edit">
                                             <i class="ri-edit-line"></i>
                                         </a>
                                     </div>
@@ -362,7 +362,7 @@
                                         <i class="ri-file-line text-primary" style="font-size: 2rem;"></i>
                                     </div>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                        <button class="btn btn-outline-secondary" data-bs-toggle="dropdown">
                                             <i class="ri-more-2-fill"></i>
                                         </button>
                                         <ul class="dropdown-menu">

@@ -94,9 +94,9 @@
                         <td style="padding: 1rem;">24 Des 2024</td>
                         <td style="padding: 1rem;"><span class="badge-custom badge-success">Terverifikasi</span></td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-sm btn-outline-primary"><i class="ri-eye-line"></i></button>
-                                <button class="btn btn-sm btn-outline-info"><i class="ri-download-line"></i></button>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-primary"><i class="ri-eye-line"></i></button>
+                                <button class="btn btn-outline-info"><i class="ri-download-line"></i></button>
                             </div>
                         </td>
                     </tr>

@@ -113,11 +113,11 @@
                             @endif
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-sm btn-outline-success" onclick="editCategory({{ $category->id }})" title="Edit">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-success" onclick="editCategory({{ $category->id }})" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteCategory({{ $category->id }})" title="Hapus" {{ $category->products_count > 0 ? 'disabled' : '' }}>
+                                <button type="button" class="btn btn-outline-danger" onclick="deleteCategory({{ $category->id }})" title="Hapus" {{ $category->products_count > 0 ? 'disabled' : '' }}>
                                     <i class="ri-delete-bin-line"></i>
                                 </button>
                             </div>

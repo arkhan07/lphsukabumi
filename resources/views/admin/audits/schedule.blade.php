@@ -115,14 +115,14 @@
                                 <td style="padding: 1rem;">Sukabumi</td>
                                 <td style="padding: 1rem;"><span class="badge-custom badge-info">Terjadwal</span></td>
                                 <td style="padding: 1rem; text-align: center;">
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-sm btn-outline-primary" title="Detail">
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary" title="Detail">
                                             <i class="ri-eye-line"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-success" title="Edit">
+                                        <button class="btn btn-outline-success" title="Edit">
                                             <i class="ri-edit-line"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger" title="Batalkan">
+                                        <button class="btn btn-outline-danger" title="Batalkan">
                                             <i class="ri-close-line"></i>
                                         </button>
                                     </div>
@@ -144,14 +144,14 @@
                                 <td style="padding: 1rem;">Sukabumi</td>
                                 <td style="padding: 1rem;"><span class="badge-custom badge-warning">Pending</span></td>
                                 <td style="padding: 1rem; text-align: center;">
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-sm btn-outline-primary" title="Detail">
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary" title="Detail">
                                             <i class="ri-eye-line"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-success" title="Edit">
+                                        <button class="btn btn-outline-success" title="Edit">
                                             <i class="ri-edit-line"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger" title="Batalkan">
+                                        <button class="btn btn-outline-danger" title="Batalkan">
                                             <i class="ri-close-line"></i>
                                         </button>
                                     </div>
@@ -173,14 +173,14 @@
                                 <td style="padding: 1rem;">Bogor</td>
                                 <td style="padding: 1rem;"><span class="badge-custom badge-info">Terjadwal</span></td>
                                 <td style="padding: 1rem; text-align: center;">
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-sm btn-outline-primary" title="Detail">
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary" title="Detail">
                                             <i class="ri-eye-line"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-success" title="Edit">
+                                        <button class="btn btn-outline-success" title="Edit">
                                             <i class="ri-edit-line"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger" title="Batalkan">
+                                        <button class="btn btn-outline-danger" title="Batalkan">
                                             <i class="ri-close-line"></i>
                                         </button>
                                     </div>

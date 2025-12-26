@@ -204,22 +204,22 @@
                             </span>
                         </td>
                         <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.audits.schedules.show', $schedule->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.audits.schedules.show', $schedule->id) }}" class="btn btn-outline-primary" title="Lihat Detail">
                                     <i class="ri-eye-line"></i>
                                 </a>
                                 @if($schedule->status != 'completed' && $schedule->status != 'cancelled')
-                                <a href="{{ route('admin.audits.schedules.edit', $schedule->id) }}" class="btn btn-sm btn-outline-success" title="Edit">
+                                <a href="{{ route('admin.audits.schedules.edit', $schedule->id) }}" class="btn btn-outline-success" title="Edit">
                                     <i class="ri-edit-line"></i>
                                 </a>
                                 @endif
                                 @if($schedule->status == 'scheduled')
-                                <button class="btn btn-sm btn-outline-danger" onclick="cancelSchedule({{ $schedule->id }})" title="Batalkan">
+                                <button class="btn btn-outline-danger" onclick="cancelSchedule({{ $schedule->id }})" title="Batalkan">
                                     <i class="ri-close-line"></i>
                                 </button>
                                 @endif
                                 @if($schedule->status == 'in_progress')
-                                <button class="btn btn-sm btn-outline-info" onclick="completeSchedule({{ $schedule->id }})" title="Selesaikan">
+                                <button class="btn btn-outline-info" onclick="completeSchedule({{ $schedule->id }})" title="Selesaikan">
                                     <i class="ri-check-line"></i>
                                 </button>
                                 @endif

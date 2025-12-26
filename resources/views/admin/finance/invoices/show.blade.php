@@ -279,7 +279,7 @@
                                     <span class="badge-custom {{ $payConfig['class'] }}">{{ $payConfig['text'] }}</span>
                                 </td>
                                 <td style="padding: 1rem;">
-                                    <a href="{{ route('admin.finance.payments.show', $payment->id) }}" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ route('admin.finance.payments.show', $payment->id) }}" class="btn btn-outline-primary">
                                         <i class="ri-eye-line me-1"></i>Lihat
                                     </a>
                                 </td>
