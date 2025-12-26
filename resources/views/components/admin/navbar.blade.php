@@ -6,8 +6,10 @@
 
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="{{ route('dashboard') }}">
-                <i class="ti ti-building-mosque"></i>
-                LPH Doa Bangsa
+                @php
+                    $logoPath = App\Models\Setting::get('site_logo', '../img/logo.webp');
+                @endphp
+                <img src="{{ asset($logoPath) }}" height="40" alt="LPH Doa Bangsa" class="navbar-brand-image">
             </a>
         </h1>
 
@@ -96,14 +98,14 @@
             <!-- User Menu -->
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                    <span class="avatar avatar-sm" style="background-image: url(https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=166F61&color=fff)"></span>
+                    <span class="avatar avatar-sm" style="background-image: url({{ Auth::user()->profile_photo_url }})"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ Auth::user()->name }}</div>
                         <div class="mt-1 small text-secondary">{{ Auth::user()->roles->first()->display_name ?? 'User' }}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ route('admin.profile') }}" class="dropdown-item">
                         <i class="ti ti-user me-2"></i>
                         Profil Saya
                     </a>
