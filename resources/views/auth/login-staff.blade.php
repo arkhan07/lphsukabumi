@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login Staff - LPH Doa Bangsa Sukabumi</title>
+    <title>Login Staff - {{ $siteSettings['name'] }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset($siteSettings['favicon']) }}">
 
     <!-- Tabler CSS -->
     <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    @if($siteSettings['recaptcha_enabled'])
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
 
     <style>
         :root {
@@ -29,6 +34,60 @@
             background-color: #125950 !important;
             border-color: #125950 !important;
         }
+
+        /* Floating Label Styles - Google Material Design */
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .floating-label input {
+            width: 100%;
+            padding: 16px 16px 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .floating-label input:focus {
+            outline: none;
+            border-color: var(--tblr-primary);
+            box-shadow: 0 0 0 3px rgba(22, 111, 97, 0.1);
+        }
+
+        .floating-label label {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 16px;
+            color: #6b7280;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 0 4px;
+        }
+
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label {
+            top: -8px;
+            left: 12px;
+            font-size: 12px;
+            color: var(--tblr-primary);
+            font-weight: 600;
+        }
+
+        .floating-label .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            color: #9ca3af;
+        }
+
+        .floating-label input:focus ~ .input-icon {
+            color: var(--tblr-primary);
+        }
     </style>
 </head>
 <body class="d-flex flex-column">
@@ -36,7 +95,7 @@
         <div class="container container-tight py-4">
             <div class="text-center mb-4">
                 <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark">
-                    <img src="{{ '../img/logo.webp' }}" height="60" alt="LPH Doa Bangsa">
+                    <img src="{{ asset($siteSettings['logo']) }}" height="60" alt="{{ $siteSettings['name'] }}">
                 </a>
             </div>
 
@@ -75,29 +134,32 @@
                     <form method="POST" action="{{ route('login') }}" autocomplete="off">
                         @csrf
 
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <div class="input-icon">
-                                <span class="input-icon-addon">
-                                    <i class="ti ti-mail"></i>
-                                </span>
-                                <input type="email" name="email" class="form-control"
-                                       placeholder="email@example.com"
-                                       value="{{ old('email') }}"
-                                       required autofocus>
-                            </div>
+                        <!-- Email Field with Floating Label -->
+                        <div class="floating-label">
+                            <input type="email"
+                                   name="email"
+                                   id="email"
+                                   placeholder=" "
+                                   value="{{ old('email') }}"
+                                   required
+                                   autofocus>
+                            <label for="email">Email</label>
+                            <span class="input-icon">
+                                <i class="ti ti-mail"></i>
+                            </span>
                         </div>
 
-                        <div class="mb-2">
-                            <label class="form-label">Kata Sandi</label>
-                            <div class="input-icon">
-                                <span class="input-icon-addon">
-                                    <i class="ti ti-key"></i>
-                                </span>
-                                <input type="password" name="password" class="form-control"
-                                       placeholder="Kata sandi Anda"
-                                       required>
-                            </div>
+                        <!-- Password Field with Floating Label -->
+                        <div class="floating-label">
+                            <input type="password"
+                                   name="password"
+                                   id="password"
+                                   placeholder=" "
+                                   required>
+                            <label for="password">Kata Sandi</label>
+                            <span class="input-icon">
+                                <i class="ti ti-key"></i>
+                            </span>
                         </div>
 
                         <div class="mb-3">
@@ -106,6 +168,13 @@
                                 <span class="form-check-label">Ingat saya di perangkat ini</span>
                             </label>
                         </div>
+
+                        @if($siteSettings['recaptcha_enabled'])
+                        <!-- Google reCAPTCHA -->
+                        <div class="mb-3">
+                            <div class="g-recaptcha" data-sitekey="{{ $siteSettings['recaptcha_site_key'] }}"></div>
+                        </div>
+                        @endif
 
                         <div class="form-footer">
                             <button type="submit" class="btn btn-primary w-100">
@@ -139,13 +208,13 @@
                     <div><i class="ti ti-info-circle"></i></div>
                     <div class="ms-2">
                         <h4 class="alert-title">Akses Terbatas</h4>
-                        <div class="text-secondary">Portal ini hanya untuk staff LPH Doa Bangsa Sukabumi. Role akan otomatis terdeteksi berdasarkan email Anda.</div>
+                        <div class="text-secondary">Portal ini hanya untuk staff {{ $siteSettings['name'] }}. Role akan otomatis terdeteksi berdasarkan email Anda.</div>
                     </div>
                 </div>
             </div>
 
             <div class="text-center text-white mt-3">
-                <small>&copy; {{ date('Y') }} LPH Doa Bangsa Sukabumi. All rights reserved.</small>
+                <small>&copy; {{ date('Y') }} {{ $siteSettings['name'] }}. All rights reserved.</small>
             </div>
         </div>
     </div>

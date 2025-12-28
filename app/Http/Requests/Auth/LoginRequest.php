@@ -6,8 +6,10 @@ use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\Setting;
 
 class LoginRequest extends FormRequest
 {
@@ -28,10 +30,51 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
+
+        // Add reCAPTCHA validation if enabled
+        if (Setting::get('recaptcha_enabled') == '1') {
+            $rules['g-recaptcha-response'] = ['required', function ($attribute, $value, $fail) {
+                $this->validateRecaptcha($value, $fail);
+            }];
+        }
+
+        return $rules;
+    }
+
+    /**
+     * Validate reCAPTCHA response
+     *
+     * @param string $token
+     * @param callable $fail
+     * @return void
+     */
+    protected function validateRecaptcha($token, $fail)
+    {
+        $secretKey = Setting::get('recaptcha_secret_key');
+
+        if (empty($secretKey)) {
+            return; // Skip if secret key not configured
+        }
+
+        try {
+            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => $secretKey,
+                'response' => $token,
+                'remoteip' => request()->ip(),
+            ]);
+
+            $result = $response->json();
+
+            if (!$result['success']) {
+                $fail('Verifikasi reCAPTCHA gagal. Silakan coba lagi.');
+            }
+        } catch (\Exception $e) {
+            $fail('Terjadi kesalahan saat memverifikasi reCAPTCHA.');
+        }
     }
 
     /**
