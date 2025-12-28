@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - LPH Doa Bangsa Sukabumi</title>
+    <title>Login - {{ $siteSettings['name'] }}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset($siteSettings['favicon']) }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +16,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    @if($siteSettings['recaptcha_enabled'])
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
 
     <style>
         * {
@@ -59,6 +67,11 @@
             margin-bottom: 30px;
         }
 
+        .logo-section img {
+            max-height: 80px;
+            width: auto;
+        }
+
         .logo-text {
             font-size: 24px;
             font-weight: 700;
@@ -78,46 +91,46 @@
             margin-bottom: 30px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        /* Floating Label Styles - Google Material Design */
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.5rem;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #374151;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-group input {
+        .floating-label input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 16px 16px 8px 16px;
             border: 1px solid #D1D5DB;
             border-radius: 8px;
             font-size: 14px;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
 
-        .form-group input:focus {
+        .floating-label input:focus {
             outline: none;
             border-color: #166F61;
             box-shadow: 0 0 0 3px rgba(22, 111, 97, 0.1);
         }
 
-        .password-toggle {
-            position: relative;
+        .floating-label label {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 14px;
+            color: #6B7280;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 0 4px;
         }
 
-        .password-toggle button {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #6B7280;
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label {
+            top: -8px;
+            left: 12px;
+            font-size: 12px;
+            color: #166F61;
+            font-weight: 600;
         }
 
         .forgot-password {
@@ -238,16 +251,6 @@
             margin-right: 8px;
         }
 
-        .footer-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #E5E7EB;
-        }
-
         .footer-text {
             text-align: center;
             color: #9CA3AF;
@@ -273,6 +276,26 @@
             color: #065F46;
         }
 
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+            margin: 0;
+        }
+
         @media (max-width: 768px) {
             .login-container {
                 grid-template-columns: 1fr;
@@ -294,8 +317,9 @@
         <div class="login-left">
             <div>
                 <div class="logo-section">
-                    <div class="logo-text">LPH DOA BANGSA</div>
-                    <p style="color: #6B7280; font-size: 14px;">Sukabumi</p>
+                    <img src="{{ asset($siteSettings['logo']) }}" alt="{{ $siteSettings['name'] }}">
+                    <div class="logo-text">{{ $siteSettings['name'] }}</div>
+                    <p style="color: #6B7280; font-size: 14px;">{{ $siteSettings['description'] }}</p>
                 </div>
 
                 <div class="form-section">
@@ -323,36 +347,30 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="form-group">
-                            <label for="email">Email</label>
+                        <!-- Email Field with Floating Label -->
+                        <div class="floating-label">
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
                                 value="{{ old('email') }}"
-                                placeholder="Masukkan email Anda"
+                                placeholder=" "
                                 required
                                 autofocus
                             >
+                            <label for="email">Email</label>
                         </div>
 
-                        <div class="form-group">
+                        <!-- Password Field with Floating Label -->
+                        <div class="floating-label">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder=" "
+                                required
+                            >
                             <label for="password">Kata Sandi</label>
-                            <div class="password-toggle">
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    placeholder="Masukkan kata sandi"
-                                    required
-                                >
-                                <button type="button" onclick="togglePassword()">
-                                    <svg id="eye-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                </button>
-                            </div>
                             <div class="forgot-password">
                                 @if (Route::has('password.request'))
                                     <a href="{{ route('password.request') }}">Lupa Kata Sandi?</a>
@@ -360,16 +378,22 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-top: 10px;">
-                            <label style="display: flex; align-items: center; cursor: pointer;">
-                                <input
-                                    type="checkbox"
-                                    name="remember"
-                                    style="width: auto; margin-right: 8px;"
-                                >
-                                <span style="font-weight: 400;">Ingat Saya</span>
-                            </label>
+                        <!-- Remember Me -->
+                        <div class="remember-me">
+                            <input
+                                type="checkbox"
+                                name="remember"
+                                id="remember"
+                            >
+                            <label for="remember">Ingat Saya</label>
                         </div>
+
+                        @if($siteSettings['recaptcha_enabled'])
+                        <!-- Google reCAPTCHA -->
+                        <div style="margin-bottom: 20px;">
+                            <div class="g-recaptcha" data-sitekey="{{ $siteSettings['recaptcha_site_key'] }}"></div>
+                        </div>
+                        @endif
 
                         <button type="submit" class="login-button">
                             Masuk
@@ -383,7 +407,7 @@
             </div>
 
             <div class="footer-text">
-                <p>&copy; 2024 LPH Doa Bangsa Sukabumi. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} {{ $siteSettings['name'] }}. All rights reserved.</p>
                 <p style="margin-top: 5px;">Lembaga Pemeriksa Halal Terdaftar BPJPH</p>
             </div>
         </div>
@@ -441,20 +465,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.innerHTML = '<path d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z"/><path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"/>';
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.innerHTML = '<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>';
-            }
-        }
-    </script>
 </body>
 </html>
