@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulir Permohonan Sertifikasi Halal Reguler</title>
+  <style>
+    :root{
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --text:#101828;
+      --muted:#475467;
+      --border:#d0d5dd;
+      --border2:#e4e7ec;
+      --accent:#1570ef;
+      --shadow: 0 10px 30px rgba(16,24,40,.08);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.35;
+    }
+    .container{
+      max-width: 980px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+    .header{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom: 14px;
+    }
+    .title h1{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:.2px;
+    }
+    .title p{
+      margin:6px 0 0 0;
+      color:var(--muted);
+      font-size: 13px;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 10px;
+      cursor:pointer;
+      font-weight:600;
+      font-size: 13px;
+      transition: .15s ease;
+    }
+    .btn.primary{
+      border-color: transparent;
+      background: var(--accent);
+      color:#fff;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .card h2{
+      margin:0 0 10px 0;
+      font-size: 15px;
+      letter-spacing:.2px;
+    }
+    .form{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+    .field{
+      grid-column: span 12;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .label{
+      font-size: 12.5px;
+      font-weight:700;
+      color: var(--text);
+    }
+    .hint{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 10px 11px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background:#fff;
+      font-size: 13.5px;
+      color:var(--text);
+      outline:none;
+      transition: .12s ease;
+    }
+    textarea{min-height: 86px; resize: vertical;}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(21,112,239,.65);
+      box-shadow: 0 0 0 4px rgba(21,112,239,.12);
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border:1px solid var(--border);
+      border-radius: 999px;
+      font-size: 13px;
+      background:#fff;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip input{width:auto; margin:0}
+    .split{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .branch-item{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .branch-item input{flex:1}
+    .mini-btn{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius: 10px;
+      padding: 10px 11px;
+      cursor:pointer;
+      font-weight:700;
+      font-size: 13px;
+      min-width: 44px;
+    }
+    .mini-btn.danger{border-color:#fda29b; color:#b42318}
+    .divider{
+      height:1px;
+      background:var(--border2);
+      margin: 12px 0;
+    }
+    details{
+      border:1px dashed var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background:#fff;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      font-size: 13px;
+      color: var(--text);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .ref-table{
+      margin-top: 10px;
+      border-top: 1px solid var(--border2);
+      padding-top: 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .ref-table ul{margin:8px 0 0 16px; padding:0}
+    .ref-table li{margin:4px 0}
+
+    /* responsive */
+    @media (min-width: 760px){
+      .field.span-6{grid-column: span 6;}
+      .field.span-4{grid-column: span 4;}
+      .field.span-8{grid-column: span 8;}
+      .field.span-3{grid-column: span 3;}
+      .field.span-9{grid-column: span 9;}
+      .split{grid-template-columns: 1fr 1fr;}
+      .title h1{font-size: 22px;}
+    }
+
+    /* print */
+    @media print{
+      body{background:#fff}
+      .actions{display:none}
+      .card{box-shadow:none}
+      details{border:1px solid var(--border)}
+      .container{margin:0; max-width:none}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h1>Formulir Permohonan Sertifikasi Halal Reguler</h1>
+        <p>Isi data dengan lengkap. Kolom “Jenis Produk” otomatis mengikuti pilihan “Layanan”.</p>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" id="btnReset">Reset</button>
+        <button class="btn" type="button" onclick="window.print()">Print</button>
+        <button class="btn primary" type="button" id="btnExportJson">Export JSON</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <form class="card" id="halalForm" autocomplete="off">
+        <h2>A. Identitas Pelaku Usaha</h2>
+        <div class="form">
+          <div class="field span-6">
+            <label class="label" for="namaPelaku">1. Nama Pelaku Usaha</label>
+            <input id="namaPelaku" name="namaPelaku" type="text" placeholder="Nama lengkap" required />
+          </div>
+          <div class="field span-6">
+            <label class="label" for="namaUsaha">2. Nama Usaha</label>
+            <input id="namaUsaha" name="namaUsaha" type="text" placeholder="Nama usaha" required />
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="email">3. Email</label>
+            <input id="email" name="email" type="email" placeholder="contoh@email.com" required />
+          </div>
+          <div class="field span-6">
+            <label class="label" for="hp">4. Nomor HP/WhatsApp</label>
+            <input id="hp" name="hp" type="tel" placeholder="08xxxxxxxxxx" required />
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="nib">5. NIB (Nomor Induk Berusaha)</label>
+            <input id="nib" name="nib" type="text" placeholder="Nomor NIB" />
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="skalaUsaha">6. Skala Usaha (Dropdown)</label>
+            <select id="skalaUsaha" name="skalaUsaha" required>
+              <option value="" selected disabled>Pilih skala usaha</option>
+              <option value="Mikro">Mikro</option>
+              <option value="Kecil">Kecil</option>
+              <option value="Menengah">Menengah</option>
+              <option value="Besar">Besar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>B. Informasi Usaha dan Layanan</h2>
+        <div class="form">
+          <div class="field span-6">
+            <label class="label" for="layanan">7. Layanan (Dropdown)</label>
+            <select id="layanan" name="layanan" required>
+              <option value="" selected disabled>Pilih layanan</option>
+              <!-- options injected by JS -->
+            </select>
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="jenisProduk">8. Jenis Produk (Dropdown mengikuti Layanan)</label>
+            <select id="jenisProduk" name="jenisProduk" required>
+              <option value="" selected disabled>Pilih jenis produk</option>
+              <!-- options injected by JS -->
+            </select>
+            <div class="hint" id="jenisHint">Pilih layanan terlebih dahulu.</div>
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="jumlahProduk">9. Jumlah Produk</label>
+            <input id="jumlahProduk" name="jumlahProduk" type="number" min="0" step="1" placeholder="Contoh: 10" />
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>C. Alamat dan Cabang/Outlet</h2>
+        <div class="form">
+          <div class="field span-6">
+            <label class="label" for="alamatUsaha">10. Alamat Lengkap Usaha</label>
+            <textarea id="alamatUsaha" name="alamatUsaha" placeholder="Jalan, nomor, kelurahan/desa, kecamatan, kota/kab, provinsi, kode pos" required></textarea>
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="alamatProduksi">11. Alamat Tempat Produksi</label>
+            <textarea id="alamatProduksi" name="alamatProduksi" placeholder="Jika sama dengan alamat usaha, tulis: Sama dengan alamat usaha" required></textarea>
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="jumlahCabang">12. Jumlah Cabang/Outlet</label>
+            <input id="jumlahCabang" name="jumlahCabang" type="number" min="0" step="1" placeholder="Contoh: 2" />
+            <div class="hint">Jika lebih dari 0, isi alamat cabang di bawah (boleh tambah baris).</div>
+          </div>
+
+          <div class="field span-6">
+            <label class="label">13. Alamat Cabang/Outlet (jika ada)</label>
+            <div id="branchList" class="split"></div>
+            <div class="row">
+              <button class="btn" type="button" id="btnAddBranch">Tambah Cabang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>D. Penyelia Halal dan Referensi</h2>
+        <div class="form">
+          <div class="field span-6">
+            <div class="label">14. Apakah sudah memiliki Penyelia Halal?</div>
+            <div class="row" role="group" aria-label="Penyelia Halal">
+              <label class="chip"><input type="radio" name="penyelia" value="Ya" required /> Ya</label>
+              <label class="chip"><input type="radio" name="penyelia" value="Tidak" required /> Tidak</label>
+            </div>
+          </div>
+
+          <div class="field span-6">
+            <label class="label" for="referensi">15. Referensi</label>
+            <input id="referensi" name="referensi" type="text" placeholder="Nama pemberi referensi (opsional)" />
+            <div class="hint">Diisi bila ada pihak yang mereferensikan permohonan ini.</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <details>
+          <summary>Lampiran: Daftar Layanan dan Jenis Produk (untuk dropdown)</summary>
+          <div class="ref-table" id="lampiranBox"></div>
+        </details>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <button class="btn primary" type="submit">Simpan (Validasi)</button>
+          <button class="btn" type="button" id="btnFillDemo">Isi Contoh</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Data dropdown: layanan -> jenis produk
+    const DATA = {
+      "Jasa Pendistribusian": [
+        "Jasa pendistribusian"
+      ],
+      "Makanan": [
+        "Susu dan analognya",
+        "Lemak, minyak dan emulsi minyak",
+        "Es untuk dimakan (edible ice) termasuk sherbet dan sorbet",
+        "Buah dan sayur dengan pengolahan dan penambahan bahan tambahan pangan",
+        "Kembang gula/permen dan cokelat",
+        "Serealia dan produk serealia turunan dari biji serealia, akar dan umbi, kacang-kacangan dan empulur dengan pengolahan dan penambahan bahan tambahan pangan",
+        "Produk bakeri",
+        "Daging dan produk olahan daging",
+        "Ikan dan produk perikanan termasuk moluska, krustase, dan ekinodermata dengan pengolahan dan penambahan bahan tambahan pangan",
+        "Telur olahan dan produk-produk telur hasil olahan",
+        "Gula dan pemanis termasuk madu",
+        "Garam, rempah, sup, saus, salad, serta produk protein",
+        "Pangan olahan untuk keperluan gizi khusus",
+        "Makanan ringan siap santap",
+        "Pangan siap saji",
+        "Penyediaan makanan dan minuman dengan pengolahan",
+        "Bahan tambahan pangan",
+        "Kelompok bahan lainnya"
+      ],
+      "Minuman": [
+        "Minuman dengan pengolahan",
+        "Kelompok bahan minuman"
+      ],
+      "Obat": [
+        "Obat tradisional",
+        "Suplemen kesehatan",
+        "Obat kuasi",
+        "Obat bebas",
+        "Obat bebas terbatas",
+        "Obat keras (dikecualikan narkotika dan psikotropika)",
+        "Bahan obat"
+      ],
+      "Kosmetik": [
+        "Kosmetika"
+      ],
+      "Produk Kimiawi": [
+        "Kelompok bahan penolong",
+        "Bahan kimiawi lainnya"
+      ],
+      "Produk Biologi": [
+        "Produk biologi"
+      ],
+      "Produk Rekayasa Genetik": [
+        "Produk rekayasa genetik"
+      ],
+      "Barang Gunaan": [
+        "Sandang",
+        "Penutup kepala",
+        "Aksesoris",
+        "Perbekalan kesehatan rumah tangga",
+        "Peralatan rumah tangga",
+        "Perlengkapan peribadatan bagi umat Islam",
+        "Kemasan produk",
+        "Alat tulis dan perlengkapan kantor",
+        "Alat kesehatan",
+        "Bahan penyusun barang gunaan"
+      ],
+      "Jasa Penyembelihan": [
+        "Jasa penyembelihan"
+      ],
+      "Jasa Pengolahan": [
+        "Jasa pengolahan"
+      ],
+      "Jasa Penyimpanan": [
+        "Jasa penyimpanan"
+      ],
+      "Jasa Pengemasan": [
+        "Jasa pengemasan"
+      ],
+      "Jasa Penjualan": [
+        "Jasa penjualan tanpa proses pengolahan atau memasak"
+      ],
+      "Jasa Penyajian": [
+        "Jasa penyajian tanpa proses pengolahan atau memasak"
+      ]
+    };
+
+    const layananEl = document.getElementById("layanan");
+    const jenisEl = document.getElementById("jenisProduk");
+    const jenisHint = document.getElementById("jenisHint");
+    const lampiranBox = document.getElementById("lampiranBox");
+
+    // Populate layanan
+    function populateLayanan(){
+      const keys = Object.keys(DATA);
+      keys.forEach(k => {
+        const opt = document.createElement("option");
+        opt.value = k;
+        opt.textContent = k;
+        layananEl.appendChild(opt);
+      });
+    }
+
+    // Populate jenis based on layanan
+    function populateJenis(layanan){
+      // reset
+      jenisEl.innerHTML = '<option value="" selected disabled>Pilih jenis produk</option>';
+      if(!layanan || !DATA[layanan]){
+        jenisHint.textContent = "Pilih layanan terlebih dahulu.";
+        jenisEl.disabled = true;
+        return;
+      }
+      DATA[layanan].forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item;
+        opt.textContent = item;
+        jenisEl.appendChild(opt);
+      });
+      jenisEl.disabled = false;
+      jenisHint.textContent = "Jenis produk sudah menyesuaikan layanan.";
+    }
+
+    layananEl.addEventListener("change", (e) => populateJenis(e.target.value));
+
+    // Branch list dynamic
+    const branchList = document.getElementById("branchList");
+    const btnAddBranch = document.getElementById("btnAddBranch");
+
+    function makeBranchItem(value = ""){
+      const wrap = document.createElement("div");
+      wrap.className = "branch-item";
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Alamat cabang/outlet";
+      input.value = value;
+
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "mini-btn danger";
+      del.textContent = "–";
+      del.title = "Hapus cabang";
+      del.addEventListener("click", () => wrap.remove());
+
+      wrap.appendChild(input);
+      wrap.appendChild(del);
+      return wrap;
+    }
+
+    btnAddBranch.addEventListener("click", () => {
+      branchList.appendChild(makeBranchItem(""));
+    });
+
+    // Default 2 empty rows biar enak diisi
+    branchList.appendChild(makeBranchItem(""));
+    branchList.appendChild(makeBranchItem(""));
+
+    // Lampiran rendering
+    function renderLampiran(){
+      const layananList = Object.keys(DATA)
+        .map(k => `<li><b>${escapeHtml(k)}</b></li>`)
+        .join("");
+
+      const jenisList = Object.entries(DATA).map(([k, arr]) => {
+        const items = arr.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+        return `
+          <div style="margin-top:10px;">
+            <div style="font-weight:800;color:#101828;margin-bottom:4px;">${escapeHtml(k)}</div>
+            <ul style="margin:6px 0 0 16px;padding:0;">${items}</ul>
+          </div>
+        `;
+      }).join("");
+
+      lampiranBox.innerHTML = `
+        <div><b>Daftar Layanan (Dropdown):</b></div>
+        <ul>${layananList}</ul>
+        <div style="margin-top:10px;"><b>Daftar Jenis Produk (Dropdown sesuai layanan):</b></div>
+        ${jenisList}
+      `;
+    }
+
+    // Export JSON
+    function getFormData(){
+      const form = document.getElementById("halalForm");
+      const fd = new FormData(form);
+      const obj = {};
+      for (const [k, v] of fd.entries()){
+        obj[k] = v;
+      }
+
+      // branches
+      const branches = Array.from(branchList.querySelectorAll("input"))
+        .map(i => i.value.trim())
+        .filter(Boolean);
+      obj.alamatCabangOutlet = branches;
+
+      // normalize empty numeric
+      obj.jumlahProduk = obj.jumlahProduk ? Number(obj.jumlahProduk) : null;
+      obj.jumlahCabang = obj.jumlahCabang ? Number(obj.jumlahCabang) : null;
+
+      return obj;
+    }
+
+    document.getElementById("btnExportJson").addEventListener("click", () => {
+      const data = getFormData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "permohonan-sertifikasi-halal-reguler.json";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    // Reset
+    document.getElementById("btnReset").addEventListener("click", () => {
+      const form = document.getElementById("halalForm");
+      form.reset();
+      populateJenis("");
+      branchList.innerHTML = "";
+      branchList.appendChild(makeBranchItem(""));
+      branchList.appendChild(makeBranchItem(""));
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+
+    // Demo fill
+    document.getElementById("btnFillDemo").addEventListener("click", () => {
+      document.getElementById("namaPelaku").value = "Contoh Nama Pelaku";
+      document.getElementById("namaUsaha").value = "Contoh Nama Usaha";
+      document.getElementById("email").value = "contoh@email.com";
+      document.getElementById("hp").value = "081234567890";
+      document.getElementById("nib").value = "1234567890123";
+      document.getElementById("skalaUsaha").value = "Mikro";
+      layananEl.value = "Makanan";
+      populateJenis("Makanan");
+      jenisEl.value = "Produk bakeri";
+      document.getElementById("jumlahProduk").value = "5";
+      document.getElementById("alamatUsaha").value = "Jl. Contoh No. 1, Kel. Contoh, Kec. Contoh, Kota Contoh, Provinsi Contoh, 12345";
+      document.getElementById("alamatProduksi").value = "Sama dengan alamat usaha";
+      document.getElementById("jumlahCabang").value = "2";
+      branchList.innerHTML = "";
+      branchList.appendChild(makeBranchItem("Outlet 1: Jl. Cabang No. 10, Kota Contoh"));
+      branchList.appendChild(makeBranchItem("Outlet 2: Jl. Cabang No. 22, Kota Contoh"));
+      // radio
+      document.querySelector('input[name="penyelia"][value="Ya"]').checked = true;
+      document.getElementById("referensi").value = "Nama Pemberi Referensi";
+    });
+
+    // Submit validation only
+    document.getElementById("halalForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = getFormData();
+      alert("Form valid. Data siap disimpan.\n\n" + JSON.stringify(data, null, 2));
+    });
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // init
+    populateLayanan();
+    populateJenis("");
+    renderLampiran();
+  </script>
+</body>
+</html>
