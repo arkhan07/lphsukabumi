@@ -5,17 +5,21 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Manajemen Produk</h2>
-            <p class="text-secondary-light mb-0">Kelola produk yang terdaftar untuk sertifikasi halal</p>
+            <p class="text-secondary-light mb-0">Produk dibuat otomatis dari form permohonan sertifikasi</p>
         </div>
         <div class="d-flex gap-2">
             <a href="{{ route('admin.products.categories') }}" class="btn btn-outline-primary">
                 <i class="ri-folder-line me-2"></i>
                 Kategori
             </a>
-            <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-                <i class="ri-add-line me-2"></i>
-                Tambah Produk
-            </a>
+        </div>
+    </div>
+
+    <!-- Info Alert -->
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+        <i class="ti ti-info-circle me-2" style="font-size: 1.25rem;"></i>
+        <div>
+            <strong>Informasi:</strong> Produk tidak dapat ditambahkan secara manual. Produk akan otomatis dibuat saat pelaku usaha atau pendamping halal mengisi form permohonan sertifikasi.
         </div>
     </div>
 
