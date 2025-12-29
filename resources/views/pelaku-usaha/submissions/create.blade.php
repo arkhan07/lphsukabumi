@@ -1,4 +1,4 @@
-<x-layouts.pelaku-usaha.app>
+<x-layouts.admin.app>
     <x-slot name="title">Formulir Permohonan Sertifikasi Halal Reguler</x-slot>
 
     <style>
@@ -515,4 +515,4 @@
         }
     </script>
     @endpush
-</x-layouts.pelaku-usaha.app>
+</x-layouts.admin.app>
