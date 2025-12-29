@@ -33,9 +33,9 @@ class RolesAndPermissionsSeeder extends Seeder
                 'description' => 'Pelaku usaha yang mengajukan sertifikat halal'
             ],
             [
-                'name' => 'Penyedia Halal',
-                'slug' => 'penyedia_halal',
-                'description' => 'Penyedia bahan halal/supplier'
+                'name' => 'Pendamping Halal Reguler (PHR)',
+                'slug' => 'pendamping_halal_reguler',
+                'description' => 'Pendamping Halal Reguler dengan akses view submission, create, dan view report'
             ],
         ];
 

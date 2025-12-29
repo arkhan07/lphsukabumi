@@ -13,12 +13,19 @@ class Submission extends Model
     protected $fillable = [
         'submission_number',
         'user_id',
+        'owner_name',
         'company_name',
         'company_email',
         'company_phone',
         'company_address',
         'region_id',
         'business_type_id',
+        'business_scale',
+        'service_type',
+        'product_type',
+        'product_count',
+        'production_site_count',
+        'branch_count',
         'npwp',
         'nib',
         'halal_certificate_number',
@@ -34,6 +41,8 @@ class Submission extends Model
         'status',
         'rejection_reason',
         'notes',
+        'has_halal_supervisor',
+        'referral_source',
         'profile_completed',
         'products_completed',
         'materials_completed',
@@ -131,5 +140,10 @@ class Submission extends Model
     public function lockedBy()
     {
         return $this->belongsTo(User::class, 'locked_by');
+    }
+
+    public function branches()
+    {
+        return $this->hasMany(SubmissionBranch::class);
     }
 }
