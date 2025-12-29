@@ -248,6 +248,10 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 // Pelaku Usaha Routes
 Route::middleware(['auth', 'role:pelaku_usaha'])->prefix('pelaku-usaha')->name('pelaku_usaha.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\PelakuUsaha\DashboardController::class, 'index'])->name('dashboard');
+
+    // Submissions
+    Route::get('/submissions/create', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'create'])->name('submissions.create');
+    Route::post('/submissions', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'store'])->name('submissions.store');
 });
 
 // Penyedia Halal Routes
