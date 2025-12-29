@@ -14,12 +14,35 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // TODO: Add statistics queries when submissions table is populated
-        // $totalSubmissions = auth()->user()->submissions()->count();
-        // $inProgress = auth()->user()->submissions()->whereIn('status', ['submitted', 'screening', 'verification'])->count();
-        // $approved = auth()->user()->submissions()->where('status', 'approved')->count();
-        // $rejected = auth()->user()->submissions()->where('status', 'rejected')->count();
+        $user = auth()->user();
 
-        return view('pelaku-usaha.dashboard');
+        // Get statistics
+        $totalSubmissions = $user->submissions()->count();
+        $inProgress = $user->submissions()->whereIn('status', ['draft', 'submitted', 'screening', 'verification', 'in_review'])->count();
+        $approved = $user->submissions()->where('status', 'approved')->count();
+        $needsRevision = $user->submissions()->where('status', 'revision_required')->count();
+
+        // Get recent submissions
+        $recentSubmissions = $user->submissions()
+            ->with(['region', 'businessType', 'products'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Status distribution for chart
+        $statusCounts = [
+            'in_progress' => $inProgress,
+            'approved' => $approved,
+            'needs_revision' => $needsRevision,
+        ];
+
+        return view('pelaku-usaha.dashboard', compact(
+            'totalSubmissions',
+            'inProgress',
+            'approved',
+            'needsRevision',
+            'recentSubmissions',
+            'statusCounts'
+        ));
     }
 }

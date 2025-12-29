@@ -250,8 +250,10 @@ Route::middleware(['auth', 'role:pelaku_usaha'])->prefix('pelaku-usaha')->name('
     Route::get('/dashboard', [App\Http\Controllers\PelakuUsaha\DashboardController::class, 'index'])->name('dashboard');
 
     // Submissions
+    Route::get('/submissions', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'index'])->name('submissions.index');
     Route::get('/submissions/create', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'create'])->name('submissions.create');
     Route::post('/submissions', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'store'])->name('submissions.store');
+    Route::get('/submissions/{submission}', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'show'])->name('submissions.show');
 });
 
 // Penyedia Halal Routes

@@ -25,17 +25,21 @@
                     </a>
                 </li>
 
-                @if(auth()->user()->hasRole('pelaku_usaha') || auth()->user()->hasRole('penyedia_halal'))
-                    {{-- PELAKU USAHA & PENYEDIA HALAL MENU --}}
+                @if(auth()->user()->hasRole('pelaku_usaha') || auth()->user()->hasRole('penyedia_halal') || auth()->user()->hasRole('pendamping_halal_reguler'))
+                    {{-- PELAKU USAHA, PENYEDIA HALAL & PENDAMPING HALAL REGULER MENU --}}
 
                     <!-- Permohonan Saya -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.submissions*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.dashboard') }}">
+                    <li class="nav-item dropdown {{ request()->routeIs('pelaku_usaha.submissions*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-submissions-pu" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('pelaku_usaha.submissions*') ? 'true' : 'false' }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text"></i>
                             </span>
-                            <span class="nav-link-title">Permohonan Saya</span>
+                            <span class="nav-link-title">Permohonan</span>
                         </a>
+                        <div class="dropdown-menu {{ request()->routeIs('pelaku_usaha.submissions*') ? 'show' : '' }}" id="navbar-submissions-pu">
+                            <a class="dropdown-item" href="{{ route('pelaku_usaha.submissions.index') }}">Daftar Permohonan</a>
+                            <a class="dropdown-item" href="{{ route('pelaku_usaha.submissions.create') }}">Buat Permohonan Baru</a>
+                        </div>
                     </li>
 
                     <!-- Produk Saya -->
