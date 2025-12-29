@@ -54,6 +54,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the submissions for the user.
+     */
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+    /**
      * Check if user has a specific role.
      */
     public function hasRole($role)
