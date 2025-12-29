@@ -44,7 +44,7 @@
 
                     <!-- Produk Saya -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.products*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.dashboard') }}">
+                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.products*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.products.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-package"></i>
                             </span>
@@ -54,7 +54,7 @@
 
                     <!-- Dokumen Saya -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.documents*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.dashboard') }}">
+                        <a class="nav-link {{ request()->routeIs('pelaku_usaha.documents*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.documents.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-folder"></i>
                             </span>
@@ -63,16 +63,16 @@
                     </li>
 
                     <!-- Keuangan -->
-                    <li class="nav-item dropdown {{ request()->routeIs('pelaku_usaha.finance*') || request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-finance-pu" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('pelaku_usaha.finance*') || request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'true' : 'false' }}">
+                    <li class="nav-item dropdown {{ request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-finance-pu" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'true' : 'false' }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-currency-dollar"></i>
                             </span>
                             <span class="nav-link-title">Keuangan</span>
                         </a>
-                        <div class="dropdown-menu {{ request()->routeIs('pelaku_usaha.finance*') || request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'show' : '' }}" id="navbar-finance-pu">
-                            <a class="dropdown-item" href="{{ route('pelaku_usaha.dashboard') }}">Invoice Saya</a>
-                            <a class="dropdown-item" href="{{ route('pelaku_usaha.dashboard') }}">Riwayat Pembayaran</a>
+                        <div class="dropdown-menu {{ request()->routeIs('pelaku_usaha.invoices*') || request()->routeIs('pelaku_usaha.payments*') ? 'show' : '' }}" id="navbar-finance-pu">
+                            <a class="dropdown-item {{ request()->routeIs('pelaku_usaha.invoices*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.invoices.index') }}">Invoice Saya</a>
+                            <a class="dropdown-item {{ request()->routeIs('pelaku_usaha.payments*') ? 'active' : '' }}" href="{{ route('pelaku_usaha.payments.index') }}">Riwayat Pembayaran</a>
                         </div>
                     </li>
 
