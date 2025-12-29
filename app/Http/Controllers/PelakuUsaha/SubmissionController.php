@@ -15,6 +15,39 @@ use Illuminate\Support\Str;
 class SubmissionController extends Controller
 {
     /**
+     * Display a listing of the user's submissions.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        $submissions = Submission::where('user_id', auth()->id())
+            ->with(['region', 'businessType'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pelaku-usaha.submissions.index', compact('submissions'));
+    }
+
+    /**
+     * Display the specified submission.
+     *
+     * @param  \App\Models\Submission  $submission
+     * @return \Illuminate\View\View
+     */
+    public function show(Submission $submission)
+    {
+        // Ensure user can only view their own submissions
+        if ($submission->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $submission->load(['region', 'businessType', 'branches', 'products']);
+
+        return view('pelaku-usaha.submissions.show', compact('submission'));
+    }
+
+    /**
      * Show the form for creating a new submission.
      *
      * @return \Illuminate\View\View

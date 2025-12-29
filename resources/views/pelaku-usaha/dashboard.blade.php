@@ -22,8 +22,8 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Total Permohonan</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">12</div>
-                        <small class="text-muted">2 bulan ini</small>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $totalSubmissions }}</div>
+                        <small class="text-muted">Semua permohonan</small>
                     </div>
                     <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                         <i class="ti ti-file-text" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Dalam Proses</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">5</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $inProgress }}</div>
                         <small class="text-muted">Menunggu verifikasi</small>
                     </div>
                     <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
@@ -52,7 +52,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Disetujui</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">6</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $approved }}</div>
                         <small class="text-muted">Sertifikat aktif</small>
                     </div>
                     <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
@@ -67,7 +67,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Perlu Perbaikan</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">1</div>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $needsRevision }}</div>
                         <small class="text-muted">Segera diperbaiki</small>
                     </div>
                     <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
@@ -135,7 +135,7 @@
             <div class="card-custom h-100">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="mb-0" style="font-weight: 600;">Permohonan Terbaru</h5>
-                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                    <a href="{{ route('pelaku_usaha.submissions.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -149,39 +149,40 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($recentSubmissions as $submission)
                             <tr>
-                                <td style="padding: 1rem;"><strong>#SH2024-015</strong></td>
-                                <td style="padding: 1rem;">Kecap Manis Premium</td>
-                                <td style="padding: 1rem;">20 Des 2024</td>
-                                <td style="padding: 1rem;"><span class="badge-custom badge-warning">Verifikasi</span></td>
+                                <td style="padding: 1rem;"><strong>{{ $submission->submission_number }}</strong></td>
+                                <td style="padding: 1rem;">{{ $submission->company_name }}</td>
+                                <td style="padding: 1rem;">{{ $submission->created_at->format('d M Y') }}</td>
+                                <td style="padding: 1rem;">
+                                    @if($submission->status == 'draft')
+                                        <span class="badge-custom badge-secondary">Draft</span>
+                                    @elseif($submission->status == 'submitted')
+                                        <span class="badge-custom badge-info">Diajukan</span>
+                                    @elseif(in_array($submission->status, ['screening', 'verification', 'in_review']))
+                                        <span class="badge-custom badge-warning">Verifikasi</span>
+                                    @elseif($submission->status == 'approved')
+                                        <span class="badge-custom badge-success">Disetujui</span>
+                                    @elseif($submission->status == 'revision_required')
+                                        <span class="badge-custom badge-danger">Perlu Perbaikan</span>
+                                    @else
+                                        <span class="badge-custom badge-secondary">{{ ucfirst($submission->status) }}</span>
+                                    @endif
+                                </td>
                                 <td style="padding: 1rem; text-align: center;">
-                                    <button class="btn btn-sm btn-primary" style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
+                                    <a href="{{ route('pelaku_usaha.submissions.show', $submission->id) }}" class="btn btn-sm btn-primary" style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
                                         <i class="ti ti-eye" style="font-size: 1.1rem;"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
+                            @empty
                             <tr>
-                                <td style="padding: 1rem;"><strong>#SH2024-012</strong></td>
-                                <td style="padding: 1rem;">Sambal Botol</td>
-                                <td style="padding: 1rem;">15 Des 2024</td>
-                                <td style="padding: 1rem;"><span class="badge-custom badge-info">Audit</span></td>
-                                <td style="padding: 1rem; text-align: center;">
-                                    <button class="btn btn-sm btn-primary" style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
-                                        <i class="ti ti-eye" style="font-size: 1.1rem;"></i>
-                                    </button>
+                                <td colspan="5" style="padding: 2rem; text-align: center;" class="text-muted">
+                                    <i class="ti ti-inbox" style="font-size: 3rem; display: block; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                    Belum ada permohonan. <a href="{{ route('pelaku_usaha.submissions.create') }}">Buat permohonan baru</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="padding: 1rem;"><strong>#SH2024-008</strong></td>
-                                <td style="padding: 1rem;">Sirup Buah</td>
-                                <td style="padding: 1rem;">10 Des 2024</td>
-                                <td style="padding: 1rem;"><span class="badge-custom badge-success">Disetujui</span></td>
-                                <td style="padding: 1rem; text-align: center;">
-                                    <button class="btn btn-sm btn-info" style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
-                                        <i class="ti ti-download" style="font-size: 1.1rem;"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -216,7 +217,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         var statusOptions = {
-            series: [5, 6, 1],
+            series: [{{ $statusCounts['in_progress'] }}, {{ $statusCounts['approved'] }}, {{ $statusCounts['needs_revision'] }}],
             chart: {
                 type: 'donut',
                 height: 300
@@ -228,6 +229,9 @@
             },
             dataLabels: {
                 enabled: true
+            },
+            noData: {
+                text: 'Belum ada data'
             }
         };
         var statusChart = new ApexCharts(document.querySelector("#statusChart"), statusOptions);
