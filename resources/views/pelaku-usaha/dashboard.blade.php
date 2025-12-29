@@ -8,10 +8,10 @@
             <p class="text-secondary-light mb-0">Selamat datang, {{ auth()->user()->name }}! Kelola permohonan sertifikasi halal Anda</p>
         </div>
         <div>
-            <button class="btn btn-primary">
+            <a href="{{ route('pelaku_usaha.submissions.create') }}" class="btn btn-primary">
                 <i class="ti ti-plus me-2"></i>
                 Ajukan Sertifikasi Baru
-            </button>
+            </a>
         </div>
     </div>
 
@@ -85,7 +85,7 @@
                 <h5 class="mb-3" style="font-weight: 600;">Aksi Cepat</h5>
                 <div class="row g-3">
                     <div class="col-12 col-md-4">
-                        <a href="#" class="d-flex align-items-center p-3 rounded-3 text-decoration-none" style="background-color: var(--neutral-50); transition: all 0.2s;">
+                        <a href="{{ route('pelaku_usaha.submissions.create') }}" class="d-flex align-items-center p-3 rounded-3 text-decoration-none" style="background-color: var(--neutral-50); transition: all 0.2s;">
                             <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
                                 <i class="ti ti-file-plus" style="font-size: 1.25rem; color: var(--neutral-600);"></i>
                             </div>
