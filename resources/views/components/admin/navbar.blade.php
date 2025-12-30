@@ -105,18 +105,33 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="{{ route('admin.profile') }}" class="dropdown-item">
-                        <i class="ti ti-user me-2"></i>
-                        Profil Saya
-                    </a>
-                    <a href="{{ route('admin.settings.index') }}" class="dropdown-item">
-                        <i class="ti ti-settings me-2"></i>
-                        Pengaturan
-                    </a>
-                    <a href="{{ route('admin.help') }}" class="dropdown-item">
-                        <i class="ti ti-help me-2"></i>
-                        Bantuan
-                    </a>
+                    @if(Auth::user()->hasRole(['pelaku_usaha', 'penyedia_halal', 'pendamping_halal_reguler']))
+                        <a href="{{ route('pelaku_usaha.profile.index') }}" class="dropdown-item">
+                            <i class="ti ti-user me-2"></i>
+                            Profil Saya
+                        </a>
+                        <a href="{{ route('pelaku_usaha.profile.index') }}" class="dropdown-item">
+                            <i class="ti ti-settings me-2"></i>
+                            Pengaturan
+                        </a>
+                        <a href="{{ route('pelaku_usaha.help.index') }}" class="dropdown-item">
+                            <i class="ti ti-help me-2"></i>
+                            Bantuan
+                        </a>
+                    @else
+                        <a href="{{ route('admin.profile') }}" class="dropdown-item">
+                            <i class="ti ti-user me-2"></i>
+                            Profil Saya
+                        </a>
+                        <a href="{{ route('admin.settings.index') }}" class="dropdown-item">
+                            <i class="ti ti-settings me-2"></i>
+                            Pengaturan
+                        </a>
+                        <a href="{{ route('admin.help') }}" class="dropdown-item">
+                            <i class="ti ti-help me-2"></i>
+                            Bantuan
+                        </a>
+                    @endif
                     <div class="dropdown-divider"></div>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

@@ -279,6 +279,15 @@ Route::middleware(['auth', 'role:pelaku_usaha,penyedia_halal,pendamping_halal_re
     Route::get('/payments/{payment}', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'show'])->name('payments.show');
     Route::get('/payments/{payment}/proof', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'downloadProof'])->name('payments.proof');
     Route::get('/payments/{payment}/receipt', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'downloadReceipt'])->name('payments.receipt');
+
+    // Profile & Settings
+    Route::get('/profile', [App\Http\Controllers\PelakuUsaha\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [App\Http\Controllers\PelakuUsaha\ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\PelakuUsaha\ProfileController::class, 'updatePassword'])->name('profile.password');
+
+    // Help & Support
+    Route::get('/help', [App\Http\Controllers\PelakuUsaha\HelpController::class, 'index'])->name('help.index');
+    Route::get('/help/contact', [App\Http\Controllers\PelakuUsaha\HelpController::class, 'contact'])->name('help.contact');
 });
 
 // Penyedia Halal Routes
