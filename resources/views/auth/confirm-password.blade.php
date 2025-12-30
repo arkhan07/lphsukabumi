@@ -231,6 +231,7 @@
                         id="password"
                         name="password"
                         class="form-control"
+                        placeholder="Masukkan password Anda"
                         required
                         autofocus
                         autocomplete="current-password"

@@ -267,6 +267,7 @@
                         id="name"
                         name="name"
                         class="form-control"
+                        placeholder="Masukkan nama lengkap Anda"
                         value="{{ old('name') }}"
                         required
                         autofocus
@@ -282,6 +283,7 @@
                         id="email"
                         name="email"
                         class="form-control"
+                        placeholder="Masukkan email Anda"
                         value="{{ old('email') }}"
                         required
                         autocomplete="username"
@@ -296,6 +298,7 @@
                         id="whatsapp"
                         name="whatsapp"
                         class="form-control"
+                        placeholder="08xxxxxxxxxx atau 628xxxxxxxxxx"
                         value="{{ old('whatsapp') }}"
                         required
                         autocomplete="tel"
@@ -311,6 +314,7 @@
                         id="password"
                         name="password"
                         class="form-control"
+                        placeholder="Masukkan kata sandi (min. 8 karakter)"
                         required
                         autocomplete="new-password"
                     >
@@ -325,6 +329,7 @@
                         id="password_confirmation"
                         name="password_confirmation"
                         class="form-control"
+                        placeholder="Ulangi kata sandi Anda"
                         required
                         autocomplete="new-password"
                     >
