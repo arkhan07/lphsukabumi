@@ -10,274 +10,118 @@
     <link rel="icon" type="image/x-icon" href="{{ asset($siteSettings['favicon']) }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset($siteSettings['favicon']) }}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <!-- Tabler CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        :root {
+            --tblr-primary: #166F61;
+            --tblr-primary-rgb: 22, 111, 97;
         }
-
         body {
-            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background-color: #f4f6fa;
         }
-
-        .forgot-container {
-            width: 100%;
-            max-width: 420px;
-        }
-
-        .forgot-card {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo-section {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .logo-section img {
-            max-height: 70px;
-            width: auto;
-            margin-bottom: 12px;
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 4px;
-        }
-
-        .logo-subtitle {
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        .form-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .form-subtitle {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        /* Floating Label Styles */
-        .form-group {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 16px 8px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .form-control:focus {
-            outline: none;
+        .btn-primary {
+            background-color: #166F61;
             border-color: #166F61;
-            box-shadow: 0 0 0 3px rgba(22, 111, 97, 0.1);
         }
-
-        .form-label {
-            position: absolute;
-            left: 16px;
-            top: 16px;
-            font-size: 16px;
-            color: #6b7280;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            background: white;
-            padding: 0 4px;
+        .btn-primary:hover {
+            background-color: #125950;
+            border-color: #125950;
         }
-
-        .form-control:focus + .form-label,
-        .form-control:not(:placeholder-shown) + .form-label {
-            top: -8px;
-            left: 12px;
-            font-size: 12px;
-            color: #166F61;
-            font-weight: 600;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(22, 111, 97, 0.4);
-        }
-
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        .back-link {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        .back-link a {
-            color: #166F61;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .back-link a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .alert-error {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            color: #991b1b;
-        }
-
-        .alert-success {
-            background: #d1fae5;
-            border-left: 4px solid #10b981;
-            color: #065f46;
-        }
-
-        .alert ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .footer-text {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        @media (max-width: 480px) {
-            .forgot-card {
-                padding: 30px 24px;
-            }
-
-            .logo-section img {
-                max-height: 60px;
-            }
+        .form-control:focus {
+            border-color: #166F61;
+            box-shadow: 0 0 0 0.25rem rgba(22, 111, 97, 0.25);
         }
     </style>
 </head>
-<body>
-    <div class="forgot-container">
-        <div class="forgot-card">
-            <!-- Logo Inside Card -->
-            <div class="logo-section">
-                <img src="{{ asset($siteSettings['logo']) }}" alt="{{ $siteSettings['name'] }}">
-                <div class="logo-text">{{ $siteSettings['name'] }}</div>
-                <div class="logo-subtitle">{{ $siteSettings['description'] }}</div>
+<body class="d-flex flex-column">
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="{{ route('home') }}" class="navbar-brand navbar-brand-autodark">
+                    <img src="{{ asset($siteSettings['logo']) }}" height="60" alt="{{ $siteSettings['name'] }}">
+                </a>
             </div>
 
-            <!-- Form Title -->
-            <h1 class="form-title">Lupa Kata Sandi?</h1>
-            <p class="form-subtitle">Masukkan alamat email Anda dan kami akan mengirimkan link untuk reset kata sandi</p>
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="h2 text-center mb-4">Lupa Kata Sandi?</h2>
+                    <p class="text-muted text-center mb-4">
+                        Masukkan alamat email Anda dan kami akan mengirimkan link untuk reset kata sandi
+                    </p>
 
-            <!-- Session Status -->
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
+                    <!-- Session Status -->
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            <div class="d-flex">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+                                </div>
+                                <div>{{ session('status') }}</div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Validation Errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            <div class="d-flex">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
+                                </div>
+                                <div>
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Forgot Password Form -->
+                    <form method="POST" action="{{ route('password.email') }}" autocomplete="off">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label class="form-label required">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control"
+                                placeholder="email@example.com"
+                                value="{{ old('email') }}"
+                                required
+                                autofocus
+                                autocomplete="username"
+                            >
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
+                                Kirim Link Reset Password
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            @endif
-
-            <!-- Validation Errors -->
-            @if ($errors->any())
-                <div class="alert alert-error">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <!-- Forgot Password Form -->
-            <form method="POST" action="{{ route('password.email') }}">
-                @csrf
-
-                <!-- Email Field -->
-                <div class="form-group">
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        class="form-control"
-                        placeholder=" "
-                        value="{{ old('email') }}"
-                        required
-                        autofocus
-                        autocomplete="username"
-                    >
-                    <label for="email" class="form-label">Email</label>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-submit">
-                    Kirim Link Reset Password
-                </button>
-            </form>
-
-            <!-- Back to Login Link -->
-            <div class="back-link">
-                <a href="{{ route('login') }}">Kembali ke Login</a>
             </div>
-        </div>
 
-        <!-- Footer -->
-        <div class="footer-text">
-            <p>&copy; {{ date('Y') }} {{ $siteSettings['name'] }}. All rights reserved.</p>
-            <p style="margin-top: 6px; opacity: 0.8;">Lembaga Pemeriksa Halal Terdaftar BPJPH</p>
+            <div class="text-center text-muted mt-3">
+                <a href="{{ route('login') }}" tabindex="-1">Kembali ke Login</a>
+            </div>
+
+            <div class="text-center text-muted mt-3">
+                <small>&copy; {{ date('Y') }} {{ $siteSettings['name'] }}. All rights reserved.</small><br>
+                <small class="text-muted">Lembaga Pemeriksa Halal Terdaftar BPJPH</small>
+            </div>
         </div>
     </div>
+
+    <!-- Tabler Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
 </body>
 </html>

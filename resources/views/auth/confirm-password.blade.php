@@ -10,260 +10,107 @@
     <link rel="icon" type="image/x-icon" href="{{ asset($siteSettings['favicon']) }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset($siteSettings['favicon']) }}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <!-- Tabler CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        :root {
+            --tblr-primary: #166F61;
+            --tblr-primary-rgb: 22, 111, 97;
         }
-
         body {
-            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background-color: #f4f6fa;
         }
-
-        .confirm-container {
-            width: 100%;
-            max-width: 420px;
-        }
-
-        .confirm-card {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo-section {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .logo-section img {
-            max-height: 70px;
-            width: auto;
-            margin-bottom: 12px;
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 4px;
-        }
-
-        .logo-subtitle {
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        .form-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .form-subtitle {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 24px;
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        .icon-wrapper {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .icon-wrapper i {
-            font-size: 64px;
-            color: #166F61;
-        }
-
-        /* Floating Label Styles */
-        .form-group {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 16px 8px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .form-control:focus {
-            outline: none;
+        .btn-primary {
+            background-color: #166F61;
             border-color: #166F61;
-            box-shadow: 0 0 0 3px rgba(22, 111, 97, 0.1);
         }
-
-        .form-label {
-            position: absolute;
-            left: 16px;
-            top: 16px;
-            font-size: 16px;
-            color: #6b7280;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            background: white;
-            padding: 0 4px;
+        .btn-primary:hover {
+            background-color: #125950;
+            border-color: #125950;
         }
-
-        .form-control:focus + .form-label,
-        .form-control:not(:placeholder-shown) + .form-label {
-            top: -8px;
-            left: 12px;
-            font-size: 12px;
-            color: #166F61;
-            font-weight: 600;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(22, 111, 97, 0.4);
-        }
-
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .alert-error {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            color: #991b1b;
-        }
-
-        .alert ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .footer-text {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        @media (max-width: 480px) {
-            .confirm-card {
-                padding: 30px 24px;
-            }
-
-            .logo-section img {
-                max-height: 60px;
-            }
-
-            .icon-wrapper i {
-                font-size: 48px;
-            }
+        .form-control:focus {
+            border-color: #166F61;
+            box-shadow: 0 0 0 0.25rem rgba(22, 111, 97, 0.25);
         }
     </style>
 </head>
-<body>
-    <div class="confirm-container">
-        <div class="confirm-card">
-            <!-- Logo Inside Card -->
-            <div class="logo-section">
-                <img src="{{ asset($siteSettings['logo']) }}" alt="{{ $siteSettings['name'] }}">
-                <div class="logo-text">{{ $siteSettings['name'] }}</div>
-                <div class="logo-subtitle">{{ $siteSettings['description'] }}</div>
+<body class="d-flex flex-column">
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="{{ route('home') }}" class="navbar-brand navbar-brand-autodark">
+                    <img src="{{ asset($siteSettings['logo']) }}" height="60" alt="{{ $siteSettings['name'] }}">
+                </a>
             </div>
 
-            <!-- Icon -->
-            <div class="icon-wrapper">
-                <i class="ti ti-shield-lock"></i>
+            <div class="card card-md">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg text-primary" width="64" height="64" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+                            <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                            <path d="M12 12l0 2.5" />
+                        </svg>
+                    </div>
+
+                    <h2 class="h2 mb-4">Area Aman</h2>
+                    <p class="text-muted mb-4">
+                        Ini adalah area aman dari aplikasi. Silakan konfirmasi kata sandi Anda sebelum melanjutkan.
+                    </p>
+
+                    <!-- Validation Errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger text-start" role="alert">
+                            <div class="d-flex">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
+                                </div>
+                                <div>
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Confirm Password Form -->
+                    <form method="POST" action="{{ route('password.confirm') }}" autocomplete="off" class="text-start">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label class="form-label required">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Password"
+                                required
+                                autofocus
+                                autocomplete="current-password"
+                            >
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary w-100">Konfirmasi</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <!-- Form Title -->
-            <h1 class="form-title">Area Aman</h1>
-            <p class="form-subtitle">
-                Ini adalah area aman dari aplikasi. Silakan konfirmasi kata sandi Anda sebelum melanjutkan.
-            </p>
-
-            <!-- Validation Errors -->
-            @if ($errors->any())
-                <div class="alert alert-error">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <!-- Confirm Password Form -->
-            <form method="POST" action="{{ route('password.confirm') }}">
-                @csrf
-
-                <!-- Password Field -->
-                <div class="form-group">
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        class="form-control"
-                        placeholder=" "
-                        required
-                        autofocus
-                        autocomplete="current-password"
-                    >
-                    <label for="password" class="form-label">Password</label>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-submit">
-                    Konfirmasi
-                </button>
-            </form>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer-text">
-            <p>&copy; {{ date('Y') }} {{ $siteSettings['name'] }}. All rights reserved.</p>
-            <p style="margin-top: 6px; opacity: 0.8;">Lembaga Pemeriksa Halal Terdaftar BPJPH</p>
+            <div class="text-center text-muted mt-3">
+                <small>&copy; {{ date('Y') }} {{ $siteSettings['name'] }}. All rights reserved.</small><br>
+                <small class="text-muted">Lembaga Pemeriksa Halal Terdaftar BPJPH</small>
+            </div>
         </div>
     </div>
+
+    <!-- Tabler Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
 </body>
 </html>
