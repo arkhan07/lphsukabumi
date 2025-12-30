@@ -4,7 +4,11 @@
 <title>{{ $title ?? 'Dashboard' }} - LPH Doa Bangsa Sukabumi</title>
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" sizes="16x16">
+@php
+    $favicon = App\Models\Setting::get('site_favicon', 'images/favicon.png');
+@endphp
+<link rel="icon" type="image/x-icon" href="{{ asset($favicon) }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset($favicon) }}">
 
 <!-- Tabler CSS -->
 <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>

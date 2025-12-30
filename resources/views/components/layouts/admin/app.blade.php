@@ -104,8 +104,11 @@
                         <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
+                                    @php
+                                        $siteName = App\Models\Setting::get('site_name', 'LPH Doa Bangsa Sukabumi');
+                                    @endphp
                                     Copyright &copy; {{ date('Y') }}
-                                    <a href="{{ route('home') }}" class="link-secondary">LPH Doa Bangsa Sukabumi</a>.
+                                    <a href="{{ route('home') }}" class="link-secondary">{{ $siteName }}</a>.
                                     All rights reserved.
                                 </li>
                             </ul>
