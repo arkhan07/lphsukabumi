@@ -350,7 +350,7 @@
 
             <!-- Pelaku Usaha Login Link -->
             <div class="pelaku-link">
-                Login sebagai <strong>Pelaku Usaha</strong>? <a href="{{ route('login.pelaku') }}">Klik di sini</a>
+                Login sebagai <strong>Pelaku Usaha</strong>? <a href="{{ route('login') }}">Klik di sini</a>
             </div>
         </div>
 
