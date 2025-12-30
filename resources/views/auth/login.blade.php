@@ -286,6 +286,7 @@
                         id="email"
                         name="email"
                         class="form-control"
+                        placeholder="Masukkan email Anda"
                         value="{{ old('email') }}"
                         required
                         autofocus
@@ -301,6 +302,7 @@
                         id="password"
                         name="password"
                         class="form-control"
+                        placeholder="Masukkan password Anda"
                         required
                         autocomplete="current-password"
                     >

@@ -247,6 +247,7 @@
                         id="email"
                         name="email"
                         class="form-control"
+                        placeholder="Masukkan email Anda"
                         value="{{ old('email', $request->email) }}"
                         required
                         autofocus
@@ -262,6 +263,7 @@
                         id="password"
                         name="password"
                         class="form-control"
+                        placeholder="Masukkan kata sandi baru (min. 8 karakter)"
                         required
                         autocomplete="new-password"
                     >
@@ -276,6 +278,7 @@
                         id="password_confirmation"
                         name="password_confirmation"
                         class="form-control"
+                        placeholder="Ulangi kata sandi baru Anda"
                         required
                         autocomplete="new-password"
                     >
