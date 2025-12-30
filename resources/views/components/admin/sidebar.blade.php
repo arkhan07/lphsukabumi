@@ -8,8 +8,9 @@
             <a href="{{ route('dashboard') }}">
                 @php
                     $logoPath = App\Models\Setting::get('site_logo', '../img/logo.webp');
+                    $siteName = App\Models\Setting::get('site_name', 'LPH Doa Bangsa Sukabumi');
                 @endphp
-                <img src="{{ asset($logoPath) }}" height="40" alt="LPH Doa Bangsa" class="navbar-brand-image">
+                <img src="{{ asset($logoPath) }}" height="40" alt="{{ $siteName }}" class="navbar-brand-image">
             </a>
         </h1>
 
