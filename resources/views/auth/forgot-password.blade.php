@@ -85,33 +85,47 @@
             text-align: center;
         }
 
+        /* Floating Label Styles */
         .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #334155;
-            margin-bottom: 6px;
+            position: relative;
+            margin-bottom: 24px;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #e2e8f0;
+            padding: 16px 16px 8px 16px;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.2s;
-            background: #f8fafc;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: white;
         }
 
         .form-control:focus {
             outline: none;
             border-color: #166F61;
-            background: white;
             box-shadow: 0 0 0 3px rgba(22, 111, 97, 0.1);
+        }
+
+        .form-label {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 16px;
+            color: #6b7280;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 0 4px;
+        }
+
+        .form-control:focus + .form-label,
+        .form-control:not(:placeholder-shown) + .form-label {
+            top: -8px;
+            left: 12px;
+            font-size: 12px;
+            color: #166F61;
+            font-weight: 600;
         }
 
         .btn-submit {
@@ -233,18 +247,18 @@
 
                 <!-- Email Field -->
                 <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
                     <input
                         type="email"
                         id="email"
                         name="email"
                         class="form-control"
-                        placeholder="Masukkan email Anda"
+                        placeholder=" "
                         value="{{ old('email') }}"
                         required
                         autofocus
                         autocomplete="username"
                     >
+                    <label for="email" class="form-label">Email</label>
                 </div>
 
                 <!-- Submit Button -->
