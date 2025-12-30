@@ -27,7 +27,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -109,9 +109,9 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #166F61;
             background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(22, 111, 97, 0.1);
         }
 
         .form-hint {
@@ -123,7 +123,7 @@
         .btn-submit {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #166F61 0%, #125950 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -135,7 +135,7 @@
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 20px rgba(22, 111, 97, 0.4);
         }
 
         .btn-submit:active {
@@ -150,7 +150,7 @@
         }
 
         .back-link a {
-            color: #667eea;
+            color: #166F61;
             font-weight: 600;
             text-decoration: none;
         }
