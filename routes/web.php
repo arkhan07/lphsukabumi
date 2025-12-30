@@ -246,7 +246,7 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
     ->name('dashboard');
 
 // Pelaku Usaha Routes
-Route::middleware(['auth', 'role:pelaku_usaha'])->prefix('pelaku-usaha')->name('pelaku_usaha.')->group(function () {
+Route::middleware(['auth', 'role:pelaku_usaha,penyedia_halal,pendamping_halal_reguler'])->prefix('pelaku-usaha')->name('pelaku_usaha.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\PelakuUsaha\DashboardController::class, 'index'])->name('dashboard');
 
     // Submissions
@@ -254,6 +254,31 @@ Route::middleware(['auth', 'role:pelaku_usaha'])->prefix('pelaku-usaha')->name('
     Route::get('/submissions/create', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'create'])->name('submissions.create');
     Route::post('/submissions', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'store'])->name('submissions.store');
     Route::get('/submissions/{submission}', [App\Http\Controllers\PelakuUsaha\SubmissionController::class, 'show'])->name('submissions.show');
+
+    // Products
+    Route::get('/products', [App\Http\Controllers\PelakuUsaha\ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/{product}', [App\Http\Controllers\PelakuUsaha\ProductController::class, 'show'])->name('products.show');
+
+    // Documents
+    Route::get('/documents', [App\Http\Controllers\PelakuUsaha\DocumentController::class, 'index'])->name('documents.index');
+    Route::get('/documents/create', [App\Http\Controllers\PelakuUsaha\DocumentController::class, 'create'])->name('documents.create');
+    Route::post('/documents', [App\Http\Controllers\PelakuUsaha\DocumentController::class, 'store'])->name('documents.store');
+    Route::get('/documents/{document}', [App\Http\Controllers\PelakuUsaha\DocumentController::class, 'show'])->name('documents.show');
+    Route::get('/documents/{document}/download', [App\Http\Controllers\PelakuUsaha\DocumentController::class, 'download'])->name('documents.download');
+    Route::delete('/documents/{document}', [App\Http\Controllers\PelakuUsaha\DocumentController::class, 'destroy'])->name('documents.destroy');
+
+    // Invoices
+    Route::get('/invoices', [App\Http\Controllers\PelakuUsaha\InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{invoice}', [App\Http\Controllers\PelakuUsaha\InvoiceController::class, 'show'])->name('invoices.show');
+    Route::get('/invoices/{invoice}/download', [App\Http\Controllers\PelakuUsaha\InvoiceController::class, 'download'])->name('invoices.download');
+    Route::get('/invoices/{invoice}/payment/create', [App\Http\Controllers\PelakuUsaha\InvoiceController::class, 'createPayment'])->name('invoices.payment.create');
+    Route::post('/invoices/{invoice}/payment', [App\Http\Controllers\PelakuUsaha\InvoiceController::class, 'storePayment'])->name('invoices.payment.store');
+
+    // Payments
+    Route::get('/payments', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'index'])->name('payments.index');
+    Route::get('/payments/{payment}', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'show'])->name('payments.show');
+    Route::get('/payments/{payment}/proof', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'downloadProof'])->name('payments.proof');
+    Route::get('/payments/{payment}/receipt', [App\Http\Controllers\PelakuUsaha\PaymentController::class, 'downloadReceipt'])->name('payments.receipt');
 });
 
 // Penyedia Halal Routes
