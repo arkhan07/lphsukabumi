@@ -1,349 +1,422 @@
 <x-layouts.admin.app>
     <x-slot name="title">Laporan Audit</x-slot>
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Laporan Audit</h2>
-            <p class="text-secondary-light mb-0">Daftar laporan hasil audit sertifikasi halal</p>
+    <div class="container-xl">
+        <!-- Page Header -->
+        <div class="page-header d-print-none">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">Laporan Audit</h2>
+                    <div class="text-muted mt-1">Daftar laporan hasil audit sertifikasi halal</div>
+                </div>
+                <div class="col-auto ms-auto">
+                    <div class="btn-list">
+                        <a href="{{ route('admin.audits.index') }}" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            Kembali ke Audit
+                        </a>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReportModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                            Buat Laporan
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d-flex gap-2">
-            <a href="{{ route('admin.audits.index') }}" class="btn btn-outline-secondary">
-                <i class="ri-arrow-left-line me-2"></i>
-                Kembali ke Audit
-            </a>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReportModal">
-                <i class="ri-add-line me-2"></i>
-                Buat Laporan
-            </button>
-        </div>
-    </div>
 
-    <!-- Success/Error Alerts -->
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="ri-checkbox-circle-line me-2"></i>
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
+        <!-- Page Body -->
+        <div class="page-body">
+            <!-- Success/Error Alerts -->
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="d-flex">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
+                    </div>
+                    <div>{{ session('success') }}</div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
 
-    @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="ri-error-warning-line me-2"></i>
-        {{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="d-flex">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 8l0 4" /><path d="M12 16l.01 0" /></svg>
+                    </div>
+                    <div>{{ session('error') }}</div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
 
-    <!-- Statistics Cards -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card-custom" style="border-left: 4px solid var(--primary-600); cursor: pointer;" onclick="filterByStatus('all')">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Total Laporan</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['total'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon primary" style="width: 50px; height: 50px;">
-                        <i class="ri-file-text-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card-custom" style="border-left: 4px solid var(--neutral-400); cursor: pointer;" onclick="filterByStatus('draft')">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Draft</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['draft'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 50px; height: 50px; background-color: var(--neutral-100); color: var(--neutral-600);">
-                        <i class="ri-draft-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card-custom" style="border-left: 4px solid var(--info-main); cursor: pointer;" onclick="filterByStatus('submitted')">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Submitted</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['submitted'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon info" style="width: 50px; height: 50px;">
-                        <i class="ri-send-plane-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card-custom" style="border-left: 4px solid var(--success-main); cursor: pointer;" onclick="filterByStatus('approved')">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Approved</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['approved'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon success" style="width: 50px; height: 50px;">
-                        <i class="ri-checkbox-circle-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Results Stats -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-md-4">
-            <div class="card-custom" style="border-left: 4px solid var(--success-600);">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Lulus Audit</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['passed'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 50px; height: 50px; background-color: var(--success-50); color: var(--success-600);">
-                        <i class="ri-shield-check-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="card-custom" style="border-left: 4px solid var(--warning-600);">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Perlu Perbaikan</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['needs_correction'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 50px; height: 50px; background-color: var(--warning-50); color: var(--warning-600);">
-                        <i class="ri-tools-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="card-custom" style="border-left: 4px solid var(--danger-600);">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light" style="font-size: 0.875rem;">Tidak Lulus</div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">{{ $stats['failed'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 50px; height: 50px; background-color: var(--danger-50); color: var(--danger-600);">
-                        <i class="ri-shield-cross-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Filters and Search -->
-    <div class="card-custom mb-4">
-        <div class="card-header-custom">
-            <h5 class="card-title mb-0">Filter & Pencarian</h5>
-        </div>
-        <div class="p-3">
-            <form method="GET" action="{{ route('admin.audits.reports.index') }}" id="filterForm">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">Cari Laporan</label>
-                        <div class="position-relative">
-                            <i class="ri-search-line position-absolute" style="left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--neutral-400);"></i>
-                            <input type="text" name="search" class="form-control ps-5" placeholder="No. Laporan, Perusahaan..." value="{{ request('search') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">Status</label>
-                        <select name="status" class="form-select" id="statusFilter">
-                            <option value="">Semua Status</option>
-                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>Submitted</option>
-                            <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">Jenis Laporan</label>
-                        <select name="report_type" class="form-select">
-                            <option value="">Semua Jenis</option>
-                            <option value="initial" {{ request('report_type') == 'initial' ? 'selected' : '' }}>Audit Awal</option>
-                            <option value="surveillance" {{ request('report_type') == 'surveillance' ? 'selected' : '' }}>Surveillance</option>
-                            <option value="renewal" {{ request('report_type') == 'renewal' ? 'selected' : '' }}>Perpanjangan</option>
-                            <option value="special" {{ request('report_type') == 'special' ? 'selected' : '' }}>Khusus</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">Hasil</label>
-                        <select name="overall_result" class="form-select">
-                            <option value="">Semua Hasil</option>
-                            <option value="passed" {{ request('overall_result') == 'passed' ? 'selected' : '' }}>Lulus</option>
-                            <option value="needs_correction" {{ request('overall_result') == 'needs_correction' ? 'selected' : '' }}>Perlu Perbaikan</option>
-                            <option value="failed" {{ request('overall_result') == 'failed' ? 'selected' : '' }}>Tidak Lulus</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">Dari Tanggal</label>
-                        <input type="date" name="date_from" class="form-control" value="{{ request('date_from') }}">
-                    </div>
-                    <div class="col-md-1">
-                        <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">&nbsp;</label>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="ri-filter-line"></i>
-                            </button>
-                            <a href="{{ route('admin.audits.reports.index') }}" class="btn btn-outline-secondary">
-                                <i class="ri-refresh-line"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Reports Table -->
-    <div class="card-custom">
-        <div class="card-header-custom">
-            <h5 class="card-title mb-0">Semua Laporan Audit</h5>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-success" onclick="exportData('excel')">
-                    <i class="ri-file-excel-line me-1"></i> Excel
-                </button>
-                <button class="btn btn-outline-danger" onclick="exportData('pdf')">
-                    <i class="ri-file-pdf-line me-1"></i> PDF
-                </button>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover" id="reportsTable">
-                <thead style="background-color: var(--neutral-50);">
-                    <tr>
-                        <th style="padding: 1rem; font-weight: 600; width: 50px;">No</th>
-                        <th style="padding: 1rem; font-weight: 600;">No. Laporan</th>
-                        <th style="padding: 1rem; font-weight: 600;">Audit</th>
-                        <th style="padding: 1rem; font-weight: 600;">Permohonan</th>
-                        <th style="padding: 1rem; font-weight: 600;">Jenis Laporan</th>
-                        <th style="padding: 1rem; font-weight: 600;">Hasil</th>
-                        <th style="padding: 1rem; font-weight: 600;">Status</th>
-                        <th style="padding: 1rem; font-weight: 600; text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($reports ?? [] as $index => $report)
-                    <tr>
-                        <td style="padding: 1rem;">{{ $reports->firstItem() + $index }}</td>
-                        <td style="padding: 1rem;">
-                            <strong class="text-primary">{{ $report->report_number ?? '-' }}</strong>
-                            <br>
-                            <small class="text-secondary-light">
-                                <i class="ri-calendar-line"></i>
-                                {{ $report->created_at ? $report->created_at->format('d M Y') : '-' }}
-                            </small>
-                        </td>
-                        <td style="padding: 1rem;">
-                            <div style="font-weight: 500;">{{ $report->audit->audit_number ?? '-' }}</div>
-                            <small class="text-secondary-light">
-                                {{ $report->audit->audit_date ? $report->audit->audit_date->format('d M Y') : '-' }}
-                            </small>
-                        </td>
-                        <td style="padding: 1rem;">
-                            <div style="font-weight: 500;">{{ $report->audit->submission->submission_number ?? '-' }}</div>
-                            <small class="text-secondary-light">{{ $report->audit->submission->company_name ?? '-' }}</small>
-                        </td>
-                        <td style="padding: 1rem;">
-                            @php
-                                $reportTypes = [
-                                    'initial' => 'Audit Awal',
-                                    'surveillance' => 'Surveillance',
-                                    'renewal' => 'Perpanjangan',
-                                    'special' => 'Khusus',
-                                ];
-                            @endphp
-                            <span class="badge badge-sm" style="background-color: var(--purple-50); color: var(--purple-600);">
-                                {{ $reportTypes[$report->report_type] ?? ucfirst($report->report_type ?? '-') }}
-                            </span>
-                        </td>
-                        <td style="padding: 1rem;">
-                            @php
-                                $resultConfig = [
-                                    'passed' => ['class' => 'badge-success', 'icon' => 'ri-shield-check-line', 'text' => 'Lulus'],
-                                    'needs_correction' => ['class' => 'badge-warning', 'icon' => 'ri-tools-line', 'text' => 'Perlu Perbaikan'],
-                                    'failed' => ['class' => 'badge-danger', 'icon' => 'ri-shield-cross-line', 'text' => 'Tidak Lulus'],
-                                ];
-                                $rConfig = $resultConfig[$report->overall_result ?? ''] ?? ['class' => 'badge-secondary', 'icon' => 'ri-question-line', 'text' => '-'];
-                            @endphp
-                            <span class="badge-custom {{ $rConfig['class'] }}">
-                                <i class="{{ $rConfig['icon'] }} me-1"></i>
-                                {{ $rConfig['text'] }}
-                            </span>
-                        </td>
-                        <td style="padding: 1rem;">
-                            @php
-                                $statusConfig = [
-                                    'draft' => ['class' => 'badge-secondary', 'icon' => 'ri-draft-line', 'text' => 'Draft'],
-                                    'submitted' => ['class' => 'badge-info', 'icon' => 'ri-send-plane-line', 'text' => 'Submitted'],
-                                    'approved' => ['class' => 'badge-success', 'icon' => 'ri-checkbox-circle-line', 'text' => 'Approved'],
-                                ];
-                                $config = $statusConfig[$report->status] ?? ['class' => 'badge-secondary', 'icon' => 'ri-question-line', 'text' => ucfirst($report->status ?? '-')];
-                            @endphp
-                            <span class="badge-custom {{ $config['class'] }}">
-                                <i class="{{ $config['icon'] }} me-1"></i>
-                                {{ $config['text'] }}
-                            </span>
-                        </td>
-                        <td style="padding: 1rem; text-align: center;">
-                            <div class="btn-group">
-                                <a href="{{ route('admin.audits.reports.show', $report->id) }}" class="btn btn-outline-primary" title="Lihat Detail">
-                                    <i class="ri-eye-line"></i>
-                                </a>
-                                @if($report->status != 'approved')
-                                <a href="{{ route('admin.audits.reports.edit', $report->id) }}" class="btn btn-outline-success" title="Edit">
-                                    <i class="ri-edit-line"></i>
-                                </a>
-                                @endif
-                                @if($report->status == 'submitted')
-                                <button class="btn btn-outline-info" onclick="approveReport({{ $report->id }})" title="Approve">
-                                    <i class="ri-checkbox-circle-line"></i>
-                                </button>
-                                @endif
-                                <a href="{{ route('admin.audits.reports.download', $report->id) }}" class="btn btn-outline-danger" title="Download PDF" target="_blank">
-                                    <i class="ri-download-line"></i>
-                                </a>
+            <!-- Status Statistics Cards -->
+            <div class="row row-deck row-cards mb-3">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card" style="cursor: pointer;" onclick="filterByStatus('all')">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Total Laporan</div>
                             </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="8" class="text-center" style="padding: 3rem;">
-                            <i class="ri-file-text-line" style="font-size: 3rem; color: var(--neutral-300);"></i>
-                            <p class="text-secondary-light mt-2 mb-0">Tidak ada laporan audit</p>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['total'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm" style="background-color: var(--tblr-primary-lt);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-primary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-primary"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card" style="cursor: pointer;" onclick="filterByStatus('draft')">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Draft</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['draft'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm bg-secondary-lt">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 13l-1 2l1 2" /><path d="M14 13l1 2l-1 2" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-secondary"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card" style="cursor: pointer;" onclick="filterByStatus('submitted')">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Submitted</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['submitted'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm" style="background-color: var(--tblr-info-lt);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-info" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-info"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card" style="cursor: pointer;" onclick="filterByStatus('approved')">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Approved</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['approved'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm" style="background-color: var(--tblr-success-lt);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-success" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-success"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Statistics Cards -->
+            <div class="row row-deck row-cards mb-3">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Lulus Audit</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['passed'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm" style="background-color: var(--tblr-green-lt);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /><path d="M9 12l2 2l4 -4" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-green"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Perlu Perbaikan</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['needs_correction'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm" style="background-color: var(--tblr-orange-lt);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-orange" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10h3v-3l-3.5 -3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1 -3 3l-6 -6a6 6 0 0 1 -8 -8l3.5 3.5" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-orange"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Tidak Lulus</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $stats['failed'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="avatar avatar-sm" style="background-color: var(--tblr-red-lt);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /><path d="M9 12l6 0" /></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-status-top bg-red"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title">Filter & Pencarian</h3>
+                </div>
+                <div class="card-body">
+                    <form method="GET" action="{{ route('admin.audits.reports.index') }}" id="filterForm">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Cari Laporan</label>
+                                <div class="input-icon">
+                                    <span class="input-icon-addon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                                    </span>
+                                    <input type="text" name="search" class="form-control" placeholder="No. Laporan, Perusahaan..." value="{{ request('search') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select" id="statusFilter">
+                                    <option value="">Semua Status</option>
+                                    <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                                    <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>Submitted</option>
+                                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Jenis Laporan</label>
+                                <select name="report_type" class="form-select">
+                                    <option value="">Semua Jenis</option>
+                                    <option value="initial" {{ request('report_type') == 'initial' ? 'selected' : '' }}>Audit Awal</option>
+                                    <option value="surveillance" {{ request('report_type') == 'surveillance' ? 'selected' : '' }}>Surveillance</option>
+                                    <option value="renewal" {{ request('report_type') == 'renewal' ? 'selected' : '' }}>Perpanjangan</option>
+                                    <option value="special" {{ request('report_type') == 'special' ? 'selected' : '' }}>Khusus</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Hasil</label>
+                                <select name="overall_result" class="form-select">
+                                    <option value="">Semua Hasil</option>
+                                    <option value="passed" {{ request('overall_result') == 'passed' ? 'selected' : '' }}>Lulus</option>
+                                    <option value="needs_correction" {{ request('overall_result') == 'needs_correction' ? 'selected' : '' }}>Perlu Perbaikan</option>
+                                    <option value="failed" {{ request('overall_result') == 'failed' ? 'selected' : '' }}>Tidak Lulus</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Dari Tanggal</label>
+                                <input type="date" name="date_from" class="form-control" value="{{ request('date_from') }}">
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="btn-list">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h6v6h-6z" /><path d="M14 4h6v6h-6z" /><path d="M4 14h6v6h-6z" /><path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /></svg>
+                                    </button>
+                                    <a href="{{ route('admin.audits.reports.index') }}" class="btn btn-outline-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Reports Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Semua Laporan Audit</h3>
+                    <div class="card-actions">
+                        <div class="btn-list">
+                            <button class="btn btn-outline-success" onclick="exportData('excel')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 12l4 5" /><path d="M10 17l4 -5" /></svg>
+                                Excel
+                            </button>
+                            <button class="btn btn-outline-danger" onclick="exportData('pdf')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" /><path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" /><path d="M17 18h2" /><path d="M20 15h-3v6" /><path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" /></svg>
+                                PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                        <thead>
+                            <tr>
+                                <th class="w-1">No</th>
+                                <th>No. Laporan</th>
+                                <th>Audit</th>
+                                <th>Permohonan</th>
+                                <th>Jenis Laporan</th>
+                                <th>Hasil</th>
+                                <th>Status</th>
+                                <th class="w-1">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($reports ?? [] as $index => $report)
+                            <tr>
+                                <td><span class="text-muted">{{ $reports->firstItem() + $index }}</span></td>
+                                <td>
+                                    <div class="fw-bold text-primary">{{ $report->report_number ?? '-' }}</div>
+                                    <div class="text-muted small">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg>
+                                        {{ $report->created_at ? $report->created_at->format('d M Y') : '-' }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-medium">{{ $report->audit->audit_number ?? '-' }}</div>
+                                    <div class="text-muted small">
+                                        {{ $report->audit->audit_date ? $report->audit->audit_date->format('d M Y') : '-' }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-medium">{{ $report->audit->submission->submission_number ?? '-' }}</div>
+                                    <div class="text-muted small">{{ $report->audit->submission->company_name ?? '-' }}</div>
+                                </td>
+                                <td>
+                                    @php
+                                        $reportTypes = [
+                                            'initial' => 'Audit Awal',
+                                            'surveillance' => 'Surveillance',
+                                            'renewal' => 'Perpanjangan',
+                                            'special' => 'Khusus',
+                                        ];
+                                    @endphp
+                                    <span class="badge bg-purple-lt">
+                                        {{ $reportTypes[$report->report_type] ?? ucfirst($report->report_type ?? '-') }}
+                                    </span>
+                                </td>
+                                <td>
+                                    @php
+                                        $resultConfig = [
+                                            'passed' => ['class' => 'bg-green-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /><path d="M9 12l2 2l4 -4" /></svg>', 'text' => 'Lulus'],
+                                            'needs_correction' => ['class' => 'bg-orange-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10h3v-3l-3.5 -3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1 -3 3l-6 -6a6 6 0 0 1 -8 -8l3.5 3.5" /></svg>', 'text' => 'Perlu Perbaikan'],
+                                            'failed' => ['class' => 'bg-red-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /><path d="M9 12l6 0" /></svg>', 'text' => 'Tidak Lulus'],
+                                        ];
+                                        $rConfig = $resultConfig[$report->overall_result ?? ''] ?? ['class' => 'bg-secondary-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" /><path d="M12 19l0 .01" /></svg>', 'text' => '-'];
+                                    @endphp
+                                    <span class="badge {{ $rConfig['class'] }}">
+                                        {!! $rConfig['icon'] !!}
+                                        {{ $rConfig['text'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    @php
+                                        $statusConfig = [
+                                            'draft' => ['class' => 'bg-secondary-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 13l-1 2l1 2" /><path d="M14 13l1 2l-1 2" /></svg>', 'text' => 'Draft'],
+                                            'submitted' => ['class' => 'bg-info-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>', 'text' => 'Submitted'],
+                                            'approved' => ['class' => 'bg-success-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>', 'text' => 'Approved'],
+                                        ];
+                                        $config = $statusConfig[$report->status] ?? ['class' => 'bg-secondary-lt', 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" /><path d="M12 19l0 .01" /></svg>', 'text' => ucfirst($report->status ?? '-')];
+                                    @endphp
+                                    <span class="badge {{ $config['class'] }}">
+                                        {!! $config['icon'] !!}
+                                        {{ $config['text'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-list flex-nowrap">
+                                        <a href="{{ route('admin.audits.reports.show', $report->id) }}" class="btn btn-ghost-primary btn-icon" title="Lihat Detail">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                                        </a>
+                                        @if($report->status != 'approved')
+                                        <a href="{{ route('admin.audits.reports.edit', $report->id) }}" class="btn btn-ghost-success btn-icon" title="Edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                                        </a>
+                                        @endif
+                                        @if($report->status == 'submitted')
+                                        <button class="btn btn-ghost-info btn-icon" onclick="approveReport({{ $report->id }})" title="Approve">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+                                        </button>
+                                        @endif
+                                        <a href="{{ route('admin.audits.reports.download', $report->id) }}" class="btn btn-ghost-danger btn-icon" title="Download PDF" target="_blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8">
+                                    <div class="empty">
+                                        <div class="empty-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" /></svg>
+                                        </div>
+                                        <p class="empty-title">Tidak ada laporan audit</p>
+                                        <p class="empty-subtitle text-muted">
+                                            Belum ada laporan audit yang dibuat
+                                        </p>
+                                        <div class="empty-action">
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReportModal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                                Buat Laporan Pertama
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                @if(isset($reports) && $reports->hasPages())
+                <div class="card-footer d-flex align-items-center">
+                    <p class="m-0 text-muted">Menampilkan <span>{{ $reports->firstItem() }}</span> sampai <span>{{ $reports->lastItem() }}</span> dari <span>{{ $reports->total() }}</span> laporan</p>
+                    <ul class="pagination m-0 ms-auto">
+                        {{ $reports->links() }}
+                    </ul>
+                </div>
+                @endif
+            </div>
         </div>
-        @if(isset($reports) && $reports->hasPages())
-        <div class="p-3">
-            {{ $reports->links() }}
-        </div>
-        @endif
     </div>
 
     <!-- Create Report Modal -->
-    <div class="modal fade" id="createReportModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal modal-blur fade" id="createReportModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <i class="ri-file-text-line me-2"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" /></svg>
                         Buat Laporan Audit
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" action="{{ route('admin.audits.reports.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-md-12">
-                                <label class="form-label" style="font-weight: 500;">Pilih Audit <span class="text-danger">*</span></label>
+                                <label class="form-label required">Pilih Audit</label>
                                 <select name="audit_id" class="form-select" required>
                                     <option value="">Pilih Audit</option>
                                     @foreach($audits ?? [] as $audit)
@@ -353,11 +426,11 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                <small class="text-secondary-light">Pilih audit yang akan dibuatkan laporan</small>
+                                <small class="form-hint">Pilih audit yang akan dibuatkan laporan</small>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label" style="font-weight: 500;">Jenis Laporan <span class="text-danger">*</span></label>
+                                <label class="form-label required">Jenis Laporan</label>
                                 <select name="report_type" class="form-select" required>
                                     <option value="">Pilih Jenis</option>
                                     <option value="initial">Audit Awal</option>
@@ -368,7 +441,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label" style="font-weight: 500;">Hasil Keseluruhan <span class="text-danger">*</span></label>
+                                <label class="form-label required">Hasil Keseluruhan</label>
                                 <select name="overall_result" class="form-select" required>
                                     <option value="">Pilih Hasil</option>
                                     <option value="passed">Lulus</option>
@@ -378,38 +451,36 @@
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label" style="font-weight: 500;">Ringkasan Eksekutif <span class="text-danger">*</span></label>
+                                <label class="form-label required">Ringkasan Eksekutif</label>
                                 <textarea name="executive_summary" class="form-control" rows="4" placeholder="Ringkasan hasil audit..." required></textarea>
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label" style="font-weight: 500;">Kesimpulan</label>
+                                <label class="form-label">Kesimpulan</label>
                                 <textarea name="conclusion" class="form-control" rows="3" placeholder="Kesimpulan audit..."></textarea>
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label" style="font-weight: 500;">Rekomendasi</label>
+                                <label class="form-label">Rekomendasi</label>
                                 <textarea name="recommendations" class="form-control" rows="3" placeholder="Rekomendasi untuk pelaku usaha..."></textarea>
                             </div>
 
                             <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="auto_generate" id="autoGenerate" checked>
-                                    <label class="form-check-label" for="autoGenerate">
-                                        Otomatis generate nomor laporan
-                                    </label>
-                                </div>
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="auto_generate" checked>
+                                    <span class="form-check-label">Otomatis generate nomor laporan</span>
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" name="submit_action" value="draft" class="btn btn-outline-primary">
-                            <i class="ri-draft-line me-2"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 13l-1 2l1 2" /><path d="M14 13l1 2l-1 2" /></svg>
                             Simpan sebagai Draft
                         </button>
                         <button type="submit" name="submit_action" value="submit" class="btn btn-primary">
-                            <i class="ri-send-plane-line me-2"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>
                             Buat & Submit
                         </button>
                     </div>
