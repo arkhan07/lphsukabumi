@@ -1,268 +1,284 @@
 <x-layouts.admin.app>
     <x-slot name="title">Manajemen Pengguna</x-slot>
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Manajemen Pengguna</h2>
-            <p class="text-secondary-light mb-0">Kelola pengguna dan akses sistem LPH Sukabumi</p>
-        </div>
-        <div>
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
-                <i class="ri-user-add-line me-2"></i>
-                Tambah Pengguna
-            </a>
-        </div>
-    </div>
-
-    <!-- Stats Cards -->
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-md-4 col-lg">
-            <div class="card-custom h-100">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Total Pengguna</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['total'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <i class="ti ti-users" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
-                    </div>
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <div class="page-pretitle">Manajemen Sistem</div>
+                    <h2 class="page-title">Pengguna</h2>
                 </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg">
-            <div class="card-custom h-100">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Admin LPH</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['admin_lph'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <i class="ti ti-shield-star" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg">
-            <div class="card-custom h-100">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Auditor</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['auditor'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <i class="ti ti-shield-check" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg">
-            <div class="card-custom h-100">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Pelaku Usaha</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['pelaku_usaha'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <i class="ti ti-building" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg">
-            <div class="card-custom h-100">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-secondary-light mb-1" style="font-size: 0.875rem;">Penyedia Halal</div>
-                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--neutral-900);">{{ $stats['penyedia_halal'] ?? 0 }}</div>
-                    </div>
-                    <div class="stat-icon" style="width: 48px; height: 48px; background-color: var(--neutral-100); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <i class="ti ti-shopping-bag" style="font-size: 1.5rem; color: var(--neutral-600);"></i>
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <a href="{{ route('admin.users.roles') }}" class="btn btn-outline-primary d-none d-sm-inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /></svg>
+                            Kelola Role & Permission
+                        </a>
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                            Tambah Pengguna
+                        </a>
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary d-sm-none btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Table -->
-    <div class="card-custom">
-        <div class="card-header-custom">
-            <h5 class="card-title mb-0">Semua Pengguna</h5>
-            <div class="d-flex gap-2">
-                <div class="position-relative">
-                    <i class="ri-search-line position-absolute" style="left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--neutral-400);"></i>
-                    <input type="text" id="searchInput" class="form-control ps-5" placeholder="Cari pengguna..." style="width: 250px;">
+    <div class="page-body">
+        <div class="container-xl">
+            <!-- Statistics Cards -->
+            <div class="row row-deck row-cards mb-3">
+                <div class="col-sm-6 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Total Pengguna</div>
+                            </div>
+                            <div class="h1 mb-0 mt-1">{{ $stats['total'] ?? 0 }}</div>
+                        </div>
+                    </div>
                 </div>
-                <select class="form-select" id="roleFilter" style="width: 180px;">
-                    <option value="">Semua Role</option>
-                    <option value="admin_lph">Admin LPH</option>
-                    <option value="manajer_teknis">Manajer Teknis</option>
-                    <option value="auditor_halal">Auditor Halal</option>
-                    <option value="pelaku_usaha">Pelaku Usaha</option>
-                    <option value="penyedia_halal">Penyedia Halal</option>
-                </select>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover" id="usersTable">
-                <thead style="background-color: var(--neutral-50);">
-                    <tr>
-                        <th style="padding: 1rem; font-weight: 600; width: 60px;">No</th>
-                        <th style="padding: 1rem; font-weight: 600;">Nama</th>
-                        <th style="padding: 1rem; font-weight: 600;">Email</th>
-                        <th style="padding: 1rem; font-weight: 600;">Telepon</th>
-                        <th style="padding: 1rem; font-weight: 600;">Role</th>
-                        <th style="padding: 1rem; font-weight: 600;">Status</th>
-                        <th style="padding: 1rem; font-weight: 600;">Dibuat</th>
-                        <th style="padding: 1rem; font-weight: 600; text-align: center; width: 180px;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($users ?? [] as $index => $user)
-                    <tr>
-                        <td style="padding: 1rem;">{{ $index + 1 }}</td>
-                        <td style="padding: 1rem;">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=166F61&color=fff"
-                                     alt="{{ $user->name }}"
-                                     style="width: 40px; height: 40px; border-radius: 50%;">
-                                <div>
-                                    <div style="font-weight: 500;">{{ $user->name }}</div>
-                                    <small class="text-secondary-light">ID: {{ $user->id }}</small>
+                <div class="col-sm-6 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Admin LPH</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 mt-1">{{ $stats['admin_lph'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-red-lt">Admin</span>
                                 </div>
                             </div>
-                        </td>
-                        <td style="padding: 1rem;">{{ $user->email }}</td>
-                        <td style="padding: 1rem;">{{ $user->phone ?? '-' }}</td>
-                        <td style="padding: 1rem;">
-                            @if($user->roles && $user->roles->count() > 0)
-                                @foreach($user->roles as $role)
-                                    <span class="badge-custom
-                                        @if($role->name === 'admin_lph') badge-danger
-                                        @elseif($role->name === 'auditor_halal') badge-success
-                                        @elseif($role->name === 'manajer_teknis') badge-warning
-                                        @elseif($role->name === 'pelaku_usaha') badge-primary
-                                        @else badge-info
-                                        @endif
-                                    ">{{ ucwords(str_replace('_', ' ', $role->name)) }}</span>
-                                @endforeach
-                            @else
-                                <span class="badge-custom badge-secondary">No Role</span>
-                            @endif
-                        </td>
-                        <td style="padding: 1rem;">
-                            @if($user->status === 'active')
-                                <span class="badge-custom badge-success">Aktif</span>
-                            @elseif($user->status === 'inactive')
-                                <span class="badge-custom badge-danger">Nonaktif</span>
-                            @else
-                                <span class="badge-custom badge-warning">Pending</span>
-                            @endif
-                        </td>
-                        <td style="padding: 1rem;">{{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}</td>
-                        <td style="padding: 1rem;">
-                            <div class="d-flex gap-2 justify-content-center">
-                                <a href="{{ route('admin.users.edit', $user->id) }}"
-                                   class="btn btn-sm btn-success"
-                                   title="Edit"
-                                   style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
-                                    <i class="ti ti-edit" style="font-size: 1.1rem;"></i>
-                                </a>
-                                <form action="{{ route('admin.users.destroy', $user->id) }}"
-                                      method="POST"
-                                      class="d-inline"
-                                      onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            class="btn btn-sm btn-danger"
-                                            title="Hapus"
-                                            style="min-width: 38px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center;">
-                                        <i class="ti ti-trash" style="font-size: 1.1rem;"></i>
-                                    </button>
-                                </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Auditor</div>
                             </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="8" class="text-center" style="padding: 2rem;">
-                            <i class="ri-user-line" style="font-size: 3rem; color: var(--neutral-300);"></i>
-                            <p class="mt-2 mb-0 text-secondary-light">Belum ada pengguna</p>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 mt-1">{{ $stats['auditor'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-green-lt">Auditor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Pelaku Usaha</div>
+                            </div>
+                            <div class="h1 mb-0 mt-1">{{ $stats['pelaku_usaha'] ?? 0 }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Penyedia Halal</div>
+                            </div>
+                            <div class="h1 mb-0 mt-1">{{ $stats['penyedia_halal'] ?? 0 }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <div class="d-flex">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+                    </div>
+                    <div>{{ session('success') }}</div>
+                </div>
+                <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <div class="d-flex">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
+                    </div>
+                    <div>{{ session('error') }}</div>
+                </div>
+                <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+            </div>
+            @endif
+
+            <!-- Users Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Daftar Pengguna</h3>
+                </div>
+                <div class="card-body border-bottom py-3">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                                </span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Cari nama, email, atau telepon...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="roleFilter">
+                                <option value="">Semua Role</option>
+                                <option value="admin_lph">Admin LPH</option>
+                                <option value="manajer_teknis">Manajer Teknis</option>
+                                <option value="auditor_halal">Auditor Halal</option>
+                                <option value="pelaku_usaha">Pelaku Usaha</option>
+                                <option value="penyedia_halal">Penyedia Halal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="statusFilter">
+                                <option value="">Semua Status</option>
+                                <option value="active">Aktif</option>
+                                <option value="inactive">Nonaktif</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap datatable" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Pengguna</th>
+                                <th>Email</th>
+                                <th>Telepon</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Terdaftar</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($users ?? [] as $index => $user)
+                            <tr>
+                                <td><span class="text-muted">{{ $index + 1 }}</span></td>
+                                <td>
+                                    <div class="d-flex py-1 align-items-center">
+                                        <span class="avatar me-2" style="background-image: url(https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=206bc4&color=fff)"></span>
+                                        <div class="flex-fill">
+                                            <div class="font-weight-medium">{{ $user->name }}</div>
+                                            <div class="text-muted"><small>ID: {{ $user->id }}</small></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-muted">{{ $user->email }}</td>
+                                <td class="text-muted">{{ $user->phone ?? '-' }}</td>
+                                <td>
+                                    @if($user->roles && $user->roles->count() > 0)
+                                        @foreach($user->roles as $role)
+                                            <span class="badge
+                                                @if($role->name === 'admin_lph') bg-red-lt
+                                                @elseif($role->name === 'auditor_halal') bg-green-lt
+                                                @elseif($role->name === 'manajer_teknis') bg-yellow-lt
+                                                @elseif($role->name === 'pelaku_usaha') bg-blue-lt
+                                                @else bg-cyan-lt
+                                                @endif
+                                            ">{{ ucwords(str_replace('_', ' ', $role->name)) }}</span>
+                                        @endforeach
+                                    @else
+                                        <span class="badge bg-secondary-lt">No Role</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($user->status === 'active')
+                                        <span class="badge bg-success-lt">Aktif</span>
+                                    @elseif($user->status === 'inactive')
+                                        <span class="badge bg-danger-lt">Nonaktif</span>
+                                    @else
+                                        <span class="badge bg-warning-lt">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="text-muted">{{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-icon btn-sm btn-ghost-primary" title="Edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                                    </a>
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna {{ $user->name }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-icon btn-sm btn-ghost-danger" title="Hapus">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg mb-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                                    <div>Belum ada pengguna</div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                @if($users && $users->hasPages())
+                <div class="card-footer d-flex align-items-center">
+                    {{ $users->links() }}
+                </div>
+                @endif
+            </div>
         </div>
     </div>
 
-    @push('styles')
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-    <style>
-        /* Card custom styling */
-        .card-custom {
-            background: white;
-            border: 1px solid var(--neutral-200);
-            border-radius: 8px;
-            padding: 1.25rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
-        }
-
-        .card-custom:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-    </style>
-    @endpush
-
     @push('scripts')
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-
     <script>
-        $(document).ready(function() {
-            // Initialize DataTable
-            var table = $('#usersTable').DataTable({
-                language: {
-                    lengthMenu: "Tampilkan _MENU_ data per halaman",
-                    zeroRecords: "Data tidak ditemukan",
-                    info: "Menampilkan halaman _PAGE_ dari _PAGES_",
-                    infoEmpty: "Tidak ada data tersedia",
-                    infoFiltered: "(difilter dari _MAX_ total data)",
-                    search: "Cari:",
-                    paginate: {
-                        first: "Pertama",
-                        last: "Terakhir",
-                        next: "Selanjutnya",
-                        previous: "Sebelumnya"
-                    }
-                },
-                order: [[6, 'desc']], // Sort by Created At column
-                pageLength: 10,
-                columnDefs: [
-                    { orderable: false, targets: [7] } // Disable sorting on Actions column
-                ]
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const roleFilter = document.getElementById('roleFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const table = document.getElementById('usersTable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-            // Custom search input
-            $('#searchInput').on('keyup', function() {
-                table.search(this.value).draw();
-            });
+            function filterTable() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const roleValue = roleFilter.value.toLowerCase();
+                const statusValue = statusFilter.value.toLowerCase();
 
-            // Role filter
-            $('#roleFilter').on('change', function() {
-                var filterValue = this.value;
-                if (filterValue) {
-                    table.column(4).search(filterValue).draw();
-                } else {
-                    table.column(4).search('').draw();
+                for (let row of rows) {
+                    if (row.children.length === 1) continue; // Skip empty row
+
+                    const name = row.children[1].textContent.toLowerCase();
+                    const email = row.children[2].textContent.toLowerCase();
+                    const phone = row.children[3].textContent.toLowerCase();
+                    const role = row.children[4].textContent.toLowerCase();
+                    const status = row.children[5].textContent.toLowerCase();
+
+                    const matchesSearch = !searchTerm ||
+                        name.includes(searchTerm) ||
+                        email.includes(searchTerm) ||
+                        phone.includes(searchTerm);
+
+                    const matchesRole = !roleValue || role.includes(roleValue.replace('_', ' '));
+                    const matchesStatus = !statusValue || status.includes(statusValue);
+
+                    row.style.display = (matchesSearch && matchesRole && matchesStatus) ? '' : 'none';
                 }
-            });
+            }
+
+            searchInput.addEventListener('keyup', filterTable);
+            roleFilter.addEventListener('change', filterTable);
+            statusFilter.addEventListener('change', filterTable);
         });
     </script>
     @endpush
