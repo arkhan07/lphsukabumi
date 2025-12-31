@@ -1,279 +1,299 @@
 <x-layouts.admin.app>
     <x-slot name="title">Laporan Sertifikasi</x-slot>
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Laporan Sertifikasi</h2>
-            <p class="text-secondary-light mb-0">Laporan statistik dan data sertifikasi halal</p>
-        </div>
-        <div class="d-flex gap-2">
-            <button class="btn btn-success" onclick="exportReport('excel')">
-                <i class="ri-file-excel-2-line me-2"></i>
-                Export Excel
-            </button>
-            <button class="btn btn-danger" onclick="exportReport('pdf')">
-                <i class="ri-file-pdf-line me-2"></i>
-                Export PDF
-            </button>
-        </div>
-    </div>
-
-    <!-- Date Range Filter -->
-    <div class="card-custom mb-4">
-        <form method="GET" action="{{ route('admin.reports.certification') }}">
-            <div class="row g-3">
-                <div class="col-12 col-md-4">
-                    <label for="startDate" class="form-label" style="font-weight: 500;">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="startDate" name="start_date" value="{{ $startDate }}">
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <div class="page-pretitle">Laporan</div>
+                    <h2 class="page-title">Sertifikasi</h2>
+                    <p class="text-muted mt-1">Laporan statistik dan data sertifikasi halal</p>
                 </div>
-                <div class="col-12 col-md-4">
-                    <label for="endDate" class="form-label" style="font-weight: 500;">Tanggal Akhir</label>
-                    <input type="date" class="form-control" id="endDate" name="end_date" value="{{ $endDate }}">
-                </div>
-                <div class="col-12 col-md-4 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="ri-filter-line me-2"></i>
-                        Filter Data
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <!-- Statistics Cards -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon primary">
-                    <i class="ri-file-list-3-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Total Permohonan</div>
-                    <div class="stat-value">{{ $submissionStats['total'] ?? 0 }}</div>
-                    <div class="stat-trend {{ ($submissionStats['total'] ?? 0) > 0 ? 'up' : '' }}">
-                        <i class="ri-calendar-line"></i>
-                        Periode yang dipilih
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i class="ri-file-add-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Permohonan Baru</div>
-                    <div class="stat-value">{{ $submissionStats['new'] ?? 0 }}</div>
-                    <div class="stat-trend">
-                        <i class="ri-percent-line"></i>
-                        {{ $submissionStats['total'] > 0 ? round(($submissionStats['new'] / $submissionStats['total']) * 100, 1) : 0 }}% dari total
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon warning">
-                    <i class="ri-refresh-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Perpanjangan</div>
-                    <div class="stat-value">{{ $submissionStats['renewal'] ?? 0 }}</div>
-                    <div class="stat-trend">
-                        <i class="ri-percent-line"></i>
-                        {{ $submissionStats['total'] > 0 ? round(($submissionStats['renewal'] / $submissionStats['total']) * 100, 1) : 0 }}% dari total
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon success">
-                    <i class="ri-checkbox-circle-line"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-label">Disetujui</div>
-                    <div class="stat-value">{{ $statusStats['approved'] ?? 0 }}</div>
-                    <div class="stat-trend {{ ($statusStats['approved'] ?? 0) > 0 ? 'up' : '' }}">
-                        <i class="ri-percent-line"></i>
-                        {{ $submissionStats['total'] > 0 ? round(($statusStats['approved'] / $submissionStats['total']) * 100, 1) : 0 }}% approval rate
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <button class="btn btn-success d-none d-sm-inline-block" onclick="exportReport('excel')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 13h4" /><path d="M12 11v6" /></svg>
+                            Export Excel
+                        </button>
+                        <button class="btn btn-danger d-none d-sm-inline-block" onclick="exportReport('pdf')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17h6" /><path d="M9 13h6" /></svg>
+                            Export PDF
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Additional Stats Row -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon danger">
-                    <i class="ri-close-circle-line"></i>
+    <div class="page-body">
+        <div class="container-xl">
+            <!-- Date Range Filter -->
+            <form method="GET" action="{{ route('admin.reports.certification') }}" class="card mb-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label required">Tanggal Mulai</label>
+                            <input type="date" class="form-control" name="start_date" value="{{ $startDate }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label required">Tanggal Akhir</label>
+                            <input type="date" class="form-control" name="end_date" value="{{ $endDate }}">
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">Filter Data</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-label">Ditolak</div>
-                    <div class="stat-value">{{ $statusStats['rejected'] ?? 0 }}</div>
-                    <div class="stat-trend">
-                        <i class="ri-percent-line"></i>
-                        {{ $submissionStats['total'] > 0 ? round(($statusStats['rejected'] / $submissionStats['total']) * 100, 1) : 0 }}% rejection rate
+            </form>
+
+            <!-- Statistics Cards Row 1 -->
+            <div class="row row-deck row-cards mb-3">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Total Permohonan</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $submissionStats['total'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="text-muted">Periode yang dipilih</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Permohonan Baru</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $submissionStats['new'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-cyan-lt">{{ $submissionStats['total'] > 0 ? round(($submissionStats['new'] / $submissionStats['total']) * 100, 1) : 0 }}%</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-muted"><small>dari total permohonan</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Perpanjangan</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ $submissionStats['renewal'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-yellow-lt">{{ $submissionStats['total'] > 0 ? round(($submissionStats['renewal'] / $submissionStats['total']) * 100, 1) : 0 }}%</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-muted"><small>dari total permohonan</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Disetujui</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 text-green">{{ $statusStats['approved'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-green-lt">{{ $submissionStats['total'] > 0 ? round(($statusStats['approved'] / $submissionStats['total']) * 100, 1) : 0 }}%</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-muted"><small>approval rate</small></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon purple">
-                    <i class="ri-time-line"></i>
+            <!-- Statistics Cards Row 2 -->
+            <div class="row row-deck row-cards mb-3">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Ditolak</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 text-red">{{ $statusStats['rejected'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-red-lt">{{ $submissionStats['total'] > 0 ? round(($statusStats['rejected'] / $submissionStats['total']) * 100, 1) : 0 }}%</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-muted"><small>rejection rate</small></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-label">Dalam Proses</div>
-                    <div class="stat-value">{{ $statusStats['in_progress'] ?? 0 }}</div>
-                    <div class="stat-trend">
-                        <i class="ri-percent-line"></i>
-                        {{ $submissionStats['total'] > 0 ? round(($statusStats['in_progress'] / $submissionStats['total']) * 100, 1) : 0 }}% sedang diproses
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Dalam Proses</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 text-purple">{{ $statusStats['in_progress'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="badge bg-purple-lt">{{ $submissionStats['total'] > 0 ? round(($statusStats['in_progress'] / $submissionStats['total']) * 100, 1) : 0 }}%</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-muted"><small>sedang diproses</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Selesai</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 text-green">{{ $statusStats['completed'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="text-green">Terselesaikan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Sertifikat Aktif</div>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2 text-cyan">{{ $certificateStats['certified'] ?? 0 }}</div>
+                                <div class="me-auto">
+                                    <span class="text-muted">Total keseluruhan</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon success">
-                    <i class="ri-timer-line"></i>
+            <!-- Charts Row -->
+            <div class="row row-cards mb-3">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tren Permohonan Bulanan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="monthlyTrendChart"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-label">Selesai</div>
-                    <div class="stat-value">{{ $statusStats['completed'] ?? 0 }}</div>
-                    <div class="stat-trend {{ ($statusStats['completed'] ?? 0) > 0 ? 'up' : '' }}">
-                        <i class="ri-checkbox-line"></i>
-                        Terselesaikan
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Distribusi Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="statusDistributionChart"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i class="ri-award-line"></i>
+            <!-- Business Type Chart -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title">Permohonan Berdasarkan Jenis Usaha</h3>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-label">Sertifikat Aktif</div>
-                    <div class="stat-value">{{ $certificateStats['certified'] ?? 0 }}</div>
-                    <div class="stat-trend up">
-                        <i class="ri-shield-check-line"></i>
-                        Total keseluruhan
+                <div class="card-body">
+                    <div id="businessTypeChart"></div>
+                </div>
+            </div>
+
+            <!-- Summary Statistics -->
+            <div class="row row-cards mb-3">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Ringkasan Permohonan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Total:</span>
+                                <strong>{{ $submissionStats['total'] ?? 0 }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Baru:</span>
+                                <strong class="text-cyan">{{ $submissionStats['new'] ?? 0 }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Perpanjangan:</span>
+                                <strong class="text-yellow">{{ $submissionStats['renewal'] ?? 0 }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Perubahan:</span>
+                                <strong class="text-blue">{{ $submissionStats['extension'] ?? 0 }}</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts Row -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-lg-8">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Tren Permohonan Bulanan</h5>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Status Permohonan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Draft:</span>
+                                <span class="badge bg-secondary-lt">{{ $statusStats['draft'] ?? 0 }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Dalam Proses:</span>
+                                <span class="badge bg-purple-lt">{{ $statusStats['in_progress'] ?? 0 }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Disetujui:</span>
+                                <span class="badge bg-green-lt">{{ $statusStats['approved'] ?? 0 }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Ditolak:</span>
+                                <span class="badge bg-red-lt">{{ $statusStats['rejected'] ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="monthlyTrendChart"></div>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-4">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Distribusi Status</h5>
-                </div>
-                <div id="statusDistributionChart"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts Row 2 -->
-    <div class="row g-3 mb-4">
-        <div class="col-12">
-            <div class="card-custom">
-                <div class="card-header-custom">
-                    <h5 class="card-title mb-0">Permohonan Berdasarkan Jenis Usaha</h5>
-                </div>
-                <div id="businessTypeChart"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Summary Statistics -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-md-4">
-            <div class="card-custom">
-                <h6 class="mb-3" style="font-weight: 600;">Ringkasan Permohonan</h6>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Total:</span>
-                    <strong>{{ $submissionStats['total'] ?? 0 }}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Baru:</span>
-                    <strong class="text-info">{{ $submissionStats['new'] ?? 0 }}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Perpanjangan:</span>
-                    <strong class="text-warning">{{ $submissionStats['renewal'] ?? 0 }}</strong>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span class="text-secondary-light">Perubahan:</span>
-                    <strong class="text-primary">{{ $submissionStats['extension'] ?? 0 }}</strong>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="card-custom">
-                <h6 class="mb-3" style="font-weight: 600;">Status Permohonan</h6>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Draft:</span>
-                    <span class="badge bg-secondary">{{ $statusStats['draft'] ?? 0 }}</span>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Dalam Proses:</span>
-                    <span class="badge bg-purple">{{ $statusStats['in_progress'] ?? 0 }}</span>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Disetujui:</span>
-                    <span class="badge bg-success">{{ $statusStats['approved'] ?? 0 }}</span>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span class="text-secondary-light">Ditolak:</span>
-                    <span class="badge bg-danger">{{ $statusStats['rejected'] ?? 0 }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="card-custom">
-                <h6 class="mb-3" style="font-weight: 600;">Status Sertifikat</h6>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Tersertifikasi:</span>
-                    <strong class="text-success">{{ $certificateStats['certified'] ?? 0 }}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-secondary-light">Pending:</span>
-                    <strong class="text-warning">{{ $certificateStats['pending_certification'] ?? 0 }}</strong>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span class="text-secondary-light">Ditolak:</span>
-                    <strong class="text-danger">{{ $certificateStats['rejected'] ?? 0 }}</strong>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Status Sertifikat</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Tersertifikasi:</span>
+                                <strong class="text-green">{{ $certificateStats['certified'] ?? 0 }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Pending:</span>
+                                <strong class="text-yellow">{{ $certificateStats['pending_certification'] ?? 0 }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Ditolak:</span>
+                                <strong class="text-red">{{ $certificateStats['rejected'] ?? 0 }}</strong>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        // Monthly Trend Chart with real data
+        // Monthly Trend Chart
         var monthlyTrendOptions = {
             series: [{
                 name: 'Permohonan',
@@ -286,7 +306,7 @@
                     show: false
                 }
             },
-            colors: ['#166F61'],
+            colors: ['#206bc4'],
             dataLabels: {
                 enabled: false
             },
@@ -306,10 +326,9 @@
                 position: 'top'
             }
         };
-        var monthlyTrendChart = new ApexCharts(document.querySelector("#monthlyTrendChart"), monthlyTrendOptions);
-        monthlyTrendChart.render();
+        new ApexCharts(document.querySelector("#monthlyTrendChart"), monthlyTrendOptions).render();
 
-        // Status Distribution Chart (Pie) with real data
+        // Status Distribution Chart
         var statusDistributionOptions = {
             series: [
                 {{ $statusStats['approved'] ?? 0 }},
@@ -319,10 +338,10 @@
             ],
             chart: {
                 type: 'pie',
-                height: 350
+                height: 240
             },
             labels: ['Disetujui', 'Ditolak', 'Dalam Proses', 'Selesai'],
-            colors: ['#10b981', '#ef4444', '#7c3aed', '#166F61'],
+            colors: ['#2fb344', '#d63939', '#ae3ec9', '#206bc4'],
             legend: {
                 position: 'bottom'
             },
@@ -338,10 +357,9 @@
                 }
             }]
         };
-        var statusDistributionChart = new ApexCharts(document.querySelector("#statusDistributionChart"), statusDistributionOptions);
-        statusDistributionChart.render();
+        new ApexCharts(document.querySelector("#statusDistributionChart"), statusDistributionOptions).render();
 
-        // Business Type Chart (Bar) with real data
+        // Business Type Chart
         var businessTypeOptions = {
             series: [{
                 name: 'Permohonan',
@@ -354,7 +372,7 @@
                     show: false
                 }
             },
-            colors: ['#166F61'],
+            colors: ['#206bc4'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
@@ -370,7 +388,7 @@
                 offsetX: 30,
                 style: {
                     fontSize: '12px',
-                    colors: ['#166F61']
+                    colors: ['#206bc4']
                 }
             },
             xaxis: {
@@ -385,13 +403,12 @@
                 }
             }
         };
-        var businessTypeChart = new ApexCharts(document.querySelector("#businessTypeChart"), businessTypeOptions);
-        businessTypeChart.render();
+        new ApexCharts(document.querySelector("#businessTypeChart"), businessTypeOptions).render();
 
         // Export function
         function exportReport(format) {
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
+            const startDate = document.querySelector('input[name="start_date"]').value;
+            const endDate = document.querySelector('input[name="end_date"]').value;
             const url = `{{ route('admin.reports.certification') }}?export=${format}&start_date=${startDate}&end_date=${endDate}`;
             window.location.href = url;
         }
