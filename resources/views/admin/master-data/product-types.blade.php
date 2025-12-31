@@ -56,9 +56,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div class="subheader">Dengan Permohonan</div>
+                                <div class="subheader">Tidak Aktif</div>
                             </div>
-                            <div class="h1 mb-0 mt-1">{{ $stats['with_submissions'] }}</div>
+                            <div class="h1 mb-0 mt-1">{{ $stats['inactive'] }}</div>
                         </div>
                     </div>
                 </div>

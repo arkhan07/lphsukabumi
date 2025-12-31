@@ -41,12 +41,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div class="subheader">Aktif</div>
+                                <div class="subheader">Provinsi</div>
                             </div>
                             <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-0 me-2 mt-1">{{ $stats['active'] }}</div>
+                                <div class="h1 mb-0 me-2 mt-1">{{ $stats['provinces'] }}</div>
                                 <div class="me-auto">
-                                    <span class="badge bg-success-lt">Aktif</span>
+                                    <span class="badge bg-blue-lt">Provinsi</span>
                                 </div>
                             </div>
                         </div>
@@ -56,9 +56,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div class="subheader">Dengan Permohonan</div>
+                                <div class="subheader">Kota</div>
                             </div>
-                            <div class="h1 mb-0 mt-1">{{ $stats['with_submissions'] }}</div>
+                            <div class="h1 mb-0 mt-1">{{ $stats['cities'] }}</div>
                         </div>
                     </div>
                 </div>
@@ -66,9 +66,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div class="subheader">Dengan Produk</div>
+                                <div class="subheader">Kabupaten</div>
                             </div>
-                            <div class="h1 mb-0 mt-1">{{ $stats['with_products'] }}</div>
+                            <div class="h1 mb-0 mt-1">{{ $stats['regencies'] }}</div>
                         </div>
                     </div>
                 </div>
