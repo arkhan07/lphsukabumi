@@ -369,15 +369,15 @@ Your browser does not support the video tag.
     <div
         class="md:w-5/6 mx-auto flex flex-col md:flex-row justify-center gap-10 md:gap-x-32 md:text-3xl text-lg bg-darkteal text-white font-bold md:p-20 p-10 rounded-xl">
         <div class="flex gap-5 items-center">
-            <img src="img/bpjph-certified.webp" width="60" class="md:w-[120px]" alt="BPJPH Certified">
+            <img src="img/bpjph-certified.svg" width="60" class="md:w-[120px]" alt="BPJPH Certified">
             <h1>TERDAFTAR <br> BPJPH</h1>
         </div>
         <div class="flex gap-5 items-center">
-            <img src="img/expert-auditor.webp" width="60" class="md:w-[120px]" alt="Expert Auditor">
+            <img src="img/expert-auditor.svg" width="60" class="md:w-[120px]" alt="Expert Auditor">
             <h1>AUDITOR <br> BERKOMPETEN</h1>
         </div>
         <div class="flex gap-5 items-center">
-            <img src="img/fast-process.webp" width="60" class="md:w-[120px]" alt="Fast Process">
+            <img src="img/fast-process.svg" width="60" class="md:w-[120px]" alt="Fast Process">
             <h1>PROSES <br> CEPAT</h1>
         </div>
     </div>
