@@ -325,15 +325,13 @@
     <div class="modal modal-blur fade" id="statusModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form id="statusForm" action="{{ route('admin.documents.update-status', $document->id) }}" method="POST">
+                <form id="statusForm" action="" method="POST">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-header">
                         <h5 class="modal-title" id="statusModalTitle">Update Status Dokumen</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="status" id="statusValue">
                         <div class="mb-3">
                             <label class="form-label required">Catatan Review</label>
                             <textarea class="form-control" name="review_notes" rows="4"
@@ -358,21 +356,25 @@
         }
 
         function approveDocument() {
-            showStatusModal('approved', 'Approve Dokumen', 'btn-success');
+            showStatusModal('{{ route('admin.documents.approve', $document->id) }}', 'Approve Dokumen', 'btn-success');
         }
 
         function rejectDocument() {
-            showStatusModal('rejected', 'Reject Dokumen', 'btn-danger');
+            showStatusModal('{{ route('admin.documents.reject', $document->id) }}', 'Reject Dokumen', 'btn-danger');
         }
 
         function requestRevision() {
-            showStatusModal('revision_required', 'Request Revision', 'btn-warning');
+            showStatusModal('{{ route('admin.documents.request-revision', $document->id) }}', 'Request Revision', 'btn-warning');
         }
 
-        function showStatusModal(status, title, buttonClass) {
+        function showStatusModal(actionUrl, title, buttonClass) {
             const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+            const form = document.getElementById('statusForm');
+
+            // Set form action dynamically
+            form.action = actionUrl;
+
             document.getElementById('statusModalTitle').textContent = title;
-            document.getElementById('statusValue').value = status;
 
             const submitButton = document.getElementById('statusSubmitButton');
             submitButton.className = 'btn ' + buttonClass;
