@@ -137,7 +137,7 @@
             <h5 class="card-title mb-0">Filter & Pencarian</h5>
         </div>
         <div class="p-3">
-            <form method="GET" action="{{ route('admin.audits.findings.index') }}" id="filterForm">
+            <form method="GET" action="{{ route('admin.audits.findings') }}" id="filterForm">
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label class="form-label" style="font-size: 0.875rem; font-weight: 500;">Cari Temuan</label>
@@ -185,7 +185,7 @@
                             <button type="submit" class="btn btn-primary w-100">
                                 <i class="ri-filter-line"></i>
                             </button>
-                            <a href="{{ route('admin.audits.findings.index') }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('admin.audits.findings') }}" class="btn btn-outline-secondary">
                                 <i class="ri-refresh-line"></i>
                             </a>
                         </div>
@@ -457,7 +457,7 @@
         function exportData(format) {
             const params = new URLSearchParams(window.location.search);
             params.set('export', format);
-            window.location.href = '{{ route("admin.audits.findings.index") }}?' + params.toString();
+            window.location.href = '{{ route("admin.audits.findings") }}?' + params.toString();
         }
     </script>
     @endpush
