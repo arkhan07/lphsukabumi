@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Submission;
 use App\Models\AuditorFee;
+use App\Models\PhrFee;
+use App\Models\User;
 use Illuminate\Http\Request;
 // use Barryvdh\DomPDF\Facade\Pdf; // TODO: Install package: composer require barryvdh/laravel-dompdf
 use Illuminate\Support\Facades\DB;
@@ -281,5 +283,128 @@ class InvoicesController extends Controller
             'fee_amount' => $feeAmount,
             'status' => 'pending',
         ]);
+    }
+
+    /**
+     * Mark invoice as paid and create PHR fees
+     */
+    public function markAsPaid(Request $request, Invoice $invoice)
+    {
+        $request->validate([
+            'payment_amount' => 'required|numeric|min:0',
+            'payment_date' => 'required|date',
+            'payment_method' => 'nullable|string|max:100',
+            'payment_reference' => 'nullable|string|max:255',
+            'notes' => 'nullable|string',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            // Update invoice status
+            $invoice->update([
+                'status' => 'paid',
+                'paid_at' => $request->payment_date,
+                'outstanding_amount' => max(0, $invoice->outstanding_amount - $request->payment_amount),
+            ]);
+
+            // Create PHR fees if pelaku usaha was referred by PHR
+            $pelakuUsaha = $invoice->user;
+            if ($pelakuUsaha && $pelakuUsaha->referred_by) {
+                $this->createPhrFees($invoice, $pelakuUsaha);
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Invoice berhasil ditandai sebagai dibayar dan fee PHR telah dibuat');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Create PHR fee entries for invoice based on referral chain
+     */
+    protected function createPhrFees(Invoice $invoice, User $pelakuUsaha)
+    {
+        // Get the PHR who referred this Pelaku Usaha
+        $directPhr = User::find($pelakuUsaha->referred_by);
+
+        if (!$directPhr || $directPhr->phr_level === 'none' || !$directPhr->is_phr_active) {
+            return; // No PHR or inactive PHR
+        }
+
+        // Calculate base fees
+        $invoiceAmount = $invoice->total_amount;
+
+        // 1. Direct PHR Fee (10% of invoice amount)
+        $this->createPhrFee([
+            'phr_id' => $directPhr->id,
+            'invoice_id' => $invoice->id,
+            'pelaku_usaha_id' => $pelakuUsaha->id,
+            'submission_id' => $invoice->submission_id,
+            'invoice_amount' => $invoiceAmount,
+            'fee_type' => 'direct',
+            'fee_percentage' => 10,
+            'fee_amount' => $invoiceAmount * 0.10,
+            'direct_phr_id' => $directPhr->id,
+        ]);
+
+        // 2. Area Manager Fee (3% if direct PHR was recruited by Area Manager)
+        if ($directPhr->recruited_by_phr) {
+            $areaManager = User::find($directPhr->recruited_by_phr);
+
+            if ($areaManager &&
+                ($areaManager->phr_level === 'area_manager' || $areaManager->phr_level === 'regional_manager') &&
+                $areaManager->is_phr_active) {
+
+                $this->createPhrFee([
+                    'phr_id' => $areaManager->id,
+                    'invoice_id' => $invoice->id,
+                    'pelaku_usaha_id' => $pelakuUsaha->id,
+                    'submission_id' => $invoice->submission_id,
+                    'invoice_amount' => $invoiceAmount,
+                    'fee_type' => 'downline',
+                    'fee_percentage' => 3,
+                    'fee_amount' => $invoiceAmount * 0.03,
+                    'direct_phr_id' => $directPhr->id,
+                    'area_manager_id' => $areaManager->id,
+                ]);
+
+                // 3. Regional Manager Fee (2% if Area Manager was recruited by Regional Manager)
+                if ($areaManager->recruited_by_phr) {
+                    $regionalManager = User::find($areaManager->recruited_by_phr);
+
+                    if ($regionalManager &&
+                        $regionalManager->phr_level === 'regional_manager' &&
+                        $regionalManager->is_phr_active) {
+
+                        $this->createPhrFee([
+                            'phr_id' => $regionalManager->id,
+                            'invoice_id' => $invoice->id,
+                            'pelaku_usaha_id' => $pelakuUsaha->id,
+                            'submission_id' => $invoice->submission_id,
+                            'invoice_amount' => $invoiceAmount,
+                            'fee_type' => 'regional',
+                            'fee_percentage' => 2,
+                            'fee_amount' => $invoiceAmount * 0.02,
+                            'direct_phr_id' => $directPhr->id,
+                            'area_manager_id' => $areaManager->id,
+                            'regional_manager_id' => $regionalManager->id,
+                        ]);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Helper to create a single PHR fee entry
+     */
+    protected function createPhrFee(array $data)
+    {
+        PhrFee::create(array_merge($data, [
+            'status' => 'pending',
+        ]));
     }
 }
