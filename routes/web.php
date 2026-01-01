@@ -536,6 +536,7 @@ Route::middleware(['auth', 'role:auditor_halal'])->prefix('auditor')->name('audi
 // PHR (Pendamping Halal Reguler) Routes
 Route::middleware(['auth', 'role:pendamping_halal_reguler'])->prefix('phr')->name('phr.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Phr\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/generate-code', [App\Http\Controllers\Phr\DashboardController::class, 'generateCode'])->name('generate-code');
 
     // Recruitment
     Route::get('/recruitment', [App\Http\Controllers\Phr\RecruitmentController::class, 'index'])->name('recruitment.index');

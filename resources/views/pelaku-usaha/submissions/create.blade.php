@@ -276,13 +276,26 @@
 
                         <div class="mb-3">
                             <label class="form-label">Kode Referral PHR (Pendamping Halal Reguler)</label>
-                            <input type="text" class="form-control @error('phr_referral_code') is-invalid @enderror"
-                                   id="phr_referral_code" name="phr_referral_code" value="{{ old('phr_referral_code', request('ref')) }}"
-                                   placeholder="Masukkan kode referral PHR (jika ada)">
-                            <small class="form-text text-muted">
-                                Jika Anda direferensikan oleh Pendamping Halal Reguler, masukkan kode referralnya di sini.
-                            </small>
-                            <div id="phr_validation_message" class="mt-2"></div>
+                            @if(auth()->user()->hasRole('pendamping_halal_reguler'))
+                                {{-- PHR yang login otomatis terisi kodenya --}}
+                                <input type="text" class="form-control is-valid"
+                                       id="phr_referral_code" name="phr_referral_code"
+                                       value="{{ auth()->user()->referral_code }}"
+                                       readonly>
+                                <small class="form-text text-success">
+                                    <i class="ti ti-check"></i> Kode afiliasi Anda otomatis terisi
+                                </small>
+                            @else
+                                {{-- Pelaku Usaha bisa input manual atau dari URL --}}
+                                <input type="text" class="form-control @error('phr_referral_code') is-invalid @enderror"
+                                       id="phr_referral_code" name="phr_referral_code"
+                                       value="{{ old('phr_referral_code', request('ref')) }}"
+                                       placeholder="Masukkan kode referral PHR (jika ada)">
+                                <small class="form-text text-muted">
+                                    Jika Anda direferensikan oleh Pendamping Halal Reguler, masukkan kode referralnya di sini.
+                                </small>
+                                <div id="phr_validation_message" class="mt-2"></div>
+                            @endif
                             @error('phr_referral_code')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
