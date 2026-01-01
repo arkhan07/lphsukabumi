@@ -500,6 +500,14 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
 // Manajer Teknis Routes
 Route::middleware(['auth', 'role:manajer_teknis'])->prefix('manajer-teknis')->name('manajer_teknis.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'index'])->name('dashboard');
+
+    // Auditor Management
+    Route::get('/auditor-workload', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'auditorWorkload'])->name('auditor-workload');
+    Route::get('/auditors', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'getAuditors'])->name('auditors');
+
+    // Timeline & Monitoring
+    Route::get('/timeline', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'timeline'])->name('timeline');
+    Route::get('/certification-status', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'certificationStatus'])->name('certification-status');
 });
 
 // Auditor Halal Routes
