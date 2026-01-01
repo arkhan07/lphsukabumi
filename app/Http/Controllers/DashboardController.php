@@ -15,17 +15,31 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Redirect based on user's primary role
-        if ($user->hasRole('pelaku_usaha')) {
-            return redirect()->route('pelaku_usaha.dashboard');
-        } elseif ($user->hasRole('penyedia_halal')) {
-            return redirect()->route('penyedia_halal.dashboard');
-        } elseif ($user->hasRole('admin_lph')) {
+        // Redirect based on user's primary role (priority order)
+
+        // 1. Admin - Highest priority
+        if ($user->hasRole('admin_lph')) {
             return redirect()->route('admin.dashboard');
-        } elseif ($user->hasRole('manajer_teknis')) {
+        }
+
+        // 2. Manajer Teknis
+        elseif ($user->hasRole('manajer_teknis')) {
             return redirect()->route('manajer_teknis.dashboard');
-        } elseif ($user->hasRole('auditor_halal')) {
+        }
+
+        // 3. Auditor Halal
+        elseif ($user->hasRole('auditor_halal')) {
             return redirect()->route('auditor.dashboard');
+        }
+
+        // 4. Pendamping Halal Reguler (PHR)
+        elseif ($user->hasRole('pendamping_halal_reguler')) {
+            return redirect()->route('phr.dashboard');
+        }
+
+        // 5. Pelaku Usaha
+        elseif ($user->hasRole('pelaku_usaha')) {
+            return redirect()->route('pelaku_usaha.dashboard');
         }
 
         // Fallback if no role assigned
