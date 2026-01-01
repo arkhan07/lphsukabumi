@@ -275,10 +275,24 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Kode Referral PHR (Pendamping Halal Reguler)</label>
+                            <input type="text" class="form-control @error('phr_referral_code') is-invalid @enderror"
+                                   id="phr_referral_code" name="phr_referral_code" value="{{ old('phr_referral_code', request('ref')) }}"
+                                   placeholder="Masukkan kode referral PHR (jika ada)">
+                            <small class="form-text text-muted">
+                                Jika Anda direferensikan oleh Pendamping Halal Reguler, masukkan kode referralnya di sini.
+                            </small>
+                            <div id="phr_validation_message" class="mt-2"></div>
+                            @error('phr_referral_code')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">Sumber Referensi</label>
                             <input type="text" class="form-control @error('referral_source') is-invalid @enderror"
                                    name="referral_source" value="{{ old('referral_source') }}"
-                                   placeholder="Bagaimana Anda mengetahui layanan kami?">
+                                   placeholder="Bagaimana Anda mengetahui layanan kami? (Media sosial, teman, iklan, dll)">
                             @error('referral_source')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -358,6 +372,57 @@
             `;
             container.appendChild(div);
         });
+
+        // PHR Referral Code Validation
+        const phrReferralInput = document.getElementById('phr_referral_code');
+        const validationMessage = document.getElementById('phr_validation_message');
+        let validationTimeout;
+
+        if (phrReferralInput) {
+            phrReferralInput.addEventListener('input', function() {
+                clearTimeout(validationTimeout);
+                const code = this.value.trim();
+
+                if (code === '') {
+                    validationMessage.innerHTML = '';
+                    phrReferralInput.classList.remove('is-valid', 'is-invalid');
+                    return;
+                }
+
+                validationMessage.innerHTML = '<small class="text-muted">Memvalidasi kode...</small>';
+
+                validationTimeout = setTimeout(() => {
+                    fetch('/register/phr/validate-code?code=' + encodeURIComponent(code))
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.valid) {
+                                phrReferralInput.classList.remove('is-invalid');
+                                phrReferralInput.classList.add('is-valid');
+                                validationMessage.innerHTML = `
+                                    <div class="alert alert-success alert-sm mb-0">
+                                        <strong><i class="ti ti-check"></i> Kode valid!</strong><br>
+                                        PHR: ${data.recruiter.name}<br>
+                                        Level: ${data.recruiter.level}<br>
+                                        Lokasi: ${data.recruiter.city}, ${data.recruiter.province}
+                                    </div>
+                                `;
+                            } else {
+                                phrReferralInput.classList.remove('is-valid');
+                                phrReferralInput.classList.add('is-invalid');
+                                validationMessage.innerHTML = `
+                                    <div class="alert alert-danger alert-sm mb-0">
+                                        <i class="ti ti-x"></i> ${data.message}
+                                    </div>
+                                `;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            validationMessage.innerHTML = '<small class="text-danger">Gagal memvalidasi kode</small>';
+                        });
+                }, 500);
+            });
+        }
     </script>
     @endpush
 </x-layouts.admin.app>

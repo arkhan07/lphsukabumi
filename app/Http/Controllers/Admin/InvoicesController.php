@@ -330,7 +330,8 @@ class InvoicesController extends Controller
         // Get the PHR who referred this Pelaku Usaha
         $directPhr = User::find($pelakuUsaha->referred_by);
 
-        if (!$directPhr || $directPhr->phr_level === 'none' || !$directPhr->is_phr_active) {
+        // Check if referrer is a valid, active PHR
+        if (!$directPhr || !$directPhr->hasRole('pendamping_halal_reguler') || !$directPhr->is_phr_active) {
             return; // No PHR or inactive PHR
         }
 
@@ -355,6 +356,7 @@ class InvoicesController extends Controller
             $areaManager = User::find($directPhr->recruited_by_phr);
 
             if ($areaManager &&
+                $areaManager->hasRole('pendamping_halal_reguler') &&
                 ($areaManager->phr_level === 'area_manager' || $areaManager->phr_level === 'regional_manager') &&
                 $areaManager->is_phr_active) {
 
@@ -376,6 +378,7 @@ class InvoicesController extends Controller
                     $regionalManager = User::find($areaManager->recruited_by_phr);
 
                     if ($regionalManager &&
+                        $regionalManager->hasRole('pendamping_halal_reguler') &&
                         $regionalManager->phr_level === 'regional_manager' &&
                         $regionalManager->is_phr_active) {
 
