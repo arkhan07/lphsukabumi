@@ -193,7 +193,6 @@
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('admin.submissions*') ? 'show' : '' }}" id="navbar-submissions">
                             <a class="dropdown-item" href="{{ route('admin.submissions.index') }}">Daftar Permohonan</a>
-                            <a class="dropdown-item" href="{{ route('admin.submissions.create') }}">Buat Permohonan Baru</a>
                         </div>
                     </li>
 
@@ -207,7 +206,6 @@
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('admin.products*') ? 'show' : '' }}" id="navbar-products">
                             <a class="dropdown-item" href="{{ route('admin.products.index') }}">Daftar Produk</a>
-                            <a class="dropdown-item" href="{{ route('admin.products.create') }}">Tambah Produk</a>
                             <a class="dropdown-item" href="{{ route('admin.products.categories') }}">Kategori Produk</a>
                         </div>
                     </li>
