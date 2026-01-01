@@ -26,8 +26,53 @@
                     </a>
                 </li>
 
-                @if(auth()->user()->hasRole('pelaku_usaha') || auth()->user()->hasRole('penyedia_halal') || auth()->user()->hasRole('pendamping_halal_reguler'))
-                    {{-- PELAKU USAHA, PENYEDIA HALAL & PENDAMPING HALAL REGULER MENU --}}
+                @if(auth()->user()->hasRole('pendamping_halal_reguler'))
+                    {{-- PENDAMPING HALAL REGULER (PHR) MENU --}}
+
+                    <!-- Jaringan PHR -->
+                    <li class="nav-item dropdown {{ request()->routeIs('phr.recruitment*') || request()->routeIs('phr.downlines*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-network-phr" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('phr.recruitment*') || request()->routeIs('phr.downlines*') ? 'true' : 'false' }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-sitemap"></i>
+                            </span>
+                            <span class="nav-link-title">Jaringan</span>
+                        </a>
+                        <div class="dropdown-menu {{ request()->routeIs('phr.recruitment*') || request()->routeIs('phr.downlines*') ? 'show' : '' }}" id="navbar-network-phr">
+                            <a class="dropdown-item" href="{{ route('phr.recruitment') }}">Rekrutmen</a>
+                            <a class="dropdown-item" href="{{ route('phr.downlines') }}">Downline PHR</a>
+                        </div>
+                    </li>
+
+                    <!-- Fee & Royalti PHR -->
+                    <li class="nav-item dropdown {{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-fees-phr" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') ? 'true' : 'false' }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-cash"></i>
+                            </span>
+                            <span class="nav-link-title">Fee & Royalti</span>
+                        </a>
+                        <div class="dropdown-menu {{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') ? 'show' : '' }}" id="navbar-fees-phr">
+                            <a class="dropdown-item" href="{{ route('phr.fees') }}">Daftar Fee</a>
+                            <a class="dropdown-item" href="{{ route('phr.promotions') }}">Riwayat Promosi</a>
+                        </div>
+                    </li>
+
+                    <!-- Permohonan (untuk registrasi PU) -->
+                    <li class="nav-item dropdown {{ request()->routeIs('pelaku_usaha.submissions*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-submissions-phr" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('pelaku_usaha.submissions*') ? 'true' : 'false' }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-file-text"></i>
+                            </span>
+                            <span class="nav-link-title">Permohonan PU</span>
+                        </a>
+                        <div class="dropdown-menu {{ request()->routeIs('pelaku_usaha.submissions*') ? 'show' : '' }}" id="navbar-submissions-phr">
+                            <a class="dropdown-item" href="{{ route('pelaku_usaha.submissions.create') }}">Daftarkan PU Baru</a>
+                            <a class="dropdown-item" href="{{ route('pelaku_usaha.submissions.index') }}">Lihat Daftar PU</a>
+                        </div>
+                    </li>
+
+                @elseif(auth()->user()->hasRole('pelaku_usaha') || auth()->user()->hasRole('penyedia_halal'))
+                    {{-- PELAKU USAHA & PENYEDIA HALAL MENU --}}
 
                     <!-- Permohonan Saya -->
                     <li class="nav-item dropdown {{ request()->routeIs('pelaku_usaha.submissions*') ? 'active' : '' }}">
@@ -92,7 +137,7 @@
 
                     <!-- Laporan Audit -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('auditor.reports*') ? 'active' : '' }}" href="{{ route('auditor.dashboard') }}">
+                        <a class="nav-link {{ request()->routeIs('auditor.reports*') ? 'active' : '' }}" href="{{ route('auditor.reports') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text"></i>
                             </span>
@@ -102,7 +147,7 @@
 
                     <!-- Temuan Audit -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('auditor.findings*') ? 'active' : '' }}" href="{{ route('auditor.dashboard') }}">
+                        <a class="nav-link {{ request()->routeIs('auditor.findings*') ? 'active' : '' }}" href="{{ route('auditor.findings') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-search"></i>
                             </span>
@@ -110,74 +155,41 @@
                         </a>
                     </li>
 
+                    <!-- Fee Auditor (30%) -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('auditor.fees*') ? 'active' : '' }}" href="{{ route('auditor.fees') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-cash"></i>
+                            </span>
+                            <span class="nav-link-title">Fee Audit (30%)</span>
+                        </a>
+                    </li>
+
                 @elseif(auth()->user()->hasRole('manajer_teknis'))
                     {{-- MANAJER TEKNIS MENU --}}
 
-                    <!-- Permohonan -->
-                    <li class="nav-item dropdown {{ request()->routeIs('manajer_teknis.submissions*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-submissions-mt" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('manajer_teknis.submissions*') ? 'true' : 'false' }}">
+                    <!-- Monitoring -->
+                    <li class="nav-item dropdown {{ request()->routeIs('manajer_teknis.certification-status*') || request()->routeIs('manajer_teknis.timeline*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-monitoring-mt" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('manajer_teknis.certification-status*') || request()->routeIs('manajer_teknis.timeline*') ? 'true' : 'false' }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <i class="ti ti-file-text"></i>
+                                <i class="ti ti-chart-line"></i>
                             </span>
-                            <span class="nav-link-title">Permohonan</span>
+                            <span class="nav-link-title">Monitoring</span>
                         </a>
-                        <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.submissions*') ? 'show' : '' }}" id="navbar-submissions-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Daftar Permohonan</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Review Permohonan</a>
+                        <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.certification-status*') || request()->routeIs('manajer_teknis.timeline*') ? 'show' : '' }}" id="navbar-monitoring-mt">
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.certification-status') }}">Status Sertifikasi</a>
+                            <a class="dropdown-item" href="{{ route('manajer_teknis.timeline') }}">Timeline Compliance</a>
                         </div>
                     </li>
 
-                    <!-- Produk -->
-                    <li class="nav-item dropdown {{ request()->routeIs('manajer_teknis.products*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-products-mt" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('manajer_teknis.products*') ? 'true' : 'false' }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <i class="ti ti-package"></i>
-                            </span>
-                            <span class="nav-link-title">Produk</span>
-                        </a>
-                        <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.products*') ? 'show' : '' }}" id="navbar-products-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Daftar Produk</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Review Produk</a>
-                        </div>
-                    </li>
-
-                    <!-- Audit -->
-                    <li class="nav-item dropdown {{ request()->routeIs('manajer_teknis.audits*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-audits-mt" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('manajer_teknis.audits*') ? 'true' : 'false' }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <i class="ti ti-search"></i>
-                            </span>
-                            <span class="nav-link-title">Audit</span>
-                        </a>
-                        <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.audits*') ? 'show' : '' }}" id="navbar-audits-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Jadwal Audit</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Penugasan Auditor</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Laporan Audit</a>
-                        </div>
-                    </li>
-
-                    <!-- Dokumen -->
+                    <!-- Auditor Management -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('manajer_teknis.documents*') ? 'active' : '' }}" href="{{ route('manajer_teknis.dashboard') }}">
+                        <a class="nav-link {{ request()->routeIs('manajer_teknis.auditor-workload*') ? 'active' : '' }}" href="{{ route('manajer_teknis.auditor-workload') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <i class="ti ti-folder"></i>
+                                <i class="ti ti-users"></i>
                             </span>
-                            <span class="nav-link-title">Verifikasi Dokumen</span>
+                            <span class="nav-link-title">Beban Kerja Auditor</span>
                         </a>
-                    </li>
-
-                    <!-- Laporan -->
-                    <li class="nav-item dropdown {{ request()->routeIs('manajer_teknis.reports*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-reports-mt" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('manajer_teknis.reports*') ? 'true' : 'false' }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <i class="ti ti-chart-bar"></i>
-                            </span>
-                            <span class="nav-link-title">Laporan</span>
-                        </a>
-                        <div class="dropdown-menu {{ request()->routeIs('manajer_teknis.reports*') ? 'show' : '' }}" id="navbar-reports-mt">
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Laporan Sertifikasi</a>
-                            <a class="dropdown-item" href="{{ route('manajer_teknis.dashboard') }}">Laporan Audit</a>
-                        </div>
                     </li>
 
                 @elseif(auth()->user()->hasRole('admin_lph'))
@@ -226,17 +238,35 @@
                     </li>
 
                     <!-- Keuangan -->
-                    <li class="nav-item dropdown {{ request()->routeIs('admin.finance*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-finance" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('admin.finance*') ? 'true' : 'false' }}">
+                    <li class="nav-item dropdown {{ request()->routeIs('admin.finance*') || request()->routeIs('admin.invoices*') || request()->routeIs('admin.auditor-fees*') || request()->routeIs('admin.phr.fees*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-finance" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('admin.finance*') || request()->routeIs('admin.invoices*') || request()->routeIs('admin.auditor-fees*') || request()->routeIs('admin.phr.fees*') ? 'true' : 'false' }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-currency-dollar"></i>
                             </span>
                             <span class="nav-link-title">Keuangan</span>
                         </a>
-                        <div class="dropdown-menu {{ request()->routeIs('admin.finance*') ? 'show' : '' }}" id="navbar-finance">
-                            <a class="dropdown-item" href="{{ route('admin.finance.invoices') }}">Invoice</a>
+                        <div class="dropdown-menu {{ request()->routeIs('admin.finance*') || request()->routeIs('admin.invoices*') || request()->routeIs('admin.auditor-fees*') || request()->routeIs('admin.phr.fees*') ? 'show' : '' }}" id="navbar-finance">
+                            <a class="dropdown-item" href="{{ route('admin.invoices.index') }}">Invoice</a>
                             <a class="dropdown-item" href="{{ route('admin.finance.payments') }}">Pembayaran</a>
+                            <a class="dropdown-item" href="{{ route('admin.auditor-fees.index') }}">Fee Auditor (30%)</a>
+                            <a class="dropdown-item" href="{{ route('admin.phr.fees') }}">Fee PHR (10-15%)</a>
                             <a class="dropdown-item" href="{{ route('admin.finance.fee-settings') }}">Konfigurasi Biaya</a>
+                        </div>
+                    </li>
+
+                    <!-- PHR Management -->
+                    <li class="nav-item dropdown {{ request()->routeIs('admin.phr*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-phr" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('admin.phr*') ? 'true' : 'false' }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-sitemap"></i>
+                            </span>
+                            <span class="nav-link-title">Manajemen PHR</span>
+                        </a>
+                        <div class="dropdown-menu {{ request()->routeIs('admin.phr*') ? 'show' : '' }}" id="navbar-phr">
+                            <a class="dropdown-item" href="{{ route('admin.phr.index') }}">Dashboard PHR</a>
+                            <a class="dropdown-item" href="{{ route('admin.phr.list') }}">Daftar PHR</a>
+                            <a class="dropdown-item" href="{{ route('admin.phr.promotions') }}">Persetujuan Promosi</a>
+                            <a class="dropdown-item" href="{{ route('admin.phr.fees') }}">Fee & Royalti PHR</a>
                         </div>
                     </li>
 

@@ -375,6 +375,9 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::post('/{user}/activate', [App\Http\Controllers\Admin\PhrController::class, 'activate'])->name('activate');
         Route::post('/{user}/deactivate', [App\Http\Controllers\Admin\PhrController::class, 'deactivate'])->name('deactivate');
 
+        // PHR List
+        Route::get('/list', [App\Http\Controllers\Admin\PhrController::class, 'list'])->name('list');
+
         // Promotions
         Route::get('/promotions', [App\Http\Controllers\Admin\PhrController::class, 'promotions'])->name('promotions');
         Route::post('/promotions/{promotion}/approve', [App\Http\Controllers\Admin\PhrController::class, 'approvePromotion'])->name('promotions.approve');
@@ -500,6 +503,14 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
 // Manajer Teknis Routes
 Route::middleware(['auth', 'role:manajer_teknis'])->prefix('manajer-teknis')->name('manajer_teknis.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'index'])->name('dashboard');
+
+    // Auditor Management
+    Route::get('/auditor-workload', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'auditorWorkload'])->name('auditor-workload');
+    Route::get('/auditors', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'getAuditors'])->name('auditors');
+
+    // Timeline & Monitoring
+    Route::get('/timeline', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'timeline'])->name('timeline');
+    Route::get('/certification-status', [App\Http\Controllers\ManajerTeknis\DashboardController::class, 'certificationStatus'])->name('certification-status');
 });
 
 // Auditor Halal Routes
@@ -528,9 +539,9 @@ Route::middleware(['auth', 'role:auditor_halal'])->prefix('auditor')->name('audi
     Route::get('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFinding'])->name('findings.show');
     Route::put('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'updateFinding'])->name('findings.update');
 
-    // Fee Tracking
-    Route::get('/fees', [App\Http\Controllers\Auditor\DashboardController::class, 'fees'])->name('fees');
-    Route::get('/fees/{fee}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFee'])->name('fees.show');
+    // Fee Tracking (30%)
+    Route::get('/fees', [App\Http\Controllers\Auditor\FeesController::class, 'index'])->name('fees');
+    Route::get('/fees/{fee}', [App\Http\Controllers\Auditor\FeesController::class, 'show'])->name('fees.show');
 });
 
 // PHR (Pendamping Halal Reguler) Routes
