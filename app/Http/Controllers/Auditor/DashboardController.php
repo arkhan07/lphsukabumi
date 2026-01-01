@@ -15,8 +15,47 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // TODO: Add statistics queries when data is available
-        return view('auditor.dashboard');
+        $user = auth()->user();
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
+        // Get fee statistics
+        // Calculate from auditor_fees table
+        $monthlyFeeTotal = $user->auditorFees()
+            ->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)
+            ->sum('fee_amount');
+
+        $feePaid = $user->auditorFees()
+            ->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)
+            ->where('status', 'paid')
+            ->sum('paid_amount');
+
+        $feePending = $user->auditorFees()
+            ->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)
+            ->whereIn('status', ['pending', 'approved'])
+            ->sum('fee_amount');
+
+        // Format to millions with 1 decimal
+        $monthlyFeeTotalFormatted = $monthlyFeeTotal > 0
+            ? 'Rp ' . number_format($monthlyFeeTotal / 1000000, 1) . 'M'
+            : 'Rp 0';
+
+        $feePaidFormatted = $feePaid > 0
+            ? 'Rp ' . number_format($feePaid / 1000000, 1) . 'M'
+            : 'Rp 0';
+
+        $feePendingFormatted = $feePending > 0
+            ? 'Rp ' . number_format($feePending / 1000000, 1) . 'M'
+            : 'Rp 0';
+
+        return view('auditor.dashboard', compact(
+            'monthlyFeeTotalFormatted',
+            'feePaidFormatted',
+            'feePendingFormatted'
+        ));
     }
 
     /**

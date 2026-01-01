@@ -24,6 +24,8 @@ class User extends Authenticatable
         'phone',
         'whatsapp',
         'profile_photo',
+        'referral_code',
+        'referred_by',
     ];
 
     /**
@@ -210,5 +212,62 @@ class User extends Authenticatable
         // Generate initials-based avatar using UI Avatars
         $name = urlencode($this->name);
         return "https://ui-avatars.com/api/?name={$name}&size=200&background=166F61&color=ffffff&bold=true";
+    }
+
+    /**
+     * Get the user who referred this user
+     */
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'referred_by');
+    }
+
+    /**
+     * Get users referred by this user
+     */
+    public function referrals()
+    {
+        return $this->hasMany(User::class, 'referred_by');
+    }
+
+    /**
+     * Get auditor fees
+     */
+    public function auditorFees()
+    {
+        return $this->hasMany(AuditorFee::class, 'auditor_id');
+    }
+
+    /**
+     * Get invoices (for pelaku usaha)
+     */
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'user_id');
+    }
+
+    /**
+     * Generate unique referral code
+     */
+    public static function generateReferralCode($prefix = 'PU')
+    {
+        do {
+            $code = $prefix . strtoupper(substr(uniqid(), -6));
+        } while (self::where('referral_code', $code)->exists());
+
+        return $code;
+    }
+
+    /**
+     * Ensure user has referral code
+     */
+    public function ensureReferralCode($prefix = 'PU')
+    {
+        if (!$this->referral_code) {
+            $this->referral_code = self::generateReferralCode($prefix);
+            $this->save();
+        }
+
+        return $this->referral_code;
     }
 }

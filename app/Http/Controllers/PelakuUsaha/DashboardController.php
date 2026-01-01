@@ -16,6 +16,9 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
+        // Ensure user has referral code
+        $user->ensureReferralCode('PU');
+
         // Get statistics
         $totalSubmissions = $user->submissions()->count();
         $inProgress = $user->submissions()->whereIn('status', ['draft', 'submitted', 'screening', 'verification', 'in_review'])->count();
