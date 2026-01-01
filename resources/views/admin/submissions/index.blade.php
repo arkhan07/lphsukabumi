@@ -7,12 +7,6 @@
             <h2 class="mb-1" style="font-size: 1.75rem; font-weight: 600;">Permohonan Sertifikasi Halal</h2>
             <p class="text-secondary-light mb-0">Kelola semua permohonan sertifikasi halal dari pelaku usaha</p>
         </div>
-        <div>
-            <a href="{{ route('admin.submissions.create') }}" class="btn btn-primary">
-                <i class="ri-add-line me-2"></i>
-                Tambah Permohonan
-            </a>
-        </div>
     </div>
 
     <!-- Success/Error Alerts -->
