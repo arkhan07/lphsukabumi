@@ -88,7 +88,7 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Fee Bulan Ini</div>
-                    <div class="stat-value">Rp 4.5M</div>
+                    <div class="stat-value">{{ $monthlyFeeTotalFormatted ?? 'Rp 0' }}</div>
                     <div class="stat-trend up">
                         <i class="ri-information-line"></i>
                         30% dari invoice
@@ -104,7 +104,7 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Status Pembayaran</div>
-                    <div class="stat-value">Rp 3.0M</div>
+                    <div class="stat-value">{{ $feePaidFormatted ?? 'Rp 0' }}</div>
                     <div class="stat-trend">
                         <i class="ri-check-line"></i>
                         Dibayar
@@ -120,7 +120,7 @@
                 </div>
                 <div class="stat-content">
                     <div class="stat-label">Fee Pending</div>
-                    <div class="stat-value">Rp 1.5M</div>
+                    <div class="stat-value">{{ $feePendingFormatted ?? 'Rp 0' }}</div>
                     <div class="stat-trend down">
                         <i class="ri-hourglass-line"></i>
                         Menunggu

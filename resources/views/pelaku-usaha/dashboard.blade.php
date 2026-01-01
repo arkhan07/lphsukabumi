@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="referralLink" value="{{ url('/register/phr?ref=' . auth()->user()->referral_code ?? 'PU' . auth()->id()) }}" readonly>
+                        <input type="text" class="form-control" id="referralLink" value="{{ url('/register/phr?ref=' . (auth()->user()->referral_code ?? 'PU' . auth()->id())) }}" readonly>
                         <button class="btn btn-success" type="button" onclick="copyReferralLink()">
                             <i class="ti ti-copy me-1"></i>
                             Salin Link
