@@ -77,6 +77,36 @@
                 </div>
             </div>
 
+            <!-- Referral Link Card -->
+            <div class="card mb-3" style="border: 2px solid #10b981; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <span class="avatar avatar-lg" style="background-color: #10b981; color: white;">
+                                <i class="ti ti-share-3" style="font-size: 1.5rem;"></i>
+                            </span>
+                        </div>
+                        <div class="flex-fill">
+                            <h3 class="card-title mb-1" style="color: #065f46;">Link Referral Pendamping Halal</h3>
+                            <p class="text-muted mb-0">Bagikan link ini kepada calon Pendamping Halal Reguler</p>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="referralLink" value="{{ url('/register/phr?ref=' . auth()->user()->referral_code ?? 'PU' . auth()->id()) }}" readonly>
+                        <button class="btn btn-success" type="button" onclick="copyReferralLink()">
+                            <i class="ti ti-copy me-1"></i>
+                            Salin Link
+                        </button>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <small class="text-muted">
+                            <i class="ti ti-info-circle me-1"></i>
+                            PHR yang mendaftar melalui link Anda akan mendapatkan fee 10% dari nilai invoice Anda
+                        </small>
+                    </div>
+                </div>
+            </div>
+
             <!-- Quick Actions -->
             <div class="card mb-3">
                 <div class="card-header">
@@ -264,6 +294,30 @@
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
+        // Copy referral link function
+        function copyReferralLink() {
+            const referralInput = document.getElementById('referralLink');
+            referralInput.select();
+            referralInput.setSelectionRange(0, 99999); // For mobile devices
+
+            navigator.clipboard.writeText(referralInput.value).then(function() {
+                // Show success message
+                const btn = event.target.closest('button');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="ti ti-check me-1"></i>Tersalin!';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-primary');
+
+                setTimeout(function() {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-success');
+                }, 2000);
+            }).catch(function(err) {
+                alert('Gagal menyalin link: ' + err);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Animate counters
             function animateCounter(element) {

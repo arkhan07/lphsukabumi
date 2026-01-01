@@ -80,6 +80,54 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="ri-money-dollar-circle-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Fee Bulan Ini</div>
+                    <div class="stat-value">Rp 4.5M</div>
+                    <div class="stat-trend up">
+                        <i class="ri-information-line"></i>
+                        30% dari invoice
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="ri-wallet-3-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Status Pembayaran</div>
+                    <div class="stat-value">Rp 3.0M</div>
+                    <div class="stat-trend">
+                        <i class="ri-check-line"></i>
+                        Dibayar
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <i class="ri-time-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Fee Pending</div>
+                    <div class="stat-value">Rp 1.5M</div>
+                    <div class="stat-trend down">
+                        <i class="ri-hourglass-line"></i>
+                        Menunggu
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Charts Row -->
