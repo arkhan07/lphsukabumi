@@ -27,6 +27,9 @@ class DashboardController extends Controller
         ])->count();
         $approved = $user->submissions()->where('status', 'approved')->count();
         $completed = $user->submissions()->where('status', 'completed')->count();
+        $needsRevision = $user->submissions()->whereIn('status', [
+            'screening_rejected', 'verification_revision', 'report_revision'
+        ])->count();
 
         // Get recent submissions
         $recentSubmissions = $user->submissions()
@@ -74,6 +77,7 @@ class DashboardController extends Controller
             'inProgress',
             'approved',
             'completed',
+            'needsRevision',
             'recentSubmissions',
             'statusCounts',
             'totalInvoices',
