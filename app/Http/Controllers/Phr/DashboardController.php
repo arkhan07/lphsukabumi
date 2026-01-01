@@ -14,9 +14,9 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Ensure user is PHR
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        // Ensure user is Pendamping Halal Reguler
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
         // Update statistics
@@ -110,8 +110,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
         // Ensure referral code exists
@@ -139,8 +139,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
         // Get direct downlines (PHRs recruited by this user)
@@ -171,8 +171,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
         $query = $user->phrFees()->with(['pelakuUsaha', 'invoice', 'submission']);
@@ -220,8 +220,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
         $promotions = $user->phrPromotions()->orderBy('created_at', 'desc')->get();
@@ -236,8 +236,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
         // Check if already at highest level

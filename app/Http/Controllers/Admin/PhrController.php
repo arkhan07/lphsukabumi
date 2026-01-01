@@ -17,15 +17,27 @@ class PhrController extends Controller
     public function index()
     {
         $stats = [
-            'total_phrs' => User::where('phr_level', '!=', 'none')->count(),
-            'active_phrs' => User::where('is_phr_active', true)->count(),
-            'regular_phrs' => User::where('phr_level', 'phr')->count(),
-            'area_managers' => User::where('phr_level', 'area_manager')->count(),
-            'regional_managers' => User::where('phr_level', 'regional_manager')->count(),
+            'total_phrs' => User::whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })->count(),
+            'active_phrs' => User::whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })->where('is_phr_active', true)->count(),
+            'regular_phrs' => User::whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })->where('phr_level', 'phr')->count(),
+            'area_managers' => User::whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })->where('phr_level', 'area_manager')->count(),
+            'regional_managers' => User::whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })->where('phr_level', 'regional_manager')->count(),
             'pending_promotions' => PhrPromotion::where('status', 'pending')->count(),
         ];
 
-        $recentPhrs = User::where('phr_level', '!=', 'none')
+        $recentPhrs = User::whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })
             ->orderBy('phr_joined_at', 'desc')
             ->take(10)
             ->get();
@@ -38,7 +50,9 @@ class PhrController extends Controller
      */
     public function list(Request $request)
     {
-        $query = User::where('phr_level', '!=', 'none');
+        $query = User::whereHas('roles', function($q) {
+            $q->where('slug', 'pendamping_halal_reguler');
+        });
 
         // Filter by level
         if ($request->filled('level')) {
@@ -75,8 +89,8 @@ class PhrController extends Controller
      */
     public function show(User $phr)
     {
-        if ($phr->phr_level === 'none') {
-            abort(404, 'User is not a PHR');
+        if (!$phr->hasRole('pendamping_halal_reguler')) {
+            abort(404, 'User is not a Pendamping Halal Reguler');
         }
 
         $phr->load([
@@ -282,8 +296,8 @@ class PhrController extends Controller
      */
     public function toggleActive(User $phr)
     {
-        if ($phr->phr_level === 'none') {
-            abort(404, 'User is not a PHR');
+        if (!$phr->hasRole('pendamping_halal_reguler')) {
+            abort(404, 'User is not a Pendamping Halal Reguler');
         }
 
         $phr->update([
@@ -299,8 +313,8 @@ class PhrController extends Controller
      */
     public function updateStats(User $phr)
     {
-        if ($phr->phr_level === 'none') {
-            abort(404, 'User is not a PHR');
+        if (!$phr->hasRole('pendamping_halal_reguler')) {
+            abort(404, 'User is not a Pendamping Halal Reguler');
         }
 
         $phr->updatePhrStats();
@@ -313,8 +327,8 @@ class PhrController extends Controller
      */
     public function checkPromotion(User $phr)
     {
-        if ($phr->phr_level === 'none') {
-            abort(404, 'User is not a PHR');
+        if (!$phr->hasRole('pendamping_halal_reguler')) {
+            abort(404, 'User is not a Pendamping Halal Reguler');
         }
 
         $promotion = $phr->autoPromote();

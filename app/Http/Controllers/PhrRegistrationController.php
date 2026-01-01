@@ -20,12 +20,14 @@ class PhrRegistrationController extends Controller
 
         if ($referralCode) {
             $recruiter = User::where('referral_code', $referralCode)
-                ->where('phr_level', '!=', 'none')
+                ->whereHas('roles', function($q) {
+                    $q->where('slug', 'pendamping_halal_reguler');
+                })
                 ->first();
 
             if (!$recruiter) {
                 return redirect()->route('register.phr')
-                    ->with('error', 'Kode referral tidak valid atau bukan dari PHR aktif');
+                    ->with('error', 'Kode referral tidak valid atau bukan dari Pendamping Halal Reguler aktif');
             }
         }
 
@@ -57,7 +59,9 @@ class PhrRegistrationController extends Controller
         $recruiter = null;
         if ($request->filled('recruiter_code')) {
             $recruiter = User::where('referral_code', $request->recruiter_code)
-                ->where('phr_level', '!=', 'none')
+                ->whereHas('roles', function($q) {
+                    $q->where('slug', 'pendamping_halal_reguler');
+                })
                 ->where('is_phr_active', true)
                 ->first();
 
@@ -85,8 +89,8 @@ class PhrRegistrationController extends Controller
         // Generate unique referral code for PHR
         $user->ensureReferralCode('PHR');
 
-        // Assign PHR role
-        $phrRole = Role::where('slug', 'phr')->first();
+        // Assign Pendamping Halal Reguler role
+        $phrRole = Role::where('slug', 'pendamping_halal_reguler')->first();
         if ($phrRole) {
             $user->assignRole($phrRole);
         }
@@ -119,7 +123,9 @@ class PhrRegistrationController extends Controller
         }
 
         $recruiter = User::where('referral_code', $code)
-            ->where('phr_level', '!=', 'none')
+            ->whereHas('roles', function($q) {
+                $q->where('slug', 'pendamping_halal_reguler');
+            })
             ->where('is_phr_active', true)
             ->first();
 
@@ -129,7 +135,7 @@ class PhrRegistrationController extends Controller
                 'message' => 'Kode referral valid',
                 'recruiter' => [
                     'name' => $recruiter->name,
-                    'level' => $recruiter->phr_level_name,
+                    'level' => $recruiter->phr_level_name ?? 'Pendamping Halal Reguler',
                     'province' => $recruiter->province,
                     'city' => $recruiter->city,
                 ],
@@ -138,7 +144,7 @@ class PhrRegistrationController extends Controller
 
         return response()->json([
             'valid' => false,
-            'message' => 'Kode referral tidak valid atau bukan dari PHR aktif',
+            'message' => 'Kode referral tidak valid atau bukan dari Pendamping Halal Reguler aktif',
         ]);
     }
 }

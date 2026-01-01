@@ -9,6 +9,7 @@ class CheckPhrRole
 {
     /**
      * Handle an incoming request.
+     * Check if user has 'pendamping_halal_reguler' role
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -23,18 +24,18 @@ class CheckPhrRole
 
         $user = auth()->user();
 
-        // Check if user is PHR
-        if ($user->phr_level === 'none') {
-            abort(403, 'Akses ditolak. Anda bukan PHR.');
+        // Check if user has Pendamping Halal Reguler role
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
-        // Check if user is active PHR
-        if (!$user->is_phr_active) {
+        // Check if user is active PHR (if they have phr_level field)
+        if (isset($user->is_phr_active) && !$user->is_phr_active) {
             abort(403, 'Akses ditolak. Status PHR Anda tidak aktif.');
         }
 
-        // Check specific level if provided
-        if ($level) {
+        // Check specific level if provided (for MLM hierarchy)
+        if ($level && isset($user->phr_level)) {
             $allowedLevels = explode('|', $level);
 
             if (!in_array($user->phr_level, $allowedLevels)) {
