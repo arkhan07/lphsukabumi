@@ -9,12 +9,6 @@
                     <h2 class="page-title">Dashboard Admin LPH</h2>
                     <div class="text-secondary mt-1">Selamat datang, {{ auth()->user()->name }}! Kelola operasional LPH Doa Bangsa Sukabumi</div>
                 </div>
-                <div class="col-auto ms-auto">
-                    <a href="{{ route('admin.submissions.create') }}" class="btn btn-primary">
-                        <i class="ti ti-plus me-1"></i>
-                        Tambah Permohonan
-                    </a>
-                </div>
             </div>
         </div>
     </div>
