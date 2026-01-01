@@ -375,6 +375,9 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::post('/{user}/activate', [App\Http\Controllers\Admin\PhrController::class, 'activate'])->name('activate');
         Route::post('/{user}/deactivate', [App\Http\Controllers\Admin\PhrController::class, 'deactivate'])->name('deactivate');
 
+        // PHR List
+        Route::get('/list', [App\Http\Controllers\Admin\PhrController::class, 'list'])->name('list');
+
         // Promotions
         Route::get('/promotions', [App\Http\Controllers\Admin\PhrController::class, 'promotions'])->name('promotions');
         Route::post('/promotions/{promotion}/approve', [App\Http\Controllers\Admin\PhrController::class, 'approvePromotion'])->name('promotions.approve');
