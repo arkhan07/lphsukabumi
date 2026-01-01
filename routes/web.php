@@ -364,6 +364,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::get('/{invoice}/preview', [App\Http\Controllers\Admin\InvoicesController::class, 'preview'])->name('preview');
         Route::post('/{invoice}/generate-pdf', [App\Http\Controllers\Admin\InvoicesController::class, 'generatePdf'])->name('generate-pdf');
         Route::post('/{invoice}/send', [App\Http\Controllers\Admin\InvoicesController::class, 'send'])->name('send');
+        Route::post('/{invoice}/mark-as-paid', [App\Http\Controllers\Admin\InvoicesController::class, 'markAsPaid'])->name('mark-as-paid');
         Route::post('/{invoice}/cancel', [App\Http\Controllers\Admin\InvoicesController::class, 'cancel'])->name('cancel');
     });
 
