@@ -19,88 +19,61 @@ class DashboardController extends Controller
             abort(403, 'Akses ditolak. Anda bukan Pendamping Halal Reguler.');
         }
 
-        // Update statistics
-        $user->updatePhrStats();
+        // Ensure referral code exists
+        $user->ensureReferralCode('PHR');
 
-        // Check for auto-promotion
-        $eligibleForPromotion = $user->checkPromotionEligibility();
+        // Update statistics
+        if (method_exists($user, 'updatePhrStats')) {
+            $user->updatePhrStats();
+        }
 
         // Get recruitment statistics
         $stats = [
-            'level' => $user->phr_level,
-            'level_name' => $user->phr_level_name,
-            'is_active' => $user->is_phr_active,
-            'joined_at' => $user->phr_joined_at,
-            'last_promotion_at' => $user->last_promotion_at,
+            'level' => $user->phr_level ?? 'phr',
+            'level_name' => $user->phr_level_name ?? 'Pendamping Halal Reguler',
+            'is_active' => $user->is_phr_active ?? true,
 
-            // Recruitment stats
-            'total_pu_referred' => $user->pu_referred_count,
-            'total_phr_recruited' => $user->phr_recruited_count,
-            'active_phr_recruited' => $user->phr_active_recruited_count,
-            'area_managers_count' => $user->area_managers_count,
+            // Pelaku Usaha stats
+            'total_pu' => $user->referredPelakuUsaha()->count(),
 
             // Fee stats
             'total_fees' => $user->phrFees()->sum('fee_amount'),
             'paid_fees' => $user->phrFees()->where('status', 'paid')->sum('paid_amount'),
             'pending_fees' => $user->phrFees()->where('status', 'pending')->sum('fee_amount'),
-            'approved_fees' => $user->phrFees()->where('status', 'approved')->sum('fee_amount'),
 
-            // Monthly stats
-            'monthly_fees' => $user->phrFees()
-                ->whereYear('created_at', now()->year)
-                ->whereMonth('created_at', now()->month)
-                ->sum('fee_amount'),
+            // Formatted fees
+            'total_fees_formatted' => 'Rp ' . number_format($user->phrFees()->sum('fee_amount'), 0, ',', '.'),
+            'paid_fees_formatted' => 'Rp ' . number_format($user->phrFees()->where('status', 'paid')->sum('paid_amount'), 0, ',', '.'),
+            'pending_fees_formatted' => 'Rp ' . number_format($user->phrFees()->where('status', 'pending')->sum('fee_amount'), 0, ',', '.'),
+
+            // MLM stats (if applicable)
+            'total_phr_recruited' => $user->phr_recruited_count ?? 0,
+            'area_managers_count' => $user->area_managers_count ?? 0,
         ];
 
-        // Get promotion criteria
-        $nextLevel = null;
-        $criteria = null;
-        $progress = [];
+        // Get recent pelaku usaha
+        $recentPu = $user->referredPelakuUsaha()->orderBy('created_at', 'desc')->take(10)->get();
 
-        if ($user->phr_level === 'phr') {
-            $nextLevel = 'area_manager';
-            $criteria = \App\Models\PhrPromotionCriteria::getForLevel('area_manager');
-        } elseif ($user->phr_level === 'area_manager') {
-            $nextLevel = 'regional_manager';
-            $criteria = \App\Models\PhrPromotionCriteria::getForLevel('regional_manager');
+        // Get recent fees
+        $recentFees = $user->phrFees()->with(['pelakuUsaha', 'invoice'])->orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('phr.dashboard', compact('stats', 'recentPu', 'recentFees'));
+    }
+
+    /**
+     * Generate referral code for PHR
+     */
+    public function generateCode()
+    {
+        $user = auth()->user();
+
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        if ($criteria) {
-            $progress = [
-                'pu_referred' => [
-                    'current' => $user->pu_referred_count,
-                    'required' => $criteria->min_pu_referred,
-                    'percentage' => min(100, ($user->pu_referred_count / $criteria->min_pu_referred) * 100),
-                ],
-            ];
+        $user->ensureReferralCode('PHR');
 
-            if ($nextLevel === 'area_manager') {
-                $progress['phr_recruited'] = [
-                    'current' => $user->phr_active_recruited_count,
-                    'required' => $criteria->min_phr_recruited,
-                    'percentage' => min(100, ($user->phr_active_recruited_count / $criteria->min_phr_recruited) * 100),
-                ];
-            }
-
-            if ($nextLevel === 'regional_manager') {
-                $progress['area_managers'] = [
-                    'current' => $user->area_managers_count,
-                    'required' => $criteria->min_area_managers,
-                    'percentage' => min(100, ($user->area_managers_count / $criteria->min_area_managers) * 100),
-                ];
-                $progress['province_coverage'] = [
-                    'current' => $user->calculateProvinceCoverage(),
-                    'required' => $criteria->min_province_coverage_percentage,
-                    'percentage' => min(100, ($user->calculateProvinceCoverage() / $criteria->min_province_coverage_percentage) * 100),
-                ];
-            }
-        }
-
-        // Recent activities
-        $recentFees = $user->phrFees()->orderBy('created_at', 'desc')->take(5)->get();
-        $recentPromotions = $user->phrPromotions()->orderBy('created_at', 'desc')->take(5)->get();
-
-        return view('phr.dashboard', compact('stats', 'eligibleForPromotion', 'nextLevel', 'criteria', 'progress', 'recentFees', 'recentPromotions'));
+        return response()->json(['code' => $user->referral_code]);
     }
 
     /**
