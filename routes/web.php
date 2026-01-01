@@ -536,9 +536,9 @@ Route::middleware(['auth', 'role:auditor_halal'])->prefix('auditor')->name('audi
     Route::get('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFinding'])->name('findings.show');
     Route::put('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'updateFinding'])->name('findings.update');
 
-    // Fee Tracking
-    Route::get('/fees', [App\Http\Controllers\Auditor\DashboardController::class, 'fees'])->name('fees');
-    Route::get('/fees/{fee}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFee'])->name('fees.show');
+    // Fee Tracking (30%)
+    Route::get('/fees', [App\Http\Controllers\Auditor\FeesController::class, 'index'])->name('fees');
+    Route::get('/fees/{fee}', [App\Http\Controllers\Auditor\FeesController::class, 'show'])->name('fees.show');
 });
 
 // PHR (Pendamping Halal Reguler) Routes

@@ -16,7 +16,7 @@ class FeesController extends Controller
         $user = auth()->user();
 
         // Ensure user is auditor
-        if (!$user->hasRole('auditor-halal')) {
+        if (!$user->hasRole('auditor_halal')) {
             abort(403, 'Akses ditolak. Anda bukan auditor halal.');
         }
 
