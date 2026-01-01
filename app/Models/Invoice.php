@@ -104,4 +104,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(Invoice::class, 'full_invoice_id');
     }
+
+    public function auditorFees()
+    {
+        return $this->hasMany(AuditorFee::class);
+    }
 }
