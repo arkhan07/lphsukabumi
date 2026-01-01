@@ -38,22 +38,23 @@
                             <span class="nav-link-title">Jaringan</span>
                         </a>
                         <div class="dropdown-menu {{ request()->routeIs('phr.recruitment*') || request()->routeIs('phr.downlines*') ? 'show' : '' }}" id="navbar-network-phr">
-                            <a class="dropdown-item" href="{{ route('phr.recruitment') }}">Rekrutmen</a>
-                            <a class="dropdown-item" href="{{ route('phr.downlines') }}">Downline PHR</a>
+                            <a class="dropdown-item" href="{{ route('phr.recruitment.index') }}">Rekrutmen</a>
+                            <a class="dropdown-item" href="{{ route('phr.downlines.index') }}">Downline PHR</a>
                         </div>
                     </li>
 
                     <!-- Fee & Royalti PHR -->
-                    <li class="nav-item dropdown {{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#navbar-fees-phr" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') ? 'true' : 'false' }}">
+                    <li class="nav-item dropdown {{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') || request()->routeIs('phr.achievements*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-fees-phr" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') || request()->routeIs('phr.achievements*') ? 'true' : 'false' }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-cash"></i>
                             </span>
                             <span class="nav-link-title">Fee & Royalti</span>
                         </a>
-                        <div class="dropdown-menu {{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') ? 'show' : '' }}" id="navbar-fees-phr">
-                            <a class="dropdown-item" href="{{ route('phr.fees') }}">Daftar Fee</a>
-                            <a class="dropdown-item" href="{{ route('phr.promotions') }}">Riwayat Promosi</a>
+                        <div class="dropdown-menu {{ request()->routeIs('phr.fees*') || request()->routeIs('phr.promotions*') || request()->routeIs('phr.achievements*') ? 'show' : '' }}" id="navbar-fees-phr">
+                            <a class="dropdown-item" href="{{ route('phr.fees.index') }}">Daftar Fee</a>
+                            <a class="dropdown-item" href="{{ route('phr.promotions.index') }}">Riwayat Promosi</a>
+                            <a class="dropdown-item" href="{{ route('phr.achievements.index') }}">Pencapaian</a>
                         </div>
                     </li>
 
