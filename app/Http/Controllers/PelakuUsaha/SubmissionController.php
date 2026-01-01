@@ -95,11 +95,42 @@ class SubmissionController extends Controller
 
             // Section D: Penyelia Halal dan Referensi
             'has_halal_supervisor' => 'required|boolean',
+            'phr_referral_code' => 'nullable|string|max:20|exists:users,referral_code',
             'referral_source' => 'nullable|string|max:255',
         ]);
 
         try {
             DB::beginTransaction();
+
+            // Handle PHR referral code if provided
+            if (!empty($validated['phr_referral_code'])) {
+                $phr = \App\Models\User::where('referral_code', $validated['phr_referral_code'])
+                    ->whereHas('roles', function($q) {
+                        $q->where('slug', 'pendamping_halal_reguler');
+                    })
+                    ->where('is_phr_active', true)
+                    ->first();
+
+                if ($phr) {
+                    // Set referred_by on the current user (Pelaku Usaha)
+                    auth()->user()->update([
+                        'referred_by' => $phr->id,
+                        'referral_code' => $validated['phr_referral_code'], // Save the code used
+                    ]);
+
+                    // Update PHR statistics
+                    $phr->pu_referred_count = $phr->referredPelakuUsaha()->count();
+                    $phr->save();
+
+                    // Update PHR stats and check for promotion
+                    if (method_exists($phr, 'updatePhrStats')) {
+                        $phr->updatePhrStats();
+                    }
+                    if (method_exists($phr, 'autoPromote')) {
+                        $phr->autoPromote();
+                    }
+                }
+            }
 
             // Generate submission number
             $submissionNumber = $this->generateSubmissionNumber();

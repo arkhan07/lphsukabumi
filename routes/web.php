@@ -564,7 +564,8 @@ Route::middleware(['auth', 'role:pendamping_halal_reguler'])->prefix('phr')->nam
 });
 
 // PHR Registration (Public - with referral code)
-Route::get('/register/phr', [App\Http\Controllers\Auth\PhrRegistrationController::class, 'showRegistrationForm'])->name('register.phr');
-Route::post('/register/phr', [App\Http\Controllers\Auth\PhrRegistrationController::class, 'register'])->name('register.phr.submit');
+Route::get('/register/phr', [App\Http\Controllers\PhrRegistrationController::class, 'showRegistrationForm'])->name('register.phr');
+Route::post('/register/phr', [App\Http\Controllers\PhrRegistrationController::class, 'register'])->name('register.phr.submit');
+Route::get('/register/phr/validate-code', [App\Http\Controllers\PhrRegistrationController::class, 'validateReferralCode'])->name('register.phr.validate');
 
 require __DIR__.'/auth.php';
