@@ -355,7 +355,51 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::delete('/{audit}', [App\Http\Controllers\Admin\AuditsController::class, 'destroy'])->name('destroy');
     });
 
-    // Finance (Keuangan)
+    // Invoices/Quotations (Surat Penawaran) - NEW SYSTEM
+    Route::prefix('invoices')->name('invoices.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\InvoicesController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Admin\InvoicesController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Admin\InvoicesController::class, 'store'])->name('store');
+        Route::get('/{invoice}', [App\Http\Controllers\Admin\InvoicesController::class, 'show'])->name('show');
+        Route::get('/{invoice}/preview', [App\Http\Controllers\Admin\InvoicesController::class, 'preview'])->name('preview');
+        Route::post('/{invoice}/generate-pdf', [App\Http\Controllers\Admin\InvoicesController::class, 'generatePdf'])->name('generate-pdf');
+        Route::post('/{invoice}/send', [App\Http\Controllers\Admin\InvoicesController::class, 'send'])->name('send');
+        Route::post('/{invoice}/cancel', [App\Http\Controllers\Admin\InvoicesController::class, 'cancel'])->name('cancel');
+    });
+
+    // PHR Management (Pendamping Halal Reguler)
+    Route::prefix('phr')->name('phr.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\PhrController::class, 'index'])->name('index');
+        Route::get('/{user}', [App\Http\Controllers\Admin\PhrController::class, 'show'])->name('show');
+        Route::post('/{user}/activate', [App\Http\Controllers\Admin\PhrController::class, 'activate'])->name('activate');
+        Route::post('/{user}/deactivate', [App\Http\Controllers\Admin\PhrController::class, 'deactivate'])->name('deactivate');
+
+        // Promotions
+        Route::get('/promotions', [App\Http\Controllers\Admin\PhrController::class, 'promotions'])->name('promotions');
+        Route::post('/promotions/{promotion}/approve', [App\Http\Controllers\Admin\PhrController::class, 'approvePromotion'])->name('promotions.approve');
+        Route::post('/promotions/{promotion}/reject', [App\Http\Controllers\Admin\PhrController::class, 'rejectPromotion'])->name('promotions.reject');
+        Route::post('/{user}/promote', [App\Http\Controllers\Admin\PhrController::class, 'manualPromote'])->name('promote');
+
+        // Fees
+        Route::get('/fees', [App\Http\Controllers\Admin\PhrController::class, 'fees'])->name('fees');
+        Route::post('/fees/{fee}/approve', [App\Http\Controllers\Admin\PhrController::class, 'approveFee'])->name('fees.approve');
+        Route::post('/fees/{fee}/pay', [App\Http\Controllers\Admin\PhrController::class, 'payFee'])->name('fees.pay');
+
+        // Criteria Settings
+        Route::get('/criteria', [App\Http\Controllers\Admin\PhrController::class, 'criteria'])->name('criteria');
+        Route::put('/criteria/{criteria}', [App\Http\Controllers\Admin\PhrController::class, 'updateCriteria'])->name('criteria.update');
+    });
+
+    // Auditor Fees Management
+    Route::prefix('auditor-fees')->name('auditor-fees.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\AuditorFeesController::class, 'index'])->name('index');
+        Route::get('/{fee}', [App\Http\Controllers\Admin\AuditorFeesController::class, 'show'])->name('show');
+        Route::post('/{fee}/approve', [App\Http\Controllers\Admin\AuditorFeesController::class, 'approve'])->name('approve');
+        Route::post('/{fee}/pay', [App\Http\Controllers\Admin\AuditorFeesController::class, 'pay'])->name('pay');
+        Route::post('/{fee}/cancel', [App\Http\Controllers\Admin\AuditorFeesController::class, 'cancel'])->name('cancel');
+    });
+
+    // Finance (Keuangan) - OLD SYSTEM (Keep for backward compatibility)
     Route::prefix('finance')->name('finance.')->group(function () {
         Route::get('/invoices', [App\Http\Controllers\Admin\FinanceController::class, 'invoices'])->name('invoices');
         Route::get('/invoices/create', [App\Http\Controllers\Admin\FinanceController::class, 'createInvoice'])->name('invoices.create');
@@ -482,6 +526,44 @@ Route::middleware(['auth', 'role:auditor_halal'])->prefix('auditor')->name('audi
     Route::post('/findings', [App\Http\Controllers\Auditor\DashboardController::class, 'storeFinding'])->name('findings.store');
     Route::get('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFinding'])->name('findings.show');
     Route::put('/findings/{finding}', [App\Http\Controllers\Auditor\DashboardController::class, 'updateFinding'])->name('findings.update');
+
+    // Fee Tracking
+    Route::get('/fees', [App\Http\Controllers\Auditor\DashboardController::class, 'fees'])->name('fees');
+    Route::get('/fees/{fee}', [App\Http\Controllers\Auditor\DashboardController::class, 'showFee'])->name('fees.show');
 });
+
+// PHR (Pendamping Halal Reguler) Routes
+Route::middleware(['auth', 'phr'])->prefix('phr')->name('phr.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Phr\DashboardController::class, 'index'])->name('dashboard');
+
+    // Recruitment
+    Route::get('/recruitment', [App\Http\Controllers\Phr\RecruitmentController::class, 'index'])->name('recruitment.index');
+    Route::get('/recruitment/invite', [App\Http\Controllers\Phr\RecruitmentController::class, 'invite'])->name('recruitment.invite');
+    Route::post('/recruitment/send-invitation', [App\Http\Controllers\Phr\RecruitmentController::class, 'sendInvitation'])->name('recruitment.send');
+
+    // Referrals (Pelaku Usaha yang direferensikan)
+    Route::get('/referrals', [App\Http\Controllers\Phr\ReferralsController::class, 'index'])->name('referrals.index');
+    Route::get('/referrals/{user}', [App\Http\Controllers\Phr\ReferralsController::class, 'show'])->name('referrals.show');
+
+    // Downlines (PHR yang direkrut)
+    Route::get('/downlines', [App\Http\Controllers\Phr\DownlinesController::class, 'index'])->name('downlines.index');
+    Route::get('/downlines/{user}', [App\Http\Controllers\Phr\DownlinesController::class, 'show'])->name('downlines.show');
+
+    // Fees (10%, 3%, 2%)
+    Route::get('/fees', [App\Http\Controllers\Phr\FeesController::class, 'index'])->name('fees.index');
+    Route::get('/fees/{fee}', [App\Http\Controllers\Phr\FeesController::class, 'show'])->name('fees.show');
+
+    // Promotions & Achievements
+    Route::get('/achievements', [App\Http\Controllers\Phr\AchievementsController::class, 'index'])->name('achievements.index');
+    Route::get('/promotions', [App\Http\Controllers\Phr\AchievementsController::class, 'promotions'])->name('promotions.index');
+
+    // Profile & Settings
+    Route::get('/profile', [App\Http\Controllers\Phr\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [App\Http\Controllers\Phr\ProfileController::class, 'update'])->name('profile.update');
+});
+
+// PHR Registration (Public - with referral code)
+Route::get('/register/phr', [App\Http\Controllers\Auth\PhrRegistrationController::class, 'showRegistrationForm'])->name('register.phr');
+Route::post('/register/phr', [App\Http\Controllers\Auth\PhrRegistrationController::class, 'register'])->name('register.phr.submit');
 
 require __DIR__.'/auth.php';
