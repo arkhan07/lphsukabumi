@@ -26,6 +26,18 @@ class User extends Authenticatable
         'profile_photo',
         'referral_code',
         'referred_by',
+        'phr_level',
+        'phr_recruited_count',
+        'phr_active_recruited_count',
+        'pu_referred_count',
+        'area_managers_count',
+        'province',
+        'city',
+        'district',
+        'is_phr_active',
+        'phr_joined_at',
+        'last_promotion_at',
+        'recruited_by_phr',
     ];
 
     /**
@@ -45,6 +57,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phr_joined_at' => 'datetime',
+        'last_promotion_at' => 'datetime',
+        'is_phr_active' => 'boolean',
+        'phr_recruited_count' => 'integer',
+        'phr_active_recruited_count' => 'integer',
+        'pu_referred_count' => 'integer',
+        'area_managers_count' => 'integer',
     ];
 
     /**
@@ -269,5 +288,209 @@ class User extends Authenticatable
         }
 
         return $this->referral_code;
+    }
+
+    /* ========== PHR SYSTEM METHODS & RELATIONSHIPS ========== */
+
+    /**
+     * Get PHR fees
+     */
+    public function phrFees()
+    {
+        return $this->hasMany(PhrFee::class, 'phr_id');
+    }
+
+    /**
+     * Get PHR promotions
+     */
+    public function phrPromotions()
+    {
+        return $this->hasMany(PhrPromotion::class);
+    }
+
+    /**
+     * Get PHR who recruited this user
+     */
+    public function recruiter()
+    {
+        return $this->belongsTo(User::class, 'recruited_by_phr');
+    }
+
+    /**
+     * Get PHRs recruited by this user
+     */
+    public function recruitedPhrs()
+    {
+        return $this->hasMany(User::class, 'recruited_by_phr')->where('phr_level', '!=', 'none');
+    }
+
+    /**
+     * Get active PHRs recruited by this user
+     */
+    public function activeRecruitedPhrs()
+    {
+        return $this->recruitedPhrs()->where('is_phr_active', true);
+    }
+
+    /**
+     * Get Pelaku Usaha referred by this user (for PHR)
+     */
+    public function referredPelakuUsaha()
+    {
+        return $this->hasMany(User::class, 'referred_by')
+            ->whereHas('roles', function($q) {
+                $q->where('slug', 'pelaku-usaha');
+            });
+    }
+
+    /**
+     * Check if user is PHR
+     */
+    public function isPhr()
+    {
+        return $this->phr_level !== 'none';
+    }
+
+    /**
+     * Check if user is Area Manager
+     */
+    public function isAreaManager()
+    {
+        return $this->phr_level === 'area_manager' || $this->phr_level === 'regional_manager';
+    }
+
+    /**
+     * Check if user is Regional Manager
+     */
+    public function isRegionalManager()
+    {
+        return $this->phr_level === 'regional_manager';
+    }
+
+    /**
+     * Get PHR level name
+     */
+    public function getPhrLevelNameAttribute()
+    {
+        return match($this->phr_level) {
+            'phr' => 'Pendamping Halal Reguler',
+            'area_manager' => 'Manajer Area Kabupaten/Kota',
+            'regional_manager' => 'Manajer Regional Provinsi',
+            default => '-',
+        };
+    }
+
+    /**
+     * Calculate province coverage for Regional Manager promotion
+     */
+    public function calculateProvinceCoverage()
+    {
+        if (!$this->province) {
+            return 0;
+        }
+
+        // Get total cities/districts in the province
+        $totalCities = User::where('province', $this->province)
+            ->whereNotNull('city')
+            ->distinct('city')
+            ->count('city');
+
+        if ($totalCities == 0) {
+            return 0;
+        }
+
+        // Get cities covered by Area Managers under this user
+        $coveredCities = User::where('recruited_by_phr', $this->id)
+            ->where('phr_level', 'area_manager')
+            ->where('province', $this->province)
+            ->whereNotNull('city')
+            ->distinct('city')
+            ->count('city');
+
+        return ($coveredCities / $totalCities) * 100;
+    }
+
+    /**
+     * Update PHR statistics
+     */
+    public function updatePhrStats()
+    {
+        // Update recruited PHRs count
+        $this->phr_recruited_count = $this->recruitedPhrs()->count();
+        $this->phr_active_recruited_count = $this->activeRecruitedPhrs()->count();
+
+        // Update PU referred count
+        $this->pu_referred_count = $this->referredPelakuUsaha()->count();
+
+        // Update Area Managers count (for Regional Manager)
+        if ($this->isAreaManager()) {
+            $this->area_managers_count = $this->recruitedPhrs()
+                ->where('phr_level', 'area_manager')
+                ->count();
+        }
+
+        $this->save();
+    }
+
+    /**
+     * Check if eligible for promotion
+     */
+    public function checkPromotionEligibility()
+    {
+        // Update stats first
+        $this->updatePhrStats();
+
+        $eligibleFor = null;
+
+        // Check for Area Manager promotion
+        if ($this->phr_level === 'phr') {
+            $criteria = PhrPromotionCriteria::getForLevel('area_manager');
+            if ($criteria && $criteria->userMeetsCriteria($this)) {
+                $eligibleFor = 'area_manager';
+            }
+        }
+
+        // Check for Regional Manager promotion
+        if ($this->phr_level === 'area_manager') {
+            $criteria = PhrPromotionCriteria::getForLevel('regional_manager');
+            if ($criteria && $criteria->userMeetsCriteria($this)) {
+                $eligibleFor = 'regional_manager';
+            }
+        }
+
+        return $eligibleFor;
+    }
+
+    /**
+     * Auto-promote if eligible
+     */
+    public function autoPromote()
+    {
+        $eligibleFor = $this->checkPromotionEligibility();
+
+        if (!$eligibleFor) {
+            return null;
+        }
+
+        // Create promotion record
+        $promotion = PhrPromotion::create([
+            'user_id' => $this->id,
+            'from_level' => $this->phr_level,
+            'to_level' => $eligibleFor,
+            'promotion_type' => 'auto',
+            'pu_referred_count_at_promotion' => $this->pu_referred_count,
+            'phr_recruited_count_at_promotion' => $this->phr_active_recruited_count,
+            'area_managers_count_at_promotion' => $this->area_managers_count,
+            'province_coverage_percentage' => $eligibleFor === 'regional_manager' ? $this->calculateProvinceCoverage() : 0,
+            'status' => 'approved',
+            'approved_at' => now(),
+        ]);
+
+        // Update user level
+        $this->phr_level = $eligibleFor;
+        $this->last_promotion_at = now();
+        $this->save();
+
+        return $promotion;
     }
 }
