@@ -25,14 +25,14 @@ class ReferralsController extends Controller
                 $q->where('name', 'pelaku_usaha');
             });
 
-        // Filter by status
-        if ($request->filled('status')) {
-            if ($request->status === 'active') {
-                $query->where('is_active', true);
-            } elseif ($request->status === 'inactive') {
-                $query->where('is_active', false);
-            }
-        }
+        // Filter by status - removed is_active column filter as it doesn't exist
+        // if ($request->filled('status')) {
+        //     if ($request->status === 'active') {
+        //         $query->where('is_active', true);
+        //     } elseif ($request->status === 'inactive') {
+        //         $query->where('is_active', false);
+        //     }
+        // }
 
         // Search by name or email
         if ($request->filled('search')) {
@@ -55,9 +55,7 @@ class ReferralsController extends Controller
             'active_pu' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
-                })
-                ->where('is_active', true)
-                ->count(),
+                })->count(), // No is_active column, count all PU
             'total_submissions' => Submission::whereIn('user_id', function($query) use ($user) {
                 $query->select('id')
                     ->from('users')

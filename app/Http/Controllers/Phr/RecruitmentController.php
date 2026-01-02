@@ -44,9 +44,7 @@ class RecruitmentController extends Controller
             'active_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
-                })
-                ->where('is_active', true)
-                ->count(),
+                })->count(), // No is_active column for PU, just count all
         ];
 
         // Recent recruits (PHR)
