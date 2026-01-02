@@ -292,6 +292,34 @@ class PhrController extends Controller
     }
 
     /**
+     * Activate PHR
+     */
+    public function activate(User $phr)
+    {
+        if (!$phr->hasRole('pendamping_halal_reguler')) {
+            abort(404, 'User is not a Pendamping Halal Reguler');
+        }
+
+        $phr->update(['is_phr_active' => true]);
+
+        return back()->with('success', 'PHR berhasil diaktifkan');
+    }
+
+    /**
+     * Deactivate PHR
+     */
+    public function deactivate(User $phr)
+    {
+        if (!$phr->hasRole('pendamping_halal_reguler')) {
+            abort(404, 'User is not a Pendamping Halal Reguler');
+        }
+
+        $phr->update(['is_phr_active' => false]);
+
+        return back()->with('success', 'PHR berhasil dinonaktifkan');
+    }
+
+    /**
      * Toggle PHR active status
      */
     public function toggleActive(User $phr)
