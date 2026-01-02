@@ -10,6 +10,9 @@ use App\Models\InvoicePayment;
 use App\Models\Audit;
 use App\Models\Finding;
 use App\Models\Report;
+use App\Models\User;
+use App\Models\PhrFee;
+use App\Models\PhrPromotion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -472,6 +475,189 @@ class ReportsController extends Controller
             'topCompanies',
             'activityStats',
             'certificationRate',
+            'startDate',
+            'endDate'
+        ));
+    }
+
+    /**
+     * PHR (Pendamping Halal Reguler) reports
+     */
+    public function phr(Request $request)
+    {
+        // Date range filter
+        $startDate = $request->input('start_date', now()->startOfYear());
+        $endDate = $request->input('end_date', now());
+
+        // Handle export request
+        if ($request->has('export')) {
+            // TODO: Implement export functionality (PDF/Excel)
+            // return $this->exportPhr($request, $startDate, $endDate);
+        }
+
+        // PHR statistics
+        $phrStats = [
+            'total' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->count(),
+            'active' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('is_phr_active', true)->count(),
+            'inactive' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('is_phr_active', false)->count(),
+            'regular' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('phr_level', 'regular')->orWhereNull('phr_level')->count(),
+            'area_managers' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('phr_level', 'area_manager')->count(),
+            'regional_managers' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('phr_level', 'regional_manager')->count(),
+            'new_this_period' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->whereBetween('phr_joined_at', [$startDate, $endDate])->count(),
+        ];
+
+        // Fee statistics
+        $feeStats = [
+            'total_fees' => PhrFee::whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+            'pending' => PhrFee::where('status', 'pending')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+            'approved' => PhrFee::where('status', 'approved')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+            'paid' => PhrFee::where('status', 'paid')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+            'direct_fees' => PhrFee::where('fee_type', 'direct')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+            'downline_fees' => PhrFee::where('fee_type', 'downline')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+            'regional_fees' => PhrFee::where('fee_type', 'regional')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('fee_amount'),
+        ];
+
+        // Promotion statistics
+        $promotionStats = [
+            'total' => PhrPromotion::whereBetween('created_at', [$startDate, $endDate])->count(),
+            'to_area_manager' => PhrPromotion::where('to_level', 'area_manager')
+                ->whereBetween('created_at', [$startDate, $endDate])->count(),
+            'to_regional_manager' => PhrPromotion::where('to_level', 'regional_manager')
+                ->whereBetween('created_at', [$startDate, $endDate])->count(),
+            'approved' => PhrPromotion::where('status', 'approved')
+                ->whereBetween('created_at', [$startDate, $endDate])->count(),
+            'pending' => PhrPromotion::where('status', 'pending')
+                ->whereBetween('created_at', [$startDate, $endDate])->count(),
+            'rejected' => PhrPromotion::where('status', 'rejected')
+                ->whereBetween('created_at', [$startDate, $endDate])->count(),
+        ];
+
+        // Monthly PHR registration trend
+        $monthlyRegistrations = User::select(
+            DB::raw('DATE_FORMAT(phr_joined_at, "%Y-%m") as month'),
+            DB::raw('COUNT(*) as total')
+        )
+        ->whereHas('roles', function($q) {
+            $q->where('name', 'pendamping_halal_reguler');
+        })
+        ->whereNotNull('phr_joined_at')
+        ->whereBetween('phr_joined_at', [$startDate, $endDate])
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
+
+        // Monthly fee trend by type
+        $monthlyFees = PhrFee::select(
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+            DB::raw('SUM(CASE WHEN fee_type = "direct" THEN fee_amount ELSE 0 END) as direct_total'),
+            DB::raw('SUM(CASE WHEN fee_type = "downline" THEN fee_amount ELSE 0 END) as downline_total'),
+            DB::raw('SUM(CASE WHEN fee_type = "regional" THEN fee_amount ELSE 0 END) as regional_total'),
+            DB::raw('SUM(fee_amount) as total')
+        )
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
+
+        // Top performing PHRs by fees earned
+        $topPhrs = PhrFee::select(
+            'users.name',
+            'users.email',
+            'users.phr_level',
+            DB::raw('COUNT(phr_fees.id) as fee_count'),
+            DB::raw('SUM(phr_fees.fee_amount) as total_fees'),
+            DB::raw('SUM(CASE WHEN phr_fees.status = "paid" THEN phr_fees.fee_amount ELSE 0 END) as paid_fees')
+        )
+        ->join('users', 'phr_fees.phr_id', '=', 'users.id')
+        ->whereBetween('phr_fees.created_at', [$startDate, $endDate])
+        ->groupBy('users.id', 'users.name', 'users.email', 'users.phr_level')
+        ->orderByDesc('total_fees')
+        ->limit(10)
+        ->get();
+
+        // PHR recruitment performance (who recruited the most PHRs)
+        $topRecruiters = User::select(
+            'users.name',
+            'users.email',
+            'users.phr_level',
+            DB::raw('COUNT(recruited.id) as recruited_count')
+        )
+        ->join('users as recruited', 'users.id', '=', 'recruited.recruited_by_phr_id')
+        ->whereHas('roles', function($q) {
+            $q->where('name', 'pendamping_halal_reguler');
+        })
+        ->whereHas('roles', function($q) {
+            $q->where('name', 'pendamping_halal_reguler');
+        })
+        ->whereBetween('recruited.phr_joined_at', [$startDate, $endDate])
+        ->groupBy('users.id', 'users.name', 'users.email', 'users.phr_level')
+        ->orderByDesc('recruited_count')
+        ->limit(10)
+        ->get();
+
+        // PHR by province distribution
+        $provinceDistribution = User::select(
+            'province',
+            DB::raw('COUNT(*) as total'),
+            DB::raw('SUM(CASE WHEN is_phr_active = 1 THEN 1 ELSE 0 END) as active_count')
+        )
+        ->whereHas('roles', function($q) {
+            $q->where('name', 'pendamping_halal_reguler');
+        })
+        ->whereNotNull('province')
+        ->groupBy('province')
+        ->orderByDesc('total')
+        ->limit(10)
+        ->get();
+
+        // Fee payment rate
+        $paymentRate = $feeStats['total_fees'] > 0
+            ? round(($feeStats['paid'] / $feeStats['total_fees']) * 100, 2)
+            : 0;
+
+        // Average fee per PHR
+        $avgFeePerPhr = $phrStats['total'] > 0
+            ? round($feeStats['total_fees'] / $phrStats['total'], 0)
+            : 0;
+
+        return view('admin.reports.phr', compact(
+            'phrStats',
+            'feeStats',
+            'promotionStats',
+            'monthlyRegistrations',
+            'monthlyFees',
+            'topPhrs',
+            'topRecruiters',
+            'provinceDistribution',
+            'paymentRate',
+            'avgFeePerPhr',
             'startDate',
             'endDate'
         ));

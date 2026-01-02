@@ -447,6 +447,7 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::get('/financial', [App\Http\Controllers\Admin\ReportsController::class, 'financial'])->name('financial');
         Route::get('/audits', [App\Http\Controllers\Admin\ReportsController::class, 'audits'])->name('audits');
         Route::get('/product', [App\Http\Controllers\Admin\ReportsController::class, 'product'])->name('product');
+        Route::get('/phr', [App\Http\Controllers\Admin\ReportsController::class, 'phr'])->name('phr');
     });
 
     // Users (Pengguna)
