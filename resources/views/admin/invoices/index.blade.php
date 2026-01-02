@@ -1,8 +1,7 @@
-@extends('layouts.admin')
+<x-layouts.admin.app>
 
-@section('title', 'Daftar Invoice')
+    <x-slot name="title">Daftar Invoice</x-slot>
 
-@section('content')
 <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
@@ -136,4 +135,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-layouts.admin.app>
