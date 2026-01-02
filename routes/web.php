@@ -370,10 +370,8 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
 
     // PHR Management (Pendamping Halal Reguler)
     Route::prefix('phr')->name('phr.')->group(function () {
+        // Dashboard
         Route::get('/', [App\Http\Controllers\Admin\PhrController::class, 'index'])->name('index');
-        Route::get('/{user}', [App\Http\Controllers\Admin\PhrController::class, 'show'])->name('show');
-        Route::post('/{user}/activate', [App\Http\Controllers\Admin\PhrController::class, 'activate'])->name('activate');
-        Route::post('/{user}/deactivate', [App\Http\Controllers\Admin\PhrController::class, 'deactivate'])->name('deactivate');
 
         // PHR List
         Route::get('/list', [App\Http\Controllers\Admin\PhrController::class, 'list'])->name('list');
@@ -382,7 +380,6 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         Route::get('/promotions', [App\Http\Controllers\Admin\PhrController::class, 'promotions'])->name('promotions');
         Route::post('/promotions/{promotion}/approve', [App\Http\Controllers\Admin\PhrController::class, 'approvePromotion'])->name('promotions.approve');
         Route::post('/promotions/{promotion}/reject', [App\Http\Controllers\Admin\PhrController::class, 'rejectPromotion'])->name('promotions.reject');
-        Route::post('/{user}/promote', [App\Http\Controllers\Admin\PhrController::class, 'manualPromote'])->name('promote');
 
         // Fees
         Route::get('/fees', [App\Http\Controllers\Admin\PhrController::class, 'fees'])->name('fees');
@@ -392,6 +389,12 @@ Route::middleware(['auth', 'role:admin_lph'])->prefix('admin')->name('admin.')->
         // Criteria Settings
         Route::get('/criteria', [App\Http\Controllers\Admin\PhrController::class, 'criteria'])->name('criteria');
         Route::put('/criteria/{criteria}', [App\Http\Controllers\Admin\PhrController::class, 'updateCriteria'])->name('criteria.update');
+
+        // PHR Detail & Actions (MUST BE LAST - wildcard routes)
+        Route::get('/{user}', [App\Http\Controllers\Admin\PhrController::class, 'show'])->name('show');
+        Route::post('/{user}/activate', [App\Http\Controllers\Admin\PhrController::class, 'activate'])->name('activate');
+        Route::post('/{user}/deactivate', [App\Http\Controllers\Admin\PhrController::class, 'deactivate'])->name('deactivate');
+        Route::post('/{user}/promote', [App\Http\Controllers\Admin\PhrController::class, 'manualPromote'])->name('promote');
     });
 
     // Auditor Fees Management
