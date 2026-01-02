@@ -4,11 +4,24 @@
 
 ### 1. Install Composer Dependencies
 
+**PENTING:** Package `barryvdh/laravel-dompdf` sudah ada di composer.json dengan versi yang benar (^2.0 untuk Laravel 8).
+
 Jalankan perintah berikut di server:
 
 ```bash
 cd /www/wwwroot/staging.lp3hdoabangsa.com
+
+# Install semua dependencies
 composer install --optimize-autoloader --no-dev
+
+# Atau jika ingin update
+composer update
+```
+
+**JANGAN jalankan:**
+```bash
+# ❌ INI AKAN ERROR (mencoba install v3.x yang tidak kompatibel)
+composer require barryvdh/laravel-dompdf
 ```
 
 **ATAU** jika composer belum terinstall:
@@ -68,23 +81,39 @@ chown -R www-data:www-data storage bootstrap/cache
 
 ## Dependencies Penting
 
-### Packages yang Diperlukan:
+### Packages yang Sudah Terinstall di composer.json:
 
-1. **barryvdh/laravel-dompdf** - Untuk generate PDF Invoice
-   ```bash
-   composer require barryvdh/laravel-dompdf
-   ```
+1. **Laravel Framework 8.83** - Framework utama
+2. **barryvdh/laravel-dompdf ^2.0** - Untuk generate PDF Invoice (kompatibel dengan Laravel 8)
+3. **Laravel Sanctum** - API authentication
+4. **Guzzle HTTP** - HTTP client
 
-2. **Laravel Framework** - Sudah termasuk di composer.json
+**CATATAN PENTING:**
+- Project ini menggunakan **Laravel 8.83**
+- DomPDF versi yang kompatibel: `^2.0` (SUDAH ADA di composer.json)
+- JANGAN install DomPDF v3.x karena memerlukan Laravel 9+
 
 ## Troubleshooting
 
 ### Error: Class "Barryvdh\DomPDF\Facade\Pdf" not found
 
+**Penyebab:** Dependencies belum terinstall (folder vendor kosong/tidak ada)
+
 **Solusi:**
 ```bash
-composer require barryvdh/laravel-dompdf
+# Install semua dependencies (termasuk DomPDF)
+composer install
+
+# Clear cache
 php artisan config:clear
+php artisan cache:clear
+php artisan optimize
+```
+
+**JANGAN:**
+```bash
+# ❌ Ini akan error di Laravel 8
+composer require barryvdh/laravel-dompdf
 ```
 
 ### Error: Permission denied
@@ -119,14 +148,28 @@ curl http://staging.lp3hdoabangsa.com
 
 ## Catatan Penting
 
-- Pastikan PHP version >= 7.3 atau 8.0
-- Pastikan extension PHP yang diperlukan terinstall:
-  - php-mbstring
-  - php-xml
-  - php-zip
-  - php-gd
-  - php-mysql
-  - php-curl
+### Versi Software
+- **Laravel:** 8.83
+- **PHP:** >= 7.3 atau 8.0 (sesuai composer.json)
+- **DomPDF:** ^2.0 (sudah ada di composer.json)
+
+### Extension PHP yang Diperlukan
+Pastikan extension PHP berikut terinstall:
+- php-mbstring
+- php-xml
+- php-zip
+- php-gd
+- php-mysql (atau php-pdo-mysql)
+- php-curl
+
+### Periksa Extension PHP
+```bash
+# Cek extension yang terinstall
+php -m
+
+# Atau cek versi PHP
+php -v
+```
 
 ## Kontak
 
