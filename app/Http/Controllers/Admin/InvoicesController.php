@@ -155,6 +155,11 @@ class InvoicesController extends Controller
      */
     public function preview(Invoice $invoice)
     {
+        // Check if DomPDF package is available
+        if (!class_exists('\Barryvdh\DomPDF\Facade\Pdf')) {
+            return redirect()->back()->with('error', 'Package DomPDF belum terinstall. Jalankan: composer require barryvdh/laravel-dompdf');
+        }
+
         $invoice->load(['user', 'submission.products', 'createdBy']);
 
         // Prepare data for view
@@ -172,6 +177,11 @@ class InvoicesController extends Controller
      */
     public function generatePdf(Invoice $invoice)
     {
+        // Check if DomPDF package is available
+        if (!class_exists('\Barryvdh\DomPDF\Facade\Pdf')) {
+            return redirect()->back()->with('error', 'Package DomPDF belum terinstall. Jalankan: composer require barryvdh/laravel-dompdf');
+        }
+
         $invoice->load(['user', 'submission.products', 'createdBy']);
 
         // Prepare data for view
