@@ -99,7 +99,7 @@
     <div class="modal modal-blur fade" id="requestPromotionModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form method="POST" action="{{ route('phr.achievements.requestPromotion') }}">
+                <form method="POST" action="{{ route('phr.promotions.request') }}">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Ajukan Promosi</h5>
