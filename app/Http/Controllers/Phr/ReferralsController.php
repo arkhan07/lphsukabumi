@@ -20,7 +20,7 @@ class ReferralsController extends Controller
             abort(403, 'Akses ditolak.');
         }
 
-        $query = User::where('referred_by_phr_id', $user->id)
+        $query = User::where('referred_by', $user->id)
             ->whereHas('roles', function($q) {
                 $q->where('name', 'pelaku_usaha');
             });
@@ -44,15 +44,15 @@ class ReferralsController extends Controller
             });
         }
 
-        $pelakuUsaha = $query->orderBy('created_at', 'desc')->paginate(20);
+        $pelakuUsahas = $query->orderBy('created_at', 'desc')->paginate(20);
 
         // Statistics
         $stats = [
-            'total_pu' => User::where('referred_by_phr_id', $user->id)
+            'total_pu' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
                 })->count(),
-            'active_pu' => User::where('referred_by_phr_id', $user->id)
+            'active_pu' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
                 })
@@ -61,18 +61,35 @@ class ReferralsController extends Controller
             'total_submissions' => Submission::whereIn('user_id', function($query) use ($user) {
                 $query->select('id')
                     ->from('users')
-                    ->where('referred_by_phr_id', $user->id)
+                    ->where('referred_by', $user->id)
                     ->whereHas('roles', function($q) {
                         $q->where('name', 'pelaku_usaha');
                     });
             })->count(),
+            'approved_submissions' => Submission::whereIn('user_id', function($query) use ($user) {
+                $query->select('id')
+                    ->from('users')
+                    ->where('referred_by', $user->id);
+            })->whereIn('status', ['approved', 'completed'])->count(),
             'total_fees_earned' => $user->phrFees()
                 ->where('fee_type', 'direct')
                 ->where('status', 'paid')
                 ->sum('paid_amount'),
+            'pending_fees' => $user->phrFees()
+                ->where('fee_type', 'direct')
+                ->whereIn('status', ['pending', 'approved'])
+                ->sum('fee_amount'),
         ];
 
-        return view('phr.referrals.index', compact('pelakuUsaha', 'stats'));
+        // Ensure referral code exists
+        if (method_exists($user, 'ensureReferralCode')) {
+            $user->ensureReferralCode('PHR');
+        }
+
+        // Referral link for PU
+        $puReferralLink = url('/register/pelaku-usaha?ref=' . $user->referral_code);
+
+        return view('phr.referrals.index', compact('pelakuUsahas', 'stats', 'puReferralLink'));
     }
 
     /**
@@ -87,7 +104,7 @@ class ReferralsController extends Controller
         }
 
         // Verify this PU was referred by current user
-        if ($user->referred_by_phr_id !== $currentUser->id) {
+        if ($user->referred_by !== $currentUser->id) {
             abort(403, 'Anda tidak memiliki akses ke Pelaku Usaha ini.');
         }
 
@@ -99,18 +116,22 @@ class ReferralsController extends Controller
             ->get();
 
         // Get fees earned from this PU
-        $feesEarned = $currentUser->phrFees()
+        $fees = $currentUser->phrFees()
             ->where('pelaku_usaha_id', $user->id)
+            ->with(['invoice'])
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
+
+        // Rename variable to match view expectations
+        $pelakuUsaha = $user;
 
         $stats = [
             'total_submissions' => Submission::where('user_id', $user->id)->count(),
             'approved_submissions' => Submission::where('user_id', $user->id)
                 ->whereIn('status', ['approved', 'completed'])
                 ->count(),
-            'total_fees' => $currentUser->phrFees()
+            'total_fees_earned' => $currentUser->phrFees()
                 ->where('pelaku_usaha_id', $user->id)
                 ->sum('fee_amount'),
             'paid_fees' => $currentUser->phrFees()
@@ -119,6 +140,6 @@ class ReferralsController extends Controller
                 ->sum('paid_amount'),
         ];
 
-        return view('phr.referrals.show', compact('user', 'submissions', 'feesEarned', 'stats'));
+        return view('phr.referrals.show', compact('pelakuUsaha', 'submissions', 'fees', 'stats'));
     }
 }

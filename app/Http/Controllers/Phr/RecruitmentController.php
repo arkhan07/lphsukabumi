@@ -27,21 +27,21 @@ class RecruitmentController extends Controller
 
         // Get recruitment statistics
         $stats = [
-            'total_phr_recruited' => User::where('recruited_by_phr_id', $user->id)
+            'total_phr_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pendamping_halal_reguler');
                 })->count(),
-            'active_phr_recruited' => User::where('recruited_by_phr_id', $user->id)
+            'active_phr_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pendamping_halal_reguler');
                 })
                 ->where('is_phr_active', true)
                 ->count(),
-            'total_pu_referred' => User::where('referred_by_phr_id', $user->id)
+            'total_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
                 })->count(),
-            'active_pu_referred' => User::where('referred_by_phr_id', $user->id)
+            'active_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
                 })
@@ -50,7 +50,7 @@ class RecruitmentController extends Controller
         ];
 
         // Recent recruits (PHR)
-        $recentPhrs = User::where('recruited_by_phr_id', $user->id)
+        $recentPhrs = User::where('recruited_by_phr', $user->id)
             ->whereHas('roles', function($q) {
                 $q->where('name', 'pendamping_halal_reguler');
             })
@@ -59,7 +59,7 @@ class RecruitmentController extends Controller
             ->get();
 
         // Recent referrals (PU)
-        $recentPus = User::where('referred_by_phr_id', $user->id)
+        $recentPus = User::where('referred_by', $user->id)
             ->whereHas('roles', function($q) {
                 $q->where('name', 'pelaku_usaha');
             })
