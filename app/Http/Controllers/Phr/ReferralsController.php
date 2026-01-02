@@ -22,7 +22,7 @@ class ReferralsController extends Controller
 
         $query = User::where('referred_by', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pelaku_usaha');
+                $q->where('slug', 'pelaku-usaha');
             });
 
         // Filter by status - removed is_active column filter as it doesn't exist
@@ -50,18 +50,18 @@ class ReferralsController extends Controller
         $stats = [
             'total_pu' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pelaku_usaha');
+                    $q->where('slug', 'pelaku-usaha');
                 })->count(),
             'active_pu' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pelaku_usaha');
+                    $q->where('slug', 'pelaku-usaha');
                 })->count(), // No is_active column, count all PU
             'total_submissions' => Submission::whereIn('user_id', function($query) use ($user) {
                 $query->select('id')
                     ->from('users')
                     ->where('referred_by', $user->id)
                     ->whereHas('roles', function($q) {
-                        $q->where('name', 'pelaku_usaha');
+                        $q->where('slug', 'pelaku-usaha');
                     });
             })->count(),
             'approved_submissions' => Submission::whereIn('user_id', function($query) use ($user) {
