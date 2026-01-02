@@ -28,17 +28,17 @@ class AchievementsController extends Controller
         $currentStats = [
             'pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pelaku_usaha');
+                    $q->where('slug', 'pelaku-usaha');
                 })->count(),
             'phr_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pendamping_halal_reguler');
+                    $q->where('slug', 'pendamping-halal-reguler');
                 })
                 ->where('is_phr_active', true)
                 ->count(),
             'area_managers' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pendamping_halal_reguler');
+                    $q->where('slug', 'pendamping-halal-reguler');
                 })
                 ->where('phr_level', 'area_manager')
                 ->count(),
@@ -116,19 +116,19 @@ class AchievementsController extends Controller
         // Get current stats
         $puReferred = User::where('referred_by', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pelaku_usaha');
+                $q->where('slug', 'pelaku-usaha');
             })->count();
 
         $phrRecruited = User::where('recruited_by_phr', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pendamping_halal_reguler');
+                $q->where('slug', 'pendamping-halal-reguler');
             })
             ->where('is_phr_active', true)
             ->count();
 
         $areaManagers = User::where('recruited_by_phr', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pendamping_halal_reguler');
+                $q->where('slug', 'pendamping-halal-reguler');
             })
             ->where('phr_level', 'area_manager')
             ->count();

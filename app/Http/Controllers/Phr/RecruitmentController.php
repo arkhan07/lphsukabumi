@@ -29,28 +29,28 @@ class RecruitmentController extends Controller
         $stats = [
             'total_phr_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pendamping_halal_reguler');
+                    $q->where('slug', 'pendamping-halal-reguler');
                 })->count(),
             'active_phr_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pendamping_halal_reguler');
+                    $q->where('slug', 'pendamping-halal-reguler');
                 })
                 ->where('is_phr_active', true)
                 ->count(),
             'total_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pelaku_usaha');
+                    $q->where('slug', 'pelaku-usaha');
                 })->count(),
             'active_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pelaku_usaha');
+                    $q->where('slug', 'pelaku-usaha');
                 })->count(), // No is_active column for PU, just count all
         ];
 
         // Recent recruits (PHR)
         $recentPhrs = User::where('recruited_by_phr', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pendamping_halal_reguler');
+                $q->where('slug', 'pendamping-halal-reguler');
             })
             ->orderBy('phr_joined_at', 'desc')
             ->take(10)
@@ -59,7 +59,7 @@ class RecruitmentController extends Controller
         // Recent referrals (PU)
         $recentPus = User::where('referred_by', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pelaku_usaha');
+                $q->where('slug', 'pelaku-usaha');
             })
             ->orderBy('created_at', 'desc')
             ->take(10)

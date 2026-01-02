@@ -22,7 +22,7 @@ class DownlinesController extends Controller
         // Get direct downlines (PHRs recruited by this user)
         $directDownlines = User::where('recruited_by_phr', $user->id)
             ->whereHas('roles', function($q) {
-                $q->where('name', 'pendamping_halal_reguler');
+                $q->where('slug', 'pendamping-halal-reguler');
             })
             ->with(['phrFees'])
             ->orderBy('phr_joined_at', 'desc')
@@ -43,7 +43,7 @@ class DownlinesController extends Controller
             // Count second-level downlines
             $secondLevel = User::where('recruited_by_phr', $downline->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pendamping_halal_reguler');
+                    $q->where('slug', 'pendamping-halal-reguler');
                 })
                 ->count();
 
@@ -80,13 +80,13 @@ class DownlinesController extends Controller
         $stats = [
             'total_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pelaku_usaha');
+                    $q->where('slug', 'pelaku-usaha');
                 })->count(),
             'total_fees' => $user->phrFees()->sum('fee_amount'),
             'paid_fees' => $user->phrFees()->where('status', 'paid')->sum('paid_amount'),
             'total_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
-                    $q->where('name', 'pendamping_halal_reguler');
+                    $q->where('slug', 'pendamping-halal-reguler');
                 })->count(),
         ];
 
