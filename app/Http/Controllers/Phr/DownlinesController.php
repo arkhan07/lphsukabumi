@@ -20,7 +20,7 @@ class DownlinesController extends Controller
         }
 
         // Get direct downlines (PHRs recruited by this user)
-        $directDownlines = User::where('recruited_by_phr_id', $user->id)
+        $directDownlines = User::where('recruited_by_phr', $user->id)
             ->whereHas('roles', function($q) {
                 $q->where('name', 'pendamping_halal_reguler');
             })
@@ -41,7 +41,7 @@ class DownlinesController extends Controller
             $stats['total_downlines']++;
 
             // Count second-level downlines
-            $secondLevel = User::where('recruited_by_phr_id', $downline->id)
+            $secondLevel = User::where('recruited_by_phr', $downline->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pendamping_halal_reguler');
                 })
@@ -72,19 +72,19 @@ class DownlinesController extends Controller
         }
 
         // Verify this is actually a downline of current user
-        if ($user->recruited_by_phr_id !== $currentUser->id) {
+        if ($user->recruited_by_phr !== $currentUser->id) {
             abort(403, 'Anda tidak memiliki akses ke PHR ini.');
         }
 
         // Get downline's statistics
         $stats = [
-            'total_pu_referred' => User::where('referred_by_phr_id', $user->id)
+            'total_pu_referred' => User::where('referred_by', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pelaku_usaha');
                 })->count(),
             'total_fees' => $user->phrFees()->sum('fee_amount'),
             'paid_fees' => $user->phrFees()->where('status', 'paid')->sum('paid_amount'),
-            'total_recruited' => User::where('recruited_by_phr_id', $user->id)
+            'total_recruited' => User::where('recruited_by_phr', $user->id)
                 ->whereHas('roles', function($q) {
                     $q->where('name', 'pendamping_halal_reguler');
                 })->count(),

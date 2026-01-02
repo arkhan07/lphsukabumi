@@ -24,6 +24,11 @@ class User extends Authenticatable
         'phone',
         'whatsapp',
         'profile_photo',
+        'address',
+        'business_name',
+        'bank_name',
+        'bank_account_number',
+        'bank_account_holder',
         'referral_code',
         'referred_by',
         'phr_level',
@@ -231,6 +236,16 @@ class User extends Authenticatable
         // Generate initials-based avatar using UI Avatars
         $name = urlencode($this->name);
         return "https://ui-avatars.com/api/?name={$name}&size=200&background=166F61&color=ffffff&bold=true";
+    }
+
+    /**
+     * Alias for profile_photo column to match view expectations
+     *
+     * @return string|null
+     */
+    public function getProfilePhotoPathAttribute()
+    {
+        return $this->profile_photo;
     }
 
     /**

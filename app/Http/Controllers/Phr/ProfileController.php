@@ -31,12 +31,12 @@ class ProfileController extends Controller
             'level' => $user->phr_level ?? 'phr',
             'joined_date' => $user->phr_joined_at,
             'referral_code' => $user->referral_code,
-            'total_pu_referred' => $user->referredPelakuUsaha()->count(),
-            'total_phr_recruited' => $user->recruitedPhrs()->count(),
+            'pu_referred' => $user->referredPelakuUsaha()->count(),
+            'phr_recruited' => $user->recruitedPhrs()->count(),
             'total_fees_earned' => $user->phrFees()->where('status', 'paid')->sum('paid_amount'),
         ];
 
-        return view('phr.profile.index', compact('stats'));
+        return view('phr.profile.index', compact('stats', 'user'));
     }
 
     /**
@@ -64,12 +64,12 @@ class ProfileController extends Controller
         // Handle profile photo upload
         if ($request->hasFile('profile_photo')) {
             // Delete old photo if exists
-            if ($user->profile_photo_path) {
-                Storage::disk('public')->delete($user->profile_photo_path);
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
             }
 
             $path = $request->file('profile_photo')->store('profile-photos', 'public');
-            $validated['profile_photo_path'] = $path;
+            $validated['profile_photo'] = $path;
         }
 
         $user->update($validated);
@@ -102,15 +102,37 @@ class ProfileController extends Controller
     }
 
     /**
+     * Update bank account information
+     */
+    public function updateBankAccount(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user->hasRole('pendamping_halal_reguler')) {
+            abort(403, 'Akses ditolak.');
+        }
+
+        $validated = $request->validate([
+            'bank_name' => 'nullable|string|max:100',
+            'bank_account_number' => 'nullable|string|max:50',
+            'bank_account_holder' => 'nullable|string|max:255',
+        ]);
+
+        $user->update($validated);
+
+        return back()->with('success', 'Informasi rekening bank berhasil diperbarui');
+    }
+
+    /**
      * Delete profile photo
      */
     public function deletePhoto()
     {
         $user = auth()->user();
 
-        if ($user->profile_photo_path) {
-            Storage::disk('public')->delete($user->profile_photo_path);
-            $user->update(['profile_photo_path' => null]);
+        if ($user->profile_photo) {
+            Storage::disk('public')->delete($user->profile_photo);
+            $user->update(['profile_photo' => null]);
         }
 
         return back()->with('success', 'Foto profil berhasil dihapus');

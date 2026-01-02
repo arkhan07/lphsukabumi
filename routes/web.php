@@ -573,10 +573,13 @@ Route::middleware(['auth', 'role:pendamping_halal_reguler'])->prefix('phr')->nam
     // Promotions & Achievements
     Route::get('/achievements', [App\Http\Controllers\Phr\AchievementsController::class, 'index'])->name('achievements.index');
     Route::get('/promotions', [App\Http\Controllers\Phr\AchievementsController::class, 'promotions'])->name('promotions.index');
+    Route::post('/promotions/request', [App\Http\Controllers\Phr\AchievementsController::class, 'requestPromotion'])->name('promotions.request');
 
     // Profile & Settings
     Route::get('/profile', [App\Http\Controllers\Phr\ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [App\Http\Controllers\Phr\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\Phr\ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+    Route::put('/profile/bank-account', [App\Http\Controllers\Phr\ProfileController::class, 'updateBankAccount'])->name('profile.updateBankAccount');
 });
 
 // PHR Registration (Public - with referral code)
