@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Audit;
 use App\Models\Document;
+use App\Models\PhrFee;
+use App\Models\PhrPromotion;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -84,6 +86,53 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recent_submissions', 'recent_audits', 'submission_chart_data', 'status_distribution'));
+        // PHR Statistics
+        $phr_stats = [
+            'total_phr' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->count(),
+            'active_phr' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('is_phr_active', true)->count(),
+            'area_managers' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('phr_level', 'area_manager')->count(),
+            'regional_managers' => User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })->where('phr_level', 'regional_manager')->count(),
+            'total_fees_this_month' => PhrFee::whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->sum('fee_amount'),
+            'pending_fees' => PhrFee::where('status', 'pending')->sum('fee_amount'),
+            'promotions_this_month' => PhrPromotion::whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->count(),
+        ];
+
+        // Recent PHRs (last 5 registered)
+        $recent_phrs = User::whereHas('roles', function($q) {
+                $q->where('name', 'pendamping_halal_reguler');
+            })
+            ->whereNotNull('phr_joined_at')
+            ->orderBy('phr_joined_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Recent PHR Promotions (last 5)
+        $recent_promotions = PhrPromotion::with('user')
+            ->latest()
+            ->limit(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'stats',
+            'recent_submissions',
+            'recent_audits',
+            'submission_chart_data',
+            'status_distribution',
+            'phr_stats',
+            'recent_phrs',
+            'recent_promotions'
+        ));
     }
 }
