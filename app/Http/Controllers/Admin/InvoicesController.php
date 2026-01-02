@@ -9,7 +9,7 @@ use App\Models\AuditorFee;
 use App\Models\PhrFee;
 use App\Models\User;
 use Illuminate\Http\Request;
-// use Barryvdh\DomPDF\Facade\Pdf; // TODO: Install package: composer require barryvdh/laravel-dompdf
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class InvoicesController extends Controller
@@ -162,13 +162,9 @@ class InvoicesController extends Controller
         $products_list = $products ? $products->pluck('name')->join(', ') : '-';
         $bpjph_fee = 0; // Calculate BPJPH fee if needed
 
-        // For now, just show HTML view (install dompdf later for PDF generation)
-        return view('invoices.quotation-template', compact('invoice', 'products_list', 'bpjph_fee'));
-
-        // TODO: Uncomment this after installing dompdf
-        // $pdf = Pdf::loadView('invoices.quotation-template', compact('invoice', 'products_list', 'bpjph_fee'));
-        // $pdf->setPaper('a4', 'portrait');
-        // return $pdf->stream('Surat_Penawaran_' . $invoice->invoice_number . '.pdf');
+        $pdf = Pdf::loadView('invoices.quotation-template', compact('invoice', 'products_list', 'bpjph_fee'));
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('Surat_Penawaran_' . $invoice->invoice_number . '.pdf');
     }
 
     /**
@@ -176,10 +172,6 @@ class InvoicesController extends Controller
      */
     public function generatePdf(Invoice $invoice)
     {
-        // TODO: Install dompdf first: composer require barryvdh/laravel-dompdf
-        return redirect()->back()->with('info', 'Install dompdf terlebih dahulu untuk generate PDF');
-
-        /* Uncomment after installing dompdf
         $invoice->load(['user', 'submission.products', 'createdBy']);
 
         // Prepare data for view
@@ -198,7 +190,6 @@ class InvoicesController extends Controller
         $invoice->update(['invoice_file_path' => $fileName]);
 
         return redirect()->back()->with('success', 'PDF berhasil digenerate');
-        */
     }
 
     /**
