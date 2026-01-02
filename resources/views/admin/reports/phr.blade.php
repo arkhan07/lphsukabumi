@@ -1,9 +1,7 @@
-@extends('layouts.admin')
+<x-layouts.admin.app>
+    <x-slot name="title">Laporan PHR (Pendamping Halal Reguler)</x-slot>
 
-@section('title', 'Laporan PHR (Pendamping Halal Reguler)')
-
-@section('content')
-<div class="page-header d-print-none">
+    <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
             <div class="col">
@@ -600,4 +598,4 @@
     feeChart.render();
 </script>
 @endpush
-@endsection
+</x-layouts.admin.app>

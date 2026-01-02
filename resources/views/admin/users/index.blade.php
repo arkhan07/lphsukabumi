@@ -1,8 +1,7 @@
-@extends('layouts.admin')
+<x-layouts.admin.app>
 
-@section('title', 'Manajemen Pengguna')
+    <x-slot name="title">Manajemen Pengguna</x-slot>
 
-@section('content')
 <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
@@ -259,4 +258,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endpush
-@endsection
+</x-layouts.admin.app>

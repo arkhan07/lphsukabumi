@@ -1,25 +1,21 @@
-@extends('layouts.admin')
+<x-layouts.admin.app>
+    <x-slot name="title">Dashboard Admin LPH</x-slot>
 
-@section('title', 'Dashboard Admin LPH')
-
-@section('content')
-<div class="page-header d-print-none">
-    <div class="container-xl">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-                <h2 class="page-title">Dashboard Admin LPH</h2>
-                <div class="text-secondary mt-1">Selamat datang, {{ auth()->user()->name }}! Kelola operasional LPH Doa Bangsa Sukabumi</div>
+    <!-- Page Header -->
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">Dashboard Admin LPH</h2>
+                    <div class="text-secondary mt-1">Selamat datang, {{ auth()->user()->name }}! Kelola operasional LPH Doa Bangsa Sukabumi</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="page-body">
-    <div class="container-xl">
-
-        <!-- Statistics Cards -->
-        <div class="row row-deck row-cards">
-                <!-- Total Permohonan -->
+    <!-- Statistics Cards -->
+    <div class="row row-deck row-cards">
+        <!-- Total Permohonan -->
                 <div class="col-sm-6 col-lg-3">
                     <div class="card card-sm">
                         <div class="card-body">
@@ -600,10 +596,8 @@
                     </div>
                 </div>
             </div>
-    </div>
-</div>
 
-@push('scripts')
+    @push('scripts')
     <script>
         // Submissions Chart with real data
         var submissionsOptions = {
@@ -685,5 +679,5 @@
         var statusChart = new ApexCharts(document.querySelector("#statusChart"), statusOptions);
         statusChart.render();
     </script>
-@endpush
-@endsection
+    @endpush
+</x-layouts.admin.app>

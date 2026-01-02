@@ -1,8 +1,7 @@
-@extends('layouts.admin')
+<x-layouts.admin.app>
 
-@section('title', 'Fee Auditor (30%)')
+    <x-slot name="title">Fee Auditor (30%)</x-slot>
 
-@section('content')
 <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
@@ -245,4 +244,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-layouts.admin.app>
